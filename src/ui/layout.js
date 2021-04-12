@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
-import Header from '../route/toolbar/header';
+import { Header } from '../route/toolbar';
 
 const useStyles = makeStyles(theme => ({
     page: {
@@ -18,7 +18,6 @@ const Layout = ({ children }) => {
           <div className={classes.page}>
              { children }
           </div>
-          {/* Footer Here */}
       </div>
    );
 }

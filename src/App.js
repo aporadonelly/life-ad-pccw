@@ -11,7 +11,6 @@ function App() {
     <ThemeProvider theme={theme}>
         <Router>
           <Layout>
-            {/* all components here example dashboard.js*/}
              <Dashboard />
           </Layout>
         </Router>

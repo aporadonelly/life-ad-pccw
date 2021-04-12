@@ -7,7 +7,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { makeStyles } from '@material-ui/styles';
+
 import IconButton from '@material-ui/core/IconButton';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import AccountBalanceOutlinedIcon from '@material-ui/icons/AccountBalanceOutlined';
@@ -20,74 +20,7 @@ import GavelOutlinedIcon from '@material-ui/icons/GavelOutlined';
 import PublicOutlinedIcon from '@material-ui/icons/PublicOutlined';
 import SearchIcon from '@material-ui/icons/Search';
 import { useHistory, useLocation } from 'react-router-dom';
-
-const drawerWidth = 232;
-const useStyles = makeStyles(theme => ({
-    subToolbar: {
-        backgroundColor: "#2D9FC3",
-        minHeight: "58px",
-    },
-    toolbarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    drawerContainer: {
-        position: "fixed",
-        top: "64px",
-        backgroundColor: theme.palette.common.gray98,
-        width: drawerWidth,
-        
-        [theme.breakpoints.down("sm")]: {
-            top: "50px",
-        },
-    },
-    drawerItem: {
-        ...theme.typography.tab,
-        color: theme.palette.common.fiord,
-        opacity: 0.7,
-    },
-    drawerIconTextMargin: {
-      width: "194px",
-      height: "36px",
-      margin: "5px 18px 19px 18px", 
-    },
-    drawerItemSelected: {
-       backgroundColor: "#EF841F",
-       opacity: 1
-    },
-    selectedActive: {
-        color: theme.palette.common.orange,
-    },
-    hoverSelectedItem: {
-        "&:hover": {
-          backgroundColor: theme.palette.common.orange,
-          color: theme.palette.common.white,
-          borderRadius: "6px"
-        }
-    },
-    leftIcon: {
-        position: "absolute",
-        left: "-20px",
-        backgroundColor: "white",
-        zIndex: theme.zIndex.snackbar,
-        "&:hover": {
-           backgroundColor: theme.palette.common.white
-        },
-     },
-     leftIconShift: {
-        position: "absolute",
-        left: "0px",
-        backgroundColor: "white",
-        zIndex: theme.zIndex.snackbar,
-        "&:hover": {
-         backgroundColor: theme.palette.common.white
-      },
-     },
-}));
+import useStyles from "./sidebarDrawerStyle";
 
 const SidebarDrawer = () => {
     const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
