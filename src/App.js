@@ -12,7 +12,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Layout>
-          <Dashboard />
+          {/* <Dashboard /> */}
           <Employees />
         </Layout>
       </Router>

@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { Grid, MenuItem, Button } from '@material-ui/core';
+import { Grid, MenuItem, Button, Select } from '@material-ui/core';
 // import { CalendarTodayOutlined } from '@material-ui/icons';
 // import {
 //   KeyboardDatePicker,
@@ -10,7 +10,7 @@ import { Grid, MenuItem, Button } from '@material-ui/core';
 import EmployeeStyles from './EmployeeStyles';
 
 import { useForm, Form } from './UseForm';
-import Controls from '../Controls/Control';
+import Controls from '../Controls/Controls';
 import TextField from '@material-ui/core/TextField';
 
 const genderItems = [
@@ -33,7 +33,7 @@ const initialValues = {
   email: '',
   date_of_employment: new Date(),
   employee_type: '',
-  reported_industry_type: '',
+  reported_industry_type: 'callCenter',
   occupation: '',
   mpf_scheme_name: '',
   tax_residency: '',
@@ -46,23 +46,16 @@ export default function EmployeeForm() {
 
   const { values, setValues, handleInputChange } = useForm(initialValues);
 
-  // const handleGenderChange = event => {
-  //   const { value } = event.target;
+  const handleGenderChange = event => {
+    const { value } = event.target;
 
-  //   setValues({ gender: value });
-  // };
+    setValues({ gender: value });
+  };
 
   return (
     <>
       <Grid container>
         <Grid item xs={12}>
-          {/* <form
-            data-testid="search-form"
-            noValidate
-            // onSubmit={e => handleSubmitForm(e, formValues, bankingSched)}
-            onSubmit={e => console.log('Submitted')}
-            // ref={formRef}
-          > */}
           <Form>
             <div className={classes.label}>Member Enquiry</div>
             <Grid
@@ -71,7 +64,6 @@ export default function EmployeeForm() {
               xs={12}
               sm={12}
               className={classes.fieldSpacing}
-              style={{ marginTop: '-20px' }}
             >
               <Grid item xs={12} lg={2} sm={6} className={classes.rightSpacing}>
                 <div className={classes.fieldContainer}>
@@ -130,14 +122,20 @@ export default function EmployeeForm() {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <h3 className={classes.fieldLabel}>Gender</h3>
-                  <Controls.Select
+                  {/* <Select */}
+                  <Select
                     name="gender"
-                    onChange={handleInputChange}
+                    // onChange={handleInputChange}
+                    onChange={handleGenderChange}
                     fullWidth
                     value={values.gender}
                     className={classes.gender}
-                    items={genderItems}
-                  ></Controls.Select>
+                    // items={genderItems}
+                  >
+                    <MenuItem value="Chinese">Chinese</MenuItem>
+                    <MenuItem value="Filipino">Filipino</MenuItem>
+                    {/* </Select> */}
+                  </Select>
                 </div>
               </Grid>
             </Grid>
@@ -146,7 +144,7 @@ export default function EmployeeForm() {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <h3 className={classes.fieldLabel}>ID Type</h3>
-                  <Controls.Select
+                  <Select
                     name="id_type"
                     onChange={handleInputChange}
                     fullWidth
@@ -155,7 +153,7 @@ export default function EmployeeForm() {
                   >
                     <MenuItem value="hkid">HKID</MenuItem>
                     <MenuItem value="hkid2">HKID2</MenuItem>
-                  </Controls.Select>
+                  </Select>
                 </div>
               </Grid>
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -175,56 +173,17 @@ export default function EmployeeForm() {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <h3 className={classes.fieldLabel}>Date of Birth</h3>
-                  {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <KeyboardDatePicker
-                      name="from"
-                      className={classes.dateFromStyle}
-                      // inputVariant="outlined"
-                      format="MM/dd/yyyy"
-                      value={values.date_of_birth}
-                      // error={states.dateError || states.dateFromErrorNull}
-                      // onChange={(date, value) => {
-                      //   dispatches({
-                      //     type: 'type',
-                      //     fields: {
-                      //       dateFrom: date,
-                      //       fromDateChanged: true,
-                      //       dateError: false,
-                      //     },
-                      //   });
-                      //   value.includes('_')
-                      //     ? dispatches({
-                      //         type: 'type',
-                      //         fields: {
-                      //           dateFromErrorNull: true,
-                      //           dateError: false,
-                      //           dateErrorMessage: 'This field is required.',
-                      //         },
-                      //       })
-                      //     : dispatches({
-                      //         type: 'type',
-                      //         fields: {
-                      //           dateError: false,
-                      //           dateFromErrorNull: false,
-                      //         },
-                      //       });
-                      // }}
-                      // initialFocusedDate={states.dateFrom}
-                      // invalidDateMessage={''}
-                      keyboardIcon={<CalendarTodayOutlined />}
-                      helperText="YYYYMMDD"
-                    />
-                  </MuiPickersUtilsProvider> */}
                   <TextField
+                    // value={values.date_of_birth}
+                    name="date_of_birth"
                     id="date"
                     type="date"
-                    defaultValue="2017-05-24"
+                    defaultValue={values.date_of_birth}
                     className={classes.textField}
                     InputLabelProps={{
                       shrink: true,
                     }}
                     formatDate={date => moment(date).format('DD-MM-YYYY')}
-                    // defaultValue="Please Input"
                     helperText="YYYYMMDD"
                   />
                 </div>
@@ -232,8 +191,8 @@ export default function EmployeeForm() {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <h3 className={classes.fieldLabel}>Nationality</h3>
-                  <Controls.Select
-                    name="id_type"
+                  <Select
+                    name="nationality"
                     // onChange={handleInputChange}
                     fullWidth
                     value={values.nationality}
@@ -245,14 +204,14 @@ export default function EmployeeForm() {
                     </MenuItem>
                     <MenuItem value="Chinese">Chinese</MenuItem>
                     <MenuItem value="Filipino">Filipino</MenuItem>
-                  </Controls.Select>
+                  </Select>
                 </div>
               </Grid>
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <h3 className={classes.fieldLabel}>Place of Birth</h3>
-                  <Controls.Select
-                    name="id_type"
+                  <Select
+                    name="place_of_birth"
                     // onChange={handleInputChange}
                     fullWidth
                     value={values.place_of_birth}
@@ -260,7 +219,7 @@ export default function EmployeeForm() {
                   >
                     <MenuItem value="China">China</MenuItem>
                     <MenuItem value="HongKong">HongKong</MenuItem>
-                  </Controls.Select>
+                  </Select>
                 </div>
               </Grid>
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -332,13 +291,12 @@ export default function EmployeeForm() {
                   <TextField
                     id="date"
                     type="date"
-                    defaultValue="2017-05-24"
+                    defaultValue={values.date_of_employment}
                     className={classes.textField}
                     InputLabelProps={{
                       shrink: true,
                     }}
                     formatDate={date => moment(date).format('DD-MM-YYYY')}
-                    // defaultValue="Please Input"
                     helperText="YYYYMMDD"
                   />
                 </div>
@@ -346,8 +304,8 @@ export default function EmployeeForm() {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <h3 className={classes.fieldLabel}>Employee Type</h3>
-                  <Controls.Select
-                    name="id_type"
+                  <Select
+                    name="employee_type"
                     // onChange={handleInputChange}
                     fullWidth
                     value={values.employee_type}
@@ -355,30 +313,29 @@ export default function EmployeeForm() {
                   >
                     <MenuItem value="Regular">Regular</MenuItem>
                     <MenuItem value="Temporary">Temporary</MenuItem>
-                  </Controls.Select>
+                  </Select>
                 </div>
               </Grid>
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <h3 className={classes.fieldLabel}>Reported Industry Type</h3>
-                  <Controls.Select
-                    name="id_type"
-                    // onChange={handleInputChange}
+                  <Select
+                    name="reported_industry_type"
+                    onChange={handleInputChange}
                     fullWidth
                     value={values.reported_industry_type}
                     className={classes.gender}
                   >
-                    <MenuItem value="Call Center">Call Center</MenuItem>
-                    <MenuItem value="Information Technology">
-                      Information Technology
-                    </MenuItem>
-                  </Controls.Select>
+                    <MenuItem value="callCenter">Call Center</MenuItem>
+                    <MenuItem value="InformationTechnology">IT</MenuItem>
+                    <MenuItem value="Education">Education</MenuItem>
+                  </Select>
                 </div>
               </Grid>
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <h3 className={classes.fieldLabel}>Occupation</h3>
-                  <Controls.Select
+                  <Select
                     name="occupation"
                     // onChange={handleInputChange}
                     fullWidth
@@ -387,13 +344,13 @@ export default function EmployeeForm() {
                   >
                     <MenuItem value="Manager">Manager</MenuItem>
                     <MenuItem value="Sales">Sales</MenuItem>
-                  </Controls.Select>
+                  </Select>
                 </div>
               </Grid>
               <Grid item sm={4} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <h3 className={classes.fieldLabel}>MPF Scheme Name</h3>
-                  <Controls.Select
+                  <Select
                     name="mpf_scheme_name"
                     // onChange={handleInputChange}
                     fullWidth
@@ -406,7 +363,7 @@ export default function EmployeeForm() {
                       Aggressive Fund
                     </MenuItem>
                     <MenuItem value="Plus Fund">Plus Fund</MenuItem>
-                  </Controls.Select>
+                  </Select>
                 </div>
               </Grid>
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -440,7 +397,7 @@ export default function EmployeeForm() {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <h3 className={classes.fieldLabel}>Status</h3>
-                  <Controls.Select
+                  <Select
                     name="status"
                     // onChange={handleInputChange}
                     fullWidth
@@ -451,7 +408,7 @@ export default function EmployeeForm() {
                   >
                     <MenuItem value="Active">Active</MenuItem>
                     <MenuItem value=" In progress"> In progress</MenuItem>
-                  </Controls.Select>
+                  </Select>
                 </div>
               </Grid>
             </Grid>

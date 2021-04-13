@@ -5,7 +5,6 @@ const EmployeeStyles = makeStyles(theme => ({
   root: {
     '& .MuiFormControl-root': {
       width: '100%',
-      margin: '0px',
     },
   },
   gridColumnHolder: {
@@ -15,14 +14,13 @@ const EmployeeStyles = makeStyles(theme => ({
   },
   gridRowHolder: {
     display: 'flex',
-    // flexDirection: 'row',
     alignItems: 'flex-start',
     margin: '1px',
     gridGap: '20px 30px',
     marginBottom: '15px',
   },
   label: {
-    marginBottom: '10px',
+    marginTop: '-20px',
     fontFamily: 'Roboto',
     color: colors.titleColor,
     fontSize: '26px',
@@ -64,7 +62,7 @@ const EmployeeStyles = makeStyles(theme => ({
     fontStyle: 'italic',
   },
   fieldSpacing: {
-    paddingRight: '4rem',
+    paddingRight: '1rem',
   },
   fieldContainer: {
     textAlign: 'left',
