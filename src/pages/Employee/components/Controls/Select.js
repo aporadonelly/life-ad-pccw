@@ -1,27 +1,20 @@
 import React from 'react';
-import { FormControl, MenuItem } from '@material-ui/core';
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select as MuiSelect,
+} from '@material-ui/core';
+import EmployeeStyles from '../EmployeeSearch/Styles/EmployeeStyles';
 
 export default function Select(props) {
-  const { name, value, type, placeholder, onChange, items } = props;
-  // console.log(name, 'name');
+  const classes = { ...EmployeeStyles() };
+  const { name, value, onChange, items, label } = props;
   return (
-    <FormControl>
-      <Select
-        fullWidth
-        name={name}
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={value}
-        type={type}
-        onChange={onChange}
-        placeholder={placeholder}
-      >
-        {/* {items.map((item, index) => (
-          <MenuItem value="item.id" label={item.title}>
-            {item.title}
-          </MenuItem>
-        ))} */}
-      </Select>
-    </FormControl>
+    <MuiSelect fullWidth name={name} value={value} onChange={onChange}>
+      {items.map((item, i) => (
+        <MenuItem value={item.value}>{item.label}</MenuItem>
+      ))}
+    </MuiSelect>
   );
 }

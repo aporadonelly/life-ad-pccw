@@ -8,6 +8,12 @@ export function useForm(initialValues) {
     setValues({ ...values, [name]: value });
   };
 
+  // const handleGenderChange = event => {
+  //   const { value } = event.target;
+
+  //   setValues({ gender: value });
+  // };
+
   return {
     values,
     setValues,
