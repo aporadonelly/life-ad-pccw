@@ -1,82 +1,35 @@
 import React from 'react';
-import moment from 'moment';
-import { Grid, MenuItem, Button, Select } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import EmployeeStyles from './Styles/EmployeeStyles';
 import { useForm, Form } from './UseForm';
 import Controls from '../Controls/Controls';
-import TextField from '@material-ui/core/TextField';
-
-const genderItems = [
-  { value: 'male', label: 'Male' },
-  { value: 'female', label: 'Female' },
-  { value: 'other', label: 'Other' },
-];
-
-const idTypes = [
-  { value: 'hkid', label: 'HKID' },
-  { value: 'hkid2', label: 'HKID2' },
-];
-
-const nationality = [
-  { value: 'chinese', label: 'Chinese' },
-  { value: 'taiwanese', label: 'Taiwanese' },
-];
-
-const placeOfBirth = [
-  { value: 'china', label: 'China' },
-  { value: 'taiwan', label: 'Taiwan' },
-];
-
-const employeeType = [
-  { value: 'reg', label: 'Regular' },
-  { value: 'pt', label: 'Part Time' },
-];
-
-const reportedIndustryType = [
-  { value: 'bpo', label: 'BPO' },
-  { value: 'it', label: 'IT' },
-];
-
-const occupation = [
-  { value: 'manager', label: 'Manager' },
-  { value: 'staff', label: 'Staff' },
-];
-
-const mpfSchemeName = [
-  { value: 'retirement', label: 'Retirement Fund' },
-  { value: 'plus', label: 'Plus Fund' },
-  { value: 'aggressive', label: 'Aggressive Fund' },
-];
-
-const status = [
-  { value: 'active', label: 'Active' },
-  { value: 'pending', label: 'Pending' },
-];
+import * as employeeMockData from '../MockData/mockData';
+import './Styles/index.css';
 
 const initialValues = {
   mpf_id: '',
   english_name: '',
   chinese_name: '',
-  gender: 'male',
-  id_type: 'hkid',
+  gender: '',
+  id_type: '',
   id_number: '',
   date_of_birth: new Date(),
-  nationality: 'chinese',
-  place_of_birth: 'china',
+  nationality: '',
+  place_of_birth: '',
   mobile_number: '',
   address: '',
   email: '',
   date_of_employment: new Date(),
-  employee_type: 'reg',
-  reported_industry_type: 'bpo',
-  occupation: 'manager',
-  mpf_scheme_name: 'retirement',
+  employee_type: '',
+  reported_industry_type: '',
+  occupation: '',
+  mpf_scheme_name: '',
   tax_residency: '',
   tin: '',
-  status: 'active',
+  status: '',
 };
 
-export default function EmployeeForm() {
+export default function EmployeeForm(props) {
   const classes = { ...EmployeeStyles() };
 
   const { values, setValues, handleInputChange } = useForm(initialValues);
@@ -157,7 +110,7 @@ export default function EmployeeForm() {
                     fullWidth
                     value={values.gender}
                     className={classes.gender}
-                    items={genderItems}
+                    options={employeeMockData.getGenderCollection()}
                   ></Controls.Select>
                 </div>
               </Grid>
@@ -173,7 +126,7 @@ export default function EmployeeForm() {
                     fullWidth
                     value={values.id_type}
                     className={classes.gender}
-                    items={idTypes}
+                    options={employeeMockData.idTypes()}
                   ></Controls.Select>
                 </div>
               </Grid>
@@ -194,18 +147,14 @@ export default function EmployeeForm() {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <h3 className={classes.fieldLabel}>Date of Birth</h3>
-                  <TextField
-                    // value={values.date_of_birth}
+                  <Controls.DatePicker
                     name="date_of_birth"
-                    id="date"
+                    onChange={handleInputChange}
+                    fullWidth
                     type="date"
-                    defaultValue={values.date_of_birth}
-                    className={classes.textField}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    formatDate={date => moment(date).format('DD-MM-YYYY')}
-                    helperText="YYYYMMDD"
+                    id="text"
+                    value={values.date_of_birth}
+                    placeholder="Please Input"
                   />
                 </div>
               </Grid>
@@ -218,7 +167,7 @@ export default function EmployeeForm() {
                     fullWidth
                     value={values.nationality}
                     className={classes.gender}
-                    items={nationality}
+                    options={employeeMockData.nationality()}
                   ></Controls.Select>
                 </div>
               </Grid>
@@ -231,7 +180,7 @@ export default function EmployeeForm() {
                     fullWidth
                     value={values.place_of_birth}
                     className={classes.gender}
-                    items={placeOfBirth}
+                    options={employeeMockData.placeOfBirth()}
                   ></Controls.Select>
                 </div>
               </Grid>
@@ -245,7 +194,7 @@ export default function EmployeeForm() {
                     type="number"
                     id="text"
                     value={values.mobile_number}
-                    placeholder="Input Input"
+                    placeholder="Please Input"
                   />
                 </div>
               </Grid>
@@ -290,17 +239,15 @@ export default function EmployeeForm() {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <h3 className={classes.fieldLabel}>Date of Employment</h3>
-                  <TextField
-                    id="date"
+                  <Controls.DatePicker
+                    name="date_of_employment"
+                    onChange={handleInputChange}
+                    fullWidth
                     type="date"
-                    defaultValue={values.date_of_employment}
-                    className={classes.textField}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    formatDate={date => moment(date).format('DD-MM-YYYY')}
-                    helperText="YYYYMMDD"
-                  />
+                    id="text"
+                    value={values.date_of_employment}
+                    placeholder="Please Input"
+                  ></Controls.DatePicker>
                 </div>
               </Grid>
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -312,7 +259,7 @@ export default function EmployeeForm() {
                     fullWidth
                     value={values.employee_type}
                     className={classes.gender}
-                    items={employeeType}
+                    options={employeeMockData.employeeType()}
                   ></Controls.Select>
                 </div>
               </Grid>
@@ -325,7 +272,7 @@ export default function EmployeeForm() {
                     fullWidth
                     value={values.reported_industry_type}
                     className={classes.gender}
-                    items={reportedIndustryType}
+                    options={employeeMockData.reportedIndustryType()}
                   ></Controls.Select>
                 </div>
               </Grid>
@@ -338,7 +285,7 @@ export default function EmployeeForm() {
                     fullWidth
                     value={values.occupation}
                     className={classes.gender}
-                    items={occupation}
+                    options={employeeMockData.occupation()}
                   ></Controls.Select>
                 </div>
               </Grid>
@@ -351,7 +298,7 @@ export default function EmployeeForm() {
                     fullWidth
                     value={values.mpf_scheme_name}
                     className={classes.gender}
-                    items={mpfSchemeName}
+                    options={employeeMockData.mpfSchemeName()}
                   ></Controls.Select>
                 </div>
               </Grid>
@@ -394,7 +341,7 @@ export default function EmployeeForm() {
                     className={classes.gender}
                     type="text"
                     placeholder="Please select"
-                    items={status}
+                    options={employeeMockData.status()}
                   ></Controls.Select>
                 </div>
               </Grid>
@@ -408,30 +355,18 @@ export default function EmployeeForm() {
               className={classes.fieldSpacing}
             >
               <div className={classes.formBtnContainer}>
-                <Button
+                <Controls.Button
                   data-testid="cancel-btn"
-                  variant="contained"
-                  size="large"
-                  style={{ marginRight: '15px' }}
-                  className={classes.formBtn}
+                  text="clear"
+                  color="default"
                   onClick={() => setValues(initialValues)}
-                >
-                  clear
-                </Button>
-                <Button
+                />
+                <Controls.Button
                   type="submit"
                   data-testid="submit-btn"
-                  variant="contained"
-                  size="large"
-                  color="primary"
-                  className={classes.cancelBtn}
-                  // onClick={() => {
-                  //   setValues({ isFormSubmitted: true });
-                  // }}
-                  onClick={() => console.log('hey')}
-                >
-                  SEARCH
-                </Button>
+                  text="search"
+                  onClick={props.onSubmit}
+                />
               </div>
             </Grid>
           </Form>

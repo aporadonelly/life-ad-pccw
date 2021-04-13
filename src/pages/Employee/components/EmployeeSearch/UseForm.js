@@ -6,21 +6,22 @@ export function useForm(initialValues) {
   const handleInputChange = e => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
+    console.log(value, 'value');
   };
 
-  // const handleGenderChange = event => {
-  //   const { value } = event.target;
-
-  //   setValues({ gender: value });
-  // };
+  const onSubmit = e => {
+    e.preventDefault();
+    console.log('Searching...', e.target.value, 'value');
+  };
 
   return {
     values,
     setValues,
     handleInputChange,
+    onSubmit,
   };
 }
 
 export function Form(props) {
-  return <form>{props.children}</form>;
+  return <form autoComplete="off">{props.children}</form>;
 }

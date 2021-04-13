@@ -55,7 +55,7 @@ const EmployeeStyles = makeStyles(theme => ({
   },
   gender: {
     color: '#EF841F',
-    fontSize: '16px',
+    fontSize: '14px',
     fontFamily: 'Roboto',
   },
   italicText: {
@@ -82,13 +82,11 @@ const EmployeeStyles = makeStyles(theme => ({
     marginTop: '10px',
   },
   cancelBtn: {
+    margin: theme.spacing(0.5),
     width: '107px',
     height: '38px',
-    marginTop: '10px',
     border: `2px solid ${colors.orange}`,
-    color: '#FFFFFF',
     letterSpacing: '0.5px',
-    textTransform: 'uppercase',
     opacity: 1,
     backgroundColor: '#EF841F',
     borderRadius: '19px',
@@ -98,14 +96,13 @@ const EmployeeStyles = makeStyles(theme => ({
     },
   },
   formBtn: {
+    margin: theme.spacing(0.5),
     width: '107px',
     height: '38px',
-    marginTop: '10px',
     border: `2px solid ${colors.orange}`,
     borderRadius: '19px',
     opacity: 1,
     color: '#EF841F',
-    textTransform: 'uppercase',
     backgroundColor: colors.white,
     '&:hover': {
       backgroundColor: colors.white,
