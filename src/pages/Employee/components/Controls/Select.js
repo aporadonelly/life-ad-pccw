@@ -1,6 +1,5 @@
 import React from 'react';
 import { MenuItem, Select as MuiSelect } from '@material-ui/core';
-import { validate } from '@material-ui/pickers';
 
 export default function Select(props) {
   const { name, value, onChange, options } = props;
@@ -18,7 +17,7 @@ export default function Select(props) {
       }}
     >
       <MenuItem value="" disabled>
-        <em>Please Input</em>
+        <em>Please Select</em>
       </MenuItem>
       {options.map(item => (
         <MenuItem key={item.value} value={item.value}>
