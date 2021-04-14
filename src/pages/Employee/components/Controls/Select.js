@@ -2,7 +2,7 @@ import React from 'react';
 import { MenuItem, Select as MuiSelect } from '@material-ui/core';
 
 export default function Select(props) {
-  const { name, value, onChange, options } = props;
+  const { name, value, onChange, error = null, options } = props;
   return (
     <MuiSelect
       fullWidth

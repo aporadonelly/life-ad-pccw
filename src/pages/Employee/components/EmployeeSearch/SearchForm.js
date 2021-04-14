@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Button } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import EmployeeStyles from './Styles/EmployeeStyles';
 import { useForm, Form } from './UseForm';
 import Controls from '../Controls/Controls';
@@ -29,16 +29,46 @@ const initialValues = {
   status: '',
 };
 
-export default function EmployeeForm(props) {
+export default function EmployeeForm() {
   const classes = { ...EmployeeStyles() };
 
-  const { values, setValues, handleInputChange } = useForm(initialValues);
+  const validate = (fieldValues = values) => {
+    let temp = { ...errors };
 
+    if ('email' in fieldValues)
+      temp.email = /$^|.+@.+..+/.test(values.email)
+        ? ''
+        : 'Email is not valid. Please include @';
+    // temp.mobile_number =
+    //   values.mobile_number.length > 9 ? '' : 'Minimum 10 numbers required.';
+
+    setErrors({ ...temp });
+
+    if (fieldValues === values) return Object.values(temp).every(x => x === '');
+  };
+
+  const {
+    values,
+    setValues,
+    handleInputChange,
+    errors,
+    setErrors,
+    resetForm,
+  } = useForm(initialValues, true, validate);
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (validate()) {
+      alert('Hey');
+      // employeeService.insertEmployee(values);
+      resetForm();
+    }
+  };
   return (
     <>
       <Grid container>
         <Grid item xs={12}>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <div className={classes.label}>Member Enquiry</div>
             <Grid
               item
@@ -57,6 +87,7 @@ export default function EmployeeForm(props) {
                     id="text"
                     placeholder="Please Input"
                     value={values.mpf_id}
+                    error={errors.mpf_id}
                   />
                 </div>
               </Grid>
@@ -192,9 +223,9 @@ export default function EmployeeForm(props) {
                     onChange={handleInputChange}
                     fullWidth
                     type="number"
-                    id="text"
                     value={values.mobile_number}
                     placeholder="Please Input"
+                    // error={values.mobile_number !== '' && errors.mobile_number}
                   />
                 </div>
               </Grid>
@@ -220,9 +251,9 @@ export default function EmployeeForm(props) {
                     name="email"
                     onChange={handleInputChange}
                     fullWidth
-                    type="email"
                     value={values.email}
                     placeholder="Please Input"
+                    error={errors.email}
                   />
                 </div>
               </Grid>
@@ -359,13 +390,12 @@ export default function EmployeeForm(props) {
                   data-testid="cancel-btn"
                   text="clear"
                   color="default"
-                  onClick={() => setValues(initialValues)}
+                  onClick={resetForm}
                 />
                 <Controls.Button
                   type="submit"
                   data-testid="submit-btn"
                   text="search"
-                  onClick={props.onSubmit}
                 />
               </div>
             </Grid>

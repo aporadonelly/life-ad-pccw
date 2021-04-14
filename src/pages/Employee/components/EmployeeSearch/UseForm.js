@@ -1,27 +1,36 @@
 import React, { useState } from 'react';
 
-export function useForm(initialValues) {
+export function useForm(initialValues, validateOnchange = false, validate) {
   const [values, setValues] = useState(initialValues);
+  const [errors, setErrors] = useState({});
 
   const handleInputChange = e => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
-    console.log(value, 'value');
+
+    if (validateOnchange) validate({ [name]: value });
   };
 
-  const onSubmit = e => {
-    e.preventDefault();
-    console.log('Searching...', e.target.value, 'value');
+  const resetForm = () => {
+    setValues(initialValues);
+    setErrors({});
   };
 
   return {
     values,
     setValues,
     handleInputChange,
-    onSubmit,
+    errors,
+    setErrors,
+    resetForm,
   };
 }
 
 export function Form(props) {
-  return <form autoComplete="off">{props.children}</form>;
+  const { children, ...other } = props;
+  return (
+    <form autoComplete="off" {...other}>
+      {props.children}
+    </form>
+  );
 }
