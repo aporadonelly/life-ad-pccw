@@ -15,7 +15,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Dashboard} />
             <Route path="/agent" component={Agent}/>
-            <Route path="/employee-search" component={Employees} />
+            <Route path="/employee" component={Employees} />
           </Switch>
        </Layout>
     </ThemeProvider>
