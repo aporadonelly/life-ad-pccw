@@ -39,8 +39,6 @@ export default function EmployeeForm() {
       temp.email = /$^|.+@.+..+/.test(values.email)
         ? ''
         : 'Email is not valid. Please include @';
-    // temp.mobile_number =
-    //   values.mobile_number.length > 9 ? '' : 'Minimum 10 numbers required.';
 
     setErrors({ ...temp });
 
@@ -59,10 +57,11 @@ export default function EmployeeForm() {
   const handleSubmit = e => {
     e.preventDefault();
     if (validate()) {
-      employeeMockData.insertEmployee(values);
+      alert('API to fetch data to be called here ...');
       resetForm();
     }
   };
+
   return (
     <>
       <Grid container>
