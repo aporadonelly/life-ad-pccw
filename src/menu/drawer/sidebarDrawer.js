@@ -6,14 +6,13 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 
 import IconButton from '@material-ui/core/IconButton';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import AccountBalanceOutlinedIcon from '@material-ui/icons/AccountBalanceOutlined';
 import BusinessOutlinedIcon from '@material-ui/icons/BusinessOutlined';
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
-import PrintOutlinedIcon from '@material-ui/icons/PrintOutlined';
+// import PrintOutlinedIcon from '@material-ui/icons/PrintOutlined';
 import PeopleOutlineOutlinedIcon from '@material-ui/icons/PeopleOutlineOutlined';
 import RecordVoiceOverOutlinedIcon from '@material-ui/icons/RecordVoiceOverOutlined';
 import GavelOutlinedIcon from '@material-ui/icons/GavelOutlined';
@@ -21,10 +20,13 @@ import PublicOutlinedIcon from '@material-ui/icons/PublicOutlined';
 import SearchIcon from '@material-ui/icons/Search';
 import { useHistory, useLocation } from 'react-router-dom';
 import useStyles from "./sidebarDrawerStyle";
+import { BusinessCenter } from "../../assets/icons";
+import { Icon } from "@material-ui/core";
 
 const SidebarDrawer = () => {
     const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
     const [openDrawer, setOpenDrawer] = useState(true);
+    const [isUserLogin, setIsUserLogin] = useState(true);
     const classes = useStyles();
     const history = useHistory();
     const location = useLocation()
@@ -57,7 +59,7 @@ const SidebarDrawer = () => {
         },
         {
             text: 'Employer',
-            icons: <PrintOutlinedIcon color="secondary" />,
+            icons: <Icon style={{ alignSelf: "center" }} ><img style={{ height: "100%" }} src={BusinessCenter} /></Icon>,
             path: '/employer'
         },
         {
@@ -88,29 +90,30 @@ const SidebarDrawer = () => {
                variant="persistent"
                disableBackdropTransition={!iOS} 
                disableDiscovery={iOS} 
-               open={openDrawer} 
+               open={isUserLogin ? true : false} 
                onClose={() => setOpenDrawer(false)}
                onOpen={() => setOpenDrawer(true)}
                classes={{ paper: classes.drawerContainer }}>
-                   <List>
-                       {sideDrawerItem.map(item => (
-                           <ListItem 
-                              button 
-                              key={item.text}
-                              className={clsx(classes.drawerIconTextMargin, location.pathname === item.path ? classes.selectedActive : classes.hoverSelectedItem)} 
-                              onClick={() => {history.push(item.path); setOpenDrawer(false)}}
-                            >
-                               <div style={{ width: "35px" }}>{item.icons}</div>
-                               <ListItemText>{item.text}</ListItemText>
-                           </ListItem>
-                       ))}
-                   </List>
+                <List>
+                    {sideDrawerItem.map(item => (
+                        <ListItem 
+                            button 
+                            key={item.text}
+                            className={clsx(classes.drawerIconTextMargin, location.pathname === item.path ? classes.selectedActive : classes.hoverSelectedItem)} 
+                            onClick={() => {history.push(item.path)}} //; setOpenDrawer(false)
+                        >
+                            <div style={{ width: "35px" }}>{item.icons}</div>
+                            <div className={classes.sideMenuText}>{item.text}</div>
+                        </ListItem>
+                    ))}
+                </List>
             </SwipeableDrawer>
             <IconButton 
-              className={openDrawer ? classes.leftIcon : classes.leftIconShift}
+              className={isUserLogin ? classes.leftIcon : classes.leftIconShift}
                size="small"
-               onClick={() => setOpenDrawer(!openDrawer)}>
-                <ChevronLeftIcon fontSize="large" color="secondary" />
+            //  onClick={() => setOpenDrawer(!openDrawer)}
+            >
+                <ChevronLeftIcon style={{ fontSize: "34px" }} color="secondary" />
             </IconButton>
         </React.Fragment>
     )
@@ -120,7 +123,7 @@ const SidebarDrawer = () => {
             <Toolbar className={clsx(classes.subToolbar, {
                     [classes.toolbarShift]: openDrawer,
                 })} >
-                <Typography style={{ marginLeft: "23px" }}>Employee / Member Enqueries</Typography>
+                <Typography className={classes.subToolbarTitle}>Employee / Member Enqueries</Typography>
                 {Drawer}
             </Toolbar>
     </React.Fragment> 
