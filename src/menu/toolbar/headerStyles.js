@@ -24,11 +24,9 @@ const useStyles = makeStyles(theme => ({
         paddingRight: "11px",
         marginLeft: "14px",
         [theme.breakpoints.down("md")]: {
-            fontSize: "1.5em",
             height: "1.5em"
         },
         [theme.breakpoints.down("sm")]: {
-            fontSize: "1.3em",
             height: "1.5em"
         },
         [theme.breakpoints.down("xs")]: {
@@ -53,56 +51,79 @@ const useStyles = makeStyles(theme => ({
     },
     tabsContainer: {
         marginLeft: "auto",
-        display: 'flex', 
+        width: "34%",
+        display: 'flex',
+        justifyContent: "flex-end",
         alignItems: 'center',
-        justifyContent: "space-evenly",
-        width: "40%",
-        [theme.breakpoints.down("sm")]: {
+        [theme.breakpoints.down("md")]: {
             fontSize: "0.9rem",
-            width: "60%",
+            width: "45%",
+        },
+        [theme.breakpoints.down("sm")]: {
+            width: "80%",
         },
         [theme.breakpoints.down("xs")]: {
+            display: 'flex',
+            justifyContent: "space-evenly",
             width: "80%",
         },
     },
     chatMessage: {
         fontSize: "2rem",
+        marginRight: "1.5rem",
         [theme.breakpoints.down("xs")]: {
             fontSize: "1.2rem",
+            marginRight: "0.6rem",
         },
     },
     profileImageAndNameContainer: {
         display: "flex", 
         flexDirection: "row",
-        
+        alignItems: 'center',
+        marginRight: '0.5rem',
     },
     profileNameContainer: {
         display: "flex",
         flexDirection: "column",
-        alignSelf: "center",
-        
+        [theme.breakpoints.down("xs")]: {
+            margin: "auto",
+        },
     },
     profileName: {
-        margin: 'auto', 
-        paddingLeft: "12px", 
+        margin: 'auto 5px',
         fontFamily: 'Roboto', 
         fontSize: '1rem',
+        paddingLeft: '0.2rem',
+        [theme.breakpoints.down("sm")]: {
+            fontSize: "1rem",
+            marginLeft: "0.2rem",
+        },
         [theme.breakpoints.down("xs")]: {
             fontSize: "0.6rem",
+            marginLeft: "auto",
         },
     },
     profilePosition: {
-        margin: 'auto', 
-        fontSize: '0.8rem', 
+        margin: '0px 0px 0px 8px',
+        fontSize: '0.7rem', 
         fontFamily: 'Roboto',
+        [theme.breakpoints.down("md")]: {
+            marginLeft: "0.6rem"
+        },
+        [theme.breakpoints.down("sm")]: {
+            marginLeft: "0.6rem"
+        },
         [theme.breakpoints.down("xs")]: {
             fontSize: "0.5rem",
+            marginLeft: "5%"
         },
     },
     date: {
        fontFamily: 'Roboto',
+       marginRight: '12px',
        [theme.breakpoints.down("xs")]: {
         fontSize: "0.6rem",
+        marginRight: "0.2rem"
        },
     },
     avatar: {
@@ -111,10 +132,21 @@ const useStyles = makeStyles(theme => ({
           height: "32px"
         },
     },
-    settingIcon: {
-        fontSize: "2rem",
+    flipIcon: {
+        fontSize: "1.5rem",
+        marginRight: "10px",
         [theme.breakpoints.down("xs")]: {
             fontSize: "1.5rem",
+        },
+    },
+    profileIconContainer: {
+        backgroundSize: "cover", 
+        alignSelf: "center", 
+        width: '36px', 
+        height: '36px',
+        [theme.breakpoints.down("xs")]: {
+            width: '24px', 
+            height: '24px'
         },
     }
    

@@ -1,12 +1,10 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
-import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import Toolbar from '@material-ui/core/Toolbar';
-import ChatBubbleOutlinedIcon from '@material-ui/icons/ChatBubbleOutlined';
-import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
-import avatIcon from '../../assets/icons/avat.jpg';
+import Icon from '@material-ui/core/Icon';
+import { ProfilePic, SettingsIcon, Group80 } from '../../assets/icons';
 import moment from 'moment';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
@@ -22,16 +20,23 @@ const Header = (props) => {
     const Tabs = (
         <React.Fragment>
              <div className={classes.tabsContainer}>
-                 <ChatBubbleOutlinedIcon className={ classes.chatMessage } />
-                 <Box className={classes.profileImageAndNameContainer}>
-                    <Avatar alt="Remy Sharp" src={avatIcon} className={classes.avatar} />
-                     <div className={classes.profileNameContainer}>
-                        <p className={classes.profileName}>Rosetto Chong</p>
+                <Box className={classes.profileImageAndNameContainer}>
+                    <Icon className={classes.profileIconContainer}>
+                        <img style={{ height: "100%" }} src={ProfilePic} />
+                    </Icon>
+                    <div className={classes.profileNameContainer}>
+                        <p className={classes.profileName}>Rosetta Chan</p>
                         <p className={classes.profilePosition}>Admin Operator</p>
-                     </div>
+                    </div>
                 </Box>
-                 <div className={classes.date}>{moment().format('D MMM YYYY').toUpperCase()}</div>
-                 <SettingsOutlinedIcon className={classes.settingIcon} />
+                <Icon style={{ marginRight: "10px", alignSelf: "center" }}>
+                    <img style={{ height: "90%" }} src={Group80} />
+                </Icon>
+                <div className={classes.date}>{moment().format('D MMM YYYY').toUpperCase()}</div>
+                <Icon style={{ alignSelf: "center" }}>
+                    <img style={{ height: "100%" }} src={SettingsIcon} />
+                </Icon>
+                
              </div>
         </React.Fragment>
      );
