@@ -59,8 +59,7 @@ export default function EmployeeForm() {
   const handleSubmit = e => {
     e.preventDefault();
     if (validate()) {
-      alert('Hey');
-      // employeeService.insertEmployee(values);
+      employeeMockData.insertEmployee(values);
       resetForm();
     }
   };
@@ -225,7 +224,6 @@ export default function EmployeeForm() {
                     type="number"
                     value={values.mobile_number}
                     placeholder="Please Input"
-                    // error={values.mobile_number !== '' && errors.mobile_number}
                   />
                 </div>
               </Grid>
