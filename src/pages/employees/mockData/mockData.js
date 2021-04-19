@@ -4,50 +4,50 @@ const KEYS = {
 };
 
 export const getGenderCollection = () => [
-  { value: 'male', label: 'Male' },
-  { value: 'female', label: 'Female' },
-  { value: 'other', label: 'Other' },
+  { id: 'male', title: 'Male' },
+  { id: 'female', title: 'Female' },
+  { id: 'other', title: 'Other' },
 ];
 
 export const idTypes = () => [
-  { value: 'hkid', label: 'HKID' },
-  { value: 'hkid2', label: 'HKID2' },
+  { id: 'hkid', title: 'HKID' },
+  { id: 'hkid2', title: 'HKID2' },
 ];
 
 export const nationality = () => [
-  { value: 'chinese', label: 'Chinese' },
-  { value: 'taiwanese', label: 'Taiwanese' },
+  { id: 'chinese', title: 'Chinese' },
+  { id: 'taiwanese', title: 'Taiwanese' },
 ];
 
 export const placeOfBirth = () => [
-  { value: 'china', label: 'China' },
-  { value: 'taiwan', label: 'Taiwan' },
+  { id: 'china', title: 'China' },
+  { id: 'taiwan', title: 'Taiwan' },
 ];
 
 export const employeeType = () => [
-  { value: 'reg', label: 'Regular' },
-  { value: 'pt', label: 'Part Time' },
+  { id: 'reg', title: 'Regular' },
+  { id: 'pt', title: 'Part Time' },
 ];
 
 export const reportedIndustryType = () => [
-  { value: 'bpo', label: 'BPO' },
-  { value: 'it', label: 'IT' },
+  { id: 'bpo', title: 'BPO' },
+  { id: 'it', title: 'IT' },
 ];
 
 export const occupation = () => [
-  { value: 'manager', label: 'Manager' },
-  { value: 'staff', label: 'Staff' },
+  { id: 'manager', title: 'Manager' },
+  { id: 'staff', title: 'Staff' },
 ];
 
 export const mpfSchemeName = () => [
-  { value: 'retirement', label: 'Retirement Fund' },
-  { value: 'plus', label: 'Plus Fund' },
-  { value: 'aggressive', label: 'Aggressive Fund' },
+  { id: 'retirement', title: 'Retirement Fund' },
+  { id: 'plus', title: 'Plus Fund' },
+  { id: 'aggressive', title: 'Aggressive Fund' },
 ];
 
 export const status = () => [
-  { value: 'active', label: 'Active' },
-  { value: 'pending', label: 'Pending' },
+  { id: 'active', title: 'Active' },
+  { id: 'pending', title: 'Pending' },
 ];
 
 export function insertEmployee(data) {

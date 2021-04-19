@@ -10,6 +10,7 @@ import { Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import SearchForm from '../../components/employees/EmployeesSearchForm';
+import EmployeesTable from '../../components/employees/EmployeesTable';
 
 const useStyles = makeStyles(theme => ({
   pageContent: {
@@ -30,7 +31,8 @@ const Employees = () => {
   return (
     <>
       <Paper className={classes.pageContent}>
-        <SearchForm />
+        {/* <SearchForm /> */}
+        <EmployeesTable />
       </Paper>
     </>
   );

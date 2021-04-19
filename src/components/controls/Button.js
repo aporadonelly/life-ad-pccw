@@ -14,6 +14,7 @@ const useStyles = makeStyles(theme => ({
 export default function Button(props) {
   const classes = { ...EmployeeStyles(), ...useStyles() };
   const { text, size, color, variant, onClick, ...other } = props;
+
   return (
     <MuiButton
       variant={variant || 'contained'}
