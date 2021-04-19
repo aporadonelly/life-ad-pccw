@@ -1,10 +1,10 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
-import EmployeeStyles from './Styles/EmployeeStyles';
-import { useForm, Form } from './UseForm';
-import Controls from '../Controls/Controls';
-import * as employeeMockData from '../MockData/mockData';
-import './Styles/index.css';
+import { Grid, TextField } from '@material-ui/core';
+import EmployeeStyles from './styles/EmployeeStyles';
+import { useForm, Form } from '../../pages/employees/UseForm';
+import Controls from '../controls/Controls';
+import * as employeeMockData from '../../pages/employees/mockData/mockData';
+import './styles/index.css';
 
 const initialValues = {
   mpf_id: '',
@@ -13,13 +13,13 @@ const initialValues = {
   gender: '',
   id_type: '',
   id_number: '',
-  date_of_birth: new Date(),
+  date_of_birth: '',
   nationality: '',
   place_of_birth: '',
   mobile_number: '',
   address: '',
   email: '',
-  date_of_employment: new Date(),
+  date_of_employment: '',
   employee_type: '',
   reported_industry_type: '',
   occupation: '',
@@ -57,7 +57,8 @@ export default function EmployeeForm() {
   const handleSubmit = e => {
     e.preventDefault();
     if (validate()) {
-      alert('API to fetch data to be called here ...');
+      employeeMockData.getAllEmployees(values);
+      console.log(values);
       resetForm();
     }
   };
@@ -176,14 +177,29 @@ export default function EmployeeForm() {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <h3 className={classes.fieldLabel}>Date of Birth</h3>
-                  <Controls.DatePicker
+                  {/* <Controls.DatePicker
                     name="date_of_birth"
                     onChange={handleInputChange}
                     fullWidth
+                    id="date"
                     type="date"
-                    id="text"
+                    className={classes.textField}
                     value={values.date_of_birth}
-                    placeholder="Please Input"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  /> */}
+                  <TextField
+                    name="date_of_birth"
+                    onChange={handleInputChange}
+                    fullWidth
+                    id="date"
+                    type="date"
+                    className={classes.textField}
+                    value={values.date_of_birth}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
                   />
                 </div>
               </Grid>
@@ -267,7 +283,7 @@ export default function EmployeeForm() {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <h3 className={classes.fieldLabel}>Date of Employment</h3>
-                  <Controls.DatePicker
+                  {/* <Controls.DatePicker
                     name="date_of_employment"
                     onChange={handleInputChange}
                     fullWidth
@@ -275,7 +291,19 @@ export default function EmployeeForm() {
                     id="text"
                     value={values.date_of_employment}
                     placeholder="Please Input"
-                  ></Controls.DatePicker>
+                  ></Controls.DatePicker> */}
+                  <TextField
+                    name="date_of_employment"
+                    onChange={handleInputChange}
+                    fullWidth
+                    id="date"
+                    type="date"
+                    className={classes.textField}
+                    value={values.date_of_employment}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
                 </div>
               </Grid>
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button as MuiButton } from '@material-ui/core';
-import EmployeeStyles from '../EmployeeSearch/Styles/EmployeeStyles';
+import EmployeeStyles from '../employees/styles/EmployeeStyles';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({

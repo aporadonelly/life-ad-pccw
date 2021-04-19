@@ -9,7 +9,7 @@ import React from 'react';
 import { Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import SearchForm from './SearchForm';
+import SearchForm from '../../components/employees/EmployeesSearchForm';
 
 const useStyles = makeStyles(theme => ({
   pageContent: {

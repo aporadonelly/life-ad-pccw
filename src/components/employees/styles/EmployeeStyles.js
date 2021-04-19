@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { colors } from '../../../../../assets/styleGuide';
+import { colors } from '../../../assets/styleGuide';
 
 const EmployeeStyles = makeStyles(theme => ({
   root: {

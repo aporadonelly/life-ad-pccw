@@ -5,19 +5,19 @@ import theme from './ui/theme';
 import { Switch, Route } from 'react-router-dom';
 import Layout from './ui/layout';
 import Dashboard from './components/dashboard/dashboard';
-import Employees from './pages/Employee/components/EmployeeSearch/Employees';
+import Employees from './pages/employees/EmployeesPage';
 import { Agent } from './components/agent';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-       <Layout>
-          <Switch>
-            <Route exact path="/" component={Dashboard} />
-            <Route path="/agent" component={Agent}/>
-            <Route path="/employee" component={Employees} />
-          </Switch>
-       </Layout>
+      <Layout>
+        <Switch>
+          <Route exact path="/" component={Dashboard} />
+          <Route path="/agent" component={Agent} />
+          <Route path="/employee" component={Employees} />
+        </Switch>
+      </Layout>
     </ThemeProvider>
   );
 }
