@@ -1,6 +1,6 @@
 import React from 'react';
 import { Paper, Typography, makeStyles, Button, Grid } from '@material-ui/core';
-import Controls from '../components/controls/Controls';
+import ClearIcon from '@material-ui/icons/Clear';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function EmployeesSearchLists(props) {
+export default function EmployeesSearch(props) {
   const classes = useStyles();
   const { title } = props;
   return (
@@ -58,16 +58,52 @@ export default function EmployeesSearchLists(props) {
           </Typography>
 
           <Button variant="contained" className={classes.button}>
-            Gender: Male
+            Gender: Male <ClearIcon />
           </Button>
           <Button
             variant="contained"
             className={classes.button}
             style={{ backgroundColor: '#EA5F63' }}
           >
-            ID Type: HKID
+            ID Type: HKID <ClearIcon />
           </Button>
-          <div className={classes.test}></div>
+          <Button
+            variant="contained"
+            className={classes.button}
+            style={{ backgroundColor: '#EA5F63' }}
+          >
+            Status: Acive <ClearIcon />
+          </Button>
+          <Button
+            variant="contained"
+            className={classes.button}
+            style={{ backgroundColor: '#EA5F63' }}
+          >
+            Email: sample@email.com <ClearIcon />
+          </Button>
+          <Button
+            variant="contained"
+            className={classes.button}
+            style={{ backgroundColor: '#EA5F63' }}
+          >
+            Date of Birth: July 14, 1994 <ClearIcon />
+          </Button>
+          <Button
+            variant="contained"
+            className={classes.button}
+            style={{ backgroundColor: '#EA5F63' }}
+          >
+            Address: Dong San Huan Bei Lu Jia 19hao Jia Sheng Zhong Xin 1906{' '}
+            <ClearIcon />
+          </Button>
+          <Button
+            variant="contained"
+            className={classes.button}
+            style={{ backgroundColor: '#EA5F63' }}
+          >
+            Employment Type: Temporary <ClearIcon />
+          </Button>
+          {/* <div className={classes.test}></div>
           <Button
             variant="contained"
             className={classes.button}
@@ -85,7 +121,7 @@ export default function EmployeesSearchLists(props) {
             style={{ background: '#EF841F' }}
           >
             New Search
-          </Button>
+          </Button> */}
         </div>
       </div>
     </Paper>

@@ -1,0 +1,49 @@
+{
+  "employees": [
+    {
+      "id": 1,
+      "mpf_id": "000A",
+      "english_name": "Nelly",
+      "chinese_name": "妮莉",
+      "gender": "female",
+      "id_type": "hkid",
+      "id_number": "000A",
+      "date_of_birth": "",
+      "nationality": "",
+      "place_of_birth": "",
+      "mobile_number": "",
+      "address": "",
+      "email": "nelly@gmail.com",
+      "date_of_employment": "",
+      "employee_type": "temporary",
+      "reported_industry_type": "",
+      "occupation": "",
+      "mpf_scheme_name": "",
+      "tax_residency": "",
+      "tin": "",
+      "status": "active"
+    },
+    {
+      "mpf_id": "000B",
+      "english_name": "Chin",
+      "chinese_name": "下巴",
+      "gender": "female",
+      "id_type": "hkid",
+      "id_number": "000B",
+      "date_of_birth": "",
+      "nationality": "chinese",
+      "place_of_birth": "",
+      "mobile_number": "",
+      "address": "",
+      "email": "chin@gmail.com",
+      "date_of_employment": "",
+      "employee_type": "temporary",
+      "reported_industry_type": "",
+      "occupation": "",
+      "mpf_scheme_name": "",
+      "tax_residency": "",
+      "tin": "",
+      "status": "active"
+    }
+  ]
+}

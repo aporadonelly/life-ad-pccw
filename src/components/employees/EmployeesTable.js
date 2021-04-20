@@ -1,5 +1,5 @@
 import React from 'react';
-import EmployeesSearch from '../EmployeesSearch';
+import EmployeesSearch from './EmployeesSearch';
 
 const EmployeesTable = () => {
   return (
