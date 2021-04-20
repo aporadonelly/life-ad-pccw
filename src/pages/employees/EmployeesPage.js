@@ -15,7 +15,7 @@ import EmployeeView from '../../components/employees/EmployeeView';
 
 const useStyles = makeStyles(theme => ({
   pageContent: {
-    margin: theme.spacing(2),
+    margin: theme.spacing(2.5),
     padding: theme.spacing(3),
     boxShadow: '0px 3px 6px #00000029',
     borderRadius: '15px',
@@ -31,11 +31,10 @@ const Employees = () => {
   const classes = useStyles();
   return (
     <>
-      <Paper className={classes.pageContent}>
-        <SearchForm />
-        {/* <EmployeesTable /> */}
-        {/* <EmployeeView /> */}
-      </Paper>
+      <SearchForm />
+      {/* <EmployeesTable /> */}
+
+      {/* <EmployeeView /> */}
     </>
   );
 };

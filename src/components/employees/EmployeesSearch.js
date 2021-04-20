@@ -93,7 +93,7 @@ export default function EmployeesSearch(props) {
             className={classes.button}
             style={{ backgroundColor: '#EA5F63' }}
           >
-            Address: Dong San Huan Bei Lu Jia 19hao Jia Sheng Zhong Xin 1906{' '}
+            Address: Dong San Huan Bei Lu Jia 19hao Jia Sheng Zhong Xin 1906
             <ClearIcon />
           </Button>
           <Button

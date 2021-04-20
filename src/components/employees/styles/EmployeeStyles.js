@@ -7,6 +7,17 @@ const EmployeeStyles = makeStyles(theme => ({
       width: '100%',
     },
   },
+  pageContent: {
+    margin: theme.spacing(2.5),
+    padding: theme.spacing(3),
+    boxShadow: '0px 3px 6px #00000029',
+    borderRadius: '15px',
+    width: '80%',
+    float: 'right',
+    position: 'relative',
+    top: '130px',
+    marginBottom: '160px',
+  },
   gridColumnHolder: {
     display: 'flex',
     flexDirection: 'column',
