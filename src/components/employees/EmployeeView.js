@@ -1,6 +1,5 @@
 import React from 'react';
 import { Paper, Typography, makeStyles, Button, Grid } from '@material-ui/core';
-import ClearIcon from '@material-ui/icons/Clear';
 import EmployeeStyles from './styles/EmployeeStyles';
 import { useHistory } from 'react-router-dom';
 

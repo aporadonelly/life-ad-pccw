@@ -85,7 +85,7 @@ export default function EmployeeForm() {
         values.status
       );
       resetForm();
-      history.push('/employee-view');
+      history.push('/employee-search-results');
     }
   };
 

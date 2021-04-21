@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   Paper,
   Typography,
@@ -41,6 +42,13 @@ const useStyles = makeStyles(theme => ({
   },
   chip: {
     margin: theme.spacing(0.5),
+    backgroundColor: '#6E55E2',
+    color: '#fff',
+  },
+  chip1: {
+    margin: theme.spacing(0.5),
+    backgroundColor: '#EA5F63',
+    color: '#fff',
   },
   pageHeader: {
     padding: theme.spacing(1),
@@ -83,8 +91,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function EmployeesSearch(props) {
   const classes = { ...EmployeeStyles(), ...useStyles() };
+  const history = useHistory();
   const [employees, setEmployees] = useState(null);
-
   const [chipData, setChipData] = useState([
     { key: 0, label: 'Gender: Male' },
     { key: 1, label: 'ID Type: HKID' },
@@ -107,7 +115,6 @@ export default function EmployeesSearch(props) {
     getAllEmployees();
   }, []);
 
-  const { title } = props;
   return (
     <>
       <Paper className={classes.pageContent}>
@@ -128,7 +135,11 @@ export default function EmployeesSearch(props) {
                         icon={icon}
                         label={data.label}
                         onDelete={handleDelete(data)}
-                        className={classes.chip}
+                        className={
+                          data.label === 'ID Type: HKID'
+                            ? classes.chip1
+                            : classes.chip
+                        }
                       />
                     </li>
                   );
@@ -146,7 +157,7 @@ export default function EmployeesSearch(props) {
               >
                 <Button
                   className={classes.formBtn}
-                  style={{ width: 'auto' }}
+                  style={{ width: 'auto', top: '-8px' }}
                   variant="contained"
                 >
                   Edit Search
@@ -156,9 +167,11 @@ export default function EmployeesSearch(props) {
                   variant="contained"
                   style={{
                     width: 'auto',
+                    top: '-8px',
                     background: '#EF841F',
                     color: '#fff',
                   }}
+                  onClick={() => history.push('/employee-search')}
                 >
                   New Search
                 </Button>
@@ -180,9 +193,9 @@ export default function EmployeesSearch(props) {
               Search Result
             </Typography>
           </Grid>
-          {employees && (
-            <EmployeesTable title="Employees" employees={employees} />
-          )}
+          <Grid className={classes.pageTitle} item xs={12} lg={12} sm={12}>
+            {employees && <EmployeesTable employees={employees} />}
+          </Grid>
         </Grid>
       </Paper>
     </>
