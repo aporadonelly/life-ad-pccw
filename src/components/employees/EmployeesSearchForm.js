@@ -63,15 +63,29 @@ export default function EmployeeForm() {
 
     if (validate()) {
       console.log(
-        values.gender,
-        values.english_name,
-        values.status,
         values.mpf_id,
+        values.english_name,
+        values.chinese_name,
+        values.gender,
+        values.id_type,
+        values.id_number,
+        values.date_of_birth,
+        values.nationality,
+        values.place_of_birth,
+        values.mobile_number,
+        values.address,
+        values.email,
+        values.date_of_employment,
         values.employee_type,
-        'hello'
+        values.reported_industry_type,
+        values.occupation,
+        values.mpf_scheme_name,
+        values.tax_residency,
+        values.tin,
+        values.status
       );
-
       resetForm();
+      history.push('/employee-view');
     }
   };
 
@@ -478,7 +492,6 @@ export default function EmployeeForm() {
                     type="submit"
                     data-testid="submit-btn"
                     text="search"
-                    onClick={() => history.push('/employee-view')}
                   />
                 </div>
               </Grid>

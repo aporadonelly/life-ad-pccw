@@ -1,15 +1,14 @@
-import React from 'react';
-import EmployeesSearch from './EmployeesSearch';
+import { TableBody } from '@material-ui/core';
+import useTable from '../../pages/employees/useTable';
 
-const EmployeesTable = () => {
+const EmployeesTable = ({ employees }) => {
+  const { TblContainer } = useTable;
   return (
-    <>
-      <EmployeesSearch
-        title="Member Enquiry"
-        // subTitle="Employee / Member Enquiry"
-        // icon={<PeopleOutlineTwoToneIcon fontSize="large" />} //w
-      />
-    </>
+    <div className="blog-list">
+      <TblContainer>
+        {/* <TableBody>{employees.map(emp => console.log(emp))}</TableBody> */}
+      </TblContainer>
+    </div>
   );
 };
 

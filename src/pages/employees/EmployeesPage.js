@@ -32,9 +32,6 @@ const Employees = () => {
   return (
     <>
       <SearchForm />
-      {/* <EmployeesTable /> */}
-
-      {/* <EmployeeView /> */}
     </>
   );
 };
