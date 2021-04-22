@@ -59,7 +59,6 @@ export default function EmployeeView(props) {
   const classes = { ...EmployeeStyles(), ...useStyles() };
   const history = useHistory();
 
-  const { title } = props;
   return (
     <>
       <Paper className={classes.pageContent}>

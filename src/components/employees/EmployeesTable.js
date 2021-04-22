@@ -1,43 +1,153 @@
-import React from 'react';
-import { TableBody, TableCell } from '@material-ui/core';
-import TableRow from '@material-ui/core/TableRow';
-import useTable from '../../pages/employees/useTable';
+import React, { useState } from 'react';
+import {
+  makeStyles,
+  TableRow,
+  Grid,
+  TableBody,
+  TableCell,
+  Typography,
+  Button,
+  Toolbar,
+  InputAdornment,
+  IconButton,
+} from '@material-ui/core';
+import Controls from '../controls/Controls';
+import useTable from '../useTable';
+import { Search } from '@material-ui/icons';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    backgroundColor: '#fdfdff',
+    display: 'flex',
+    justifyContent: 'start',
+    flexWrap: 'wrap',
+    listStyle: 'none',
+  },
+  pageTitle: {
+    paddingLeft: theme.spacing(1),
+    '& .MuiTypography-subtitle2': {
+      opacity: '0.6',
+    },
+    color: '#009CCD',
+    fontSize: '26px',
+    fontFamily: 'Roboto',
+  },
+}));
 
 const headCells = [
   { id: 'mpf_id', label: 'MPF ID' },
-  { id: 'member_name', label: 'Member Name' },
+  { id: 'full_name', label: 'Member Name' },
   { id: 'id_type', label: 'ID Type' },
-  { id: 'it_number', label: 'ID Number' },
+  { id: 'id_number', label: 'ID Number' },
   { id: 'mobile_number', label: 'Mobile Number' },
   { id: 'email', label: 'Email' },
   { id: 'status', label: 'Status' },
-  { id: 'action', label: 'Action' },
+  { id: 'action', label: 'Action', disableSorting: true },
 ];
 export default function EmployeesTable(props) {
+  const classes = { ...useStyles() };
+
   const { employees } = props;
-  const { TblContainer, TblHead } = useTable(employees, headCells);
+  const [filterFn, setfilterFn] = useState({
+    fn: items => {
+      return items;
+    },
+  });
+
+  const {
+    TblContainer,
+    TblHead,
+    TblPagination,
+    employeesAfterPagingAndSorting,
+  } = useTable(employees, headCells, filterFn);
+
+  const handleSearch = e => {
+    let target = e.target;
+    setfilterFn({
+      fn: items => {
+        if (target.value == '') return items;
+        else
+          return items.filter(x =>
+            x.full_name.toLowerCase().includes(target.value)
+          );
+      },
+    });
+  };
+
   return (
     <>
+      <Grid className={classes.root} item xs={12} lg={12} sm={12}>
+        <Grid className={classes.pageTitle} item xs={12} lg={6} sm={12}>
+          <Typography variant="h6" component="div">
+            Search Result
+          </Typography>
+        </Grid>
+        <Grid className={classes.pageTitle} item xs={12} lg={3} sm={12}>
+          <Toolbar>
+            <Controls.Input
+              name="searchQuery"
+              type={'text'}
+              onChange={handleSearch}
+              // onKeyDown={searchBoxEnterPressed}
+              // value={searchText}
+              // onChange={e => setSearchText(e.target.value)}
+              placeholder="Quick Search"
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <IconButton
+                      // onClick={searchClicked}
+                      data-testid="search-icon"
+                      aria-label="Search"
+                      disableRipple
+                    >
+                      <Search />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Toolbar>
+        </Grid>
+        <Grid className={classes.pageTitle} item xs={12} lg={3} sm={12}>
+          <TblPagination />
+        </Grid>
+      </Grid>
+
       <TblContainer>
         <TblHead />
         <TableBody>
-          {employees.map(emp => (
+          {employeesAfterPagingAndSorting().map(emp => (
             <TableRow key={emp.id}>
-              <TableCell>{emp.mpf_id}</TableCell>
-              <TableCell>
-                {emp.first_name} {''}
-                {emp.last_name}
-              </TableCell>
+              <TableCell style={{ color: '#2D9FC3' }}>{emp.mpf_id}</TableCell>
+              <TableCell>{emp.full_name}</TableCell>
               <TableCell>{emp.id_type}</TableCell>
               <TableCell>{emp.id_number}</TableCell>
               <TableCell>{emp.mobile_number}</TableCell>
               <TableCell>{emp.email}</TableCell>
               <TableCell>{emp.status}</TableCell>
-              <TableCell> R E</TableCell>
+              <TableCell style={{ padding: '0 1px' }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ margin: '0 5px' }}
+                >
+                  R
+                </Button>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  style={{ margin: '0 5px' }}
+                >
+                  E
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </TblContainer>
+      <TblPagination />
     </>
   );
 }

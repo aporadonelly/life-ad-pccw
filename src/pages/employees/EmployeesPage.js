@@ -6,12 +6,9 @@
  */
 
 import React from 'react';
-import { Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import SearchForm from '../../components/employees/EmployeesSearchForm';
-import EmployeesTable from '../../components/employees/EmployeesTable';
-import EmployeeView from '../../components/employees/EmployeeView';
 
 const useStyles = makeStyles(theme => ({
   pageContent: {

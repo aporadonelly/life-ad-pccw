@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Paper, TextField } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import EmployeeStyles from './styles/EmployeeStyles';
-import { useForm, Form } from '../../pages/employees/UseForm';
+import { useForm, Form } from '../UseForm';
 import Controls from '../controls/Controls';
 import * as employeeMockData from '../../pages/employees/mockData/mockData';
 import * as intl from '../../common/labels';

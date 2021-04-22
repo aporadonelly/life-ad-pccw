@@ -11,6 +11,7 @@ export default function Input(props) {
     onChange,
     error = null,
     label,
+    ...other
   } = props;
   return (
     <TextField
@@ -20,6 +21,7 @@ export default function Input(props) {
       name={name}
       type={type}
       id={id}
+      {...other}
       placeholder={placeholder}
       value={value}
       {...(error && { error: true, helperText: error })}

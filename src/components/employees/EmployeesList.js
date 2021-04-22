@@ -181,18 +181,8 @@ export default function EmployeesSearch(props) {
         </Grid>
       </Paper>
 
-      <Paper className={classes.pageContentTable}>
+      <Paper className={classes.pageContentTable} style={{ top: '-25px' }}>
         <Grid className={classes.root} item xs={12} lg={12} sm={12}>
-          <Grid className={classes.pageTitle} item xs={12} lg={6} sm={12}>
-            <Typography variant="h6" component="div">
-              Search Result
-            </Typography>
-          </Grid>
-          <Grid className={classes.pageTitle} item xs={12} lg={6} sm={12}>
-            <Typography variant="h6" component="div">
-              Search Result
-            </Typography>
-          </Grid>
           <Grid className={classes.pageTitle} item xs={12} lg={12} sm={12}>
             {employees && <EmployeesTable employees={employees} />}
           </Grid>
