@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   makeStyles,
   TableRow,
@@ -12,8 +12,11 @@ import {
   IconButton,
 } from '@material-ui/core';
 import Controls from '../controls/Controls';
+import api from './api/employees';
+import { Link, useHistory } from 'react-router-dom';
 import useTable from '../useTable';
 import { Search } from '@material-ui/icons';
+import EmployeeItem from './EmployeeItem';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -46,7 +49,7 @@ const headCells = [
 ];
 export default function EmployeesTable(props) {
   const classes = { ...useStyles() };
-
+  const history = useHistory();
   const { employees } = props;
   const [filterFn, setfilterFn] = useState({
     fn: items => {
@@ -72,6 +75,12 @@ export default function EmployeesTable(props) {
           );
       },
     });
+  };
+
+  const employeeView = async id => {
+    const res = await api.get(`/employees/${id}`);
+    console.log(res, 'emp');
+    return res.data;
   };
 
   return (
@@ -114,7 +123,6 @@ export default function EmployeesTable(props) {
           <TblPagination />
         </Grid>
       </Grid>
-
       <TblContainer>
         <TblHead />
         <TableBody>
@@ -128,13 +136,16 @@ export default function EmployeesTable(props) {
               <TableCell>{emp.email}</TableCell>
               <TableCell>{emp.status}</TableCell>
               <TableCell style={{ padding: '0 1px' }}>
-                <Button
+                <Link
+                  onClick={() => employeeView(emp.id)}
                   variant="contained"
                   color="primary"
                   style={{ margin: '0 5px' }}
+                  path=""
+                  // to={{ pathname: `/employee-view/${emp.id}` }}
                 >
                   R
-                </Button>
+                </Link>
                 <Button
                   variant="contained"
                   color="secondary"

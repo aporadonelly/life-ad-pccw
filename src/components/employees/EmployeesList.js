@@ -93,6 +93,7 @@ export default function EmployeesSearch(props) {
   const classes = { ...EmployeeStyles(), ...useStyles() };
   const history = useHistory();
   const [employees, setEmployees] = useState(null);
+
   const [chipData, setChipData] = useState([
     { key: 0, label: 'Gender: Male' },
     { key: 1, label: 'ID Type: HKID' },
@@ -102,11 +103,6 @@ export default function EmployeesSearch(props) {
     setChipData(chips => chips.filter(chip => chip.key !== chipToDelete.key));
   };
 
-  const fetchEmployees = async () => {
-    const res = await api.get('/employees');
-    return res.data;
-  };
-
   useEffect(() => {
     const getAllEmployees = async () => {
       const allEmp = await fetchEmployees();
@@ -114,6 +110,11 @@ export default function EmployeesSearch(props) {
     };
     getAllEmployees();
   }, []);
+
+  const fetchEmployees = async () => {
+    const res = await api.get('/employees');
+    return res.data;
+  };
 
   return (
     <>

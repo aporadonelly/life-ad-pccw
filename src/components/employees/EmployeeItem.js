@@ -35,33 +35,27 @@ const useStyles = makeStyles(theme => ({
     borderRadius: '16px',
     pointerEvents: 'none',
   },
-  test: {
-    width: '200px',
-    display: 'inline-block',
-    overflow: 'auto',
-    whiteSpace: 'nowrap',
-    margin: '0px 10px',
-
-    clear: 'both',
-  },
   label: {
     color: '#42526E',
     fontSize: '13px',
+    fontWeight: '400',
   },
   labelValue: {
     color: '#42526E',
     fontSize: '16px',
-    fontWeight: 'Bold',
+    fontFamily: 'Roboto',
+    fontWeight: '500',
   },
 }));
 
 export default function EmployeeView(props) {
+  console.log(props, 'props item');
   const classes = { ...EmployeeStyles(), ...useStyles() };
   const history = useHistory();
 
   return (
     <>
-      <Paper className={classes.pageContent}>
+      <Paper className={classes.pageContent} style={{ fontFamily: 'Roboto' }}>
         <Grid container>
           <Grid item xs={12}>
             <Grid className={classes.pageTitle} item xs={12} lg={12} sm={12}>

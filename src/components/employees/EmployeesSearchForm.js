@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Grid, Paper, TextField } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import EmployeeStyles from './styles/EmployeeStyles';
@@ -56,36 +56,38 @@ export default function EmployeeForm() {
     errors,
     setErrors,
     resetForm,
+    searchAllUsers,
   } = useForm(initialValues, true, validate);
+
+  const {
+    mpf_id,
+    english_name,
+    chinese_name,
+    gender,
+    id_type,
+    id_number,
+    date_of_birth,
+    nationality,
+    place_of_birth,
+    mobile_number,
+    address,
+    email,
+    date_of_employment,
+    employee_type,
+    reported_industry_type,
+    occupation,
+    mpf_scheme_name,
+    tax_residency,
+    tin,
+    status,
+  } = values;
 
   const handleSubmit = e => {
     e.preventDefault();
-
     if (validate()) {
-      console.log(
-        values.mpf_id,
-        values.english_name,
-        values.chinese_name,
-        values.gender,
-        values.id_type,
-        values.id_number,
-        values.date_of_birth,
-        values.nationality,
-        values.place_of_birth,
-        values.mobile_number,
-        values.address,
-        values.email,
-        values.date_of_employment,
-        values.employee_type,
-        values.reported_industry_type,
-        values.occupation,
-        values.mpf_scheme_name,
-        values.tax_residency,
-        values.tin,
-        values.status
-      );
+      searchAllUsers(gender, id_type);
       resetForm();
-      history.push('/employee-search-results');
+      // history.push('/employee-search-results');
     }
   };
 
@@ -113,6 +115,7 @@ export default function EmployeeForm() {
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>{intl.labels.mpf_id}</h3>
                     <Controls.Input
+                      className={classes.textValue}
                       onChange={handleInputChange}
                       name="mpf_id"
                       type="text"

@@ -6,7 +6,7 @@ import { Switch, Route } from 'react-router-dom';
 import Layout from './ui/layout';
 import Dashboard from './components/dashboard/dashboard';
 import Employees from './pages/employees/EmployeesPage';
-import Employee from './components/employees/EmployeeView';
+import Employee from './components/employees/EmployeeItem';
 import EmployeesList from './components/employees/EmployeesList';
 
 import { Agent } from './components/agent';

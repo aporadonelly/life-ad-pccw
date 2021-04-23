@@ -7,6 +7,7 @@ const EmployeeStyles = makeStyles(theme => ({
       width: '100%',
     },
   },
+
   pageContent: {
     margin: theme.spacing(2.5),
     padding: theme.spacing(3),
@@ -35,7 +36,7 @@ const EmployeeStyles = makeStyles(theme => ({
     fontFamily: 'Roboto',
     color: colors.titleColor,
     fontSize: '26px',
-    fontWeight: 'Bold',
+    fontWeight: '700',
     opacity: 1,
     textAlign: 'left',
     height: '30px',
@@ -62,12 +63,18 @@ const EmployeeStyles = makeStyles(theme => ({
     color: '#42526E',
     fontSize: '13px',
     fontFamily: 'Roboto',
-    fontWeight: 'normal',
+    fontWeight: '400',
   },
   gender: {
     color: '#EF841F',
     fontSize: '14px',
     fontFamily: 'Roboto',
+  },
+  textValue: {
+    fontFamily: 'Roboto',
+    color: '#9D9D9D',
+    fontSize: '16px',
+    fontStyle: 'italic',
   },
   italicText: {
     fontStyle: 'italic',

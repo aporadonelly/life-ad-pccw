@@ -4,9 +4,9 @@ import {
   TableCell,
   TablePagination,
   TableSortLabel,
+  TableHead,
+  TableRow,
 } from '@material-ui/core';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -29,6 +29,9 @@ const useStyles = makeStyles(theme => ({
     '& tbody tr:hover': {
       backgroundColor: '#fffbf2',
       cursor: 'pointer',
+    },
+    center: {
+      background: 'red',
     },
   },
 }));
