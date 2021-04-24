@@ -8,23 +8,27 @@ import Dashboard from './components/dashboard/dashboard';
 import Employees from './pages/employees/EmployeesPage';
 import Employee from './components/employees/EmployeeItem';
 import EmployeesList from './components/employees/EmployeesList';
-
 import { Agent } from './components/agent';
 
-function App() {
+import { Provider } from 'react-redux';
+import store from './store';
+
+const App = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <Layout>
-        <Switch>
-          <Route exact path="/" component={Dashboard} />
-          <Route path="/agent" component={Agent} />
-          <Route path="/employee-search" component={Employees} />
-          <Route path="/employee-search-results" component={EmployeesList} />
-          <Route path="/employee-view" component={Employee} />
-        </Switch>
-      </Layout>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <Layout>
+          <Switch>
+            <Route exact path="/" component={Dashboard} />
+            <Route path="/agent" component={Agent} />
+            <Route path="/employee-search" component={Employees} />
+            <Route path="/employee-search-results" component={EmployeesList} />
+            <Route path="/employee-view" component={Employee} />
+          </Switch>
+        </Layout>
+      </ThemeProvider>
+    </Provider>
   );
-}
+};
 
 export default App;

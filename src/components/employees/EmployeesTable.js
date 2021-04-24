@@ -141,8 +141,7 @@ export default function EmployeesTable(props) {
                   variant="contained"
                   color="primary"
                   style={{ margin: '0 5px' }}
-                  path=""
-                  // to={{ pathname: `/employee-view/${emp.id}` }}
+                  to={{ pathname: `/employee-view/${emp.id}` }}
                 >
                   R
                 </Link>
