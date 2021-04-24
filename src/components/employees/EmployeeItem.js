@@ -5,6 +5,8 @@ import { Paper, Typography, makeStyles, Button, Grid } from '@material-ui/core';
 import EmployeeStyles from './styles/EmployeeStyles';
 import { useHistory } from 'react-router-dom';
 import { viewMember } from '../../actions/employeesActions';
+import * as intl from '../../common/labels';
+import Controls from '../controls/Controls';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -86,39 +88,45 @@ const EmployeeView = ({ employees: { employee } }) => {
       <Paper className={classes.pageContent} style={{ fontFamily: 'Roboto' }}>
         <Grid container>
           <Grid item xs={12}>
-            <Grid className={classes.pageTitle} item xs={12} lg={12} sm={12}>
+            <Grid
+              className={classes.pageTitle}
+              item
+              xs={12}
+              lg={12}
+              sm={12}
+              style={{ marginBottom: '10px' }}
+            >
               <Typography
                 variant="h6"
                 component="div"
                 style={{ fontSize: '26px' }}
               >
-                Member Registration View
+                {intl.labels.member_reg_view}
               </Typography>
-              <Button
+              <Controls.Button
+                text="edit"
                 className={classes.formBtn}
                 style={{ float: 'right', bottom: '35px', width: '84px' }}
                 variant="contained"
-              >
-                Edit
-              </Button>
+              ></Controls.Button>
               <div className={classes.label} variant="contained">
-                MPF ID
+                {intl.labels.mpf_id}
               </div>
               <div className={classes.labelValue}>{mpf_id}</div>
             </Grid>
-            <div className={classes.subLabel}>Personal Information</div>
+            <div className={classes.subLabel}>{intl.labels.personal_info}</div>
             <Grid
               container
               item
               xs={12}
               sm={6}
               lg={12}
-              style={{ marginTop: '-20px' }}
+              style={{ marginTop: '-20px', marginBottom: '10px' }}
             >
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    Title
+                    {intl.labels.title}
                   </div>
                   <div className={classes.labelValue}>{title}</div>
                 </div>
@@ -126,7 +134,7 @@ const EmployeeView = ({ employees: { employee } }) => {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    First Name
+                    {intl.labels.first_name}
                   </div>
                   <div className={classes.labelValue}> {first_name}</div>
                 </div>
@@ -134,7 +142,7 @@ const EmployeeView = ({ employees: { employee } }) => {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    Last Name
+                    {intl.labels.last_name}
                   </div>
                   <div className={classes.labelValue}>{last_name}</div>
                 </div>
@@ -142,7 +150,7 @@ const EmployeeView = ({ employees: { employee } }) => {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    Last Name (Chinese)
+                    {intl.labels.last_name_chinese}
                   </div>
                   <div className={classes.labelValue}> {last_name_chinese}</div>
                 </div>
@@ -150,7 +158,7 @@ const EmployeeView = ({ employees: { employee } }) => {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    First Name (Chinese)
+                    {intl.labels.first_name_chinese}
                   </div>
                   <div className={classes.labelValue}>{fname_chinese}</div>
                 </div>
@@ -158,7 +166,7 @@ const EmployeeView = ({ employees: { employee } }) => {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    Gender
+                    {intl.labels.gender}
                   </div>
                   <div className={classes.labelValue}>{gender}</div>
                 </div>
@@ -168,7 +176,7 @@ const EmployeeView = ({ employees: { employee } }) => {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    ID Type
+                    {intl.labels.id_type}
                   </div>
                   <div className={classes.labelValue}>{id_type}</div>
                 </div>
@@ -176,7 +184,7 @@ const EmployeeView = ({ employees: { employee } }) => {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    ID Number
+                    {intl.labels.id_number}
                   </div>
                   <div className={classes.labelValue}>{id_number}</div>
                 </div>
@@ -184,7 +192,7 @@ const EmployeeView = ({ employees: { employee } }) => {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    Date of Birth
+                    {intl.labels.date_of_birth}
                   </div>
                   <div className={classes.labelValue}>{date_of_birth}</div>
                 </div>
@@ -192,7 +200,7 @@ const EmployeeView = ({ employees: { employee } }) => {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    Place of Birth
+                    {intl.labels.place_of_birth}
                   </div>
                   <div className={classes.labelValue}>{place_of_birth}</div>
                 </div>
@@ -200,7 +208,7 @@ const EmployeeView = ({ employees: { employee } }) => {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    Mobile Number
+                    {intl.labels.mobile_number}
                   </div>
                   <div className={classes.labelValue}>{mobile_number}</div>
                 </div>
@@ -208,25 +216,37 @@ const EmployeeView = ({ employees: { employee } }) => {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    Secondary Mobile Number
+                    {intl.labels.secondary_mobile_no}
                   </div>
                   <div className={classes.labelValue}>
                     {secondary_mobile_number}
                   </div>
                 </div>
               </Grid>
-              <Grid item xs={12} sm={8} className={classes.fieldSpacing}>
+              <Grid
+                item
+                xs={12}
+                sm={8}
+                className={classes.fieldSpacing}
+                style={{ marginTop: '10px', marginBottom: '10px' }}
+              >
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    Residential Address
+                    {intl.labels.residential_address}
                   </div>
                   <div className={classes.labelValue}> {address}</div>
                 </div>
               </Grid>
-              <Grid item sm={4} xs={12} className={classes.fieldSpacing}>
+              <Grid
+                item
+                sm={4}
+                xs={12}
+                className={classes.fieldSpacing}
+                style={{ marginTop: '10px', marginBottom: '10px' }}
+              >
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    Email
+                    {intl.labels.email}
                   </div>
                   <div className={classes.labelValue}> {email} </div>
                 </div>
@@ -234,7 +254,7 @@ const EmployeeView = ({ employees: { employee } }) => {
               <Grid item xs={12} sm={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    Correspondence Address
+                    {intl.labels.correspondence_address}
                   </div>
                   <div className={classes.labelValue}>
                     {correspondence_address}
@@ -242,7 +262,7 @@ const EmployeeView = ({ employees: { employee } }) => {
                 </div>
               </Grid>
             </Grid>
-            <div className={classes.subLabel}>Other Information</div>
+            <div className={classes.subLabel}>{intl.labels.other_info}</div>
             <Grid
               container
               item
@@ -254,7 +274,7 @@ const EmployeeView = ({ employees: { employee } }) => {
               <Grid item sm={3} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label}>
-                    Preferred Communication Channel
+                    {intl.labels.preferred_communication_channel}
                   </div>
                   <div className={classes.labelValue}>
                     {preferred_communication_channel}
@@ -264,7 +284,7 @@ const EmployeeView = ({ employees: { employee } }) => {
               <Grid item sm={3} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label}>
-                    Preferred Communication Language
+                    {intl.labels.preferred_communication_language}
                   </div>
                   <div className={classes.labelValue}>
                     {preferred_communication_language}
@@ -274,7 +294,7 @@ const EmployeeView = ({ employees: { employee } }) => {
               <Grid item sm={3} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label}>
-                    Receive Paper Form Notifications and Document
+                    {intl.labels.recv_paper_form_notif_docs}
                   </div>
                   <div className={classes.labelValue}>
                     {receive_paper_form_notifications_and_document}
@@ -283,7 +303,7 @@ const EmployeeView = ({ employees: { employee } }) => {
               </Grid>
               <Grid item sm={3} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
-                  <div className={classes.label}>Status</div>
+                  <div className={classes.label}>{intl.labels.status}</div>
                   <div className={classes.labelValue}> {status}</div>
                 </div>
               </Grid>
@@ -300,6 +320,7 @@ const EmployeeView = ({ employees: { employee } }) => {
         className={classes.fieldSpacing}
       >
         <Button
+          text="BACK TO SEARCH"
           className={classes.cancelBtn}
           style={{
             float: 'right',

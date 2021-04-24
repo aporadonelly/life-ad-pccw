@@ -1,6 +1,7 @@
 import {
   FETCH_EMPLOYEES_SUCCESS,
   VIEW_EMPLOYEE_SUCCESS,
+  SEARCH_MEMBERS,
 } from '../actions/types';
 
 const initialState = {
@@ -18,6 +19,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         employee: action.payload,
+      };
+    case SEARCH_MEMBERS:
+      return {
+        ...state,
+        employees: action.payload,
       };
     default:
       return state;

@@ -66,20 +66,11 @@ const SidebarDrawer = () => {
       ),
       path: '/employer',
     },
-    {
-      text: 'Employee',
-      icons: <PeopleOutlineOutlinedIcon color="secondary" />,
-      path: '/employee-view',
-    },
+
     {
       text: 'Employee',
       icons: <PeopleOutlineOutlinedIcon color="secondary" />,
       path: '/employee-search',
-    },
-    {
-      text: 'Employee',
-      icons: <PeopleOutlineOutlinedIcon color="secondary" />,
-      path: '/employee-search-results',
     },
 
     {

@@ -24,10 +24,6 @@ const EmployeesList = ({ employees: { employees }, fetchEmployees }) => {
     setChipData(chips => chips.filter(chip => chip.key !== chipToDelete.key));
   };
 
-  useEffect(() => {
-    fetchEmployees();
-  }, []);
-
   return (
     <>
       <Paper className={classes.pageContent}>
@@ -112,4 +108,5 @@ EmployeesList.propTypes = {
 const mapStateToProps = state => ({
   employees: state.employees,
 });
+
 export default connect(mapStateToProps, { fetchEmployees })(EmployeesList);

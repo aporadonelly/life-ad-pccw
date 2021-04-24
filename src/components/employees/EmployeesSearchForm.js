@@ -1,13 +1,16 @@
-import React, { useEffect } from 'react';
-import { Grid, Paper, TextField } from '@material-ui/core';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import { Grid, Paper, TextField } from '@material-ui/core';
+import { fetchEmployees, searchMember } from '../../actions/employeesActions';
 import EmployeeStyles from './styles/EmployeeStyles';
 import { useForm, Form } from '../UseForm';
 import Controls from '../controls/Controls';
 import * as employeeMockData from '../../pages/employees/mockData/mockData';
 import * as intl from '../../common/labels';
-
 import './styles/index.css';
+import EmployeesList from './EmployeesList';
 
 const initialValues = {
   mpf_id: '',
@@ -32,8 +35,10 @@ const initialValues = {
   status: '',
 };
 
-export default function EmployeeForm() {
+const EmployeeForm = ({ employees: { employees }, searchMember }) => {
+  console.log(employees, 'employees');
   const history = useHistory();
+  const [employeeResult, setEmployeeResult] = useState(false);
   const classes = { ...EmployeeStyles() };
 
   const validate = (fieldValues = values) => {
@@ -56,44 +61,22 @@ export default function EmployeeForm() {
     errors,
     setErrors,
     resetForm,
-    // searchAllUsers,
   } = useForm(initialValues, true, validate);
-
-  const {
-    mpf_id,
-    english_name,
-    chinese_name,
-    gender,
-    id_type,
-    id_number,
-    date_of_birth,
-    nationality,
-    place_of_birth,
-    mobile_number,
-    address,
-    email,
-    date_of_employment,
-    employee_type,
-    reported_industry_type,
-    occupation,
-    mpf_scheme_name,
-    tax_residency,
-    tin,
-    status,
-  } = values;
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (validate()) {
-      console.log('hey');
-      // searchAllUsers(gender, id_type);
-      resetForm();
-      // history.push('/employee-search-results');
-    }
+    searchMember(values.gender);
+    setEmployeeResult(true);
+    history.push('/employee-search-results');
+    resetForm();
+
+    // if (validate()) {
+    // }
   };
 
   return (
     <>
+      {employeeResult && <EmployeesList employees={employees} />}
       <Paper className={classes.pageContent}>
         <Grid container>
           <Grid item xs={12}>
@@ -505,4 +488,16 @@ export default function EmployeeForm() {
       </Paper>
     </>
   );
-}
+};
+
+EmployeeForm.propTypes = {
+  fetchEmployees: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  employees: state.employees,
+});
+
+export default connect(mapStateToProps, { fetchEmployees, searchMember })(
+  EmployeeForm
+);

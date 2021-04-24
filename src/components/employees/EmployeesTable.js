@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -17,7 +17,7 @@ import {
 import Controls from '../controls/Controls';
 import useTable from '../useTable';
 import { Search } from '@material-ui/icons';
-import { viewMember } from '../../actions/employeesActions';
+import { viewMember, searchMember } from '../../actions/employeesActions';
 import EmployeeItem from './EmployeeItem';
 
 const useStyles = makeStyles(theme => ({
@@ -57,9 +57,15 @@ const headCells = [
   { id: 'action', label: 'Action', disableSorting: true },
 ];
 
-const EmployeesTable = ({ employees: { employees }, viewMember }) => {
+const EmployeesTable = ({
+  employees: { employees, employee },
+  viewMember,
+  // searchMember,
+}) => {
   const history = useHistory();
   const classes = { ...useStyles() };
+  const [viewMemberState, setViewMemberState] = useState(false);
+  const [tableView, setTableView] = useState(true);
 
   const [filterFn, setfilterFn] = useState({
     fn: items => {
@@ -89,6 +95,8 @@ const EmployeesTable = ({ employees: { employees }, viewMember }) => {
 
   const employeeView = id => {
     viewMember(id);
+    setViewMemberState(true);
+    setTableView(false);
     history.push('/employee-view');
   };
 
@@ -104,18 +112,14 @@ const EmployeesTable = ({ employees: { employees }, viewMember }) => {
           <Toolbar>
             <Controls.Input
               name="searchQuery"
-              type={'text'}
+              type="search"
               onChange={handleSearch}
-              // onKeyDown={searchBoxEnterPressed}
-              // value={searchText}
-              // onChange={e => setSearchText(e.target.value)}
               placeholder="Quick Search"
               variant="outlined"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
                     <IconButton
-                      // onClick={searchClicked}
                       data-testid="search-icon"
                       aria-label="Search"
                       disableRipple
@@ -170,16 +174,21 @@ const EmployeesTable = ({ employees: { employees }, viewMember }) => {
         </TableBody>
       </TblContainer>
       <TblPagination />
+      {viewMemberState && <EmployeeItem employee={employee} />}
     </>
   );
 };
 
 EmployeesTable.propTypes = {
-  employee: PropTypes.object.isRequired,
+  employees: PropTypes.object.isRequired,
+  searchMember: PropTypes.func.isRequired,
+  viewMember: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   employees: state.employees,
 });
 
-export default connect(mapStateToProps, { viewMember })(EmployeesTable);
+export default connect(mapStateToProps, { viewMember, searchMember })(
+  EmployeesTable
+);

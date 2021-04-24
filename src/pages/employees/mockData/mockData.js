@@ -6,7 +6,6 @@ const KEYS = {
 export const getGenderCollection = () => [
   { id: 'male', title: 'Male' },
   { id: 'female', title: 'Female' },
-  { id: 'other', title: 'Other' },
 ];
 
 export const idTypes = () => [
@@ -47,5 +46,5 @@ export const mpfSchemeName = () => [
 
 export const status = () => [
   { id: 'active', title: 'Active' },
-  { id: 'pending', title: 'Pending' },
+  { id: 'inactive', title: 'Inactive' },
 ];

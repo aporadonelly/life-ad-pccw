@@ -1,4 +1,8 @@
-import { FETCH_EMPLOYEES_SUCCESS, VIEW_EMPLOYEE_SUCCESS } from './types';
+import {
+  FETCH_EMPLOYEES_SUCCESS,
+  VIEW_EMPLOYEE_SUCCESS,
+  SEARCH_MEMBERS,
+} from './types';
 import api from '../components/employees/api/employees';
 
 export const getHeaders = async () => {
@@ -33,6 +37,20 @@ export const viewMember = id => async dispatch => {
         payload: res.data,
       });
     }
+  } catch (e) {
+    console.log(e, 'err');
+  }
+};
+
+//search members
+export const searchMember = text => async dispatch => {
+  try {
+    const res = await api(`/employees?q=${text}`);
+    console.log(res, 'res');
+    dispatch({
+      type: SEARCH_MEMBERS,
+      payload: res.data,
+    });
   } catch (e) {
     console.log(e, 'err');
   }
