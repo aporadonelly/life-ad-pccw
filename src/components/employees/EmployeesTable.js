@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import {
   makeStyles,
   TableRow,
@@ -12,10 +15,9 @@ import {
   IconButton,
 } from '@material-ui/core';
 import Controls from '../controls/Controls';
-import api from './api/employees';
-import { Link, useHistory } from 'react-router-dom';
 import useTable from '../useTable';
 import { Search } from '@material-ui/icons';
+import { viewMember } from '../../actions/employeesActions';
 import EmployeeItem from './EmployeeItem';
 
 const useStyles = makeStyles(theme => ({
@@ -35,6 +37,13 @@ const useStyles = makeStyles(theme => ({
     fontSize: '26px',
     fontFamily: 'Roboto',
   },
+  disabled: {
+    pointerEvents: 'none',
+    cursor: 'not-allowed',
+    opacity: 0.65,
+    filter: 'alpha(opacity=65)',
+    boxShadow: 'none',
+  },
 }));
 
 const headCells = [
@@ -47,10 +56,11 @@ const headCells = [
   { id: 'status', label: 'Status' },
   { id: 'action', label: 'Action', disableSorting: true },
 ];
-export default function EmployeesTable(props) {
-  const classes = { ...useStyles() };
+
+const EmployeesTable = ({ employees: { employees }, viewMember }) => {
   const history = useHistory();
-  const { employees } = props;
+  const classes = { ...useStyles() };
+
   const [filterFn, setfilterFn] = useState({
     fn: items => {
       return items;
@@ -77,10 +87,9 @@ export default function EmployeesTable(props) {
     });
   };
 
-  const employeeView = async id => {
-    const res = await api.get(`/employees/${id}`);
-    console.log(res, 'emp');
-    return res.data;
+  const employeeView = id => {
+    viewMember(id);
+    history.push('/employee-view');
   };
 
   return (
@@ -129,22 +138,25 @@ export default function EmployeesTable(props) {
           {employeesAfterPagingAndSorting().map(emp => (
             <TableRow key={emp.id}>
               <TableCell style={{ color: '#2D9FC3' }}>{emp.mpf_id}</TableCell>
-              <TableCell>{emp.full_name}</TableCell>
+              <TableCell>
+                {emp.first_name} {''}
+                {emp.last_name}
+              </TableCell>
               <TableCell>{emp.id_type}</TableCell>
               <TableCell>{emp.id_number}</TableCell>
               <TableCell>{emp.mobile_number}</TableCell>
               <TableCell>{emp.email}</TableCell>
               <TableCell>{emp.status}</TableCell>
               <TableCell style={{ padding: '0 1px' }}>
-                <Link
+                <Button
                   onClick={() => employeeView(emp.id)}
                   variant="contained"
                   color="primary"
                   style={{ margin: '0 5px' }}
-                  to={{ pathname: `/employee-view/${emp.id}` }}
+                  className={emp.status === 'Inactive' && classes.disabled}
                 >
                   R
-                </Link>
+                </Button>
                 <Button
                   variant="contained"
                   color="secondary"
@@ -160,4 +172,14 @@ export default function EmployeesTable(props) {
       <TblPagination />
     </>
   );
-}
+};
+
+EmployeesTable.propTypes = {
+  employee: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = state => ({
+  employees: state.employees,
+});
+
+export default connect(mapStateToProps, { viewMember })(EmployeesTable);

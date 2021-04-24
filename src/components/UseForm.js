@@ -20,17 +20,17 @@ export function useForm(initialValues, validateOnchange = false, validate) {
     setErrors({});
   };
 
-  const searchAllUsers = async (gender, id_type) => {
-    if (gender === '' && id_type === '') {
-      const res = await api.get('/employees');
-      console.log(res.data, 'value');
-      history.push('/employee-search-results');
-      return res.data;
-    } else console.log(id_type, gender, 'value'); 
-  };
+  // const searchAllUsers = async (gender, id_type) => {
+  //   if (gender === '' && id_type === '') {
+  //     const res = await api.get('/employees');
+  //     console.log(res.data, 'value');
+  //     history.push('/employee-search-results');
+  //     return res.data;
+  //   } else console.log(id_type, gender, 'value');
+  // };
 
   return {
-    searchAllUsers,
+    // searchAllUsers,
     values,
     setValues,
     handleInputChange,

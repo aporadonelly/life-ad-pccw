@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Paper, Typography, makeStyles, Button, Grid } from '@material-ui/core';
 import EmployeeStyles from './styles/EmployeeStyles';
 import { useHistory } from 'react-router-dom';
+import { viewMember } from '../../actions/employeesActions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -48,10 +51,35 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function EmployeeView(props) {
-  console.log(props, 'props item');
+const EmployeeView = ({ employees: { employee } }) => {
   const classes = { ...EmployeeStyles(), ...useStyles() };
   const history = useHistory();
+
+  useEffect(() => {
+    viewMember();
+  }, [viewMember()]);
+  const {
+    mpf_id,
+    title,
+    first_name,
+    last_name,
+    last_name_chinese,
+    fname_chinese,
+    gender,
+    id_type,
+    id_number,
+    date_of_birth,
+    place_of_birth,
+    mobile_number,
+    secondary_mobile_number,
+    address,
+    correspondence_address,
+    email,
+    preferred_communication_channel,
+    preferred_communication_language,
+    receive_paper_form_notifications_and_document,
+    status,
+  } = employee;
 
   return (
     <>
@@ -76,7 +104,7 @@ export default function EmployeeView(props) {
               <div className={classes.label} variant="contained">
                 MPF ID
               </div>
-              <div className={classes.labelValue}>273637338</div>
+              <div className={classes.labelValue}>{mpf_id}</div>
             </Grid>
             <div className={classes.subLabel}>Personal Information</div>
             <Grid
@@ -92,7 +120,7 @@ export default function EmployeeView(props) {
                   <div className={classes.label} variant="contained">
                     Title
                   </div>
-                  <div className={classes.labelValue}>Mr</div>
+                  <div className={classes.labelValue}>{title}</div>
                 </div>
               </Grid>
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -100,7 +128,7 @@ export default function EmployeeView(props) {
                   <div className={classes.label} variant="contained">
                     First Name
                   </div>
-                  <div className={classes.labelValue}>Tai Man</div>
+                  <div className={classes.labelValue}> {first_name}</div>
                 </div>
               </Grid>
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -108,7 +136,7 @@ export default function EmployeeView(props) {
                   <div className={classes.label} variant="contained">
                     Last Name
                   </div>
-                  <div className={classes.labelValue}>Chan</div>
+                  <div className={classes.labelValue}>{last_name}</div>
                 </div>
               </Grid>
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -116,7 +144,7 @@ export default function EmployeeView(props) {
                   <div className={classes.label} variant="contained">
                     Last Name (Chinese)
                   </div>
-                  <div className={classes.labelValue}>陳</div>
+                  <div className={classes.labelValue}> {last_name_chinese}</div>
                 </div>
               </Grid>
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -124,7 +152,7 @@ export default function EmployeeView(props) {
                   <div className={classes.label} variant="contained">
                     First Name (Chinese)
                   </div>
-                  <div className={classes.labelValue}>大文</div>
+                  <div className={classes.labelValue}>{fname_chinese}</div>
                 </div>
               </Grid>
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -132,7 +160,7 @@ export default function EmployeeView(props) {
                   <div className={classes.label} variant="contained">
                     Gender
                   </div>
-                  <div className={classes.labelValue}>Male</div>
+                  <div className={classes.labelValue}>{gender}</div>
                 </div>
               </Grid>
             </Grid>
@@ -142,7 +170,7 @@ export default function EmployeeView(props) {
                   <div className={classes.label} variant="contained">
                     ID Type
                   </div>
-                  <div className={classes.labelValue}>HKID</div>
+                  <div className={classes.labelValue}>{id_type}</div>
                 </div>
               </Grid>
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -150,7 +178,7 @@ export default function EmployeeView(props) {
                   <div className={classes.label} variant="contained">
                     ID Number
                   </div>
-                  <div className={classes.labelValue}> F223546(8)</div>
+                  <div className={classes.labelValue}>{id_number}</div>
                 </div>
               </Grid>
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -158,7 +186,7 @@ export default function EmployeeView(props) {
                   <div className={classes.label} variant="contained">
                     Date of Birth
                   </div>
-                  <div className={classes.labelValue}>21 Aug 1998</div>
+                  <div className={classes.labelValue}>{date_of_birth}</div>
                 </div>
               </Grid>
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -166,7 +194,7 @@ export default function EmployeeView(props) {
                   <div className={classes.label} variant="contained">
                     Place of Birth
                   </div>
-                  <div className={classes.labelValue}> Hong Kong</div>
+                  <div className={classes.labelValue}>{place_of_birth}</div>
                 </div>
               </Grid>
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -174,7 +202,7 @@ export default function EmployeeView(props) {
                   <div className={classes.label} variant="contained">
                     Mobile Number
                   </div>
-                  <div className={classes.labelValue}>+852 8876 3635</div>
+                  <div className={classes.labelValue}>{mobile_number}</div>
                 </div>
               </Grid>
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -182,7 +210,9 @@ export default function EmployeeView(props) {
                   <div className={classes.label} variant="contained">
                     Secondary Mobile Number
                   </div>
-                  <div className={classes.labelValue}>+852 9883 2123</div>
+                  <div className={classes.labelValue}>
+                    {secondary_mobile_number}
+                  </div>
                 </div>
               </Grid>
               <Grid item xs={12} sm={8} className={classes.fieldSpacing}>
@@ -190,9 +220,7 @@ export default function EmployeeView(props) {
                   <div className={classes.label} variant="contained">
                     Residential Address
                   </div>
-                  <div className={classes.labelValue}>
-                    Rm 307, Man Tai Building, 31 Lok Man Street, Tai Po, NT.
-                  </div>
+                  <div className={classes.labelValue}> {address}</div>
                 </div>
               </Grid>
               <Grid item sm={4} xs={12} className={classes.fieldSpacing}>
@@ -200,7 +228,7 @@ export default function EmployeeView(props) {
                   <div className={classes.label} variant="contained">
                     Email
                   </div>
-                  <div className={classes.labelValue}>man_tt@ssis.com </div>
+                  <div className={classes.labelValue}> {email} </div>
                 </div>
               </Grid>
               <Grid item xs={12} sm={12} className={classes.fieldSpacing}>
@@ -209,8 +237,7 @@ export default function EmployeeView(props) {
                     Correspondence Address
                   </div>
                   <div className={classes.labelValue}>
-                    Flat 2232, Good Manson, 28 Main Street, Tai Kwok Tsui,
-                    Kowloon.
+                    {correspondence_address}
                   </div>
                 </div>
               </Grid>
@@ -229,7 +256,9 @@ export default function EmployeeView(props) {
                   <div className={classes.label}>
                     Preferred Communication Channel
                   </div>
-                  <div className={classes.labelValue}> Mobile SMS</div>
+                  <div className={classes.labelValue}>
+                    {preferred_communication_channel}
+                  </div>
                 </div>
               </Grid>
               <Grid item sm={3} xs={12} className={classes.fieldSpacing}>
@@ -237,7 +266,9 @@ export default function EmployeeView(props) {
                   <div className={classes.label}>
                     Preferred Communication Language
                   </div>
-                  <div className={classes.labelValue}> Traditional Chinese</div>
+                  <div className={classes.labelValue}>
+                    {preferred_communication_language}
+                  </div>
                 </div>
               </Grid>
               <Grid item sm={3} xs={12} className={classes.fieldSpacing}>
@@ -245,13 +276,15 @@ export default function EmployeeView(props) {
                   <div className={classes.label}>
                     Receive Paper Form Notifications and Document
                   </div>
-                  <div className={classes.labelValue}> No</div>
+                  <div className={classes.labelValue}>
+                    {receive_paper_form_notifications_and_document}
+                  </div>
                 </div>
               </Grid>
               <Grid item sm={3} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label}>Status</div>
-                  <div className={classes.labelValue}> Active</div>
+                  <div className={classes.labelValue}> {status}</div>
                 </div>
               </Grid>
             </Grid>
@@ -275,7 +308,7 @@ export default function EmployeeView(props) {
             color: '#fff',
             top: '.5px',
           }}
-          onClick={() => history.push('/employee-search')}
+          onClick={() => history.push('/employee-search-results')}
           variant="contained"
         >
           BACK TO SEARCH
@@ -283,4 +316,14 @@ export default function EmployeeView(props) {
       </Grid>
     </>
   );
-}
+};
+
+EmployeeView.propTypes = {
+  employees: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = state => ({
+  employees: state.employees,
+});
+
+export default connect(mapStateToProps, { viewMember })(EmployeeView);

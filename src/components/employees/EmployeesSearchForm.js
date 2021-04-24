@@ -56,7 +56,7 @@ export default function EmployeeForm() {
     errors,
     setErrors,
     resetForm,
-    searchAllUsers,
+    // searchAllUsers,
   } = useForm(initialValues, true, validate);
 
   const {
@@ -85,7 +85,8 @@ export default function EmployeeForm() {
   const handleSubmit = e => {
     e.preventDefault();
     if (validate()) {
-      searchAllUsers(gender, id_type);
+      console.log('hey');
+      // searchAllUsers(gender, id_type);
       resetForm();
       // history.push('/employee-search-results');
     }

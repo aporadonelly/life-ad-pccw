@@ -26,7 +26,6 @@ const EmployeesList = ({ employees: { employees }, fetchEmployees }) => {
 
   useEffect(() => {
     fetchEmployees();
-    console.log(employees, 'employees');
   }, []);
 
   return (

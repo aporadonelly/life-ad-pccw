@@ -14,6 +14,11 @@ export default (state = initialState, action) => {
         ...state,
         employees: action.payload,
       };
+    case VIEW_EMPLOYEE_SUCCESS:
+      return {
+        ...state,
+        employee: action.payload,
+      };
     default:
       return state;
   }
