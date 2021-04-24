@@ -6,9 +6,9 @@ import { Paper, Typography, Button, Grid, Chip } from '@material-ui/core';
 import EmployeeStyles from './styles/EmployeeStyles';
 import EmployeesListStyles from './styles/EmployeesListStyle';
 import EmployeesTable from './EmployeesTable';
-import { fetchEmployees } from '../../actions/employeesActions';
+import { searchMember } from '../../actions/employeesActions';
 
-const EmployeesList = ({ employees: { employees }, fetchEmployees }) => {
+const EmployeesList = ({ employees: { employees }, searchMember }) => {
   const classes = {
     ...EmployeeStyles(),
     ...EmployeesListStyles(),
@@ -109,4 +109,4 @@ const mapStateToProps = state => ({
   employees: state.employees,
 });
 
-export default connect(mapStateToProps, { fetchEmployees })(EmployeesList);
+export default connect(mapStateToProps, { searchMember })(EmployeesList);

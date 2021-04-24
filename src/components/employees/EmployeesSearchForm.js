@@ -76,7 +76,6 @@ const EmployeeForm = ({ employees: { employees }, searchMember }) => {
 
   return (
     <>
-      {employeeResult && <EmployeesList employees={employees} />}
       <Paper className={classes.pageContent}>
         <Grid container>
           <Grid item xs={12}>
