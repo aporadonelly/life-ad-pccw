@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import moment from 'react-moment';
 import PropTypes from 'prop-types';
 import { Paper, Typography, makeStyles, Button, Grid } from '@material-ui/core';
 import EmployeeStyles from './styles/EmployeeStyles';
@@ -59,7 +60,8 @@ const EmployeeView = ({ employees: { employee } }) => {
 
   useEffect(() => {
     viewMember();
-  }, [viewMember()]);
+  }, [employee]);
+
   const {
     mpf_id,
     title,
@@ -194,7 +196,9 @@ const EmployeeView = ({ employees: { employee } }) => {
                   <div className={classes.label} variant="contained">
                     {intl.labels.date_of_birth}
                   </div>
-                  <div className={classes.labelValue}>{date_of_birth}</div>
+                  <div className={classes.labelValue}>
+                    {date_of_birth.moment(date_of_birth).format('DD MMMM YYYY')}
+                  </div>
                 </div>
               </Grid>
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>

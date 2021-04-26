@@ -36,7 +36,6 @@ const initialValues = {
 };
 
 const EmployeeForm = ({ employees: { employees }, searchMember }) => {
-  console.log(employees, 'employees');
   const history = useHistory();
   const [employeeResult, setEmployeeResult] = useState(false);
   const classes = { ...EmployeeStyles() };
@@ -64,8 +63,9 @@ const EmployeeForm = ({ employees: { employees }, searchMember }) => {
   } = useForm(initialValues, true, validate);
 
   const handleSubmit = e => {
+    console.log(values.date_of_birth, 'dob');
     e.preventDefault();
-    searchMember(values.gender);
+    searchMember(values.date_of_birth);
     setEmployeeResult(true);
     history.push('/employee-search-results');
     resetForm();

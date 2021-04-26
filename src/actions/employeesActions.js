@@ -46,6 +46,7 @@ export const viewMember = id => async dispatch => {
 export const searchMember = text => async dispatch => {
   try {
     const res = await api(`/employees?q=${text}`);
+
     console.log(res, 'res');
     dispatch({
       type: SEARCH_MEMBERS,
