@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import moment from 'react-moment';
+import moment from 'moment';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Paper, Typography, makeStyles, Button, Grid } from '@material-ui/core';
 import EmployeeStyles from './styles/EmployeeStyles';
@@ -54,12 +55,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const EmployeeView = ({ employees: { employee } }) => {
+const EmployeeView = ({ employees: { employee, id } }) => {
   const classes = { ...EmployeeStyles(), ...useStyles() };
   const history = useHistory();
 
   useEffect(() => {
-    viewMember();
+    viewMember(id);
   }, [employee]);
 
   const {
@@ -197,7 +198,7 @@ const EmployeeView = ({ employees: { employee } }) => {
                     {intl.labels.date_of_birth}
                   </div>
                   <div className={classes.labelValue}>
-                    {date_of_birth.moment(date_of_birth).format('DD MMMM YYYY')}
+                    {moment(date_of_birth).format('DD MMMM YYYY')}
                   </div>
                 </div>
               </Grid>
