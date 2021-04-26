@@ -2,11 +2,13 @@ import {
   FETCH_EMPLOYEES_SUCCESS,
   VIEW_EMPLOYEE_SUCCESS,
   SEARCH_MEMBERS,
+  CREATE_QUERY_SUCCESS,
 } from '../actions/types';
 
 const initialState = {
   employees: null,
   employee: {},
+  enquiry: null,
 };
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -24,6 +26,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         employees: action.payload,
+      };
+    case CREATE_QUERY_SUCCESS:
+      return {
+        ...state,
+        enquiry: action.payload,
+        // createSuccess: true,
       };
     default:
       return state;

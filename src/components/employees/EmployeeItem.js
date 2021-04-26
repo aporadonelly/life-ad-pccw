@@ -171,7 +171,9 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                   <div className={classes.label} variant="contained">
                     {intl.labels.gender}
                   </div>
-                  <div className={classes.labelValue}>{gender}</div>
+                  <div className={classes.labelValue}>
+                    {gender.charAt(0).toUpperCase() + gender.slice(1)}
+                  </div>
                 </div>
               </Grid>
             </Grid>
@@ -181,7 +183,9 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                   <div className={classes.label} variant="contained">
                     {intl.labels.id_type}
                   </div>
-                  <div className={classes.labelValue}>{id_type}</div>
+                  <div className={classes.labelValue}>
+                    {id_type.toUpperCase()}
+                  </div>
                 </div>
               </Grid>
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -309,7 +313,10 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               <Grid item sm={3} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label}>{intl.labels.status}</div>
-                  <div className={classes.labelValue}> {status}</div>
+                  <div className={classes.labelValue}>
+                    {' '}
+                    {status.charAt(0).toUpperCase() + status.slice(1)}
+                  </div>
                 </div>
               </Grid>
             </Grid>

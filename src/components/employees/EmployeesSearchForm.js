@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Paper, TextField } from '@material-ui/core';
-import { fetchEmployees, searchMember } from '../../actions/employeesActions';
+import {
+  fetchEmployees,
+  searchMember,
+  searchMembers,
+} from '../../actions/employeesActions';
 import EmployeeStyles from './styles/EmployeeStyles';
 import { useForm, Form } from '../UseForm';
 import Controls from '../controls/Controls';
 import * as employeeMockData from '../../pages/employees/mockData/mockData';
 import * as intl from '../../common/labels';
 import './styles/index.css';
-import EmployeesList from './EmployeesList';
 
 const initialValues = {
   mpf_id: '',
@@ -35,8 +40,9 @@ const initialValues = {
   status: '',
 };
 
-const EmployeeForm = ({ employees: { employees }, searchMember }) => {
+const EmployeeForm = ({ searchMember }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [employeeResult, setEmployeeResult] = useState(false);
   const classes = { ...EmployeeStyles() };
 
@@ -62,18 +68,50 @@ const EmployeeForm = ({ employees: { employees }, searchMember }) => {
     resetForm,
   } = useForm(initialValues, true, validate);
 
+  const {
+    mpf_id,
+    english_name,
+    chinese_name,
+    gender,
+    id_type,
+    id_number,
+    date_of_birth,
+    nationality,
+    place_of_birth,
+    mobile_number,
+    address,
+    email,
+    date_of_employment,
+    employee_type,
+    reported_industry_type,
+    occupation,
+    mpf_scheme_name,
+    tax_residency,
+    tin,
+    status,
+  } = values;
+
   const handleSubmit = e => {
-    console.log(values.date_of_birth, 'dob');
     e.preventDefault();
-    searchMember(values.date_of_birth);
-    setEmployeeResult(true);
-    history.push('/employee-search-results');
-    resetForm();
+    let params = [];
+    if ((gender, id_type, status)) {
+      params.push(gender, id_type, status);
+      console.log(params, 'params');
+      // dispatch(searchMembers(gender, id_type, status));
+      dispatch(searchMembers(params));
 
-    // if (validate()) {
-    // }
+      history.push('/employee-search-results');
+    } else if (gender) {
+      dispatch(searchMembers(gender));
+      history.push('/employee-search-results');
+    } else if (id_type) {
+      dispatch(searchMembers(id_type));
+      history.push('/employee-search-results');
+    } else {
+      dispatch(fetchEmployees());
+      history.push('/employee-search-results');
+    }
   };
-
   return (
     <>
       <Paper className={classes.pageContent}>
@@ -211,17 +249,20 @@ const EmployeeForm = ({ employees: { employees }, searchMember }) => {
                       {intl.labels.date_of_birth}
                     </h3>
                     {/* <Controls.DatePicker
-                    name="date_of_birth"
-                    onChange={handleInputChange}
-                    fullWidth
-                    id="date"
-                    type="date"
-                    className={classes.textField}
-                    value={values.date_of_birth}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                  /> */}
+                      name="date_of_birth"
+                      onChange={handleInputChange}
+                      fullWidth
+                      id="date"
+                      type="date"
+                      className={classes.textField}
+                      // value={values.date_of_birth}
+                      value={moment(values.date_of_birth).format(
+                        'YYYY MMMM DD  '
+                      )}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    /> */}
                     <TextField
                       name="date_of_birth"
                       onChange={handleInputChange}
@@ -491,12 +532,9 @@ const EmployeeForm = ({ employees: { employees }, searchMember }) => {
 
 EmployeeForm.propTypes = {
   fetchEmployees: PropTypes.func.isRequired,
+  searchMember: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  employees: state.employees,
-});
-
-export default connect(mapStateToProps, { fetchEmployees, searchMember })(
+export default connect(null, { fetchEmployees, searchMember, searchMembers })(
   EmployeeForm
 );

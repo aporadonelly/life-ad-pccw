@@ -50,6 +50,7 @@ const headCells = [
   { id: 'mpf_id', label: 'MPF ID' },
   { id: 'full_name', label: 'Member Name' },
   { id: 'id_type', label: 'ID Type' },
+  { id: 'gender', label: 'Gender' }, //remove this later
   { id: 'id_number', label: 'ID Number' },
   { id: 'mobile_number', label: 'Mobile Number' },
   { id: 'email', label: 'Email' },
@@ -60,13 +61,13 @@ const headCells = [
 const EmployeesTable = ({
   employees: { employees, employee },
   viewMember,
-  // searchMember,
+  searchMember,
 }) => {
   const history = useHistory();
   const classes = { ...useStyles() };
   const [viewMemberState, setViewMemberState] = useState(false);
   const [tableView, setTableView] = useState(true);
-
+  const [searchQuery, setSearchQuery] = useState('');
   const [filterFn, setfilterFn] = useState({
     fn: items => {
       return items;
@@ -85,10 +86,9 @@ const EmployeesTable = ({
     setfilterFn({
       fn: items => {
         if (target.value == '') return items;
-        else
-          return items.filter(x =>
-            x.full_name.toLowerCase().includes(target.value)
-          );
+        return items.filter(x =>
+          x.full_name.toLowerCase().includes(target.value)
+        );
       },
     });
   };
@@ -99,6 +99,14 @@ const EmployeesTable = ({
     setTableView(false);
     history.push('/employee-view');
   };
+
+  // const handleSearch = e => setSearchQuery(e.target.value);
+
+  // const submitSearch = e => {
+  //   e.preventDefault();
+  //   searchMember(searchQuery);
+  //   setSearchQuery('');
+  // };
 
   return (
     <>
@@ -116,6 +124,7 @@ const EmployeesTable = ({
               onChange={handleSearch}
               placeholder="Quick Search"
               variant="outlined"
+              // value={searchQuery}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -123,6 +132,7 @@ const EmployeesTable = ({
                       data-testid="search-icon"
                       aria-label="Search"
                       disableRipple
+                      // onClick={submitSearch}
                     >
                       <Search />
                     </IconButton>
@@ -146,11 +156,16 @@ const EmployeesTable = ({
                 {emp.first_name} {''}
                 {emp.last_name}
               </TableCell>
-              <TableCell>{emp.id_type}</TableCell>
+              <TableCell>{emp.id_type.toUpperCase()}</TableCell>
+              <TableCell>
+                {emp.gender.charAt(0).toUpperCase() + emp.gender.slice(1)}
+              </TableCell>
               <TableCell>{emp.id_number}</TableCell>
               <TableCell>{emp.mobile_number}</TableCell>
               <TableCell>{emp.email}</TableCell>
-              <TableCell>{emp.status}</TableCell>
+              <TableCell>
+                {emp.status.charAt(0).toUpperCase() + emp.status.slice(1)}
+              </TableCell>
               <TableCell style={{ padding: '0 1px' }}>
                 <Button
                   onClick={() => employeeView(emp.id)}

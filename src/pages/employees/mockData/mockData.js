@@ -14,13 +14,13 @@ export const idTypes = () => [
 ];
 
 export const nationality = () => [
-  { id: 'chinese', title: 'Chinese' },
-  { id: 'taiwanese', title: 'Taiwanese' },
+  { id: 'chi', title: 'Chinese' },
+  { id: 'tai', title: 'Taiwanese' },
 ];
 
 export const placeOfBirth = () => [
-  { id: 'china', title: 'China' },
-  { id: 'taiwan', title: 'Taiwan' },
+  { id: 'ch', title: 'China' },
+  { id: 'hk', title: 'Hong Kong' },
 ];
 
 export const employeeType = () => [

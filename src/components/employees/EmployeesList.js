@@ -93,7 +93,11 @@ const EmployeesList = ({ employees: { employees }, searchMember }) => {
       <Paper className={classes.pageContentTable} style={{ top: '-25px' }}>
         <Grid className={classes.root} item xs={12} lg={12} sm={12}>
           <Grid className={classes.pageTitle} item xs={12} lg={12} sm={12}>
-            {employees && <EmployeesTable employees={employees} />}
+            {employees.length > 0 ? (
+              <EmployeesTable employees={employees} />
+            ) : (
+              <p>No employee found.</p>
+            )}
           </Grid>
         </Grid>
       </Paper>
