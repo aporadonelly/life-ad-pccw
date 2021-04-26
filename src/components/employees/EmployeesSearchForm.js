@@ -93,19 +93,54 @@ const EmployeeForm = ({ searchMember }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    let params = [];
-    if ((gender, id_type, status)) {
-      params.push(gender, id_type, status);
-      console.log(params, 'params');
-      // dispatch(searchMembers(gender, id_type, status));
-      dispatch(searchMembers(params));
 
-      history.push('/employee-search-results');
-    } else if (gender) {
-      dispatch(searchMembers(gender));
-      history.push('/employee-search-results');
-    } else if (id_type) {
-      dispatch(searchMembers(id_type));
+    let params = [];
+    if (
+      (mpf_id,
+      english_name,
+      chinese_name,
+      gender,
+      id_type,
+      id_number,
+      date_of_birth,
+      nationality,
+      place_of_birth,
+      mobile_number,
+      address,
+      email,
+      date_of_employment,
+      employee_type,
+      reported_industry_type,
+      occupation,
+      mpf_scheme_name,
+      tax_residency,
+      tin,
+      status)
+    ) {
+      params.push(
+        mpf_id,
+        english_name,
+        chinese_name,
+        gender,
+        id_type,
+        id_number,
+        date_of_birth,
+        nationality,
+        place_of_birth,
+        mobile_number,
+        address,
+        email,
+        date_of_employment,
+        employee_type,
+        reported_industry_type,
+        occupation,
+        mpf_scheme_name,
+        tax_residency,
+        tin,
+        status
+      );
+      console.log(params, 'params');
+      dispatch(searchMembers(params));
       history.push('/employee-search-results');
     } else {
       dispatch(fetchEmployees());

@@ -10,17 +10,17 @@ export const getGenderCollection = () => [
 
 export const idTypes = () => [
   { id: 'hkid', title: 'HKID' },
-  { id: 'hkid2', title: 'HKID2' },
+  { id: 'twid', title: 'TWID' },
 ];
 
 export const nationality = () => [
-  { id: 'chi', title: 'Chinese' },
-  { id: 'tai', title: 'Taiwanese' },
+  { id: 'chinese', title: 'Chinese' },
+  { id: 'taiwanese', title: 'Taiwanese' },
 ];
 
 export const placeOfBirth = () => [
-  { id: 'ch', title: 'China' },
-  { id: 'hk', title: 'Hong Kong' },
+  { id: 'china', title: 'China' },
+  { id: 'hongkong', title: 'Hong Kong' },
 ];
 
 export const employeeType = () => [
@@ -39,7 +39,7 @@ export const occupation = () => [
 ];
 
 export const mpfSchemeName = () => [
-  { id: 'retirement', title: 'Retirement Fund' },
+  { id: 'retire', title: 'Retirement Fund' },
   { id: 'plus', title: 'Plus Fund' },
   { id: 'aggressive', title: 'Aggressive Fund' },
 ];

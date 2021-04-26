@@ -69,7 +69,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
     first_name,
     last_name,
     last_name_chinese,
-    fname_chinese,
+    chinese_name,
     gender,
     id_type,
     id_number,
@@ -163,7 +163,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                   <div className={classes.label} variant="contained">
                     {intl.labels.first_name_chinese}
                   </div>
-                  <div className={classes.labelValue}>{fname_chinese}</div>
+                  <div className={classes.labelValue}>{chinese_name}</div>
                 </div>
               </Grid>
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -211,7 +211,10 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                   <div className={classes.label} variant="contained">
                     {intl.labels.place_of_birth}
                   </div>
-                  <div className={classes.labelValue}>{place_of_birth}</div>
+                  <div className={classes.labelValue}>
+                    {place_of_birth.charAt(0).toUpperCase() +
+                      place_of_birth.slice(1)}
+                  </div>
                 </div>
               </Grid>
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>

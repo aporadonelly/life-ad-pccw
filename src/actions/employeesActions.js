@@ -57,12 +57,50 @@ export const searchMember = text => async dispatch => {
   }
 };
 
-export const searchMembers = (gender, id_type, status) => async dispatch => {
+export const searchMembers = (
+  mpf_id,
+  english_name,
+  chinese_name,
+  gender,
+  id_type,
+  id_number,
+  date_of_birth,
+  nationality,
+  place_of_birth,
+  mobile_number,
+  address,
+  email,
+  date_of_employment,
+  employee_type,
+  reported_industry_type,
+  occupation,
+  mpf_scheme_name,
+  tax_residency,
+  tin,
+  status
+) => async dispatch => {
   const config = {
     headers: getHeaders(),
     params: {
+      mpf_id,
+      english_name,
+      chinese_name,
       gender,
       id_type,
+      id_number,
+      date_of_birth,
+      nationality,
+      place_of_birth,
+      mobile_number,
+      address,
+      email,
+      date_of_employment,
+      employee_type,
+      reported_industry_type,
+      occupation,
+      mpf_scheme_name,
+      tax_residency,
+      tin,
       status,
     },
   };

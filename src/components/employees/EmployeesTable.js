@@ -172,7 +172,7 @@ const EmployeesTable = ({
                   variant="contained"
                   color="primary"
                   style={{ margin: '0 5px' }}
-                  className={emp.status === 'Inactive' && classes.disabled}
+                  className={emp.status === 'inactive' && classes.disabled}
                 >
                   R
                 </Button>
