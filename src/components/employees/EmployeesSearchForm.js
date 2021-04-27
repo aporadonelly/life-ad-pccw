@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Grid, Paper, TextField } from '@material-ui/core';
 import {
   fetchEmployees,
@@ -18,32 +18,31 @@ import * as intl from '../../common/labels';
 import './styles/index.css';
 
 const initialValues = {
-  mpf_id: '',
-  english_name: '',
-  chinese_name: '',
-  gender: '',
-  id_type: '',
-  id_number: '',
-  date_of_birth: '',
-  nationality: '',
-  place_of_birth: '',
-  mobile_number: '',
-  address: '',
-  email: '',
-  date_of_employment: '',
-  employee_type: '',
-  reported_industry_type: '',
-  occupation: '',
-  mpf_scheme_name: '',
-  tax_residency: '',
-  tin: '',
-  status: '',
+  mpf_id: null,
+  first_name: null,
+  chinese_name: null,
+  gender: null,
+  id_type: null,
+  id_number: null,
+  date_of_birth: null,
+  nationality: null,
+  place_of_birth: null,
+  mobile_number: null,
+  address: null,
+  email: null,
+  date_of_employment: null,
+  employee_type: null,
+  reported_industry_type: null,
+  occupation: null,
+  mpf_scheme_name: null,
+  tax_residency: null,
+  tin: null,
+  status: null,
 };
 
-const EmployeeForm = ({ searchMember }) => {
+const EmployeeForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [employeeResult, setEmployeeResult] = useState(false);
   const classes = { ...EmployeeStyles() };
 
   const validate = (fieldValues = values) => {
@@ -59,18 +58,15 @@ const EmployeeForm = ({ searchMember }) => {
     if (fieldValues === values) return Object.values(temp).every(x => x === '');
   };
 
-  const {
-    values,
-    setValues,
-    handleInputChange,
-    errors,
-    setErrors,
-    resetForm,
-  } = useForm(initialValues, true, validate);
+  const { values, handleInputChange, errors, setErrors, resetForm } = useForm(
+    initialValues,
+    true,
+    validate
+  );
 
   const {
     mpf_id,
-    english_name,
+    first_name,
     chinese_name,
     gender,
     id_type,
@@ -93,59 +89,34 @@ const EmployeeForm = ({ searchMember }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-
     let params = [];
-    if (
-      (mpf_id,
-      english_name,
-      chinese_name,
-      gender,
-      id_type,
-      id_number,
-      date_of_birth,
-      nationality,
-      place_of_birth,
-      mobile_number,
-      address,
-      email,
-      date_of_employment,
-      employee_type,
-      reported_industry_type,
-      occupation,
-      mpf_scheme_name,
-      tax_residency,
-      tin,
-      status)
-    ) {
-      params.push(
-        mpf_id,
-        english_name,
-        chinese_name,
-        gender,
-        id_type,
-        id_number,
-        date_of_birth,
-        nationality,
-        place_of_birth,
-        mobile_number,
-        address,
-        email,
-        date_of_employment,
-        employee_type,
-        reported_industry_type,
-        occupation,
-        mpf_scheme_name,
-        tax_residency,
-        tin,
-        status
-      );
-      console.log(params, 'params');
-      dispatch(searchMembers(params));
-      history.push('/employee-search-results');
-    } else {
-      dispatch(fetchEmployees());
-      history.push('/employee-search-results');
-    }
+    let p = {};
+    if (mpf_id !== null) p['mpf_id'] = mpf_id;
+    if (first_name !== null) p['first_name'] = first_name;
+    if (chinese_name !== null) p['chinese_name'] = chinese_name;
+    if (gender !== null) p['gender'] = gender;
+    if (id_type !== null) p['id_type'] = id_type;
+    if (id_number !== null) p['id_number'] = id_number;
+    if (date_of_birth !== null) p['date_of_birth'] = date_of_birth;
+    if (nationality !== null) p['nationality'] = nationality;
+    if (place_of_birth !== null) p['place_of_birth'] = place_of_birth;
+    if (mobile_number !== null) p['mobile_number'] = mobile_number;
+    if (address !== null) p['address'] = address;
+    if (email !== null) p['email'] = email;
+    if (date_of_employment !== null)
+      p['date_of_employment'] = date_of_employment;
+    if (employee_type !== null) p['employee_type'] = employee_type;
+    if (reported_industry_type !== null)
+      p['reported_industry_type'] = reported_industry_type;
+    if (occupation !== null) p['occupation'] = occupation;
+    if (mpf_scheme_name !== null) p['mpf_scheme_name'] = mpf_scheme_name;
+    if (tax_residency !== null) p['tax_residency'] = tax_residency;
+    if (tin !== null) p['tin'] = tin;
+    if (status !== null) p['status'] = status;
+    console.log(p, 'p');
+    dispatch(searchMembers(p));
+    history.push('/employee-search-results');
+    resetForm();
   };
   return (
     <>
@@ -197,15 +168,15 @@ const EmployeeForm = ({ searchMember }) => {
                 <Grid item sm={4} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {intl.labels.english_name}
+                      {intl.labels.first_name}
                     </h3>
                     <Controls.Input
                       type="text"
                       id="text"
-                      name="english_name"
+                      name="first_name"
                       onChange={handleInputChange}
                       fullWidth
-                      value={values.english_name}
+                      value={values.first_name}
                       placeholder="Input English Name"
                       className={classes.selectValidator}
                     />
@@ -232,6 +203,7 @@ const EmployeeForm = ({ searchMember }) => {
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>{intl.labels.gender}</h3>
                     <Controls.Select
+                      placeholder="Seletc"
                       label="Gender"
                       name="gender"
                       onChange={handleInputChange}
@@ -353,7 +325,7 @@ const EmployeeForm = ({ searchMember }) => {
                       name="mobile_number"
                       onChange={handleInputChange}
                       fullWidth
-                      type="number"
+                      type="text"
                       value={values.mobile_number}
                       placeholder="Please Input"
                     />

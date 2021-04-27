@@ -87,7 +87,7 @@ const EmployeesTable = ({
       fn: items => {
         if (target.value == '') return items;
         return items.filter(x =>
-          x.full_name.toLowerCase().includes(target.value)
+          x.first_name.toLowerCase().startsWith(target.value)
         );
       },
     });

@@ -20,7 +20,7 @@ export const nationality = () => [
 
 export const placeOfBirth = () => [
   { id: 'china', title: 'China' },
-  { id: 'hongkong', title: 'Hong Kong' },
+  { id: 'Hong Kong', title: 'Hong Kong' },
 ];
 
 export const employeeType = () => [
