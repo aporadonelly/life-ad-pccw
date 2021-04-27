@@ -72,9 +72,9 @@ const EmployeeStyles = makeStyles(theme => ({
   },
   textValue: {
     fontFamily: 'Roboto',
-    color: '#9D9D9D',
+    color: '#EF841F',
     fontSize: '16px',
-    fontStyle: 'italic',
+    // fontStyle: 'italic',
   },
   italicText: {
     fontStyle: 'italic',

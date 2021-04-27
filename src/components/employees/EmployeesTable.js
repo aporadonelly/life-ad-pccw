@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
 
 const headCells = [
   { id: 'mpf_id', label: 'MPF ID' },
-  { id: 'full_name', label: 'Member Name' },
+  { id: 'first_name', label: 'Member Name' },
   { id: 'id_type', label: 'ID Type' },
   { id: 'gender', label: 'Gender' }, //remove this later
   { id: 'id_number', label: 'ID Number' },
@@ -58,16 +58,11 @@ const headCells = [
   { id: 'action', label: 'Action', disableSorting: true },
 ];
 
-const EmployeesTable = ({
-  employees: { employees, employee },
-  viewMember,
-  searchMember,
-}) => {
+const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
   const history = useHistory();
   const classes = { ...useStyles() };
   const [viewMemberState, setViewMemberState] = useState(false);
   const [tableView, setTableView] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
   const [filterFn, setfilterFn] = useState({
     fn: items => {
       return items;
@@ -100,14 +95,6 @@ const EmployeesTable = ({
     history.push('/employee-view');
   };
 
-  // const handleSearch = e => setSearchQuery(e.target.value);
-
-  // const submitSearch = e => {
-  //   e.preventDefault();
-  //   searchMember(searchQuery);
-  //   setSearchQuery('');
-  // };
-
   return (
     <>
       <Grid className={classes.root} item xs={12} lg={12} sm={12}>
@@ -124,7 +111,6 @@ const EmployeesTable = ({
               onChange={handleSearch}
               placeholder="Quick Search"
               variant="outlined"
-              // value={searchQuery}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -132,7 +118,6 @@ const EmployeesTable = ({
                       data-testid="search-icon"
                       aria-label="Search"
                       disableRipple
-                      // onClick={submitSearch}
                     >
                       <Search />
                     </IconButton>

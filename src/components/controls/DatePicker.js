@@ -6,7 +6,7 @@ import {
 import DateFnsUtils from '@date-io/date-fns';
 
 export default function DatePicker(props) {
-  const { name, value, onChange } = props;
+  const { name, value, onChange, label, format } = props;
 
   const convertToDefaultPara = (name, value) => ({
     target: {
@@ -17,13 +17,26 @@ export default function DatePicker(props) {
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <KeyboardDatePicker
-        disableToolbar
-        variant="inline"
-        format="yyyy/MM/dd"
-        name={name}
+        margin="normal"
+        id="date-picker-dialog"
+        label="Date picker dialog"
+        format="MM/dd/yyyy"
         value={value}
         onChange={date => onChange(convertToDefaultPara(name, date))}
-        helperText="YYYY/MM/DD"
+        KeyboardButtonProps={{
+          'aria-label': 'change date',
+        }}
+        // disableToolbar
+        // variant="inline"
+        // format={format}
+        // label={label}
+        // name={name}
+        // value={value}
+        // onChange={date => onChange(convertToDefaultPara(name, date))}
+        // helperText="YYYY/MM/DD"
+        // KeyboardButtonProps={{
+        //   'aria-label': 'change date',
+        // }}
       ></KeyboardDatePicker>
     </MuiPickersUtilsProvider>
   );

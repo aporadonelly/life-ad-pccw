@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import DateFnsUtils from '@date-io/date-fns';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -16,6 +17,10 @@ import Controls from '../controls/Controls';
 import * as employeeMockData from '../../pages/employees/mockData/mockData';
 import * as intl from '../../common/labels';
 import './styles/index.css';
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
 
 const initialValues = {
   mpf_id: null,
@@ -43,7 +48,7 @@ const initialValues = {
 const EmployeeForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const classes = { ...EmployeeStyles() };
+  const classes = EmployeeStyles();
 
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -203,7 +208,6 @@ const EmployeeForm = () => {
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>{intl.labels.gender}</h3>
                     <Controls.Select
-                      placeholder="Seletc"
                       label="Gender"
                       name="gender"
                       onChange={handleInputChange}
@@ -252,25 +256,39 @@ const EmployeeForm = () => {
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {' '}
                       {intl.labels.date_of_birth}
                     </h3>
-                    {/* <Controls.DatePicker
-                      name="date_of_birth"
-                      onChange={handleInputChange}
-                      fullWidth
-                      id="date"
-                      type="date"
-                      className={classes.textField}
-                      // value={values.date_of_birth}
-                      value={moment(values.date_of_birth).format(
-                        'YYYY MMMM DD  '
-                      )}
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                    /> */}
-                    <TextField
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <Grid container justify="space-around">
+                        <TextField
+                          name="date_of_birth"
+                          onChange={handleInputChange}
+                          fullWidth
+                          id="date"
+                          type="date"
+                          className={classes.textField}
+                          value={values.date_of_birth}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                        />
+                        {/* <Controls.DatePicker
+                          name="date_of_birth"
+                          onChange={handleInputChange}
+                          fullWidth
+                          id="date"
+                          format="yyyy/MM/dd"
+                          type="date"
+                          className={classes.textField}
+                          value={values.date_of_birth}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                        /> */}
+                      </Grid>
+                    </MuiPickersUtilsProvider>
+
+                    {/* <TextField
                       name="date_of_birth"
                       onChange={handleInputChange}
                       fullWidth
@@ -281,7 +299,7 @@ const EmployeeForm = () => {
                       InputLabelProps={{
                         shrink: true,
                       }}
-                    />
+                    /> */}
                   </div>
                 </Grid>
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
