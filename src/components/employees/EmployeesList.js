@@ -6,22 +6,33 @@ import { Paper, Typography, Button, Grid, Chip } from '@material-ui/core';
 import EmployeeStyles from './styles/EmployeeStyles';
 import EmployeesListStyles from './styles/EmployeesListStyle';
 import EmployeesTable from './EmployeesTable';
-import { searchMember } from '../../actions/employeesActions';
+import { searchMembers } from '../../actions/employeesActions';
 
-const EmployeesList = ({ employees: { employees }, searchMember }) => {
+const EmployeesList = ({ employees: { employees } }) => {
+  console.log(employees, 'enquiry');
   const classes = {
     ...EmployeeStyles(),
     ...EmployeesListStyles(),
   };
   const history = useHistory();
 
+  useEffect(() => {
+    searchMembers();
+  }, []);
+
   const [chipData, setChipData] = useState([
     { key: 0, label: 'Gender: Male' },
     { key: 1, label: 'ID Type: HKID' },
   ]);
 
+  // const [chipData, setChipData] = useState(enquiry);
+
   const handleDelete = chipToDelete => () => {
     setChipData(chips => chips.filter(chip => chip.key !== chipToDelete.key));
+  };
+
+  const handleEditSearch = () => {
+    history.push('/employee-search');
   };
 
   return (
@@ -68,6 +79,7 @@ const EmployeesList = ({ employees: { employees }, searchMember }) => {
                   className={classes.formBtn}
                   style={{ width: 'auto', top: '-8px' }}
                   variant="contained"
+                  onClick={handleEditSearch}
                 >
                   Edit Search
                 </Button>
@@ -113,4 +125,4 @@ const mapStateToProps = state => ({
   employees: state.employees,
 });
 
-export default connect(mapStateToProps, { searchMember })(EmployeesList);
+export default connect(mapStateToProps, {})(EmployeesList);

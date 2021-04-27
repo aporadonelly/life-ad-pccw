@@ -44,10 +44,11 @@ export const viewMember = id => async dispatch => {
   }
 };
 
-//search members
+//for quick search
 export const searchMember = text => async dispatch => {
   try {
-    const res = await api.get(`/employees?q=${text}`);
+    const res = await api(`/employees?q=${text}`);
+    console.log(res, 'searchMember');
     dispatch({
       type: SEARCH_MEMBERS,
       payload: res.data,
@@ -57,6 +58,7 @@ export const searchMember = text => async dispatch => {
   }
 };
 
+//for searching of users via form
 export const searchMembers = p => async dispatch => {
   const config = {
     headers: getHeaders(),
@@ -65,7 +67,6 @@ export const searchMembers = p => async dispatch => {
 
   try {
     const res = await api.get('http://localhost:8000/employees/', config);
-    console.log(res.data, 'res searchMembers');
     dispatch({
       type: SEARCH_MEMBERS,
       payload: res.data,

@@ -50,7 +50,6 @@ const headCells = [
   { id: 'mpf_id', label: 'MPF ID' },
   { id: 'first_name', label: 'Member Name' },
   { id: 'id_type', label: 'ID Type' },
-  { id: 'gender', label: 'Gender' }, //remove this later
   { id: 'id_number', label: 'ID Number' },
   { id: 'mobile_number', label: 'Mobile Number' },
   { id: 'email', label: 'Email' },
@@ -141,15 +140,22 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
                 {emp.first_name} {''}
                 {emp.last_name}
               </TableCell>
-              <TableCell>{emp.id_type.toUpperCase()}</TableCell>
-              <TableCell>
-                {emp.gender.charAt(0).toUpperCase() + emp.gender.slice(1)}
+              <TableCell
+                style={{
+                  textTransform: 'uppe',
+                }}
+              >
+                {emp.id_type}
               </TableCell>
               <TableCell>{emp.id_number}</TableCell>
               <TableCell>{emp.mobile_number}</TableCell>
               <TableCell>{emp.email}</TableCell>
-              <TableCell>
-                {emp.status.charAt(0).toUpperCase() + emp.status.slice(1)}
+              <TableCell
+                style={{
+                  textTransform: 'capitalize',
+                }}
+              >
+                {emp.status}
               </TableCell>
               <TableCell style={{ padding: '0 1px' }}>
                 <Button

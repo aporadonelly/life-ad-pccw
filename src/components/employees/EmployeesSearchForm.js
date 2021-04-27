@@ -1,26 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
 import DateFnsUtils from '@date-io/date-fns';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Grid, Paper, TextField } from '@material-ui/core';
-import {
-  fetchEmployees,
-  searchMember,
-  searchMembers,
-} from '../../actions/employeesActions';
+import { searchMembers } from '../../actions/employeesActions';
 import EmployeeStyles from './styles/EmployeeStyles';
 import { useForm, Form } from '../UseForm';
 import Controls from '../controls/Controls';
 import * as employeeMockData from '../../pages/employees/mockData/mockData';
 import * as intl from '../../common/labels';
 import './styles/index.css';
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 const initialValues = {
   mpf_id: null,
@@ -94,7 +86,6 @@ const EmployeeForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    let params = [];
     let p = {};
     if (mpf_id !== null) p['mpf_id'] = mpf_id;
     if (first_name !== null) p['first_name'] = first_name;
@@ -118,7 +109,6 @@ const EmployeeForm = () => {
     if (tax_residency !== null) p['tax_residency'] = tax_residency;
     if (tin !== null) p['tin'] = tin;
     if (status !== null) p['status'] = status;
-    console.log(p, 'p');
     dispatch(searchMembers(p));
     history.push('/employee-search-results');
     resetForm();
@@ -556,10 +546,7 @@ const EmployeeForm = () => {
 };
 
 EmployeeForm.propTypes = {
-  fetchEmployees: PropTypes.func.isRequired,
-  searchMember: PropTypes.func.isRequired,
+  searchMembers: PropTypes.func.isRequired,
 };
 
-export default connect(null, { fetchEmployees, searchMember, searchMembers })(
-  EmployeeForm
-);
+export default connect(null, { searchMembers })(EmployeeForm);

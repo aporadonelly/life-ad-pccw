@@ -6,9 +6,9 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  employees: null,
+  employees: [],
   employee: {},
-  enquiry: null,
+  enquiry: [],
 };
 export default (state = initialState, action) => {
   switch (action.type) {
