@@ -5,7 +5,7 @@ export default function Select(props) {
   const { name, value, onChange, options } = props;
   return (
     <MuiSelect
-      displayEmpty
+      displayEmpty={true}
       fullWidth
       name={name}
       value={value}
@@ -20,8 +20,8 @@ export default function Select(props) {
         <em>Please Select</em>
       </MenuItem>
       {options.map(item => (
-        <MenuItem key={item.value} value={item.value}>
-          {item.label}
+        <MenuItem key={item.id} value={item.id}>
+          {item.title}
         </MenuItem>
       ))}
     </MuiSelect>

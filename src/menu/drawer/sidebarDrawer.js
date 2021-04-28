@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -19,115 +19,133 @@ import GavelOutlinedIcon from '@material-ui/icons/GavelOutlined';
 import PublicOutlinedIcon from '@material-ui/icons/PublicOutlined';
 import SearchIcon from '@material-ui/icons/Search';
 import { useHistory, useLocation } from 'react-router-dom';
-import useStyles from "./sidebarDrawerStyle";
-import { BusinessCenter } from "../../assets/icons";
-import { Icon } from "@material-ui/core";
+import useStyles from './sidebarDrawerStyle';
+import { BusinessCenter } from '../../assets/icons';
+import { Icon } from '@material-ui/core';
 
 const SidebarDrawer = () => {
-    const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
-    const [openDrawer, setOpenDrawer] = useState(true);
-    const [isUserLogin, setIsUserLogin] = useState(true);
-    const classes = useStyles();
-    const history = useHistory();
-    const location = useLocation()
+  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const [openDrawer, setOpenDrawer] = useState(true);
+  const [isUserLogin, setIsUserLogin] = useState(true);
+  const classes = useStyles();
+  const history = useHistory();
+  const location = useLocation();
 
-    const sideDrawerItem = [
-        {
-            text: 'Dashboard',
-            icons: <HomeOutlinedIcon color="secondary" />,
-            path: '/'
-        },
-        {
-            text: 'Enquires',
-            icons: <SearchIcon color="secondary" />,
-            path: '/enquires'
-        },
-        {
-            text: 'Trustee',
-            icons: <AccountBalanceOutlinedIcon color="secondary" />,
-            path: '/trustee'
-        },
-        {
-            text: 'Company',
-            icons: <BusinessOutlinedIcon color="secondary" />,
-            path: '/company'
-        },
-        {
-            text: 'Indivdual',
-            icons: <PersonOutlineOutlinedIcon color="secondary" />,
-            path: '/individual'
-        },
-        {
-            text: 'Employer',
-            icons: <Icon style={{ alignSelf: "center" }} ><img style={{ height: "100%" }} src={BusinessCenter} /></Icon>,
-            path: '/employer'
-        },
-        {
-            text: 'Employee',
-            icons: <PeopleOutlineOutlinedIcon color="secondary" />,
-            path: '/employee'
-        },
-        {
-            text: 'Agent',
-            icons: <RecordVoiceOverOutlinedIcon color="secondary" />,
-            path: '/agent'
-        },
-        {
-            text: 'General Legar',
-            icons: <GavelOutlinedIcon color="secondary" />,
-            path: '/legar'
-        },
-        {
-            text: 'Correspondenses',
-            icons: <PublicOutlinedIcon color="secondary" />,
-            path: '/correspondenses'
-        },
-    ]
+  const sideDrawerItem = [
+    {
+      text: 'Dashboard',
+      icons: <HomeOutlinedIcon color="secondary" />,
+      path: '/',
+    },
+    {
+      text: 'Enquires',
+      icons: <SearchIcon color="secondary" />,
+      path: '/enquires',
+    },
+    {
+      text: 'Trustee',
+      icons: <AccountBalanceOutlinedIcon color="secondary" />,
+      path: '/trustee',
+    },
+    {
+      text: 'Company',
+      icons: <BusinessOutlinedIcon color="secondary" />,
+      path: '/company',
+    },
+    {
+      text: 'Indivdual',
+      icons: <PersonOutlineOutlinedIcon color="secondary" />,
+      path: '/individual',
+    },
+    {
+      text: 'Employer',
+      icons: (
+        <Icon style={{ alignSelf: 'center' }}>
+          <img style={{ height: '100%' }} src={BusinessCenter} />
+        </Icon>
+      ),
+      path: '/employer',
+    },
 
-        const Drawer = (
-        <React.Fragment>
-            <SwipeableDrawer 
-               variant="persistent"
-               disableBackdropTransition={!iOS} 
-               disableDiscovery={iOS} 
-               open={isUserLogin ? true : false} 
-               onClose={() => setOpenDrawer(false)}
-               onOpen={() => setOpenDrawer(true)}
-               classes={{ paper: classes.drawerContainer }}>
-                <List>
-                    {sideDrawerItem.map(item => (
-                        <ListItem 
-                            button 
-                            key={item.text}
-                            className={clsx(classes.drawerIconTextMargin, location.pathname === item.path ? classes.selectedActive : classes.hoverSelectedItem)} 
-                            onClick={() => {history.push(item.path)}} //; setOpenDrawer(false)
-                        >
-                            <div style={{ width: "35px" }}>{item.icons}</div>
-                            <div className={classes.sideMenuText}>{item.text}</div>
-                        </ListItem>
-                    ))}
-                </List>
-            </SwipeableDrawer>
-            <IconButton 
-              className={isUserLogin ? classes.leftIcon : classes.leftIconShift}
-               size="small"
-            //  onClick={() => setOpenDrawer(!openDrawer)}
+    {
+      text: 'Employee',
+      icons: <PeopleOutlineOutlinedIcon color="secondary" />,
+      path: '/employee-search',
+    },
+
+    {
+      text: 'Agent',
+      icons: <RecordVoiceOverOutlinedIcon color="secondary" />,
+      path: '/agent',
+    },
+    {
+      text: 'General Legar',
+      icons: <GavelOutlinedIcon color="secondary" />,
+      path: '/legar',
+    },
+    {
+      text: 'Correspondenses',
+      icons: <PublicOutlinedIcon color="secondary" />,
+      path: '/correspondenses',
+    },
+  ];
+
+  const Drawer = (
+    <React.Fragment>
+      <SwipeableDrawer
+        variant="persistent"
+        disableBackdropTransition={!iOS}
+        disableDiscovery={iOS}
+        open={isUserLogin ? true : false}
+        onClose={() => setOpenDrawer(false)}
+        onOpen={() => setOpenDrawer(true)}
+        classes={{ paper: classes.drawerContainer }}
+      >
+        <List>
+          {sideDrawerItem.map(item => (
+            <ListItem
+              button
+              key={item.text}
+              className={clsx(
+                classes.drawerIconTextMargin,
+                location.pathname === item.path
+                  ? classes.selectedActive
+                  : classes.hoverSelectedItem
+              )}
+              onClick={() => {
+                history.push(item.path);
+              }} //; setOpenDrawer(false)
             >
-                <ChevronLeftIcon style={{ fontSize: "34px" }} color="secondary" />
-            </IconButton>
-        </React.Fragment>
-    )
+              <div style={{ width: '35px' }}>{item.icons}</div>
+              <div className={classes.sideMenuText}>{item.text}</div>
+            </ListItem>
+          ))}
+        </List>
+      </SwipeableDrawer>
+      <IconButton
+        className={isUserLogin ? classes.leftIcon : classes.leftIconShift}
+        size="small"
+        //  onClick={() => setOpenDrawer(!openDrawer)}
+      >
+        <ChevronLeftIcon style={{ fontSize: '34px' }} color="secondary" />
+      </IconButton>
+    </React.Fragment>
+  );
 
-    return (
-        <React.Fragment>
-            <Toolbar className={clsx(classes.subToolbar, {
-                    [classes.toolbarShift]: openDrawer,
-                })} >
-                <Typography className={classes.subToolbarTitle}>Employee / Member Enqueries</Typography>
-                {Drawer}
-            </Toolbar>
-    </React.Fragment> 
-    );
-}
+  return (
+    <React.Fragment>
+      <Toolbar
+        className={clsx(classes.subToolbar, {
+          [classes.toolbarShift]: openDrawer,
+        })}
+      >
+        <Typography className={classes.subToolbarTitle}>
+          Employee / Member Enqueries
+        </Typography>
+        {Drawer}
+      </Toolbar>
+    </React.Fragment>
+  );
+};
 
 export default SidebarDrawer;

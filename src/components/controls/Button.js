@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button as MuiButton } from '@material-ui/core';
-import EmployeeStyles from '../EmployeeSearch/Styles/EmployeeStyles';
+import EmployeeStyles from '../employees/styles/EmployeeStyles';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -14,6 +14,7 @@ const useStyles = makeStyles(theme => ({
 export default function Button(props) {
   const classes = { ...EmployeeStyles(), ...useStyles() };
   const { text, size, color, variant, onClick, ...other } = props;
+
   return (
     <MuiButton
       variant={variant || 'contained'}

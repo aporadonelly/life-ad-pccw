@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 export function useForm(initialValues, validateOnchange = false, validate) {
+  const history = useHistory();
   const [values, setValues] = useState(initialValues);
+
   const [errors, setErrors] = useState({});
 
   const handleInputChange = e => {
