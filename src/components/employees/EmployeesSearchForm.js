@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import DateFnsUtils from '@date-io/date-fns';
 import PropTypes from 'prop-types';
@@ -111,7 +111,6 @@ const EmployeeForm = () => {
     if (status !== null) p['status'] = status;
     dispatch(searchMembers(p));
     history.push('/employee-search-results');
-    resetForm();
   };
   return (
     <>
@@ -261,6 +260,7 @@ const EmployeeForm = () => {
                           InputLabelProps={{
                             shrink: true,
                           }}
+                          helperText="YYYYMMDD"
                         />
                         {/* <Controls.DatePicker
                           name="date_of_birth"
@@ -402,9 +402,11 @@ const EmployeeForm = () => {
                       type="date"
                       className={classes.textField}
                       value={values.date_of_employment}
+                      defaultValue="Please Input"
                       InputLabelProps={{
                         shrink: true,
                       }}
+                      helperText="YYYYMMDD"
                     />
                   </div>
                 </Grid>

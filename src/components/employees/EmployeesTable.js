@@ -142,7 +142,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
               </TableCell>
               <TableCell
                 style={{
-                  textTransform: 'uppe',
+                  textTransform: 'uppercase',
                 }}
               >
                 {emp.id_type}
