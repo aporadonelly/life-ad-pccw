@@ -5,7 +5,7 @@ export default function Select(props) {
   const { name, value, onChange, options } = props;
   return (
     <MuiSelect
-      displayEmpty={true}
+      displayEmpty
       fullWidth
       name={name}
       value={value}

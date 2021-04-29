@@ -76,13 +76,12 @@ export const searchMembers = p => async dispatch => {
   }
 };
 
-export const createMemberEnquiry = payload => async dispatch => {
+export const saveQuery = p => async dispatch => {
   try {
-    const res = await api.post('/employees/', payload, await getHeaders());
-    console.log(res, 'createMemberEnruiry');
+    const res = p;
     dispatch({
       type: CREATE_QUERY_SUCCESS,
-      payload: res.data,
+      payload: res,
     });
   } catch (e) {
     console.log(e, 'err');

@@ -6,29 +6,52 @@ import { Paper, Typography, Button, Grid, Chip } from '@material-ui/core';
 import EmployeeStyles from './styles/EmployeeStyles';
 import EmployeesListStyles from './styles/EmployeesListStyle';
 import EmployeesTable from './EmployeesTable';
-import { searchMembers } from '../../actions/employeesActions';
+import { searchMembers, saveQuery } from '../../actions/employeesActions';
 
-const EmployeesList = ({ employees: { employees } }) => {
-  console.log(employees, 'enquiry');
+const EmployeesList = ({ employees: { employees, enquiry } }) => {
   const classes = {
     ...EmployeeStyles(),
     ...EmployeesListStyles(),
   };
   const history = useHistory();
+  const [chipData, setChipData] = useState(enquiry);
 
   useEffect(() => {
     searchMembers();
+    saveQuery();
   }, []);
 
-  const [chipData, setChipData] = useState([
-    { key: 0, label: 'Gender: Male' },
-    { key: 1, label: 'ID Type: HKID' },
-  ]);
-
-  // const [chipData, setChipData] = useState(enquiry);
-
   const handleDelete = chipToDelete => () => {
-    setChipData(chips => chips.filter(chip => chip.key !== chipToDelete.key));
+    const asArray = Object.entries(chipData);
+    const chips = asArray.filter(([key, value]) => key !== chipToDelete);
+    setChipData(chips);
+    console.log(chips, 'chips');
+    searchMembers(chipData);
+  };
+
+  const renderObject = () => {
+    console.log(chipData, 'chipData');
+    return Object.entries(chipData).map(([key, value], i) => {
+      let initValue =
+        value === 'hkid' ||
+        value === 'twid' ||
+        value === 'bpo' ||
+        value === 'it'
+          ? value.toUpperCase()
+          : value;
+      let initKey = key.replace(/_/g, ' ');
+      let label = `${initKey} :  ${initValue}`;
+
+      return (
+        <Chip
+          style={{ textTransform: 'capitalize', margin: '2px' }}
+          key={key}
+          label={label}
+          onDelete={handleDelete(key)}
+          color="primary"
+        />
+      );
+    });
   };
 
   const handleEditSearch = () => {
@@ -47,23 +70,7 @@ const EmployeesList = ({ employees: { employees } }) => {
             </Grid>
             <Grid className={classes.root} item xs={12} lg={12} sm={12}>
               <Grid className={classes.root} item xs={12} lg={8} sm={12}>
-                {chipData.map(data => {
-                  let icon;
-                  return (
-                    <li key={data.key}>
-                      <Chip
-                        icon={icon}
-                        label={data.label}
-                        onDelete={handleDelete(data)}
-                        className={
-                          data.label === 'ID Type: HKID'
-                            ? classes.chip1
-                            : classes.chip
-                        }
-                      />
-                    </li>
-                  );
-                })}
+                {renderObject()}
               </Grid>
               <Grid
                 style={{

@@ -4,8 +4,8 @@ import DateFnsUtils from '@date-io/date-fns';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Grid, Paper, TextField } from '@material-ui/core';
-import { searchMembers } from '../../actions/employeesActions';
+import { Grid, MenuItem, Paper, TextField } from '@material-ui/core';
+import { searchMembers, saveQuery } from '../../actions/employeesActions';
 import EmployeeStyles from './styles/EmployeeStyles';
 import { useForm, Form } from '../UseForm';
 import Controls from '../controls/Controls';
@@ -110,6 +110,7 @@ const EmployeeForm = () => {
     if (tin !== null) p['tin'] = tin;
     if (status !== null) p['status'] = status;
     dispatch(searchMembers(p));
+    dispatch(saveQuery(p));
     history.push('/employee-search-results');
   };
   return (
@@ -262,34 +263,8 @@ const EmployeeForm = () => {
                           }}
                           helperText="YYYYMMDD"
                         />
-                        {/* <Controls.DatePicker
-                          name="date_of_birth"
-                          onChange={handleInputChange}
-                          fullWidth
-                          id="date"
-                          format="yyyy/MM/dd"
-                          type="date"
-                          className={classes.textField}
-                          value={values.date_of_birth}
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                        /> */}
                       </Grid>
                     </MuiPickersUtilsProvider>
-
-                    {/* <TextField
-                      name="date_of_birth"
-                      onChange={handleInputChange}
-                      fullWidth
-                      id="date"
-                      type="date"
-                      className={classes.textField}
-                      value={values.date_of_birth}
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                    /> */}
                   </div>
                 </Grid>
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
