@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import DateFnsUtils from '@date-io/date-fns';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Grid, MenuItem, Paper, TextField } from '@material-ui/core';
-import { searchMembers, saveQuery } from '../../actions/employeesActions';
+import { Grid, MenuItem, Paper, Select, TextField } from '@material-ui/core';
+import {
+  searchMembers,
+  saveQuery,
+  fetchGender,
+  fetchIdType,
+  fetchNationality,
+} from '../../actions/employeesActions';
 import EmployeeStyles from './styles/EmployeeStyles';
 import { useForm, Form } from '../UseForm';
 import Controls from '../controls/Controls';
@@ -37,10 +43,17 @@ const initialValues = {
   status: null,
 };
 
-const EmployeeForm = () => {
+const EmployeeForm = ({ employees: { genderType, idType, nationalities } }) => {
+  console.log(nationalities, 'nationalities');
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = EmployeeStyles();
+
+  useEffect(() => {
+    dispatch(fetchGender());
+    dispatch(fetchIdType());
+    dispatch(fetchNationality());
+  }, []);
 
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -197,15 +210,25 @@ const EmployeeForm = () => {
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>{intl.labels.gender}</h3>
-                    <Controls.Select
+                    <Select
+                      displayEmpty
                       label="Gender"
                       name="gender"
                       onChange={handleInputChange}
                       fullWidth
                       value={values.gender}
                       className={classes.gender}
-                      options={employeeMockData.getGenderCollection()}
-                    ></Controls.Select>
+                      // options={genderType}
+                    >
+                      <MenuItem value="" disabled>
+                        Please Select
+                      </MenuItem>
+                      {genderType.map(c => (
+                        <MenuItem key={c.id} value={c.cstmTypDtlTxt}>
+                          {c.cstmTypDtlTxt}
+                        </MenuItem>
+                      ))}
+                    </Select>
                   </div>
                 </Grid>
               </Grid>
@@ -215,15 +238,24 @@ const EmployeeForm = () => {
                     <h3 className={classes.fieldLabel}>
                       {intl.labels.id_type}
                     </h3>
-                    <Controls.Select
+                    <Select
                       label="ID Type"
                       name="id_type"
                       onChange={handleInputChange}
                       fullWidth
                       value={values.id_type}
                       className={classes.gender}
-                      options={employeeMockData.idTypes()}
-                    ></Controls.Select>
+                      // options={employeeMockData.idTypes()}
+                    >
+                      <MenuItem value="" disabled>
+                        Please Select
+                      </MenuItem>
+                      {idType.map(c => (
+                        <MenuItem key={c.id} value={c.cstmTypDtlTxt}>
+                          {c.cstmTypDtlTxt}
+                        </MenuItem>
+                      ))}
+                    </Select>
                   </div>
                 </Grid>
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -272,14 +304,23 @@ const EmployeeForm = () => {
                     <h3 className={classes.fieldLabel}>
                       {intl.labels.nationality}
                     </h3>
-                    <Controls.Select
+                    <Select
                       name="nationality"
                       onChange={handleInputChange}
                       fullWidth
                       value={values.nationality}
                       className={classes.gender}
-                      options={employeeMockData.nationality()}
-                    ></Controls.Select>
+                      // options={employeeMockData.nationality()}
+                    >
+                      <MenuItem value="" disabled>
+                        Please Select
+                      </MenuItem>
+                      {nationalities.map(c => (
+                        <MenuItem key={c.id} value={c.cstmTypId}>
+                          {c.cstmTypId}
+                        </MenuItem>
+                      ))}
+                    </Select>
                   </div>
                 </Grid>
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -524,6 +565,18 @@ const EmployeeForm = () => {
 
 EmployeeForm.propTypes = {
   searchMembers: PropTypes.func.isRequired,
+  fetchGender: PropTypes.func.isRequired,
+  fetchIdType: PropTypes.func.isRequired,
+  fetchNationality: PropTypes.func.isRequired,
 };
 
-export default connect(null, { searchMembers })(EmployeeForm);
+const mapStateToProps = state => ({
+  employees: state.employees,
+});
+
+export default connect(mapStateToProps, {
+  searchMembers,
+  fetchGender,
+  fetchIdType,
+  fetchNationality,
+})(EmployeeForm);

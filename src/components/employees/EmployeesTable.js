@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import {
   Box,
   makeStyles,
@@ -11,53 +11,48 @@ import {
   TableCell,
   Typography,
   Button,
-  Toolbar,
-  InputAdornment,
-  IconButton,
-} from "@material-ui/core";
-import Controls from "../controls/Controls";
-import useTable from "../useTable";
-import { Search } from "@material-ui/icons";
-import { viewMember, searchMember } from "../../actions/employeesActions";
-import EmployeeItem from "./EmployeeItem";
-import reactStringReplace from "@utils/reactStringReplace";
-import AnimatedSearchBar from "@components/AnimatedSearchBar";
+} from '@material-ui/core';
+import useTable from '../useTable';
+import { viewMember } from '../../actions/employeesActions';
+import EmployeeItem from './EmployeeItem';
+import reactStringReplace from '@utils/reactStringReplace';
+import AnimatedSearchBar from '@components/AnimatedSearchBar';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: "#fdfdff",
-    display: "flex",
-    justifyContent: "start",
-    flexWrap: "wrap",
-    listStyle: "none",
+    backgroundColor: '#fdfdff',
+    display: 'flex',
+    justifyContent: 'start',
+    flexWrap: 'wrap',
+    listStyle: 'none',
   },
   pageTitle: {
     paddingLeft: theme.spacing(1),
-    "& .MuiTypography-subtitle2": {
-      opacity: "0.6",
+    '& .MuiTypography-subtitle2': {
+      opacity: '0.6',
     },
-    color: "#009CCD",
-    fontSize: "26px",
-    fontFamily: "Roboto",
+    color: '#009CCD',
+    fontSize: '26px',
+    fontFamily: 'Roboto',
   },
   disabled: {
-    pointerEvents: "none",
-    cursor: "not-allowed",
+    pointerEvents: 'none',
+    cursor: 'not-allowed',
     opacity: 0.65,
-    filter: "alpha(opacity=65)",
-    boxShadow: "none",
+    filter: 'alpha(opacity=65)',
+    boxShadow: 'none',
   },
 }));
 
 const headCells = [
-  { id: "mpf_id", label: "MPF ID" },
-  { id: "first_name", label: "Member Name" },
-  { id: "id_type", label: "ID Type" },
-  { id: "id_number", label: "ID Number" },
-  { id: "mobile_number", label: "Mobile Number" },
-  { id: "email", label: "Email" },
-  { id: "status", label: "Status" },
-  { id: "action", label: "Action", disableSorting: true },
+  { id: 'mpf_id', label: 'MPF ID' },
+  { id: 'first_name', label: 'Member Name' },
+  { id: 'id_type', label: 'ID Type' },
+  { id: 'id_number', label: 'ID Number' },
+  { id: 'mobile_number', label: 'Mobile Number' },
+  { id: 'email', label: 'Email' },
+  { id: 'status', label: 'Status' },
+  { id: 'action', label: 'Action', disableSorting: true },
 ];
 
 const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
@@ -66,7 +61,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
   const [viewMemberState, setViewMemberState] = useState(false);
   const [tableView, setTableView] = useState(true);
   const [filterFn, setfilterFn] = useState({
-    fn: (items) => {
+    fn: items => {
       return items;
     },
   });
@@ -79,19 +74,19 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
     employeesAfterPagingAndSorting,
   } = useTable(employees, headCells, filterFn);
 
-  const handleSearch = (e) => {
+  const handleSearch = e => {
     setSearch(e.target.value);
   };
 
-  const handleClear = (e) => {
-    setSearch("");
+  const handleClear = e => {
+    setSearch('');
   };
 
-  const employeeView = (id) => {
+  const employeeView = id => {
     viewMember(id);
     setViewMemberState(true);
     setTableView(false);
-    history.push("/employee-view");
+    history.push('/employee-view');
   };
 
   const highligtedText = (source, match) =>
@@ -112,6 +107,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
         <Grid className={classes.pageTitle} item lg={6} sm={6} xs={12}>
           <Box display="flex" justifyContent="flex-end">
             <AnimatedSearchBar
+              placeholder="Quick Search"
               value={search}
               onChange={handleSearch}
               onClear={handleClear}
@@ -125,9 +121,9 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
       <TblContainer>
         <TblHead />
         <TableBody>
-          {employeesAfterPagingAndSorting().map((emp) => (
+          {employeesAfterPagingAndSorting().map(emp => (
             <TableRow key={emp.id}>
-              <TableCell style={{ color: "#2D9FC3" }}>
+              <TableCell style={{ color: '#2D9FC3' }}>
                 {highligtedText(emp.mpf_id, search)}
               </TableCell>
               <TableCell>
@@ -135,7 +131,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
               </TableCell>
               <TableCell
                 style={{
-                  textTransform: "uppercase",
+                  textTransform: 'uppercase',
                 }}
               >
                 {highligtedText(emp.id_type, search)}
@@ -145,25 +141,25 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
               <TableCell>{highligtedText(emp.email, search)}</TableCell>
               <TableCell
                 style={{
-                  textTransform: "capitalize",
+                  textTransform: 'capitalize',
                 }}
               >
                 {highligtedText(emp.status, search)}
               </TableCell>
-              <TableCell style={{ padding: "0 1px" }}>
+              <TableCell style={{ padding: '0 1px' }}>
                 <Button
                   onClick={() => employeeView(emp.id)}
                   variant="contained"
                   color="primary"
-                  style={{ margin: "0 5px" }}
-                  className={emp.status === "inactive" && classes.disabled}
+                  style={{ margin: '0 5px' }}
+                  className={emp.status === 'inactive' && classes.disabled}
                 >
                   R
                 </Button>
                 <Button
                   variant="contained"
                   color="secondary"
-                  style={{ margin: "0 5px" }}
+                  style={{ margin: '0 5px' }}
                 >
                   E
                 </Button>
@@ -180,14 +176,11 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
 
 EmployeesTable.propTypes = {
   employees: PropTypes.object.isRequired,
-  searchMember: PropTypes.func.isRequired,
   viewMember: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   employees: state.employees,
 });
 
-export default connect(mapStateToProps, { viewMember, searchMember })(
-  EmployeesTable
-);
+export default connect(mapStateToProps, { viewMember })(EmployeesTable);

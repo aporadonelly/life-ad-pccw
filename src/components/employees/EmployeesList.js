@@ -39,7 +39,7 @@ const EmployeesList = ({ employees: { employees, enquiry } }) => {
         value === 'it'
           ? value.toUpperCase()
           : value;
-      let initKey = key.replace(/_/g, ' ');
+      let initKey = key === 'id_type' && key.toUpperCase().replace(/_/g, ' ');
       let label = `${initKey} :  ${initValue}`;
 
       return (
