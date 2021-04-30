@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-
 import {
 	Box,
 	makeStyles,
@@ -11,17 +10,22 @@ import {
 	TableBody,
 	TableCell,
 	Typography,
+	Button,
+	Toolbar,
+	InputAdornment,
+	IconButton,
 } from '@material-ui/core'
+import Controls from '../controls/Controls'
 import useTable from '../useTable'
-import { viewMember, saveQuery } from '../../actions/employeesActions'
+import { Search } from '@material-ui/icons'
+import {
+	viewMember,
+	searchMember,
+	saveQuery,
+} from '../../actions/employeesActions'
 import EmployeeItem from './EmployeeItem'
 import reactStringReplace from '@utils/reactStringReplace'
 import AnimatedSearchBar from '@components/AnimatedSearchBar'
-import viewEnrollActive from '../../assets/icons/enroll-active.PNG'
-import viewEnrollInActive from '../../assets/icons/enroll-inactive.PNG'
-import EmployeeStyles from './styles/EmployeeStyles'
-import viewReg from '../../assets/icons/view_reg.PNG'
-import * as intl from '../../common/labels'
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -35,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
 		paddingLeft: theme.spacing(1),
 		'& .MuiTypography-subtitle2': {
 			opacity: '0.6',
-			fontSize: '26px',
 		},
 		color: '#009CCD',
 		fontSize: '26px',
@@ -63,11 +66,9 @@ const headCells = [
 
 const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
 	const history = useHistory()
-	const classes = { ...useStyles(), ...EmployeeStyles() }
-
+	const classes = { ...useStyles() }
 	const [viewMemberState, setViewMemberState] = useState(false)
 	const [tableView, setTableView] = useState(true)
-
 	const [filterFn, setfilterFn] = useState({
 		fn: (items) => {
 			return items
@@ -94,7 +95,6 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
 		viewMember(id)
 		setViewMemberState(true)
 		setTableView(false)
-		saveQuery()
 		history.push('/employee-view')
 	}
 
@@ -107,16 +107,15 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
 
 	return (
 		<>
-			<Grid container alignItems='center' style={{ marginBottom: '-10px' }}>
+			<Grid container alignItems='center'>
 				<Grid className={classes.pageTitle} item lg={3} sm={3} xs={12}>
 					<Typography variant='h6' component='div'>
-						{intl.labels.searchResult}
+						Search Result
 					</Typography>
 				</Grid>
 				<Grid className={classes.pageTitle} item lg={6} sm={6} xs={12}>
 					<Box display='flex' justifyContent='flex-end'>
 						<AnimatedSearchBar
-							placeholder='Quick Search'
 							value={search}
 							onChange={handleSearch}
 							onClear={handleClear}
@@ -138,7 +137,13 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
 							<TableCell>
 								{highligtedText(`${emp.first_name} ${emp.last_name}`, search)}
 							</TableCell>
-							<TableCell>{highligtedText(emp.id_type, search)}</TableCell>
+							<TableCell
+								style={{
+									textTransform: 'uppercase',
+								}}
+							>
+								{highligtedText(emp.id_type, search)}
+							</TableCell>
 							<TableCell>{highligtedText(emp.id_number, search)}</TableCell>
 							<TableCell>{highligtedText(emp.mobile_number, search)}</TableCell>
 							<TableCell>{highligtedText(emp.email, search)}</TableCell>
@@ -150,29 +155,22 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
 								{highligtedText(emp.status, search)}
 							</TableCell>
 							<TableCell style={{ padding: '0 1px' }}>
-								<img
-									src={viewReg}
-									alt='View Registration'
+								<Button
 									onClick={() => employeeView(emp.id)}
 									variant='contained'
-									style={{
-										margin: '0 5px',
-										background: '#EF841F',
-										color: '#fff',
-									}}
-									// className={emp.status === 'inactive' && classes.disabled}
-								/>
-								<img
-									src={viewEnrollActive}
-									alt='View Enrollment'
+									color='primary'
+									style={{ margin: '0 5px' }}
+									className={emp.status === 'inactive' && classes.disabled}
+								>
+									R
+								</Button>
+								<Button
 									variant='contained'
-									style={{
-										margin: '0 5px',
-										background: '#EF841F',
-										color: '#fff',
-									}}
-									// className={classes.disabled}
-								/>
+									color='secondary'
+									style={{ margin: '0 5px' }}
+								>
+									E
+								</Button>
 							</TableCell>
 						</TableRow>
 					))}
