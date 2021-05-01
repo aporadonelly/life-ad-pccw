@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Paper, Typography, makeStyles, Button, Grid } from '@material-ui/core';
 import EmployeeStyles from './styles/EmployeeStyles';
 import { useHistory } from 'react-router-dom';
-import { viewMember } from '../../actions/employeesActions';
+
 import * as intl from '../../common/labels';
 import Controls from '../controls/Controls';
 
@@ -59,10 +58,6 @@ const EmployeeView = ({ employees: { employee, id } }) => {
   const classes = { ...EmployeeStyles(), ...useStyles() };
   const history = useHistory();
 
-  useEffect(() => {
-    viewMember(id);
-  }, [employee]);
-
   const {
     mpf_id,
     title,
@@ -85,6 +80,10 @@ const EmployeeView = ({ employees: { employee, id } }) => {
     receive_paper_form_notifications_and_document,
     status,
   } = employee;
+
+  const goToSearch = () => {
+    history.push('/employee-search-results');
+  };
 
   return (
     <>
@@ -335,7 +334,6 @@ const EmployeeView = ({ employees: { employee, id } }) => {
         className={classes.fieldSpacing}
       >
         <Button
-          text="BACK TO SEARCH"
           className={classes.cancelBtn}
           style={{
             float: 'right',
@@ -344,10 +342,10 @@ const EmployeeView = ({ employees: { employee, id } }) => {
             color: '#fff',
             top: '.5px',
           }}
-          onClick={() => history.push('/employee-search-results')}
+          onClick={() => goToSearch(id)}
           variant="contained"
         >
-          BACK TO SEARCH
+          {intl.labels.backToSearch}
         </Button>
       </Grid>
     </>
@@ -362,4 +360,4 @@ const mapStateToProps = state => ({
   employees: state.employees,
 });
 
-export default connect(mapStateToProps, { viewMember })(EmployeeView);
+export default connect(mapStateToProps, {})(EmployeeView);

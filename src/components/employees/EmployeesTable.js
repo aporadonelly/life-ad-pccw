@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+
 import {
   Box,
   makeStyles,
@@ -10,13 +11,16 @@ import {
   TableBody,
   TableCell,
   Typography,
-  Button,
 } from '@material-ui/core';
 import useTable from '../useTable';
-import { viewMember } from '../../actions/employeesActions';
+import { viewMember, saveQuery } from '../../actions/employeesActions';
 import EmployeeItem from './EmployeeItem';
 import reactStringReplace from '@utils/reactStringReplace';
 import AnimatedSearchBar from '@components/AnimatedSearchBar';
+import viewEnrollActive from '../../assets/icons/view_enroll.PNG';
+import EmployeeStyles from './styles/EmployeeStyles';
+import viewReg from '../../assets/icons/view_reg.PNG';
+import * as intl from '../../common/labels';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,6 +34,7 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: theme.spacing(1),
     '& .MuiTypography-subtitle2': {
       opacity: '0.6',
+      fontSize: '26px',
     },
     color: '#009CCD',
     fontSize: '26px',
@@ -57,9 +62,11 @@ const headCells = [
 
 const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
   const history = useHistory();
-  const classes = { ...useStyles() };
+  const classes = { ...useStyles(), ...EmployeeStyles() };
+
   const [viewMemberState, setViewMemberState] = useState(false);
   const [tableView, setTableView] = useState(true);
+
   const [filterFn, setfilterFn] = useState({
     fn: items => {
       return items;
@@ -86,6 +93,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
     viewMember(id);
     setViewMemberState(true);
     setTableView(false);
+    saveQuery();
     history.push('/employee-view');
   };
 
@@ -98,10 +106,10 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
 
   return (
     <>
-      <Grid container alignItems="center">
+      <Grid container alignItems="center" style={{ marginBottom: '-10px' }}>
         <Grid className={classes.pageTitle} item lg={3} sm={3} xs={12}>
           <Typography variant="h6" component="div">
-            Search Result
+            {intl.labels.searchResult}
           </Typography>
         </Grid>
         <Grid className={classes.pageTitle} item lg={6} sm={6} xs={12}>
@@ -129,13 +137,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
               <TableCell>
                 {highligtedText(`${emp.first_name} ${emp.last_name}`, search)}
               </TableCell>
-              <TableCell
-                style={{
-                  textTransform: 'uppercase',
-                }}
-              >
-                {highligtedText(emp.id_type, search)}
-              </TableCell>
+              <TableCell>{highligtedText(emp.id_type, search)}</TableCell>
               <TableCell>{highligtedText(emp.id_number, search)}</TableCell>
               <TableCell>{highligtedText(emp.mobile_number, search)}</TableCell>
               <TableCell>{highligtedText(emp.email, search)}</TableCell>
@@ -147,22 +149,29 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
                 {highligtedText(emp.status, search)}
               </TableCell>
               <TableCell style={{ padding: '0 1px' }}>
-                <Button
+                <img
+                  src={viewReg}
+                  alt="View Registration"
                   onClick={() => employeeView(emp.id)}
                   variant="contained"
-                  color="primary"
-                  style={{ margin: '0 5px' }}
-                  className={emp.status === 'inactive' && classes.disabled}
-                >
-                  R
-                </Button>
-                <Button
+                  style={{
+                    margin: '0 5px',
+                    background: '#EF841F',
+                    color: '#fff',
+                  }}
+                  // className={emp.status === 'inactive' && classes.disabled}
+                />
+                <img
+                  src={viewEnrollActive}
+                  alt="View Enrollment"
                   variant="contained"
-                  color="secondary"
-                  style={{ margin: '0 5px' }}
-                >
-                  E
-                </Button>
+                  style={{
+                    margin: '0 5px',
+                    background: '#EF841F',
+                    color: '#fff',
+                  }}
+                  // className={emp.status === 'inactive' && classes.disabled}
+                />
               </TableCell>
             </TableRow>
           ))}
@@ -183,4 +192,6 @@ const mapStateToProps = state => ({
   employees: state.employees,
 });
 
-export default connect(mapStateToProps, { viewMember })(EmployeesTable);
+export default connect(mapStateToProps, { viewMember, saveQuery })(
+  EmployeesTable
+);

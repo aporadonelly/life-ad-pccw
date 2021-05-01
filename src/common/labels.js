@@ -1,5 +1,5 @@
 export const labels = {
-  member_enquiry: 'Member Enquiry',
+  memberEnquiry: 'Member Enquiry',
   title: 'Title',
   personal_info: 'Personal Information',
   mpf_id: 'MPF ID',
@@ -35,4 +35,8 @@ export const labels = {
   other_info: 'Other Information',
   preferred_communication_language: 'Preferred Communication Language',
   recv_paper_form_notif_docs: 'Receive Paper Form Notifications and Document',
+  searchResult: 'Search Result',
+  editSearch: 'Edit Search',
+  newSearch: 'New Search',
+  backToSearch: "BACK TO SEARCH"
 };

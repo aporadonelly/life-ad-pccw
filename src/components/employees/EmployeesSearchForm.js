@@ -21,7 +21,6 @@ import {
 import EmployeeStyles from './styles/EmployeeStyles';
 import { useForm, Form } from '../UseForm';
 import Controls from '../controls/Controls';
-import * as employeeMockData from '../../pages/employees/mockData/mockData';
 import * as intl from '../../common/labels';
 import './styles/index.css';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -62,7 +61,6 @@ const EmployeeForm = ({
     placeOfBirth,
   },
 }) => {
-  console.log(placeOfBirth, 'placeOfBirth');
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = EmployeeStyles();
@@ -146,7 +144,7 @@ const EmployeeForm = ({
     if (tax_residency !== null) p['tax_residency'] = tax_residency;
     if (tin !== null) p['tin'] = tin;
     if (status !== null) p['status'] = status;
-    console.log(p, 'ppp');
+
     dispatch(searchMembers(p));
     dispatch(saveQuery(p));
     history.push('/employee-search-results');
@@ -157,7 +155,7 @@ const EmployeeForm = ({
         <Grid container>
           <Grid item xs={12}>
             <Form onSubmit={handleSubmit}>
-              <div className={classes.label}>{intl.labels.member_enquiry}</div>
+              <div className={classes.label}>{intl.labels.memberEnquiry}</div>
               <Grid
                 item
                 container
@@ -598,4 +596,5 @@ export default connect(mapStateToProps, {
   fetchOccupation,
   fetchStatus,
   fetchPlaceOfBirth,
+  saveQuery,
 })(EmployeeForm);

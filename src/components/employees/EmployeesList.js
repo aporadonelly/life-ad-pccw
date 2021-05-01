@@ -6,43 +6,33 @@ import { Paper, Typography, Button, Grid, Chip } from '@material-ui/core';
 import EmployeeStyles from './styles/EmployeeStyles';
 import EmployeesListStyles from './styles/EmployeesListStyle';
 import EmployeesTable from './EmployeesTable';
-import { searchMembers, saveQuery } from '../../actions/employeesActions';
+import * as intl from '../../common/labels';
 
 const EmployeesList = ({ employees: { employees, enquiry } }) => {
   const classes = {
     ...EmployeeStyles(),
     ...EmployeesListStyles(),
   };
+
   const history = useHistory();
-  const [chipData, setChipData] = useState(enquiry);
+  const [chipData, setChipData] = useState({});
+  const [members, setMembers] = useState([]);
 
   useEffect(() => {
-    searchMembers();
-    saveQuery();
+    setMembers(employees);
+    setChipData(enquiry);
   }, []);
 
   const handleDelete = chipToDelete => () => {
     const asArray = Object.entries(chipData);
     const chips = asArray.filter(([key, value]) => key !== chipToDelete);
     setChipData(chips);
-    searchMembers(chipData);
   };
 
   const renderObject = () => {
-    console.log(chipData, 'chipData');
     return Object.entries(chipData).map(([key, value], i) => {
-      let initValue =
-        value === 'hkid' ||
-        value === 'twid' ||
-        value === 'bpo' ||
-        value === 'it'
-          ? value.toUpperCase()
-          : value;
-      let initKey =
-        key === 'id_type'
-          ? key.toUpperCase().replace(/_/g, ' ')
-          : key.replace(/_/g, ' ');
-      let label = `${initKey} :  ${initValue}`;
+      let initKey = key === 'id_type' ? key.replace(/_/g, ' ') : key;
+      let label = `${initKey} :  ${value}`;
 
       return (
         <Chip
@@ -67,12 +57,12 @@ const EmployeesList = ({ employees: { employees, enquiry } }) => {
           <Grid item xs={12} lg={12} sm={12}>
             <Grid className={classes.pageTitle} item xs={12} lg={12} sm={12}>
               <Typography variant="h6" component="div">
-                Member Enquiry
+                {intl.labels.memberEnquiry}
               </Typography>
             </Grid>
             <Grid className={classes.root} item xs={12} lg={12} sm={12}>
               <Grid className={classes.root} item xs={12} lg={8} sm={12}>
-                {renderObject()}
+                {chipData && renderObject()}
               </Grid>
               <Grid
                 style={{
@@ -90,7 +80,7 @@ const EmployeesList = ({ employees: { employees, enquiry } }) => {
                   variant="contained"
                   onClick={handleEditSearch}
                 >
-                  Edit Search
+                  {intl.labels.editSearch}
                 </Button>
                 <Button
                   className={classes.formBtn}
@@ -103,7 +93,7 @@ const EmployeesList = ({ employees: { employees, enquiry } }) => {
                   }}
                   onClick={() => history.push('/employee-search')}
                 >
-                  New Search
+                  {intl.labels.newSearch}
                 </Button>
               </Grid>
             </Grid>
@@ -114,11 +104,7 @@ const EmployeesList = ({ employees: { employees, enquiry } }) => {
       <Paper className={classes.pageContentTable} style={{ top: '-25px' }}>
         <Grid className={classes.root} item xs={12} lg={12} sm={12}>
           <Grid className={classes.pageTitle} item xs={12} lg={12} sm={12}>
-            {employees.length > 0 ? (
-              <EmployeesTable employees={employees} />
-            ) : (
-              <p>No employee found.</p>
-            )}
+            <EmployeesTable employees={members} />
           </Grid>
         </Grid>
       </Paper>

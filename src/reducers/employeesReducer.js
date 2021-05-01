@@ -1,7 +1,10 @@
 import {
   FETCH_EMPLOYEES_SUCCESS,
+  FETCH_EMPLOYEES_FAIL,
   VIEW_EMPLOYEE_SUCCESS,
-  SEARCH_MEMBERS,
+  VIEW_EMPLOYEE_FAIL,
+  SEARCH_MEMBERS_SUCCESS,
+  SEARCH_MEMBERS_FAIL,
   CREATE_QUERY_SUCCESS,
   FETCH_GENDER_SUCCESS,
   FETCH_GENDER_FAIL,
@@ -27,7 +30,7 @@ const initialState = {
   error: {},
   employees: [],
   employee: {},
-  enquiry: [],
+  enquiry: {},
   genderType: [],
   idType: [],
   nationalities: [],
@@ -97,7 +100,7 @@ export default (state = initialState, action) => {
         ...state,
         employee: payload,
       };
-    case SEARCH_MEMBERS:
+    case SEARCH_MEMBERS_SUCCESS:
       return {
         ...state,
         employees: payload,
@@ -108,6 +111,9 @@ export default (state = initialState, action) => {
         enquiry: action.payload,
       };
     case FETCH_GENDER_FAIL:
+    case FETCH_EMPLOYEES_FAIL:
+    case VIEW_EMPLOYEE_FAIL:
+    case SEARCH_MEMBERS_FAIL:
     case FETCH_NATIONALITY_FAIL:
     case FETCH_ID_FAIL:
     case FETCH_EMPLOYEE_FAIL:

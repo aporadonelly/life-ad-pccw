@@ -1,11 +1,7 @@
-const KEYS = {
-  employees: 'employees',
-  employeeId: 'employeeId',
-};
-
 export const getGenderCollection = () => [
-  { id: 'male', title: 'Male' },
-  { id: 'female', title: 'Female' },
+  { cstmTypId: 'GT_M', title: 'Male' },
+  { cstmTypId: 'GT_F', title: 'Female' },
+  { cstmTypId: 'GT_B', title: 'Both' },
 ];
 
 export const idTypes = () => [

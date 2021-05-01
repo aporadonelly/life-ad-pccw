@@ -1,8 +1,11 @@
 import {
   SERVER_ADDRESS,
   FETCH_EMPLOYEES_SUCCESS,
+  FETCH_EMPLOYEES_FAIL,
   VIEW_EMPLOYEE_SUCCESS,
-  SEARCH_MEMBERS,
+  VIEW_EMPLOYEE_FAIL,
+  SEARCH_MEMBERS_SUCCESS,
+  SEARCH_MEMBERS_FAIL,
   CREATE_QUERY_SUCCESS,
   FETCH_GENDER_SUCCESS,
   FETCH_GENDER_FAIL,
@@ -44,7 +47,10 @@ export const fetchEmployees = () => async dispatch => {
       payload: res.data,
     });
   } catch (e) {
-    console.log(e, 'err');
+    dispatch({
+      type: FETCH_EMPLOYEES_FAIL,
+      payload: e,
+    });
   }
 };
 
@@ -59,37 +65,42 @@ export const viewMember = id => async dispatch => {
       });
     }
   } catch (e) {
-    console.log(e, 'err');
+    dispatch({
+      type: VIEW_EMPLOYEE_FAIL,
+      payload: e,
+    });
   }
 };
 
 //for searching of users via form
 export const searchMembers = p => async dispatch => {
+  console.log(p, 'searchMembers');
   const config = {
     headers: getHeaders(),
     params: p,
   };
+
   try {
     const res = await api.get('http://localhost:4000/employees/', config);
+
     dispatch({
-      type: SEARCH_MEMBERS,
+      type: SEARCH_MEMBERS_SUCCESS,
       payload: res.data,
     });
   } catch (e) {
-    console.log(e, 'err');
+    dispatch({
+      type: SEARCH_MEMBERS_FAIL,
+      payload: e,
+    });
   }
 };
 
 export const saveQuery = p => async dispatch => {
-  try {
-    const res = p;
-    dispatch({
-      type: CREATE_QUERY_SUCCESS,
-      payload: res,
-    });
-  } catch (e) {
-    console.log(e, 'err');
-  }
+  const res = p;
+  dispatch({
+    type: CREATE_QUERY_SUCCESS,
+    payload: res,
+  });
 };
 
 //Fetch Gender
