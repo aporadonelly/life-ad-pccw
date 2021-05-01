@@ -31,8 +31,25 @@ const EmployeesList = ({ employees: { employees, enquiry } }) => {
 
   const renderObject = () => {
     return Object.entries(chipData).map(([key, value], i) => {
-      let initKey = key === 'id_type' ? key.replace(/_/g, ' ') : key;
-      let label = `${initKey} :  ${value}`;
+      let initKey =
+        key === 'id_type' ||
+        key === 'mpf_id' ||
+        key === 'first_name' ||
+        key === 'chinese_name' ||
+        key === 'id_number' ||
+        key === 'date_of_birth' ||
+        key === 'place_of_birth' ||
+        key === 'mobile_number' ||
+        key === 'date_of_employment' ||
+        key === 'employee_type' ||
+        key === 'reported_industry_type' ||
+        key === 'mpf_scheme_name' ||
+        key === 'tax_residency'
+          ? key.replace(/_/g, ' ')
+          : key;
+
+      let finalKey = initKey === 'tin' ? initKey.toUpperCase() : initKey;
+      let label = `${finalKey} :  ${value}`;
 
       return (
         <Chip
@@ -104,7 +121,11 @@ const EmployeesList = ({ employees: { employees, enquiry } }) => {
       <Paper className={classes.pageContentTable} style={{ top: '-25px' }}>
         <Grid className={classes.root} item xs={12} lg={12} sm={12}>
           <Grid className={classes.pageTitle} item xs={12} lg={12} sm={12}>
-            <EmployeesTable employees={members} />
+            {employees.length > 0 ? (
+              <EmployeesTable employees={members} />
+            ) : (
+              <p>NO DATA FOUND</p>
+            )}
           </Grid>
         </Grid>
       </Paper>

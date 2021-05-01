@@ -17,7 +17,8 @@ import { viewMember, saveQuery } from '../../actions/employeesActions';
 import EmployeeItem from './EmployeeItem';
 import reactStringReplace from '@utils/reactStringReplace';
 import AnimatedSearchBar from '@components/AnimatedSearchBar';
-import viewEnrollActive from '../../assets/icons/view_enroll.PNG';
+import viewEnrollActive from '../../assets/icons/enroll-active.PNG';
+import viewEnrollInActive from '../../assets/icons/enroll-inactive.PNG';
 import EmployeeStyles from './styles/EmployeeStyles';
 import viewReg from '../../assets/icons/view_reg.PNG';
 import * as intl from '../../common/labels';
@@ -162,7 +163,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
                   // className={emp.status === 'inactive' && classes.disabled}
                 />
                 <img
-                  src={viewEnrollActive}
+                  src={viewEnrollInActive}
                   alt="View Enrollment"
                   variant="contained"
                   style={{
@@ -170,7 +171,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
                     background: '#EF841F',
                     color: '#fff',
                   }}
-                  // className={emp.status === 'inactive' && classes.disabled}
+                  className={classes.disabled}
                 />
               </TableCell>
             </TableRow>

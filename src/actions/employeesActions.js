@@ -74,7 +74,7 @@ export const viewMember = id => async dispatch => {
 
 //for searching of users via form
 export const searchMembers = p => async dispatch => {
-  console.log(p, 'searchMembers');
+  
   const config = {
     headers: getHeaders(),
     params: p,
