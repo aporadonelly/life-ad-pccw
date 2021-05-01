@@ -20,6 +20,8 @@ import {
   FETCH_OCCUPATION_SUCCESS,
   FETCH_STATUS_FAIL,
   FETCH_STATUS_SUCCESS,
+  FETCH_POB_SUCCESS,
+  FETCH_POB_FAIL,
 } from './types';
 import axios from 'axios';
 import api from '../components/employees/api/employees';
@@ -262,6 +264,28 @@ export const fetchStatus = () => async dispatch => {
   } catch (e) {
     dispatch({
       type: FETCH_STATUS_FAIL,
+      payload: e,
+    });
+  }
+};
+
+//Fetch Place of Birth
+export const fetchPlaceOfBirth = () => async dispatch => {
+  try {
+    const res = await axios.get(
+      `${SERVER_ADDRESS}/getCountryLst`,
+      await getHeaders()
+    );
+
+    if (res.status === 200) {
+      dispatch({
+        type: FETCH_POB_SUCCESS,
+        payload: res.data,
+      });
+    }
+  } catch (e) {
+    dispatch({
+      type: FETCH_POB_FAIL,
       payload: e,
     });
   }

@@ -16,6 +16,7 @@ import {
   fetchSchemeType,
   fetchOccupation,
   fetchStatus,
+  fetchPlaceOfBirth,
 } from '../../actions/employeesActions';
 import EmployeeStyles from './styles/EmployeeStyles';
 import { useForm, Form } from '../UseForm';
@@ -58,8 +59,10 @@ const EmployeeForm = ({
     schemeType,
     occupationType,
     statusType,
+    placeOfBirth,
   },
 }) => {
+  console.log(placeOfBirth, 'placeOfBirth');
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = EmployeeStyles();
@@ -73,6 +76,7 @@ const EmployeeForm = ({
     dispatch(fetchIndustryType());
     dispatch(fetchOccupation());
     dispatch(fetchStatus());
+    dispatch(fetchPlaceOfBirth());
   }, []);
 
   const validate = (fieldValues = values) => {
@@ -240,16 +244,7 @@ const EmployeeForm = ({
                       value={values.gender}
                       className={classes.gender}
                       options={genderType}
-                    >
-                      {/* <MenuItem value="" disabled>
-                        Please Select
-                      </MenuItem>
-                      {genderType.map(c => (
-                        <MenuItem key={c.id} value={c.cstmTypDtlTxt}>
-                          {c.cstmTypDtlTxt}
-                        </MenuItem>
-                      ))} */}
-                    </Controls.Select>
+                    ></Controls.Select>
                   </div>
                 </Grid>
               </Grid>
@@ -267,16 +262,7 @@ const EmployeeForm = ({
                       value={values.id_type}
                       className={classes.gender}
                       options={idType}
-                    >
-                      {/* <MenuItem value="" disabled>
-                        Please Select
-                      </MenuItem>
-                      {idType.map(c => (
-                        <MenuItem key={c.id} value={c.cstmTypDtlTxt}>
-                          {c.cstmTypDtlTxt}
-                        </MenuItem>
-                      ))} */}
-                    </Controls.Select>
+                    ></Controls.Select>
                   </div>
                 </Grid>
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -350,14 +336,23 @@ const EmployeeForm = ({
                       {' '}
                       {intl.labels.place_of_birth}
                     </h3>
-                    <Controls.Select
+                    <Select
                       name="place_of_birth"
                       onChange={handleInputChange}
                       fullWidth
                       value={values.place_of_birth}
                       className={classes.gender}
-                      options={employeeMockData.placeOfBirth()}
-                    ></Controls.Select>
+                      // options={employeeMockData.placeOfBirth()}
+                    >
+                      <MenuItem value="" disabled>
+                        Please Select
+                      </MenuItem>
+                      {placeOfBirth.map(c => (
+                        <MenuItem key={c.id} value={c.cntryTypNm}>
+                          {c.cntryTypNm}
+                        </MenuItem>
+                      ))}
+                    </Select>
                   </div>
                 </Grid>
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -451,16 +446,7 @@ const EmployeeForm = ({
                       value={values.employee_type}
                       className={classes.gender}
                       options={employeeType}
-                    >
-                      {/* <MenuItem value="" disabled>
-                        Please Select
-                      </MenuItem>
-                      {employeeType.map(c => (
-                        <MenuItem key={c.id} value={c.cstmTypDtlTxt}>
-                          {c.cstmTypDtlTxt}
-                        </MenuItem>
-                      ))} */}
-                    </Controls.Select>
+                    ></Controls.Select>
                   </div>
                 </Grid>
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -594,6 +580,7 @@ EmployeeForm.propTypes = {
   fetchSchemeType: PropTypes.func.isRequired,
   fetchOccupation: PropTypes.func.isRequired,
   fetchStatus: PropTypes.func.isRequired,
+  fetchPlaceOfBirth: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -610,4 +597,5 @@ export default connect(mapStateToProps, {
   fetchSchemeType,
   fetchOccupation,
   fetchStatus,
+  fetchPlaceOfBirth,
 })(EmployeeForm);

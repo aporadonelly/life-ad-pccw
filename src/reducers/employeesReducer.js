@@ -19,6 +19,8 @@ import {
   FETCH_OCCUPATION_SUCCESS,
   FETCH_STATUS_FAIL,
   FETCH_STATUS_SUCCESS,
+  FETCH_POB_SUCCESS,
+  FETCH_POB_FAIL,
 } from '../actions/types';
 
 const initialState = {
@@ -34,11 +36,17 @@ const initialState = {
   schemeType: [],
   occupationType: [],
   statusType: [],
+  placeOfBirth: [],
 };
 export default (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case FETCH_POB_SUCCESS:
+      return {
+        ...state,
+        placeOfBirth: payload,
+      };
     case FETCH_STATUS_SUCCESS:
       return {
         ...state,
@@ -107,6 +115,7 @@ export default (state = initialState, action) => {
     case FETCH_SCHEME_TYPE_FAIL:
     case FETCH_OCCUPATION_FAIL:
     case FETCH_STATUS_FAIL:
+    case FETCH_POB_FAIL:
       return {
         ...state,
         error: payload,

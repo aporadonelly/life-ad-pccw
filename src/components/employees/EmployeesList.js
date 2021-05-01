@@ -31,7 +31,6 @@ const EmployeesList = ({ employees: { employees, enquiry } }) => {
   const renderObject = () => {
     console.log(chipData, 'chipData');
     return Object.entries(chipData).map(([key, value], i) => {
-      console.log(key, 'key');
       let initValue =
         value === 'hkid' ||
         value === 'twid' ||
