@@ -20,8 +20,8 @@ export default function Select(props) {
         <em>Please Select</em>
       </MenuItem>
       {options.map(item => (
-        <MenuItem key={item.id} value={item.id}>
-          {item.title}
+        <MenuItem key={item.id} value={item.cstmTypDtlTxt}>
+          {item.cstmTypDtlTxt}
         </MenuItem>
       ))}
     </MuiSelect>

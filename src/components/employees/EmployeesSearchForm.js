@@ -11,6 +11,11 @@ import {
   fetchGender,
   fetchIdType,
   fetchNationality,
+  fetchEmployeeType,
+  fetchIndustryType,
+  fetchSchemeType,
+  fetchOccupation,
+  fetchStatus,
 } from '../../actions/employeesActions';
 import EmployeeStyles from './styles/EmployeeStyles';
 import { useForm, Form } from '../UseForm';
@@ -43,8 +48,18 @@ const initialValues = {
   status: null,
 };
 
-const EmployeeForm = ({ employees: { genderType, idType, nationalities } }) => {
-  console.log(nationalities, 'nationalities');
+const EmployeeForm = ({
+  employees: {
+    genderType,
+    idType,
+    nationalities,
+    employeeType,
+    industryType,
+    schemeType,
+    occupationType,
+    statusType,
+  },
+}) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = EmployeeStyles();
@@ -53,6 +68,11 @@ const EmployeeForm = ({ employees: { genderType, idType, nationalities } }) => {
     dispatch(fetchGender());
     dispatch(fetchIdType());
     dispatch(fetchNationality());
+    dispatch(fetchEmployeeType());
+    dispatch(fetchIndustryType());
+    dispatch(fetchIndustryType());
+    dispatch(fetchOccupation());
+    dispatch(fetchStatus());
   }, []);
 
   const validate = (fieldValues = values) => {
@@ -122,6 +142,7 @@ const EmployeeForm = ({ employees: { genderType, idType, nationalities } }) => {
     if (tax_residency !== null) p['tax_residency'] = tax_residency;
     if (tin !== null) p['tin'] = tin;
     if (status !== null) p['status'] = status;
+    console.log(p, 'ppp');
     dispatch(searchMembers(p));
     dispatch(saveQuery(p));
     history.push('/employee-search-results');
@@ -210,7 +231,7 @@ const EmployeeForm = ({ employees: { genderType, idType, nationalities } }) => {
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>{intl.labels.gender}</h3>
-                    <Select
+                    <Controls.Select
                       displayEmpty
                       label="Gender"
                       name="gender"
@@ -218,17 +239,17 @@ const EmployeeForm = ({ employees: { genderType, idType, nationalities } }) => {
                       fullWidth
                       value={values.gender}
                       className={classes.gender}
-                      // options={genderType}
+                      options={genderType}
                     >
-                      <MenuItem value="" disabled>
+                      {/* <MenuItem value="" disabled>
                         Please Select
                       </MenuItem>
                       {genderType.map(c => (
                         <MenuItem key={c.id} value={c.cstmTypDtlTxt}>
                           {c.cstmTypDtlTxt}
                         </MenuItem>
-                      ))}
-                    </Select>
+                      ))} */}
+                    </Controls.Select>
                   </div>
                 </Grid>
               </Grid>
@@ -238,24 +259,24 @@ const EmployeeForm = ({ employees: { genderType, idType, nationalities } }) => {
                     <h3 className={classes.fieldLabel}>
                       {intl.labels.id_type}
                     </h3>
-                    <Select
+                    <Controls.Select
                       label="ID Type"
                       name="id_type"
                       onChange={handleInputChange}
                       fullWidth
                       value={values.id_type}
                       className={classes.gender}
-                      // options={employeeMockData.idTypes()}
+                      options={idType}
                     >
-                      <MenuItem value="" disabled>
+                      {/* <MenuItem value="" disabled>
                         Please Select
                       </MenuItem>
                       {idType.map(c => (
                         <MenuItem key={c.id} value={c.cstmTypDtlTxt}>
                           {c.cstmTypDtlTxt}
                         </MenuItem>
-                      ))}
-                    </Select>
+                      ))} */}
+                    </Controls.Select>
                   </div>
                 </Grid>
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -401,15 +422,7 @@ const EmployeeForm = ({ employees: { genderType, idType, nationalities } }) => {
                     <h3 className={classes.fieldLabel}>
                       {intl.labels.date_of_employment}
                     </h3>
-                    {/* <Controls.DatePicker
-                    name="date_of_employment"
-                    onChange={handleInputChange}
-                    fullWidth
-                    type="date"
-                    id="text"
-                    value={values.date_of_employment}
-                    placeholder="Please Input"
-                  ></Controls.DatePicker> */}
+
                     <TextField
                       name="date_of_employment"
                       onChange={handleInputChange}
@@ -437,8 +450,17 @@ const EmployeeForm = ({ employees: { genderType, idType, nationalities } }) => {
                       fullWidth
                       value={values.employee_type}
                       className={classes.gender}
-                      options={employeeMockData.employeeType()}
-                    ></Controls.Select>
+                      options={employeeType}
+                    >
+                      {/* <MenuItem value="" disabled>
+                        Please Select
+                      </MenuItem>
+                      {employeeType.map(c => (
+                        <MenuItem key={c.id} value={c.cstmTypDtlTxt}>
+                          {c.cstmTypDtlTxt}
+                        </MenuItem>
+                      ))} */}
+                    </Controls.Select>
                   </div>
                 </Grid>
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -452,7 +474,7 @@ const EmployeeForm = ({ employees: { genderType, idType, nationalities } }) => {
                       fullWidth
                       value={values.reported_industry_type}
                       className={classes.gender}
-                      options={employeeMockData.reportedIndustryType()}
+                      options={industryType}
                     ></Controls.Select>
                   </div>
                 </Grid>
@@ -467,14 +489,13 @@ const EmployeeForm = ({ employees: { genderType, idType, nationalities } }) => {
                       fullWidth
                       value={values.occupation}
                       className={classes.gender}
-                      options={employeeMockData.occupation()}
+                      options={occupationType}
                     ></Controls.Select>
                   </div>
                 </Grid>
                 <Grid item sm={4} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {' '}
                       {intl.labels.mpf_scheme_name}
                     </h3>
                     <Controls.Select
@@ -483,7 +504,7 @@ const EmployeeForm = ({ employees: { genderType, idType, nationalities } }) => {
                       fullWidth
                       value={values.mpf_scheme_name}
                       className={classes.gender}
-                      options={employeeMockData.mpfSchemeName()}
+                      options={schemeType}
                     ></Controls.Select>
                   </div>
                 </Grid>
@@ -528,7 +549,7 @@ const EmployeeForm = ({ employees: { genderType, idType, nationalities } }) => {
                       className={classes.gender}
                       type="text"
                       placeholder="Please select"
-                      options={employeeMockData.status()}
+                      options={statusType}
                     ></Controls.Select>
                   </div>
                 </Grid>
@@ -568,6 +589,11 @@ EmployeeForm.propTypes = {
   fetchGender: PropTypes.func.isRequired,
   fetchIdType: PropTypes.func.isRequired,
   fetchNationality: PropTypes.func.isRequired,
+  fetchEmployeeType: PropTypes.func.isRequired,
+  fetchIndustryType: PropTypes.func.isRequired,
+  fetchSchemeType: PropTypes.func.isRequired,
+  fetchOccupation: PropTypes.func.isRequired,
+  fetchStatus: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -579,4 +605,9 @@ export default connect(mapStateToProps, {
   fetchGender,
   fetchIdType,
   fetchNationality,
+  fetchEmployeeType,
+  fetchIndustryType,
+  fetchSchemeType,
+  fetchOccupation,
+  fetchStatus,
 })(EmployeeForm);

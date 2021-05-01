@@ -25,13 +25,13 @@ const EmployeesList = ({ employees: { employees, enquiry } }) => {
     const asArray = Object.entries(chipData);
     const chips = asArray.filter(([key, value]) => key !== chipToDelete);
     setChipData(chips);
-    console.log(chips, 'chips');
     searchMembers(chipData);
   };
 
   const renderObject = () => {
     console.log(chipData, 'chipData');
     return Object.entries(chipData).map(([key, value], i) => {
+      console.log(key, 'key');
       let initValue =
         value === 'hkid' ||
         value === 'twid' ||
@@ -39,7 +39,10 @@ const EmployeesList = ({ employees: { employees, enquiry } }) => {
         value === 'it'
           ? value.toUpperCase()
           : value;
-      let initKey = key === 'id_type' && key.toUpperCase().replace(/_/g, ' ');
+      let initKey =
+        key === 'id_type'
+          ? key.toUpperCase().replace(/_/g, ' ')
+          : key.replace(/_/g, ' ');
       let label = `${initKey} :  ${initValue}`;
 
       return (

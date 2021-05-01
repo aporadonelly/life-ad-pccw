@@ -12,6 +12,7 @@ export function useForm(initialValues, validateOnchange = false, validate) {
     setValues({ ...values, [name]: value });
 
     if (validateOnchange) validate({ [name]: value });
+    console.log((name, '=> name', value, '=>value'));
   };
 
   const resetForm = () => {

@@ -10,6 +10,16 @@ import {
   FETCH_ID_FAIL,
   FETCH_NATIONALITY_SUCCESS,
   FETCH_NATIONALITY_FAIL,
+  FETCH_EMPLOYEE_SUCCESS,
+  FETCH_EMPLOYEE_FAIL,
+  FETCH_INDUSTRY_TYPE_SUCCESS,
+  FETCH_INDUSTRY_TYPE_FAIL,
+  FETCH_SCHEME_TYPE_SUCCESS,
+  FETCH_SCHEME_TYPE_FAIL,
+  FETCH_OCCUPATION_FAIL,
+  FETCH_OCCUPATION_SUCCESS,
+  FETCH_STATUS_FAIL,
+  FETCH_STATUS_SUCCESS,
 } from './types';
 import axios from 'axios';
 import api from '../components/employees/api/employees';
@@ -111,7 +121,6 @@ export const fetchNationality = () => async dispatch => {
     );
 
     if (res.status === 200) {
-      console.log(res, 'fetchNationality');
       dispatch({
         type: FETCH_NATIONALITY_SUCCESS,
         payload: res.data,
@@ -142,6 +151,117 @@ export const fetchIdType = () => async dispatch => {
   } catch (e) {
     dispatch({
       type: FETCH_ID_FAIL,
+      payload: e,
+    });
+  }
+};
+
+//Fetch Employee Type
+export const fetchEmployeeType = () => async dispatch => {
+  try {
+    const res = await axios.get(
+      `${SERVER_ADDRESS}/getCustomTypList?groupId=EP`,
+      await getHeaders()
+    );
+
+    if (res.status === 200) {
+      dispatch({
+        type: FETCH_EMPLOYEE_SUCCESS,
+        payload: res.data,
+      });
+    }
+  } catch (e) {
+    dispatch({
+      type: FETCH_EMPLOYEE_FAIL,
+      payload: e,
+    });
+  }
+};
+
+//Fetch Industry Type
+export const fetchIndustryType = () => async dispatch => {
+  try {
+    const res = await axios.get(
+      `${SERVER_ADDRESS}/getCustomTypList?groupId=NT`,
+      await getHeaders()
+    );
+
+    if (res.status === 200) {
+      dispatch({
+        type: FETCH_INDUSTRY_TYPE_SUCCESS,
+        payload: res.data,
+      });
+    }
+  } catch (e) {
+    dispatch({
+      type: FETCH_INDUSTRY_TYPE_FAIL,
+      payload: e,
+    });
+  }
+};
+
+//Fetch Scheme Type"
+export const fetchSchemeType = () => async dispatch => {
+  try {
+    const res = await axios.get(
+      `${SERVER_ADDRESS}/getCustomTypList?groupId=SC`,
+      await getHeaders()
+    );
+
+    if (res.status === 200) {
+      dispatch({
+        type: FETCH_SCHEME_TYPE_SUCCESS,
+        payload: res.data,
+      });
+    }
+  } catch (e) {
+    dispatch({
+      type: FETCH_SCHEME_TYPE_FAIL,
+      payload: e,
+    });
+  }
+};
+
+//Fetch Occupation"
+export const fetchOccupation = () => async dispatch => {
+  try {
+    const res = await axios.get(
+      `${SERVER_ADDRESS}/getCustomTypList?groupId=MB`,
+      await getHeaders()
+    );
+
+    if (res.status === 200) {
+      console.log(res, 'res');
+      dispatch({
+        type: FETCH_OCCUPATION_SUCCESS,
+        payload: res.data,
+      });
+    }
+  } catch (e) {
+    dispatch({
+      type: FETCH_OCCUPATION_FAIL,
+      payload: e,
+    });
+  }
+};
+
+//Fetch Status"
+export const fetchStatus = () => async dispatch => {
+  try {
+    const res = await axios.get(
+      `${SERVER_ADDRESS}/getCustomTypList?groupId=ST`,
+      await getHeaders()
+    );
+
+    if (res.status === 200) {
+      dispatch({
+        type: FETCH_STATUS_SUCCESS,
+        payload: res.data,
+      });
+    }
+  } catch (e) {
+    dispatch({
+      type: FETCH_STATUS_FAIL,
       payload: e,
     });
   }
