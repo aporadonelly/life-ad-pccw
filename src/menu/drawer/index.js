@@ -1,5 +1,3 @@
-import SidebarDrawer from "./sidebarDrawer";
+import SidebarDrawer from './sidebarDrawer';
 
-export { 
-    SidebarDrawer,
-};
+export { SidebarDrawer };

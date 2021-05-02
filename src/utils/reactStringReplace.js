@@ -1,21 +1,21 @@
-import { isRegExp, escapeRegExp, isString, flatten } from "lodash";
+import { isRegExp, escapeRegExp, isString, flatten } from 'lodash';
 
 function replaceString(str, match, fn) {
   let curCharStart = 0;
   let curCharLen = 0;
 
-  if (str === "") {
+  if (str === '') {
     return str;
   } else if (!str || !isString(str)) {
     throw new TypeError(
-      "First argument to react-string-replace#replaceString must be a string"
+      'First argument to react-string-replace#replaceString must be a string'
     );
   }
 
   let re = match;
 
   if (!isRegExp(re)) {
-    re = new RegExp("(" + escapeRegExp(re) + ")", "gi");
+    re = new RegExp('(' + escapeRegExp(re) + ')', 'gi');
   }
 
   let result = str.split(re);

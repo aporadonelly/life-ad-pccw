@@ -1,17 +1,17 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createMuiTheme } from '@material-ui/core/styles';
 
 //color
-const eMPFdarkCyan = "#0D6A88";
-const eMPFlightCyan = "#008B8B";
-const gray98 = "#FAFAFA";
-const fiord = "#42526E";
-const orange = "#EF841F";
-const white = "#FFFFFF";
+const eMPFdarkCyan = '#0D6A88';
+const eMPFlightCyan = '#008B8B';
+const gray98 = '#FAFAFA';
+const fiord = '#42526E';
+const orange = '#EF841F';
+const white = '#FFFFFF';
 
 //fontsize
-const fontFam = ["Roboto", "Helvetica", "Arial", "sans-serif"];
-const fontSizeMedium = "1rem";
-const fontSizeSmall = "0.875rem";
+const fontFam = ['Roboto', 'Helvetica', 'Arial', 'sans-serif'];
+const fontSizeMedium = '1rem';
+const fontSizeSmall = '0.875rem';
 
 export default createMuiTheme({
   palette: {
@@ -21,7 +21,7 @@ export default createMuiTheme({
       fiord: `${fiord}`,
       orange: `${orange}`,
       white: `${white}`,
-      highlighted: "#FFD748",
+      highlighted: '#FFD748',
     },
     primary: {
       main: `${eMPFdarkCyan}`,
@@ -33,8 +33,8 @@ export default createMuiTheme({
   typography: {
     tab: {
       fontFamily: fontFam,
-      textTransform: "none",
-      fontSize: "1rem",
+      textTransform: 'none',
+      fontSize: '1rem',
     },
   },
 });

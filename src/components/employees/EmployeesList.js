@@ -47,9 +47,9 @@ const EmployeesList = ({ employees: { employees, enquiry } }) => {
         key === 'tax_residency'
           ? key.replace(/_/g, ' ')
           : key;
-
+      let initValue = value === 'HK ID' && value.replace(/_/g, ' ');
       let finalKey = initKey === 'tin' ? initKey.toUpperCase() : initKey;
-      let label = `${finalKey} :  ${value}`;
+      let label = `${finalKey} :  ${initValue}`;
 
       return (
         <Chip

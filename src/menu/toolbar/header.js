@@ -11,51 +11,55 @@ import { useTheme } from '@material-ui/core/styles';
 import { SidebarDrawer } from '../drawer';
 import useStyles from './headerStyles';
 
-const Header = (props) => {
+const Header = props => {
+  const classes = useStyles();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('lg'));
 
-    const classes = useStyles();
-    const theme = useTheme();
-    const matches = useMediaQuery(theme.breakpoints.down("lg"));
+  const Tabs = (
+    <React.Fragment>
+      <div className={classes.tabsContainer}>
+        <Box className={classes.profileImageAndNameContainer}>
+          <Icon className={classes.profileIconContainer}>
+            <img style={{ height: '100%' }} src={ProfilePic} />
+          </Icon>
+          <div className={classes.profileNameContainer}>
+            <p className={classes.profileName}>Rosetta Chan</p>
+            <p className={classes.profilePosition}>Admin Operator</p>
+          </div>
+        </Box>
+        <Icon style={{ marginRight: '10px', alignSelf: 'center' }}>
+          <img style={{ height: '90%' }} src={Group80} />
+        </Icon>
+        <div className={classes.date}>
+          {moment().format('D MMM YYYY').toUpperCase()}
+        </div>
+        <Icon style={{ alignSelf: 'center' }}>
+          <img style={{ height: '100%' }} src={SettingsIcon} />
+        </Icon>
+      </div>
+    </React.Fragment>
+  );
 
-    const Tabs = (
-        <React.Fragment>
-             <div className={classes.tabsContainer}>
-                <Box className={classes.profileImageAndNameContainer}>
-                    <Icon className={classes.profileIconContainer}>
-                        <img style={{ height: "100%" }} src={ProfilePic} />
-                    </Icon>
-                    <div className={classes.profileNameContainer}>
-                        <p className={classes.profileName}>Rosetta Chan</p>
-                        <p className={classes.profilePosition}>Admin Operator</p>
-                    </div>
-                </Box>
-                <Icon style={{ marginRight: "10px", alignSelf: "center" }}>
-                    <img style={{ height: "90%" }} src={Group80} />
-                </Icon>
-                <div className={classes.date}>{moment().format('D MMM YYYY').toUpperCase()}</div>
-                <Icon style={{ alignSelf: "center" }}>
-                    <img style={{ height: "100%" }} src={SettingsIcon} />
-                </Icon>
-                
-             </div>
-        </React.Fragment>
-     );
-
-    return (
-        <React.Fragment>
-            <AppBar position='fixed' className={classes.appBar}>
-                  <Toolbar className={classes.toolbarMargin}>
-                      <Typography component={'span'} className={classes.logoAndHeaderContainer}>
-                        <Box fontStyle="italic" className={classes.eMPF}>eMPF</Box>
-                        <Box className={classes.logoHeading}>Admin Portal</Box>
-                      </Typography>
-                     {matches ? Tabs : null}
-                 </Toolbar>
-                 <SidebarDrawer />
-            </AppBar>
-
-       </React.Fragment>
-    )
-}
+  return (
+    <React.Fragment>
+      <AppBar position="fixed" className={classes.appBar}>
+        <Toolbar className={classes.toolbarMargin}>
+          <Typography
+            component={'span'}
+            className={classes.logoAndHeaderContainer}
+          >
+            <Box fontStyle="italic" className={classes.eMPF}>
+              eMPF
+            </Box>
+            <Box className={classes.logoHeading}>Admin Portal</Box>
+          </Typography>
+          {matches ? Tabs : null}
+        </Toolbar>
+        <SidebarDrawer />
+      </AppBar>
+    </React.Fragment>
+  );
+};
 
 export default Header;

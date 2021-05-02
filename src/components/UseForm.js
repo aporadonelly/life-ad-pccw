@@ -7,12 +7,12 @@ export function useForm(initialValues, validateOnchange = false, validate) {
 
   const [errors, setErrors] = useState({});
 
-  const handleInputChange = e => {
-    const { name, value } = e.target;
-    setValues({ ...values, [name]: value });
+  // const handleInputChange = e => {
+  //   const { name, value } = e.target;
+  //   setValues({ ...values, [name]: value });
 
-    if (validateOnchange) validate({ [name]: value });
-  };
+  //   // if (validateOnchange) validate({ [name]: value });
+  // };
 
   const resetForm = () => {
     setValues(initialValues);
@@ -22,7 +22,7 @@ export function useForm(initialValues, validateOnchange = false, validate) {
   return {
     values,
     setValues,
-    handleInputChange,
+    // handleInputChange,
     errors,
     setErrors,
     resetForm,

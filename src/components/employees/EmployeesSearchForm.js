@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import DateFnsUtils from '@date-io/date-fns';
 import PropTypes from 'prop-types';
@@ -19,7 +19,7 @@ import {
   fetchPlaceOfBirth,
 } from '../../actions/employeesActions';
 import EmployeeStyles from './styles/EmployeeStyles';
-import { useForm, Form } from '../UseForm';
+// import { useForm, Form } from '../UseForm';
 import Controls from '../controls/Controls';
 import * as intl from '../../common/labels';
 import './styles/index.css';
@@ -59,42 +59,22 @@ const EmployeeForm = ({
     occupationType,
     statusType,
     placeOfBirth,
+    employees,
+    enquiry,
   },
 }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = EmployeeStyles();
 
+  const [values, setValues] = useState(initialValues);
+  const [chipData, setChipData] = useState({});
+  const [members, setMembers] = useState([]);
+
   useEffect(() => {
-    dispatch(fetchGender());
-    dispatch(fetchIdType());
-    dispatch(fetchNationality());
-    dispatch(fetchEmployeeType());
-    dispatch(fetchIndustryType());
-    dispatch(fetchIndustryType());
-    dispatch(fetchOccupation());
-    dispatch(fetchStatus());
-    dispatch(fetchPlaceOfBirth());
+    setMembers(employees);
+    setChipData(enquiry);
   }, []);
-
-  const validate = (fieldValues = values) => {
-    let temp = { ...errors };
-
-    if ('email' in fieldValues)
-      temp.email = /$^|.+@.+..+/.test(values.email)
-        ? ''
-        : 'Email is not valid. Please include @';
-
-    setErrors({ ...temp });
-
-    if (fieldValues === values) return Object.values(temp).every(x => x === '');
-  };
-
-  const { values, handleInputChange, errors, setErrors, resetForm } = useForm(
-    initialValues,
-    true,
-    validate
-  );
 
   const {
     mpf_id,
@@ -119,8 +99,46 @@ const EmployeeForm = ({
     status,
   } = values;
 
+  useEffect(() => {
+    dispatch(fetchGender());
+    dispatch(fetchIdType());
+    dispatch(fetchNationality());
+    dispatch(fetchEmployeeType());
+    dispatch(fetchIndustryType());
+    dispatch(fetchIndustryType());
+    dispatch(fetchOccupation());
+    dispatch(fetchStatus());
+    dispatch(fetchPlaceOfBirth());
+  }, []);
+
+  // const validate = (fieldValues = values) => {
+  //   let temp = { ...errors };
+
+  //   if ('email' in fieldValues)
+  //     temp.email = /$^|.+@.+..+/.test(values.email)
+  //       ? ''
+  //       : 'Email is not valid. Please include @';
+
+  //   setErrors({ ...temp });
+
+  //   if (fieldValues === values) return Object.values(temp).every(x => x === '');
+  // };
+
+  // const { values, setValues, errors, setErrors } = useForm(
+  //   initialValues,
+  //   true,
+  //   validate
+  // );
+
+  const handleInputChange = e => {
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
+    setValues(values);
+    console.log(values, 'before puting ');
     let p = {};
     if (mpf_id !== null) p['mpf_id'] = mpf_id;
     if (first_name !== null) p['first_name'] = first_name;
@@ -154,7 +172,7 @@ const EmployeeForm = ({
       <Paper className={classes.pageContent}>
         <Grid container>
           <Grid item xs={12}>
-            <Form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
               <div className={classes.label}>{intl.labels.memberEnquiry}</div>
               <Grid
                 item
@@ -180,7 +198,7 @@ const EmployeeForm = ({
                       id="text"
                       placeholder="Please Input"
                       value={values.mpf_id}
-                      error={errors.mpf_id}
+                      // error={errors.mpf_id}
                     />
                   </div>
                 </Grid>
@@ -551,7 +569,7 @@ const EmployeeForm = ({
                     data-testid="cancel-btn"
                     text="clear"
                     color="default"
-                    onClick={resetForm}
+                    // onClick={resetForm}
                   />
                   <Controls.Button
                     type="submit"
@@ -560,7 +578,7 @@ const EmployeeForm = ({
                   />
                 </div>
               </Grid>
-            </Form>
+            </form>
           </Grid>
         </Grid>
       </Paper>

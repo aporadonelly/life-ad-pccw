@@ -163,7 +163,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
                   // className={emp.status === 'inactive' && classes.disabled}
                 />
                 <img
-                  src={viewEnrollInActive}
+                  src={viewEnrollActive}
                   alt="View Enrollment"
                   variant="contained"
                   style={{
@@ -171,7 +171,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
                     background: '#EF841F',
                     color: '#fff',
                   }}
-                  className={classes.disabled}
+                  // className={classes.disabled}
                 />
               </TableCell>
             </TableRow>
