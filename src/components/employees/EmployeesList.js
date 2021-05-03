@@ -1,128 +1,144 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { Paper, Typography, Button, Grid, Chip } from '@material-ui/core';
-import EmployeeStyles from './styles/EmployeeStyles';
-import EmployeesListStyles from './styles/EmployeesListStyle';
-import EmployeesTable from './EmployeesTable';
-import { searchMembers } from '../../actions/employeesActions';
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { Paper, Typography, Button, Grid, Chip } from '@material-ui/core'
+import EmployeeStyles from './styles/EmployeeStyles'
+import EmployeesListStyles from './styles/EmployeesListStyle'
+import EmployeesTable from './EmployeesTable'
+import * as intl from '../../common/labels'
 
-const EmployeesList = ({ employees: { employees } }) => {
-  console.log(employees, 'enquiry');
-  const classes = {
-    ...EmployeeStyles(),
-    ...EmployeesListStyles(),
-  };
-  const history = useHistory();
+const EmployeesList = ({ employees: { employees, enquiry } }) => {
+	const classes = {
+		...EmployeeStyles(),
+		...EmployeesListStyles(),
+	}
 
-  useEffect(() => {
-    searchMembers();
-  }, []);
+	const history = useHistory()
+	const [chipData, setChipData] = useState({})
+	const [members, setMembers] = useState([])
 
-  const [chipData, setChipData] = useState([
-    { key: 0, label: 'Gender: Male' },
-    { key: 1, label: 'ID Type: HKID' },
-  ]);
+	useEffect(() => {
+		setMembers(employees)
+		setChipData(enquiry)
+	}, [])
 
-  // const [chipData, setChipData] = useState(enquiry);
+	const handleDelete = (chipToDelete) => () => {
+		const asArray = Object.entries(chipData)
+		const chips = asArray.filter(([key, value]) => key !== chipToDelete)
+		setChipData(chips)
+	}
 
-  const handleDelete = chipToDelete => () => {
-    setChipData(chips => chips.filter(chip => chip.key !== chipToDelete.key));
-  };
+	const renderObject = () => {
+		return Object.entries(chipData).map(([key, value], i) => {
+			let initKey =
+				key === 'id_type' ||
+				key === 'mpf_id' ||
+				key === 'first_name' ||
+				key === 'chinese_name' ||
+				key === 'id_number' ||
+				key === 'date_of_birth' ||
+				key === 'place_of_birth' ||
+				key === 'mobile_number' ||
+				key === 'date_of_employment' ||
+				key === 'employee_type' ||
+				key === 'reported_industry_type' ||
+				key === 'mpf_scheme_name' ||
+				key === 'tax_residency'
+					? key.replace(/_/g, ' ')
+					: key
+			let initValue = value === 'HK ID' ? value.replace(/_/g, ' ') : value
+			let finalKey = initKey === 'tin' ? initKey.toUpperCase() : initKey
+			let label = `${finalKey} :  ${initValue}`
 
-  const handleEditSearch = () => {
-    history.push('/employee-search');
-  };
+			return (
+				<Chip
+					style={{ textTransform: 'capitalize', margin: '2px' }}
+					key={key}
+					label={label}
+					onDelete={handleDelete(key)}
+					color='primary'
+				/>
+			)
+		})
+	}
 
-  return (
-    <>
-      <Paper className={classes.pageContent}>
-        <Grid container>
-          <Grid item xs={12} lg={12} sm={12}>
-            <Grid className={classes.pageTitle} item xs={12} lg={12} sm={12}>
-              <Typography variant="h6" component="div">
-                Member Enquiry
-              </Typography>
-            </Grid>
-            <Grid className={classes.root} item xs={12} lg={12} sm={12}>
-              <Grid className={classes.root} item xs={12} lg={8} sm={12}>
-                {chipData.map(data => {
-                  let icon;
-                  return (
-                    <li key={data.key}>
-                      <Chip
-                        icon={icon}
-                        label={data.label}
-                        onDelete={handleDelete(data)}
-                        className={
-                          data.label === 'ID Type: HKID'
-                            ? classes.chip1
-                            : classes.chip
-                        }
-                      />
-                    </li>
-                  );
-                })}
-              </Grid>
-              <Grid
-                style={{
-                  justifyContent: 'flex-end',
-                  display: 'flex',
-                }}
-                item
-                xs={12}
-                lg={4}
-                sm={12}
-              >
-                <Button
-                  className={classes.formBtn}
-                  style={{ width: 'auto', top: '-8px' }}
-                  variant="contained"
-                  onClick={handleEditSearch}
-                >
-                  Edit Search
-                </Button>
-                <Button
-                  className={classes.formBtn}
-                  variant="contained"
-                  style={{
-                    width: 'auto',
-                    top: '-8px',
-                    background: '#EF841F',
-                    color: '#fff',
-                  }}
-                  onClick={() => history.push('/employee-search')}
-                >
-                  New Search
-                </Button>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Paper>
+	const handleEditSearch = () => {
+		history.push('/employee-search')
+	}
 
-      <Paper className={classes.pageContentTable} style={{ top: '-25px' }}>
-        <Grid className={classes.root} item xs={12} lg={12} sm={12}>
-          <Grid className={classes.pageTitle} item xs={12} lg={12} sm={12}>
-            {employees.length > 0 ? (
-              <EmployeesTable employees={employees} />
-            ) : (
-              <p>No employee found.</p>
-            )}
-          </Grid>
-        </Grid>
-      </Paper>
-    </>
-  );
-};
+	return (
+		<>
+			<Paper className={classes.pageContent}>
+				<Grid container>
+					<Grid item xs={12} lg={12} sm={12}>
+						<Grid className={classes.pageTitle} item xs={12} lg={12} sm={12}>
+							<Typography variant='h6' component='div'>
+								{intl.labels.memberEnquiry}
+							</Typography>
+						</Grid>
+						<Grid className={classes.root} item xs={12} lg={12} sm={12}>
+							<Grid className={classes.root} item xs={12} lg={8} sm={12}>
+								{chipData && renderObject()}
+							</Grid>
+							<Grid
+								style={{
+									justifyContent: 'flex-end',
+									display: 'flex',
+								}}
+								item
+								xs={12}
+								lg={4}
+								sm={12}
+							>
+								<Button
+									className={classes.formBtn}
+									style={{ width: 'auto', top: '-8px' }}
+									variant='contained'
+									onClick={handleEditSearch}
+								>
+									{intl.labels.editSearch}
+								</Button>
+								<Button
+									className={classes.formBtn}
+									variant='contained'
+									style={{
+										width: 'auto',
+										top: '-8px',
+										background: '#EF841F',
+										color: '#fff',
+									}}
+									onClick={() => history.push('/employee-search')}
+								>
+									{intl.labels.newSearch}
+								</Button>
+							</Grid>
+						</Grid>
+					</Grid>
+				</Grid>
+			</Paper>
+
+			<Paper className={classes.pageContentTable} style={{ top: '-25px' }}>
+				<Grid className={classes.root} item xs={12} lg={12} sm={12}>
+					<Grid className={classes.pageTitle} item xs={12} lg={12} sm={12}>
+						{employees.length > 0 ? (
+							<EmployeesTable employees={members} />
+						) : (
+							<p>NO DATA FOUND</p>
+						)}
+					</Grid>
+				</Grid>
+			</Paper>
+		</>
+	)
+}
 
 EmployeesList.propTypes = {
-  employees: PropTypes.object.isRequired,
-};
+	employees: PropTypes.object.isRequired,
+}
 
-const mapStateToProps = state => ({
-  employees: state.employees,
-});
+const mapStateToProps = (state) => ({
+	employees: state.employees,
+})
 
-export default connect(mapStateToProps, {})(EmployeesList);
+export default connect(mapStateToProps, {})(EmployeesList)
