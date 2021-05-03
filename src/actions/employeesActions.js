@@ -1,303 +1,302 @@
 import {
-  SERVER_ADDRESS,
-  FETCH_EMPLOYEES_SUCCESS,
-  FETCH_EMPLOYEES_FAIL,
-  VIEW_EMPLOYEE_SUCCESS,
-  VIEW_EMPLOYEE_FAIL,
-  SEARCH_MEMBERS_SUCCESS,
-  SEARCH_MEMBERS_FAIL,
-  CREATE_QUERY_SUCCESS,
-  FETCH_GENDER_SUCCESS,
-  FETCH_GENDER_FAIL,
-  FETCH_ID_SUCCESS,
-  FETCH_ID_FAIL,
-  FETCH_NATIONALITY_SUCCESS,
-  FETCH_NATIONALITY_FAIL,
-  FETCH_EMPLOYEE_SUCCESS,
-  FETCH_EMPLOYEE_FAIL,
-  FETCH_INDUSTRY_TYPE_SUCCESS,
-  FETCH_INDUSTRY_TYPE_FAIL,
-  FETCH_SCHEME_TYPE_SUCCESS,
-  FETCH_SCHEME_TYPE_FAIL,
-  FETCH_OCCUPATION_FAIL,
-  FETCH_OCCUPATION_SUCCESS,
-  FETCH_STATUS_FAIL,
-  FETCH_STATUS_SUCCESS,
-  FETCH_POB_SUCCESS,
-  FETCH_POB_FAIL,
-} from './types';
-import axios from 'axios';
-import api from '../components/employees/api/employees';
+	SERVER_ADDRESS,
+	FETCH_EMPLOYEES_SUCCESS,
+	FETCH_EMPLOYEES_FAIL,
+	VIEW_EMPLOYEE_SUCCESS,
+	VIEW_EMPLOYEE_FAIL,
+	SEARCH_MEMBERS_SUCCESS,
+	SEARCH_MEMBERS_FAIL,
+	CREATE_QUERY_SUCCESS,
+	FETCH_GENDER_SUCCESS,
+	FETCH_GENDER_FAIL,
+	FETCH_ID_SUCCESS,
+	FETCH_ID_FAIL,
+	FETCH_NATIONALITY_SUCCESS,
+	FETCH_NATIONALITY_FAIL,
+	FETCH_EMPLOYEE_SUCCESS,
+	FETCH_EMPLOYEE_FAIL,
+	FETCH_INDUSTRY_TYPE_SUCCESS,
+	FETCH_INDUSTRY_TYPE_FAIL,
+	FETCH_SCHEME_TYPE_SUCCESS,
+	FETCH_SCHEME_TYPE_FAIL,
+	FETCH_OCCUPATION_FAIL,
+	FETCH_OCCUPATION_SUCCESS,
+	FETCH_STATUS_FAIL,
+	FETCH_STATUS_SUCCESS,
+	FETCH_POB_SUCCESS,
+	FETCH_POB_FAIL,
+} from './types'
+import axios from 'axios'
+import api from '../components/employees/api/employees'
 
 export const getHeaders = async () => {
-  const HEADERS = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  return HEADERS;
-};
+	const HEADERS = {
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	}
+	return HEADERS
+}
 
 //fetch all employees or members
-export const fetchEmployees = () => async dispatch => {
-  try {
-    const res = await api.get('/employees');
-    dispatch({
-      type: FETCH_EMPLOYEES_SUCCESS,
-      payload: res.data,
-    });
-  } catch (e) {
-    dispatch({
-      type: FETCH_EMPLOYEES_FAIL,
-      payload: e,
-    });
-  }
-};
+export const fetchEmployees = () => async (dispatch) => {
+	try {
+		const res = await api.get('/employees')
+		dispatch({
+			type: FETCH_EMPLOYEES_SUCCESS,
+			payload: res.data,
+		})
+	} catch (e) {
+		dispatch({
+			type: FETCH_EMPLOYEES_FAIL,
+			payload: e,
+		})
+	}
+}
 
 //view specific member
-export const viewMember = id => async dispatch => {
-  try {
-    const res = await api.get(`/employees/${id}`, await getHeaders());
-    if (res.status === 200) {
-      dispatch({
-        type: VIEW_EMPLOYEE_SUCCESS,
-        payload: res.data,
-      });
-    }
-  } catch (e) {
-    dispatch({
-      type: VIEW_EMPLOYEE_FAIL,
-      payload: e,
-    });
-  }
-};
+export const viewMember = (id) => async (dispatch) => {
+	try {
+		const res = await api.get(`/employees/${id}`, await getHeaders())
+		if (res.status === 200) {
+			dispatch({
+				type: VIEW_EMPLOYEE_SUCCESS,
+				payload: res.data,
+			})
+		}
+	} catch (e) {
+		dispatch({
+			type: VIEW_EMPLOYEE_FAIL,
+			payload: e,
+		})
+	}
+}
 
 //for searching of users via form
-export const searchMembers = p => async dispatch => {
-  
-  const config = {
-    headers: getHeaders(),
-    params: p,
-  };
+export const searchMembers = (p) => async (dispatch) => {
+	const config = {
+		headers: getHeaders(),
+		params: p,
+	}
 
-  try {
-    const res = await api.get('http://localhost:4000/employees/', config);
+	try {
+		const res = await api.get('http://localhost:4000/employees/', config)
 
-    dispatch({
-      type: SEARCH_MEMBERS_SUCCESS,
-      payload: res.data,
-    });
-  } catch (e) {
-    dispatch({
-      type: SEARCH_MEMBERS_FAIL,
-      payload: e,
-    });
-  }
-};
+		dispatch({
+			type: SEARCH_MEMBERS_SUCCESS,
+			payload: res.data,
+		})
+	} catch (e) {
+		dispatch({
+			type: SEARCH_MEMBERS_FAIL,
+			payload: e,
+		})
+	}
+}
 
-export const saveQuery = p => async dispatch => {
-  const res = p;
-  dispatch({
-    type: CREATE_QUERY_SUCCESS,
-    payload: res,
-  });
-};
+export const saveQuery = (p) => async (dispatch) => {
+	const res = p
+	dispatch({
+		type: CREATE_QUERY_SUCCESS,
+		payload: res,
+	})
+}
 
 //Fetch Gender
-export const fetchGender = () => async dispatch => {
-  try {
-    const res = await axios.get(
-      `${SERVER_ADDRESS}/getCustomTypList?groupId=GD`,
-      await getHeaders()
-    );
+export const fetchGender = () => async (dispatch) => {
+	try {
+		const res = await axios.get(
+			`${SERVER_ADDRESS}/getCustomTypList?groupId=GD`,
+			await getHeaders()
+		)
 
-    if (res.status === 200) {
-      dispatch({
-        type: FETCH_GENDER_SUCCESS,
-        payload: res.data,
-      });
-    }
-  } catch (e) {
-    dispatch({
-      type: FETCH_GENDER_FAIL,
-      payload: e,
-    });
-  }
-};
+		if (res.status === 200) {
+			dispatch({
+				type: FETCH_GENDER_SUCCESS,
+				payload: res.data,
+			})
+		}
+	} catch (e) {
+		dispatch({
+			type: FETCH_GENDER_FAIL,
+			payload: e,
+		})
+	}
+}
 
 //Fetch  Nationality
-export const fetchNationality = () => async dispatch => {
-  try {
-    const res = await axios.get(
-      `${SERVER_ADDRESS}/getCustomTypList?groupId=NTN`,
-      await getHeaders()
-    );
+export const fetchNationality = () => async (dispatch) => {
+	try {
+		const res = await axios.get(
+			`${SERVER_ADDRESS}/getCustomTypList?groupId=NTN`,
+			await getHeaders()
+		)
 
-    if (res.status === 200) {
-      dispatch({
-        type: FETCH_NATIONALITY_SUCCESS,
-        payload: res.data,
-      });
-    }
-  } catch (e) {
-    dispatch({
-      type: FETCH_NATIONALITY_FAIL,
-      payload: e,
-    });
-  }
-};
+		if (res.status === 200) {
+			dispatch({
+				type: FETCH_NATIONALITY_SUCCESS,
+				payload: res.data,
+			})
+		}
+	} catch (e) {
+		dispatch({
+			type: FETCH_NATIONALITY_FAIL,
+			payload: e,
+		})
+	}
+}
 
 //Fetch ID Type
-export const fetchIdType = () => async dispatch => {
-  try {
-    const res = await axios.get(
-      `${SERVER_ADDRESS}/getCustomTypList?groupId=ID`,
-      await getHeaders()
-    );
+export const fetchIdType = () => async (dispatch) => {
+	try {
+		const res = await axios.get(
+			`${SERVER_ADDRESS}/getCustomTypList?groupId=ID`,
+			await getHeaders()
+		)
 
-    if (res.status === 200) {
-      dispatch({
-        type: FETCH_ID_SUCCESS,
-        payload: res.data,
-      });
-    }
-  } catch (e) {
-    dispatch({
-      type: FETCH_ID_FAIL,
-      payload: e,
-    });
-  }
-};
+		if (res.status === 200) {
+			dispatch({
+				type: FETCH_ID_SUCCESS,
+				payload: res.data,
+			})
+		}
+	} catch (e) {
+		dispatch({
+			type: FETCH_ID_FAIL,
+			payload: e,
+		})
+	}
+}
 
 //Fetch Employee Type
-export const fetchEmployeeType = () => async dispatch => {
-  try {
-    const res = await axios.get(
-      `${SERVER_ADDRESS}/getCustomTypList?groupId=EP`,
-      await getHeaders()
-    );
+export const fetchEmployeeType = () => async (dispatch) => {
+	try {
+		const res = await axios.get(
+			`${SERVER_ADDRESS}/getCustomTypList?groupId=EP`,
+			await getHeaders()
+		)
 
-    if (res.status === 200) {
-      dispatch({
-        type: FETCH_EMPLOYEE_SUCCESS,
-        payload: res.data,
-      });
-    }
-  } catch (e) {
-    dispatch({
-      type: FETCH_EMPLOYEE_FAIL,
-      payload: e,
-    });
-  }
-};
+		if (res.status === 200) {
+			dispatch({
+				type: FETCH_EMPLOYEE_SUCCESS,
+				payload: res.data,
+			})
+		}
+	} catch (e) {
+		dispatch({
+			type: FETCH_EMPLOYEE_FAIL,
+			payload: e,
+		})
+	}
+}
 
 //Fetch Industry Type
-export const fetchIndustryType = () => async dispatch => {
-  try {
-    const res = await axios.get(
-      `${SERVER_ADDRESS}/getCustomTypList?groupId=NT`,
-      await getHeaders()
-    );
+export const fetchIndustryType = () => async (dispatch) => {
+	try {
+		const res = await axios.get(
+			`${SERVER_ADDRESS}/getCustomTypList?groupId=NT`,
+			await getHeaders()
+		)
 
-    if (res.status === 200) {
-      dispatch({
-        type: FETCH_INDUSTRY_TYPE_SUCCESS,
-        payload: res.data,
-      });
-    }
-  } catch (e) {
-    dispatch({
-      type: FETCH_INDUSTRY_TYPE_FAIL,
-      payload: e,
-    });
-  }
-};
+		if (res.status === 200) {
+			dispatch({
+				type: FETCH_INDUSTRY_TYPE_SUCCESS,
+				payload: res.data,
+			})
+		}
+	} catch (e) {
+		dispatch({
+			type: FETCH_INDUSTRY_TYPE_FAIL,
+			payload: e,
+		})
+	}
+}
 
 //Fetch Scheme Type"
-export const fetchSchemeType = () => async dispatch => {
-  try {
-    const res = await axios.get(
-      `${SERVER_ADDRESS}/getCustomTypList?groupId=SC`,
-      await getHeaders()
-    );
+export const fetchSchemeType = () => async (dispatch) => {
+	try {
+		const res = await axios.get(
+			`${SERVER_ADDRESS}/getCustomTypList?groupId=SC`,
+			await getHeaders()
+		)
 
-    if (res.status === 200) {
-      dispatch({
-        type: FETCH_SCHEME_TYPE_SUCCESS,
-        payload: res.data,
-      });
-    }
-  } catch (e) {
-    dispatch({
-      type: FETCH_SCHEME_TYPE_FAIL,
-      payload: e,
-    });
-  }
-};
+		if (res.status === 200) {
+			dispatch({
+				type: FETCH_SCHEME_TYPE_SUCCESS,
+				payload: res.data,
+			})
+		}
+	} catch (e) {
+		dispatch({
+			type: FETCH_SCHEME_TYPE_FAIL,
+			payload: e,
+		})
+	}
+}
 
 //Fetch Occupation"
-export const fetchOccupation = () => async dispatch => {
-  try {
-    const res = await axios.get(
-      `${SERVER_ADDRESS}/getCustomTypList?groupId=MB`,
-      await getHeaders()
-    );
+export const fetchOccupation = () => async (dispatch) => {
+	try {
+		const res = await axios.get(
+			`${SERVER_ADDRESS}/getCustomTypList?groupId=MB`,
+			await getHeaders()
+		)
 
-    if (res.status === 200) {
-      console.log(res, 'res');
-      dispatch({
-        type: FETCH_OCCUPATION_SUCCESS,
-        payload: res.data,
-      });
-    }
-  } catch (e) {
-    dispatch({
-      type: FETCH_OCCUPATION_FAIL,
-      payload: e,
-    });
-  }
-};
+		if (res.status === 200) {
+			console.log(res, 'res')
+			dispatch({
+				type: FETCH_OCCUPATION_SUCCESS,
+				payload: res.data,
+			})
+		}
+	} catch (e) {
+		dispatch({
+			type: FETCH_OCCUPATION_FAIL,
+			payload: e,
+		})
+	}
+}
 
 //Fetch Status"
-export const fetchStatus = () => async dispatch => {
-  try {
-    const res = await axios.get(
-      `${SERVER_ADDRESS}/getCustomTypList?groupId=ST`,
-      await getHeaders()
-    );
+export const fetchStatus = () => async (dispatch) => {
+	try {
+		const res = await axios.get(
+			`${SERVER_ADDRESS}/getCustomTypList?groupId=ST`,
+			await getHeaders()
+		)
 
-    if (res.status === 200) {
-      dispatch({
-        type: FETCH_STATUS_SUCCESS,
-        payload: res.data,
-      });
-    }
-  } catch (e) {
-    dispatch({
-      type: FETCH_STATUS_FAIL,
-      payload: e,
-    });
-  }
-};
+		if (res.status === 200) {
+			dispatch({
+				type: FETCH_STATUS_SUCCESS,
+				payload: res.data,
+			})
+		}
+	} catch (e) {
+		dispatch({
+			type: FETCH_STATUS_FAIL,
+			payload: e,
+		})
+	}
+}
 
 //Fetch Place of Birth
-export const fetchPlaceOfBirth = () => async dispatch => {
-  try {
-    const res = await axios.get(
-      `${SERVER_ADDRESS}/getCountryLst`,
-      await getHeaders()
-    );
+export const fetchPlaceOfBirth = () => async (dispatch) => {
+	try {
+		const res = await axios.get(
+			`${SERVER_ADDRESS}/getCountryLst`,
+			await getHeaders()
+		)
 
-    if (res.status === 200) {
-      dispatch({
-        type: FETCH_POB_SUCCESS,
-        payload: res.data,
-      });
-    }
-  } catch (e) {
-    dispatch({
-      type: FETCH_POB_FAIL,
-      payload: e,
-    });
-  }
-};
+		if (res.status === 200) {
+			dispatch({
+				type: FETCH_POB_SUCCESS,
+				payload: res.data,
+			})
+		}
+	} catch (e) {
+		dispatch({
+			type: FETCH_POB_FAIL,
+			payload: e,
+		})
+	}
+}

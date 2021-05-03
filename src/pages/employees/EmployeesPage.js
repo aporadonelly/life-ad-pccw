@@ -7,15 +7,15 @@
  * @UpdatedBy Nelly
  */
 
-import React from 'react';
-import SearchForm from '../../components/employees/EmployeesSearchForm';
+import React from 'react'
+import SearchForm from '../../components/employees/EmployeesSearchForm'
 
 const Employees = () => {
-  return (
-    <>
-      <SearchForm />
-    </>
-  );
-};
+	return (
+		<>
+			<SearchForm />
+		</>
+	)
+}
 
-export default Employees;
+export default Employees

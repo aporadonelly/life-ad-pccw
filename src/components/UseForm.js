@@ -1,39 +1,39 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 export function useForm(initialValues, validateOnchange = false, validate) {
-  const history = useHistory();
-  const [values, setValues] = useState(initialValues);
+	const [values, setValues] = useState(initialValues)
 
-  const [errors, setErrors] = useState({});
+	const [errors, setErrors] = useState({})
 
-  // const handleInputChange = e => {
-  //   const { name, value } = e.target;
-  //   setValues({ ...values, [name]: value });
+	const handleInputChange = (e) => {
+		const { name, value } = e.target
+		setValues({ ...values, [name]: value })
 
-  //   // if (validateOnchange) validate({ [name]: value });
-  // };
+		if (validateOnchange) validate({ [name]: value })
+		console.log(value, 'value')
+	}
 
-  const resetForm = () => {
-    setValues(initialValues);
-    setErrors({});
-  };
+	const resetForm = () => {
+		setValues(initialValues)
+		setErrors({})
+	}
 
-  return {
-    values,
-    setValues,
-    // handleInputChange,
-    errors,
-    setErrors,
-    resetForm,
-  };
+	return {
+		values,
+		setValues,
+		handleInputChange,
+		errors,
+		setErrors,
+		resetForm,
+	}
 }
 
 export function Form(props) {
-  const { children, ...other } = props;
-  return (
-    <form autoComplete="off" {...other}>
-      {props.children}
-    </form>
-  );
+	const { children, ...other } = props
+	return (
+		<form autoComplete='off' {...other}>
+			{props.children}
+		</form>
+	)
 }
