@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 export default function useTable(employees, headCells, filterFn) {
 	const classes = { ...useStyles() }
 
-	const pages = [5, 10, 25]
+	const pages = [50]
 	const [page, setPage] = useState(0)
 	const [rowsPerPage, setRowsPerPage] = useState(pages[page])
 	const [order, setOrder] = useState()

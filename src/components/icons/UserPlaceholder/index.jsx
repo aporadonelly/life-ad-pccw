@@ -1,1 +1,1 @@
-export { default } from "./UserPlaceholder";
+export { default } from './UserPlaceholder'

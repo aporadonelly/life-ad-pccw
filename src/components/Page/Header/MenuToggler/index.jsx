@@ -1,1 +1,1 @@
-export { default } from "./MenuToggler";
+export { default } from './MenuToggler'
