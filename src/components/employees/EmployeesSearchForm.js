@@ -51,6 +51,7 @@ const initialValues = {
 
 const EmployeeForm = ({
 	employees: {
+    enquiry,
 		genderType,
 		idType,
 		nationalities,
@@ -67,7 +68,7 @@ const EmployeeForm = ({
 	const classes = EmployeeStyles()
 
 	const { values, setValues, errors, setError } = useForm(
-		initialValues,
+		{...initialValues, ...enquiry},
 		true
 		// validate
 	)
@@ -105,7 +106,7 @@ const EmployeeForm = ({
 		dispatch(fetchOccupation())
 		dispatch(fetchStatus())
 		dispatch(fetchPlaceOfBirth())
-	}, [])
+	}, [dispatch])
 
 	// const validate = (fieldValues = values) => {
 	//   let temp = { ...errors };
