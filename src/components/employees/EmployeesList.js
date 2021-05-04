@@ -8,7 +8,7 @@ import EmployeesListStyles from './styles/EmployeesListStyle'
 import EmployeesTable from './EmployeesTable'
 import * as intl from '../../common/labels'
 
-const EmployeesList = ({ employees: { employees, enquiry } , ...props }) => {
+const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
 	const classes = {
 		...EmployeeStyles(),
 		...EmployeesListStyles(),
@@ -16,10 +16,8 @@ const EmployeesList = ({ employees: { employees, enquiry } , ...props }) => {
 
 	const history = useHistory()
 	const [chipData, setChipData] = useState({})
-	const [members, setMembers] = useState([])
 
 	useEffect(() => {
-		setMembers(employees)
 		setChipData(enquiry)
 	}, [])
 
@@ -27,7 +25,7 @@ const EmployeesList = ({ employees: { employees, enquiry } , ...props }) => {
 		const asArray = Object.entries(chipData)
 		const chips = asArray.filter(([key, value]) => key !== chipToDelete)
 		setChipData(chips)
-    props.dispatch({ type: "CLEAR_FIELD_SEARCH_FORM", payload: chipToDelete });
+		props.dispatch({ type: 'CLEAR_FIELD_SEARCH_FORM', payload: chipToDelete })
 	}
 
 	const renderObject = () => {
@@ -110,9 +108,9 @@ const EmployeesList = ({ employees: { employees, enquiry } , ...props }) => {
 										color: '#fff',
 									}}
 									onClick={() => {
-                    history.push('/employee-search')
-                    props.dispatch({ type: "CLEAR_SEARCH_FORM" });
-                  }}
+										history.push('/employee-search')
+										props.dispatch({ type: 'CLEAR_SEARCH_FORM' })
+									}}
 								>
 									{intl.labels.newSearch}
 								</Button>
@@ -126,7 +124,7 @@ const EmployeesList = ({ employees: { employees, enquiry } , ...props }) => {
 				<Grid className={classes.root} item xs={12} lg={12} sm={12}>
 					<Grid className={classes.pageTitle} item xs={12} lg={12} sm={12}>
 						{employees.length > 0 ? (
-							<EmployeesTable employees={members} />
+							<EmployeesTable employees={employees} />
 						) : (
 							<p>NO DATA FOUND</p>
 						)}

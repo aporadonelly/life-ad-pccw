@@ -21,7 +21,7 @@ export default function Select(props) {
 				<em>Please Select</em>
 			</MenuItem>
 			{options.map((item) => (
-				<MenuItem key={item.cstmTypId} value={item.cstmTypDtlTxt}>
+				<MenuItem key={item.cstmTypId} value={item.cstmTypId}>
 					{item.cstmTypDtlTxt}
 				</MenuItem>
 			))}

@@ -45,22 +45,22 @@ export default (state = initialState, action) => {
 	const { type, payload } = action
 
 	switch (type) {
-    case "CLEAR_SEARCH_FORM": 
-      return {
-        ...state,
-        enquiry: {}
-      }
+		case 'CLEAR_SEARCH_FORM':
+			return {
+				...state,
+				enquiry: {},
+			}
 
-      case "CLEAR_FIELD_SEARCH_FORM": {
-        const newEnquiry = {...state.enquiry};
+		case 'CLEAR_FIELD_SEARCH_FORM': {
+			const newEnquiry = { ...state.enquiry }
 
-        delete newEnquiry[action.payload];
+			delete newEnquiry[action.payload]
 
-        return {
-          ...state,
-          enquiry: newEnquiry
-        }
-      }
+			return {
+				...state,
+				enquiry: newEnquiry,
+			}
+		}
 
 		case FETCH_POB_SUCCESS:
 			return {

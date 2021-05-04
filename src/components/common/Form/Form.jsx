@@ -1,3 +1,3 @@
-const Form = (props) => null;
+const Form = (props) => null
 
-export default Form;
+export default Form

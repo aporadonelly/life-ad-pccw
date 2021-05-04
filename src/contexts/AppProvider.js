@@ -1,42 +1,42 @@
-import PropTypes from "prop-types";
-import { createContext, useContext, useReducer, useCallback } from "react";
+import PropTypes from 'prop-types'
+import { createContext, useContext, useReducer, useCallback } from 'react'
 
-const Context = createContext();
-const { Provider } = Context;
+const Context = createContext()
+const { Provider } = Context
 
 const reducer = (state, action) => {
-  switch (action.type) {
-    case "siderToggled":
-      return { ...state, siderOpen: !state.siderOpen };
+	switch (action.type) {
+		case 'siderToggled':
+			return { ...state, siderOpen: !state.siderOpen }
 
-    default:
-      return state;
-  }
-};
+		default:
+			return state
+	}
+}
 
 const AppProvider = ({ user, cycleDate, children }) => {
-  const [state, dispatch] = useReducer(reducer, {
-    siderOpen: false,
-    user,
-    cycleDate,
-  });
+	const [state, dispatch] = useReducer(reducer, {
+		siderOpen: false,
+		user,
+		cycleDate,
+	})
 
-  const siderToggled = useCallback(() => {
-    dispatch({ type: "siderToggled" });
-  }, [dispatch]);
+	const siderToggled = useCallback(() => {
+		dispatch({ type: 'siderToggled' })
+	}, [dispatch])
 
-  return <Provider value={{ ...state, siderToggled }}>{children}</Provider>;
-};
+	return <Provider value={{ ...state, siderToggled }}>{children}</Provider>
+}
 
 AppProvider.propTypes = {
-  user: PropTypes.shape({
-    avatar: PropTypes.string,
-    firstName: PropTypes.string,
-    lastName: PropTypes.string,
-    role: PropTypes.string,
-  }),
-  cycleDate: PropTypes.string,
-};
+	user: PropTypes.shape({
+		avatar: PropTypes.string,
+		firstName: PropTypes.string,
+		lastName: PropTypes.string,
+		role: PropTypes.string,
+	}),
+	cycleDate: PropTypes.string,
+}
 
-export default AppProvider;
-export const useAppState = () => useContext(Context);
+export default AppProvider
+export const useAppState = () => useContext(Context)

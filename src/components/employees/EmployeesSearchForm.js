@@ -51,7 +51,7 @@ const initialValues = {
 
 const EmployeeForm = ({
 	employees: {
-    enquiry,
+		enquiry,
 		genderType,
 		idType,
 		nationalities,
@@ -67,8 +67,8 @@ const EmployeeForm = ({
 	const dispatch = useDispatch()
 	const classes = EmployeeStyles()
 
-	const { values, setValues, errors, setError } = useForm(
-		{...initialValues, ...enquiry},
+	const { values, setValues, errors, setError, resetForm } = useForm(
+		{ ...initialValues, ...enquiry },
 		true
 		// validate
 	)
@@ -194,7 +194,7 @@ const EmployeeForm = ({
 											type='text'
 											id='text'
 											placeholder='Please Input'
-											value={values.mpf_id}
+											value={mpf_id}
 											// error={errors.mpf_id}
 										/>
 									</div>
@@ -222,7 +222,7 @@ const EmployeeForm = ({
 											name='first_name'
 											onChange={handleInputChange}
 											fullWidth
-											value={values.first_name}
+											value={first_name}
 											placeholder='Input English Name'
 											className={classes.selectValidator}
 										/>
@@ -237,7 +237,7 @@ const EmployeeForm = ({
 											name='chinese_name'
 											type='text'
 											id='text'
-											value={values.chinese_name}
+											value={chinese_name}
 											placeholder='Input Chinese Name'
 											onChange={handleInputChange}
 											fullWidth
@@ -269,7 +269,7 @@ const EmployeeForm = ({
 											name='id_type'
 											onChange={handleInputChange}
 											fullWidth
-											value={values.id_type}
+											value={id_type}
 											className={classes.gender}
 											options={idType}
 										></Controls.Select>
@@ -287,7 +287,7 @@ const EmployeeForm = ({
 											fullWidth
 											type='text'
 											id='text'
-											value={values.id_number}
+											value={id_number}
 											placeholder='Please Input'
 										/>
 									</div>
@@ -308,7 +308,7 @@ const EmployeeForm = ({
 													type='date'
 													onChange={handleInputChange}
 													className={classes.textField}
-													value={values.date_of_birth}
+													value={date_of_birth}
 													InputLabelProps={{
 														shrink: true,
 													}}
@@ -317,7 +317,7 @@ const EmployeeForm = ({
 
 												{/* <TextField
 													name='date_of_birth'
-													value={moment(values.date_of_birth).format(
+													value={moment(date_of_birth).format(
 														'YYYY-MM-DD'
 													)}
 													onChange={handleInputChange}
@@ -327,7 +327,7 @@ const EmployeeForm = ({
 													format='yyyy/MM/dd'
 													defaultValue='2017-05-24'
 													className={classes.textField}
-													// value={values.date_of_birth}
+													// value={date_of_birth}
 													InputLabelProps={{
 														shrink: true,
 													}}
@@ -347,7 +347,7 @@ const EmployeeForm = ({
 											name='nationality'
 											onChange={handleInputChange}
 											fullWidth
-											value={values.nationality}
+											value={nationality}
 											className={classes.gender}
 											// options={employeeMockData.nationality()}
 										>
@@ -372,7 +372,7 @@ const EmployeeForm = ({
 											name='place_of_birth'
 											onChange={handleInputChange}
 											fullWidth
-											value={values.place_of_birth}
+											value={place_of_birth}
 											className={classes.gender}
 											// options={employeeMockData.placeOfBirth()}
 										>
@@ -398,7 +398,7 @@ const EmployeeForm = ({
 											onChange={handleInputChange}
 											fullWidth
 											type='text'
-											value={values.mobile_number}
+											value={mobile_number}
 											placeholder='Please Input'
 										/>
 									</div>
@@ -416,7 +416,7 @@ const EmployeeForm = ({
 											name='address'
 											type='text'
 											placeholder='Please Input'
-											value={values.address}
+											value={address}
 										/>
 									</div>
 								</Grid>
@@ -428,7 +428,7 @@ const EmployeeForm = ({
 											name='email'
 											onChange={handleInputChange}
 											fullWidth
-											value={values.email}
+											value={email}
 											placeholder='Please Input'
 											// error={errors.email}
 										/>
@@ -457,7 +457,7 @@ const EmployeeForm = ({
 											type='date'
 											onChange={handleInputChange}
 											className={classes.textField}
-											value={values.date_of_employment}
+											value={date_of_employment}
 											InputLabelProps={{
 												shrink: true,
 											}}
@@ -471,7 +471,7 @@ const EmployeeForm = ({
 											id='date'
 											type='date'
 											className={classes.textField}
-											value={values.date_of_employment}
+											value={date_of_employment}
 											defaultValue='Please Input'
 											InputLabelProps={{
 												shrink: true,
@@ -489,7 +489,7 @@ const EmployeeForm = ({
 											name='employee_type'
 											onChange={handleInputChange}
 											fullWidth
-											value={values.employee_type}
+											value={employee_type}
 											className={classes.gender}
 											options={employeeType}
 										></Controls.Select>
@@ -504,7 +504,7 @@ const EmployeeForm = ({
 											name='reported_industry_type'
 											onChange={handleInputChange}
 											fullWidth
-											value={values.reported_industry_type}
+											value={reported_industry_type}
 											className={classes.gender}
 											options={industryType}
 										></Controls.Select>
@@ -519,7 +519,7 @@ const EmployeeForm = ({
 											name='occupation'
 											onChange={handleInputChange}
 											fullWidth
-											value={values.occupation}
+											value={occupation}
 											className={classes.gender}
 											options={occupationType}
 										></Controls.Select>
@@ -534,7 +534,7 @@ const EmployeeForm = ({
 											name='mpf_scheme_name'
 											onChange={handleInputChange}
 											fullWidth
-											value={values.mpf_scheme_name}
+											value={mpf_scheme_name}
 											className={classes.gender}
 											options={schemeType}
 										></Controls.Select>
@@ -551,7 +551,7 @@ const EmployeeForm = ({
 											onChange={handleInputChange}
 											fullWidth
 											type='text'
-											value={values.tax_residency}
+											value={tax_residency}
 											placeholder='Please Input'
 										/>
 									</div>
@@ -565,7 +565,7 @@ const EmployeeForm = ({
 											onChange={handleInputChange}
 											fullWidth
 											type='text'
-											value={values.tin}
+											value={tin}
 											placeholder='Please Input'
 										/>
 									</div>
@@ -577,7 +577,7 @@ const EmployeeForm = ({
 											name='status'
 											onChange={handleInputChange}
 											fullWidth
-											value={values.status}
+											value={status}
 											className={classes.gender}
 											type='text'
 											placeholder='Please select'
@@ -599,7 +599,7 @@ const EmployeeForm = ({
 										data-testid='cancel-btn'
 										text='clear'
 										color='default'
-										// onClick={resetForm}
+										onClick={resetForm}
 									/>
 									<Controls.Button
 										type='submit'

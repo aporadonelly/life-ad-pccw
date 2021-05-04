@@ -1,5 +1,5 @@
 const BaseDrawer = (props) => {
-  return null;
-};
+	return null
+}
 
-export default BaseDrawer;
+export default BaseDrawer
