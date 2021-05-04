@@ -11,7 +11,7 @@ const theme = createMuiTheme({
     common: {
       fiord: "#42526E",
       orange: "#EF841F",
-      highlighted: "'#FFD748'",
+      highlighted: "#FFD748",
     },
   },
   typography: {
