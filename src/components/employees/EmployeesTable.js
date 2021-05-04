@@ -52,13 +52,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const headCells = [
-  { id: 'mpf_id', label: 'MPF ID' },
-  { id: 'first_name', label: 'Member Name' },
-  { id: 'id_type', label: 'ID Type' },
-  { id: 'id_number', label: 'ID Number' },
-  { id: 'mobile_number', label: 'Mobile Number' },
-  { id: 'email', label: 'Email' },
-  { id: 'status', label: 'Status' },
+  { id: 'pnsnIdTxt', label: 'MPF ID' },
+  { id: 'fullname', label: 'Member Name' },
+  { id: 'idTypeId', label: 'ID Type' },
+  { id: 'idNoTxt', label: 'ID Number' },
+  { id: 'phoneNumber', label: 'Mobile Number' },
+  { id: 'emailAddrTxt', label: 'Email' },
+  { id: 'statusTypId', label: 'Status' },
   { id: 'action', label: 'Action', disableSorting: true },
 ];
 
@@ -110,12 +110,12 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
   return (
     <>
       <Grid container alignItems="center" style={{ marginBottom: '-10px' }}>
-        <Grid className={classes.pageTitle} item lg={3} sm={3} xs={12}>
+        <Grid className={classes.pageTitle} item lg={2} sm={3} xs={12}>
           <Typography variant="h6" component="div">
             {intl.labels.searchResult}
           </Typography>
         </Grid>
-        <Grid className={classes.pageTitle} item lg={6} sm={6} xs={12}>
+        <Grid className={classes.pageTitle} item lg={8} sm={6} xs={12}>
           <Box display="flex" justifyContent="flex-end">
             <AnimatedSearchBar
               placeholder="Quick Search"
@@ -125,7 +125,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
             />
           </Box>
         </Grid>
-        <Grid className={classes.pageTitle} item lg={3} sm={3} xs={12}>
+        <Grid className={classes.pageTitle} item lg={2} sm={3} xs={12}>
           <TblPagination />
         </Grid>
       </Grid>
@@ -170,10 +170,13 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
                     background: '#EF841F',
                     color: '#fff',
                   }}
-                  // className={emp.status === 'inactive' && classes.disabled}
                 />
                 <img
-                  src={viewEnrollActive}
+                  src={
+                    emp.vwEnrFlg === true
+                      ? viewEnrollActive
+                      : viewEnrollInActive
+                  }
                   alt="View Enrollment"
                   variant="contained"
                   style={{
