@@ -1,36 +1,21 @@
 /**
  * @Name Member Enquiry Page
- * @Description A page where a member can search and enquire.
+ * @Description A page where admin can search members.
+ * @parameters all fields in searchform component
+ * @returns a list of members shown in the table
  * @Author Nelly
  * @UpdatedBy Nelly
  */
 
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-
-import SearchForm from '../../components/employees/EmployeesSearchForm';
-
-const useStyles = makeStyles(theme => ({
-  pageContent: {
-    margin: theme.spacing(2.5),
-    padding: theme.spacing(3),
-    boxShadow: '0px 3px 6px #00000029',
-    borderRadius: '15px',
-    width: '80%',
-    float: 'right',
-    position: 'relative',
-    top: '130px',
-    marginBottom: '160px',
-  },
-}));
+import React from 'react'
+import SearchForm from '../../components/employees/EmployeesSearchForm'
 
 const Employees = () => {
-  const classes = useStyles();
-  return (
-    <>
-      <SearchForm />
-    </>
-  );
-};
+	return (
+		<>
+			<SearchForm />
+		</>
+	)
+}
 
-export default Employees;
+export default Employees
