@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     overflow: "hidden",
     padding: theme.spacing(3),
+    backgroundColor: "#F3F9F9",
   },
 }));
 
