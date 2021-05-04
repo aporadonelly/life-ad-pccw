@@ -8,7 +8,7 @@ import EmployeesListStyles from './styles/EmployeesListStyle'
 import EmployeesTable from './EmployeesTable'
 import * as intl from '../../common/labels'
 
-const EmployeesList = ({ employees: { employees, enquiry } }) => {
+const EmployeesList = ({ employees: { employees, enquiry } , ...props }) => {
 	const classes = {
 		...EmployeeStyles(),
 		...EmployeesListStyles(),
@@ -27,6 +27,7 @@ const EmployeesList = ({ employees: { employees, enquiry } }) => {
 		const asArray = Object.entries(chipData)
 		const chips = asArray.filter(([key, value]) => key !== chipToDelete)
 		setChipData(chips)
+    props.dispatch({ type: "CLEAR_FIELD_SEARCH_FORM", payload: chipToDelete });
 	}
 
 	const renderObject = () => {
@@ -108,7 +109,10 @@ const EmployeesList = ({ employees: { employees, enquiry } }) => {
 										background: '#EF841F',
 										color: '#fff',
 									}}
-									onClick={() => history.push('/employee-search')}
+									onClick={() => {
+                    history.push('/employee-search')
+                    props.dispatch({ type: "CLEAR_SEARCH_FORM" });
+                  }}
 								>
 									{intl.labels.newSearch}
 								</Button>
@@ -141,4 +145,4 @@ const mapStateToProps = (state) => ({
 	employees: state.employees,
 })
 
-export default connect(mapStateToProps, {})(EmployeesList)
+export default connect(mapStateToProps, null)(EmployeesList)
