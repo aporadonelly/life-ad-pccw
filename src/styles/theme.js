@@ -50,9 +50,11 @@ theme.overrides = {
   },
   MuiTable: {
     root: {
-      display: "block",
-      width: "100%",
-      overflowX: "auto",
+      [theme.breakpoints.down("sm")]: {
+        display: "block",
+        width: "100%",
+        overflowX: "auto",
+      },
     },
   },
   MuiTablePagination: {
@@ -70,6 +72,14 @@ theme.overrides = {
     },
     selectRoot: {
       display: "none",
+    },
+  },
+  MuiBreadcrumbs: {
+    root: {
+      backgroundColor: theme.palette.secondary.main,
+      color: theme.palette.common.white,
+      padding: theme.spacing(2, 3),
+      margin: theme.spacing(-3, -3, 0),
     },
   },
 };
