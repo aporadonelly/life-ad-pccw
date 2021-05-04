@@ -1,5 +1,6 @@
 import {
   SERVER_ADDRESS,
+  SCHEME_SERVER_ADDRESS,
   FETCH_EMPLOYEES_SUCCESS,
   FETCH_EMPLOYEES_FAIL,
   VIEW_EMPLOYEE_SUCCESS,
@@ -60,7 +61,7 @@ export const viewMember = id => async dispatch => {
     const config = {
       headers: getHeaders(),
       params: {
-        empfId: id
+        empfId: id,
       },
     };
     const res = await axios.get('https://localhost:8082/ldRegIndInfo', config);
@@ -251,10 +252,10 @@ export const fetchIndustryType = () => async dispatch => {
 export const fetchSchemeType = () => async dispatch => {
   try {
     const res = await axios.get(
-      `${SERVER_ADDRESS}/getCustomTypList?groupId=SC`,
+      `${SCHEME_SERVER_ADDRESS}/getCustomTypList?groupId=SC`,
       await getHeaders()
     );
-
+    console.log(res, 'res');
     if (res.status === 200) {
       dispatch({
         type: FETCH_SCHEME_TYPE_SUCCESS,

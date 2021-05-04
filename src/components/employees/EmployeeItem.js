@@ -176,7 +176,9 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                   <div className={classes.label} variant="contained">
                     {intl.labels.gender}
                   </div>
-                  <div className={classes.labelValue}>{gndrTypId}</div>
+                  <div className={classes.labelValue}>
+                    {gndrTypId === 'GT_M' ? 'Male' : 'Female'}
+                  </div>
                 </div>
               </Grid>
             </Grid>
@@ -186,7 +188,9 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                   <div className={classes.label} variant="contained">
                     {intl.labels.id_type}
                   </div>
-                  <div className={classes.labelValue}>{idTypId}</div>
+                  <div className={classes.labelValue}>
+                    {idTypId === 'ID_HK' ? 'HKID' : 'Passport'}
+                  </div>
                 </div>
               </Grid>
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
@@ -340,7 +344,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                     {intl.labels.preferred_communication_language}
                   </div>
                   <div className={classes.labelValue}>
-                    {get(regCntcts, '[0].lnggTypId')}
+                    {get(regCntcts, '[0].lnggTypId') === 'LG_EN' && 'English'}
                   </div>
                 </div>
               </Grid>
@@ -357,7 +361,10 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               <Grid item sm={3} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label}>{intl.labels.status}</div>
-                  <div className={classes.labelValue}> {sttsTypId}</div>
+                  <div className={classes.labelValue}>
+                    {' '}
+                    {sttsTypId === 'ST_NW' ? 'New' : 'Completed'}
+                  </div>
                 </div>
               </Grid>
             </Grid>

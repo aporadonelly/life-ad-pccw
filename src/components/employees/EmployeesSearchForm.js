@@ -64,6 +64,7 @@ const EmployeeForm = ({
     placeOfBirth,
   },
 }) => {
+  console.log(schemeType, 'schemeType');
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = EmployeeStyles();

@@ -26,8 +26,8 @@ const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
   const handleDelete = chipToDelete => () => {
     const asArray = Object.entries(chipData);
     const chips = asArray.filter(([key, value]) => key !== chipToDelete);
-    setChipData(chips);
-    props.dispatch({ type: 'CLEAR_FIELD_SEARCH_FORM', payload: chipToDelete });
+    // setChipData(chips);
+    // props.dispatch({ type: 'CLEAR_FIELD_SEARCH_FORM', payload: chipToDelete });
   };
 
   const renderObject = () => {
@@ -55,15 +55,14 @@ const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
       if (initValue)
         return (
           <Chip
-            style={{ textTransform: 'capitalize', margin: '2px' }}
+            // style={{ textTransform: 'capitalize', margin: '2px' }}
+            className={key !== 'email' && classes.chips}
             key={key}
             label={label}
             onDelete={handleDelete(key)}
             color="primary"
           />
         );
-
-      return null;
     });
   };
 

@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     },
     '&:hover > div > input': {
       [theme.breakpoints.up('sm')]: {
-        width: theme.spacing(40),
+        width: theme.spacing(62),
       },
     },
     zIndex: 1,
