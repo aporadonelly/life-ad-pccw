@@ -41,8 +41,35 @@ theme.overrides = {
       top: "0 !important",
       float: "none !important",
       margin: "0 !important",
+      "&:not(:first-child)": {
+        marginTop: "24px !important",
+      },
       padding: "24px !important",
       boxShadow: "0px 3px 6px #00000029 !important",
+    },
+  },
+  MuiTable: {
+    root: {
+      display: "block",
+      width: "100%",
+      overflowX: "auto",
+    },
+  },
+  MuiTablePagination: {
+    root: {
+      overflow: "hidden",
+    },
+    spacer: {
+      display: "none",
+    },
+    action: {
+      flexGrow: 1,
+    },
+    toolbar: {
+      flexDirection: "row-reverse",
+    },
+    selectRoot: {
+      display: "none",
     },
   },
 };
