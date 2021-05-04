@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import moment from "moment";
-import { connect } from "react-redux";
-import DateFnsUtils from "@date-io/date-fns";
-import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { Grid, MenuItem, Paper, Select, TextField } from "@material-ui/core";
+import React, { useEffect, useState } from 'react';
+import moment from 'moment';
+import { connect } from 'react-redux';
+import DateFnsUtils from '@date-io/date-fns';
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Grid, MenuItem, Paper, Select, TextField } from '@material-ui/core';
 import {
   searchMembers,
   saveQuery,
@@ -18,35 +18,36 @@ import {
   fetchOccupation,
   fetchStatus,
   fetchPlaceOfBirth,
-} from "../../actions/employeesActions";
-import EmployeeStyles from "./styles/EmployeeStyles";
-import { useForm, Form } from "../UseForm";
-import Controls from "../controls/Controls";
-import * as intl from "../../common/labels";
-import "./styles/index.css";
-import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+} from '../../actions/employeesActions';
+import EmployeeStyles from './styles/EmployeeStyles';
+import { useForm, Form } from '../UseForm';
+import Controls from '../controls/Controls';
+import * as intl from '../../common/labels';
+import './styles/index.css';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { isNull } from 'lodash';
 
 const initialValues = {
-  mpf_id: "",
-  first_name: "",
-  chinese_name: "",
-  gender: "",
-  id_type: "",
-  id_number: "",
-  date_of_birth: "",
-  nationality: "",
-  place_of_birth: "",
-  mobile_number: "",
-  address: "",
-  email: "",
-  date_of_employment: "",
-  employee_type: "",
-  reported_industry_type: "",
-  occupation: "",
-  mpf_scheme_name: "",
-  tax_residency: "",
-  tin: "",
-  status: "",
+  mpf_id: '',
+  first_name: '',
+  chinese_name: '',
+  gender: null,
+  id_type: null,
+  id_number: '',
+  date_of_birth: null,
+  nationality: null,
+  place_of_birth: null,
+  mobile_number: '',
+  address: '',
+  email: '',
+  date_of_employment: null,
+  employee_type: null,
+  reported_industry_type: null,
+  occupation: null,
+  mpf_scheme_name: null,
+  tax_residency: '',
+  tin: '',
+  status: null,
 };
 
 const EmployeeForm = ({
@@ -123,53 +124,53 @@ const EmployeeForm = ({
   //   if (fieldValues === values) return Object.values(temp).every(x => x === '');
   // };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = e => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
 
   const handleReset = () => {
-    dispatch({ type: "CLEAR_SEARCH_FORM" });
+    dispatch({ type: 'CLEAR_SEARCH_FORM' });
     setValues(initialValues);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     setValues(values);
-    console.log(values, "before puting ");
+    console.log(values, 'before puting ');
     let p = {};
-    if (mpf_id !== null) p["mpf_id"] = mpf_id;
-    if (first_name !== null) p["first_name"] = first_name;
-    if (chinese_name !== null) p["chinese_name"] = chinese_name;
-    if (gender !== null) p["gender"] = gender;
-    if (id_type !== null) p["id_type"] = id_type;
-    if (id_number !== null) p["id_number"] = id_number;
+    if (mpf_id !== null) p['mpf_id'] = mpf_id;
+    if (first_name !== null) p['first_name'] = first_name;
+    if (chinese_name !== null) p['chinese_name'] = chinese_name;
+    if (gender !== null) p['gender'] = gender;
+    if (id_type !== null) p['id_type'] = id_type;
+    if (id_number !== null) p['id_number'] = id_number;
     if (date_of_birth !== null)
-      p["date_of_birth"] =
+      p['date_of_birth'] =
         date_of_birth.getFullYear() +
-        "/" +
+        '/' +
         (date_of_birth.getMonth() + 1) +
-        "/" +
+        '/' +
         date_of_birth.getDate();
-    if (nationality !== null) p["nationality"] = nationality;
-    if (place_of_birth !== null) p["place_of_birth"] = place_of_birth;
-    if (mobile_number !== null) p["mobile_number"] = mobile_number;
-    if (address !== null) p["address"] = address;
-    if (email !== null) p["email"] = email;
+    if (nationality !== null) p['nationality'] = nationality;
+    if (place_of_birth !== null) p['place_of_birth'] = place_of_birth;
+    if (mobile_number !== null) p['mobile_number'] = mobile_number;
+    if (address !== null) p['address'] = address;
+    if (email !== null) p['email'] = email;
     if (date_of_employment !== null)
-      p["date_of_employment"] = date_of_employment;
-    if (employee_type !== null) p["employee_type"] = employee_type;
+      p['date_of_employment'] = date_of_employment;
+    if (employee_type !== null) p['employee_type'] = employee_type;
     if (reported_industry_type !== null)
-      p["reported_industry_type"] = reported_industry_type;
-    if (occupation !== null) p["occupation"] = occupation;
-    if (mpf_scheme_name !== null) p["mpf_scheme_name"] = mpf_scheme_name;
-    if (tax_residency !== null) p["tax_residency"] = tax_residency;
-    if (tin !== null) p["tin"] = tin;
-    if (status !== null) p["status"] = status;
+      p['reported_industry_type'] = reported_industry_type;
+    if (occupation !== null) p['occupation'] = occupation;
+    if (mpf_scheme_name !== null) p['mpf_scheme_name'] = mpf_scheme_name;
+    if (tax_residency !== null) p['tax_residency'] = tax_residency;
+    if (tin !== null) p['tin'] = tin;
+    if (status !== null) p['status'] = status;
 
     dispatch(searchMembers(p));
     dispatch(saveQuery(p));
-    history.push("/employee-search-results");
+    history.push('/employee-search-results');
   };
   return (
     <>
@@ -216,7 +217,7 @@ const EmployeeForm = ({
                 xs={12}
                 sm={6}
                 lg={12}
-                style={{ marginTop: "-20px" }}
+                style={{ marginTop: '-20px' }}
               >
                 <Grid item sm={4} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
@@ -285,7 +286,7 @@ const EmployeeForm = ({
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {" "}
+                      {' '}
                       {intl.labels.id_number}
                     </h3>
                     <Controls.Input
@@ -308,8 +309,6 @@ const EmployeeForm = ({
                       <Grid container justify="space-around">
                         <Controls.DatePicker
                           name="date_of_birth"
-                          defaultValue="Please Input"
-                          placeholder="Please Input"
                           fullWidth
                           id="date"
                           type="date"
@@ -361,7 +360,7 @@ const EmployeeForm = ({
                       <MenuItem value="" disabled>
                         Please Select
                       </MenuItem>
-                      {nationalities.map((c) => (
+                      {nationalities.map(c => (
                         <MenuItem key={c.id} value={c.cstmTypId}>
                           {c.cstmTypId}
                         </MenuItem>
@@ -372,7 +371,7 @@ const EmployeeForm = ({
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {" "}
+                      {' '}
                       {intl.labels.place_of_birth}
                     </h3>
                     <Select
@@ -386,7 +385,7 @@ const EmployeeForm = ({
                       <MenuItem value="" disabled>
                         Please Select
                       </MenuItem>
-                      {placeOfBirth.map((c) => (
+                      {placeOfBirth.map(c => (
                         <MenuItem key={c.id} value={c.cntryTypNm}>
                           {c.cntryTypNm}
                         </MenuItem>
@@ -397,7 +396,7 @@ const EmployeeForm = ({
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {" "}
+                      {' '}
                       {intl.labels.mobile_number}
                     </h3>
                     <Controls.Input
@@ -413,7 +412,7 @@ const EmployeeForm = ({
                 <Grid item xs={12} sm={8} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {" "}
+                      {' '}
                       {intl.labels.address}
                     </h3>
                     <Controls.Input
@@ -449,7 +448,7 @@ const EmployeeForm = ({
                 xs={12}
                 sm={6}
                 lg={12}
-                style={{ marginTop: "-20px" }}
+                style={{ marginTop: '-20px' }}
               >
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
@@ -636,7 +635,7 @@ EmployeeForm.propTypes = {
   fetchPlaceOfBirth: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   employees: state.employees,
 });
 

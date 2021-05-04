@@ -379,7 +379,8 @@ const EmployeeView = ({ employees: { employee, id } }) => {
             bottom: '35px',
             width: '163px',
             color: '#fff',
-            top: '.5px',
+            top: '20px',
+            left: '20px',
           }}
           onClick={() => goToSearch(id)}
           variant="contained"
