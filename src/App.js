@@ -13,6 +13,8 @@ import { useSelector } from "react-redux";
 import createPrivateRoute from "./utils/createPrivateRoute";
 import createPublicRoute from "./utils/createPublicRoute";
 
+const Placeholder = () => <div>Hello</div>;
+
 const App = () => {
   const user = useSelector((state) => state.userAccounts);
   return (
@@ -23,13 +25,13 @@ const App = () => {
             exact
             path="/"
             {...createPrivateRoute({
-              component: null,
+              component: Placeholder,
             })}
           />
           <Route
             path="/agent"
             {...createPrivateRoute({
-              component: null,
+              component: Placeholder,
             })}
           />
           <Route
@@ -59,7 +61,7 @@ const App = () => {
           <Route
             path=""
             {...createPrivateRoute({
-              component: null,
+              component: Placeholder,
             })}
           />
         </Switch>
