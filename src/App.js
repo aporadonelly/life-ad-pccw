@@ -1,47 +1,65 @@
-import React from 'react'
-import { ThemeProvider } from '@material-ui/core/styles'
-import { CssBaseline } from '@material-ui/core'
-import { PersistGate } from 'redux-persist/integration/react'
-import theme from './styles/theme'
-import { Switch, Route } from 'react-router-dom'
-import { Page } from './components'
-import Dashboard from './components/dashboard/dashboard'
-import Employees from './pages/employees/EmployeesPage'
-import Employee from './components/employees/EmployeeItem'
-import EmployeesList from './components/employees/EmployeesList'
-import { Agent } from './components/agent'
-
-import { Provider } from 'react-redux'
-import { persistor, store } from './store'
+import React from "react";
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "./styles/theme";
+import { Switch, Route } from "react-router-dom";
+import { Page } from "./components";
+import Dashboard from "./components/dashboard/dashboard";
+import Employees from "./pages/employees/EmployeesPage";
+import Employee from "./components/employees/EmployeeItem";
+import EmployeesList from "./components/employees/EmployeesList";
+import { Agent } from "./components/agent";
+import Login from "./pages/Login/Login";
+import { useSelector } from "react-redux";
+import createPrivateRoute from "./utils/createPrivateRoute";
+import createPublicRoute from "./utils/createPublicRoute";
 
 const App = () => {
-	return (
-		<Provider store={store}>
-			<PersistGate loading={null} persistor={persistor}>
-				<ThemeProvider theme={theme}>
-					<Page
-						user={{
-							firstName: 'Rosetta',
-							lastName: 'Chan',
-							role: 'Admin Operator',
-						}}
-						cycleDate='3 May 2021'
-					>
-						<Switch>
-							<Route exact path='/' component={Dashboard} />
-							<Route path='/agent' component={Agent} />
-							<Route path='/employee-search' component={Employees} />
-							<Route
-								path='/employee-search-results'
-								component={EmployeesList}
-							/>
-							<Route path='/employee-view' component={Employee} />
-						</Switch>
-					</Page>
-				</ThemeProvider>
-			</PersistGate>
-		</Provider>
-	)
-}
+  const user = useSelector((state) => state.userAccounts);
+  return (
+    <ThemeProvider theme={theme}>
+      <Page user={user.userAuthDetails} cycleDate="3 May 2021">
+        <Switch>
+          <Route
+            exact
+            path="/"
+            {...createPrivateRoute({
+              component: null,
+            })}
+          />
+          <Route
+            path="/agent"
+            {...createPrivateRoute({
+              component: null,
+            })}
+          />
+          <Route
+            path="/employee-search"
+            {...createPrivateRoute({
+              component: Employees,
+            })}
+          />
+          <Route
+            path="/employee-search-results"
+            {...createPrivateRoute({
+              component: EmployeesList,
+            })}
+          />
+          <Route
+            path="/employee-view"
+            {...createPrivateRoute({
+              component: Employee,
+            })}
+          />
+          <Route
+            path="/signin"
+            {...createPublicRoute({
+              component: Login,
+            })}
+          />
+        </Switch>
+      </Page>
+    </ThemeProvider>
+  );
+};
 
-export default App
+export default App;

@@ -1,5 +1,8 @@
-import { combineReducers } from 'redux'
-import employeesReducer from './employeesReducer'
+import { combineReducers } from "redux";
+import employeesReducer from "./employeesReducer";
+import userAccounts from "./../redux/userAuth/userAuth.reducers";
+
 export default combineReducers({
-	employees: employeesReducer,
-})
+  employees: employeesReducer,
+  userAccounts: userAccounts,
+});
