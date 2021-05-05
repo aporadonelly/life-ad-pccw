@@ -23,7 +23,7 @@ import Settings from "./Settings";
 
 const Page = ({ children, ...props }) => {
   const location = useLocation();
-  const { t } = useTranslation("sider");
+  const { t } = useTranslation(["sider"]);
 
   return (
     <AppProvider {...props}>
@@ -33,52 +33,52 @@ const Page = ({ children, ...props }) => {
           <Menu>
             <Menu.Item
               href="/dashboard"
-              name={t("menu.dashboard")}
+              name={t("sider:menu.dashboard")}
               icon={<HomeOutlinedIcon />}
             />
             <Menu.Item
               href="/enquires"
-              name={t("menu.enquires")}
+              name={t("sider:menu.enquires")}
               icon={<SearchOutlinedIcon />}
             />
             <Menu.Item
               href="/trustee"
-              name={t("menu.trustee")}
+              name={t("sider:menu.trustee")}
               icon={<AccountBalanceOutlinedIcon />}
             />
             <Menu.Item
               href="/company"
-              name={t("menu.company")}
+              name={t("sider:menu.company")}
               icon={<BusinessOutlinedIcon />}
             />
             <Menu.Item
               href="/indivdual"
-              name={t("menu.individual")}
+              name={t("sider:menu.individual")}
               icon={<PersonOutlineOutlinedIcon />}
             />
             <Menu.Item
               href="/employer"
-              name={t("menu.employer")}
+              name={t("sider:menu.employer")}
               icon={<BusinessCenterOutlinedIcon />}
             />
             <Menu.Item
               href="/employee-search"
-              name={t("menu.employee")}
+              name={t("sider:menu.employee")}
               icon={<PeopleOutlineOutlinedIcon />}
             />
             <Menu.Item
               href="/agent"
-              name={t("menu.agent")}
+              name={t("sider:menu.agent")}
               icon={<RecordVoiceOverOutlinedIcon />}
             />
             <Menu.Item
               href="/general-legar"
-              name={t("menu.generalLegar")}
+              name={t("sider:menu.generalLegar")}
               icon={<GavelOutlinedIcon />}
             />
             <Menu.Item
               href="/correspondenses"
-              name={t("menu.correspondenses")}
+              name={t("sider:menu.correspondenses")}
               icon={<PublicOutlinedIcon />}
             />
           </Menu>
