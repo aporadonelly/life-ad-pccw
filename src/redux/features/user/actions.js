@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import { userAdapter } from "@adapters";
 
 export const login = createAsyncThunk(
@@ -13,3 +13,7 @@ export const login = createAsyncThunk(
     }
   }
 );
+
+export const logout = createAction("@@EMPF/USER/LOGOUT", () => ({
+  payload: {},
+}));
