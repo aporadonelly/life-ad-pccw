@@ -59,7 +59,7 @@ const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
             className={key !== 'email' && classes.chips}
             key={key}
             label={label}
-            onDelete={handleDelete(key)}
+            // onDelete={handleDelete(key)}
             color="primary"
           />
         );
