@@ -30,14 +30,9 @@ theme.overrides = {
       color: theme.palette.common.white,
     },
   },
-  MuiContainer: {
-    root: {
-      padding: theme.spacing(2),
-    },
-  },
   MuiPaper: {
     elevation1: {
-      width: "calc(100% - 50px) !important",
+      width: "100% !important",
       top: "0 !important",
       float: "none !important",
       margin: "0 !important",
@@ -79,7 +74,6 @@ theme.overrides = {
       backgroundColor: theme.palette.secondary.main,
       color: theme.palette.common.white,
       padding: theme.spacing(2, 3),
-      margin: theme.spacing(-3, -3, 0),
     },
   },
 };
