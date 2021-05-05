@@ -89,7 +89,7 @@ const Page = ({ children, ...props }) => {
             location.pathname === "/employee-view") && (
             <Breadcrumbs routes={["Employee", "Member Enqueries"]} />
           )}
-          {children}
+          <Box p={3}>{children}</Box>
         </Content>
       </Box>
       <Settings />
