@@ -1,14 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { userSelector } from "@redux/features/user/selectors";
 
-const mapStateToProps = (state, ownProps) => ({
-  auth: state.userAccounts.userAuthDetails,
+const mapStateToProps = (state) => ({
+  user: userSelector(state),
 });
 
 function createPrivateRoute({ component }) {
-  const PrivateRoute = ({ auth, ...rest }) => {
-    if (auth) {
+  const PrivateRoute = ({ user, ...rest }) => {
+    if (user) {
       return React.createElement(component, rest);
     }
 
