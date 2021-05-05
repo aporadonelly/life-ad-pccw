@@ -1,0 +1,18 @@
+import { createReducer } from "@reduxjs/toolkit";
+import { initialState } from "./state";
+import { login } from "./actions";
+
+export const userReducer = createReducer(initialState, (builder) =>
+  builder
+    .addCase(login.pending, (state, _action) => {
+      return { ...state, isLoading: true, error: null };
+    })
+    .addCase(login.fulfilled, (state, action) => {
+      const { token, user } = action.payload;
+      return { ...state, isLoading: false, error: null, token, user };
+    })
+    .addCase(login.rejected, (state, action) => {
+      const { error } = action.payload;
+      return { ...state, isLoading: false, error };
+    })
+);
