@@ -224,7 +224,7 @@ const EmployeeForm = ({
                 <Grid item sm={4} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {intl.labels.first_name}
+                      {intl.labels.english_name}
                     </h3>
                     <Controls.Input
                       type="text"
