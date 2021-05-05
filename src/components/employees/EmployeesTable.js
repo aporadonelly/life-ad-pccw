@@ -138,7 +138,21 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
                 {highligtedText(emp.pnsnIdTxt, search)}
               </TableCell>
               <TableCell>{highligtedText(emp.fullname, search)}</TableCell>
-              <TableCell>{highligtedText(emp.idTypeId, search)}</TableCell>
+              <TableCell>
+                {highligtedText(
+                  (() => {
+                    switch (emp.idTypeId) {
+                      case 'ID_HK':
+                        return 'HKID';
+                      case 'ID_PP':
+                        return 'Passport';
+                      default:
+                        return 'test';
+                    }
+                  })(),
+                  search
+                )}
+              </TableCell>
               <TableCell>{highligtedText(emp.idNoTxt, search)}</TableCell>
               <TableCell>
                 {highligtedText(
@@ -157,7 +171,19 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
                   textTransform: 'capitalize',
                 }}
               >
-                {highligtedText(emp.statusTypId, search)}
+                {highligtedText(
+                  (() => {
+                    switch (emp.statusTypId) {
+                      case 'ST_NW':
+                        return 'New';
+                      case 'ST_CP':
+                        return 'Completed';
+                      default:
+                        return 'test';
+                    }
+                  })(),
+                  search
+                )}
               </TableCell>
               <TableCell style={{ padding: '0 1px' }}>
                 <img

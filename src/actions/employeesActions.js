@@ -252,7 +252,7 @@ export const fetchIndustryType = () => async dispatch => {
 export const fetchSchemeType = () => async dispatch => {
   try {
     const res = await axios.get(
-      `${SCHEME_SERVER_ADDRESS}/getCustomTypList?groupId=SC`,
+      `${SERVER_ADDRESS}/getCustomTypList?groupId=SC`,
       await getHeaders()
     );
     console.log(res, 'res');
