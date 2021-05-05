@@ -56,6 +56,12 @@ const App = () => {
               component: Login,
             })}
           />
+          <Route
+            path=""
+            {...createPrivateRoute({
+              component: null,
+            })}
+          />
         </Switch>
       </Page>
     </ThemeProvider>
