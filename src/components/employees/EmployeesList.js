@@ -34,23 +34,41 @@ const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
     return Object.entries(chipData).map(([key, value], i) => {
       let initKey =
         key === 'id_type' ||
-        key === 'mpf_id' ||
-        key === 'first_name' ||
-        key === 'chinese_name' ||
-        key === 'id_number' ||
-        key === 'date_of_birth' ||
-        key === 'place_of_birth' ||
-        key === 'mobile_number' ||
-        key === 'date_of_employment' ||
-        key === 'employee_type' ||
-        key === 'reported_industry_type' ||
-        key === 'mpf_scheme_name' ||
-        key === 'tax_residency'
+          key === 'mpf_id' ||
+          key === 'first_name' ||
+          key === 'chinese_name' ||
+          key === 'id_number' ||
+          key === 'date_of_birth' ||
+          key === 'place_of_birth' ||
+          key === 'mobile_number' ||
+          key === 'date_of_employment' ||
+          key === 'employee_type' ||
+          key === 'reported_industry_type' ||
+          key === 'mpf_scheme_name' ||
+          key === 'tax_residency'
           ? key.replace(/_/g, ' ')
           : key;
+
+      let valueLabel
       let initValue = value === 'HK ID' ? value.replace(/_/g, ' ') : value;
       let finalKey = initKey === 'tin' ? initKey.toUpperCase() : initKey;
-      let label = `${finalKey} :  ${initValue}`;
+      // let label = `${finalKey} :  ${initValue}`;
+
+      switch (initValue) {
+        case 'GT_M':
+          valueLabel = 'Male'
+          break;
+        case 'GT_F':
+          valueLabel = 'Female'
+          break;
+        case 'GT_B':
+          valueLabel = 'Both'
+          break;
+        default:
+          valueLabel = initValue
+          break;
+      }
+      let label = `${finalKey} : ${valueLabel}`;
 
       if (initValue)
         return (
