@@ -8,6 +8,7 @@ module.exports = {
       "@common": path.resolve(__dirname, "src/common"),
       "@components": path.resolve(__dirname, "src/components"),
       "@contexts": path.resolve(__dirname, "src/contexts"),
+      "@hocs": path.resolve(__dirname, "src/hocs"),
       "@utils": path.resolve(__dirname, "src/utils"),
       "@menu": path.resolve(__dirname, "src/menu"),
       "@pages": path.resolve(__dirname, "src/pages"),
