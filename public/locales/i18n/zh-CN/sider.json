@@ -1,0 +1,14 @@
+{
+  "menu": {
+    "dashboard": "仪表盘",
+    "enquires": "询问",
+    "trustee": "受托人",
+    "company": "公司",
+    "individual": "个人",
+    "employer": "雇主",
+    "employee": "员工",
+    "agent": "代理人",
+    "generalLegar": "总帐",
+    "correspondenses": "对应关系"
+  }
+}

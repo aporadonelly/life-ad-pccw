@@ -1,4 +1,5 @@
 import AppProvider from "@contexts/AppProvider";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { Box } from "@material-ui/core";
 import {
@@ -18,9 +19,12 @@ import Sider from "./Sider";
 import Menu from "./Menu";
 import Content from "./Content";
 import Breadcrumbs from "./Breadcrumbs";
+import Settings from "./Settings";
 
 const Page = ({ children, ...props }) => {
   const location = useLocation();
+  const { t } = useTranslation("sider");
+
   return (
     <AppProvider {...props}>
       <Box display="flex" minHeight="100vh">
@@ -29,52 +33,52 @@ const Page = ({ children, ...props }) => {
           <Menu>
             <Menu.Item
               href="/dashboard"
-              name="Dashboard"
+              name={t("menu.dashboard")}
               icon={<HomeOutlinedIcon />}
             />
             <Menu.Item
               href="/enquires"
-              name="Enquires"
+              name={t("menu.enquires")}
               icon={<SearchOutlinedIcon />}
             />
             <Menu.Item
               href="/trustee"
-              name="Trustee"
+              name={t("menu.trustee")}
               icon={<AccountBalanceOutlinedIcon />}
             />
             <Menu.Item
               href="/company"
-              name="Trustee"
+              name={t("menu.company")}
               icon={<BusinessOutlinedIcon />}
             />
             <Menu.Item
               href="/indivdual"
-              name="Indivdual"
+              name={t("menu.individual")}
               icon={<PersonOutlineOutlinedIcon />}
             />
             <Menu.Item
               href="/employer"
-              name="Employer"
+              name={t("menu.employer")}
               icon={<BusinessCenterOutlinedIcon />}
             />
             <Menu.Item
               href="/employee-search"
-              name="Employee"
+              name={t("menu.employee")}
               icon={<PeopleOutlineOutlinedIcon />}
             />
             <Menu.Item
               href="/agent"
-              name="Agent"
+              name={t("menu.agent")}
               icon={<RecordVoiceOverOutlinedIcon />}
             />
             <Menu.Item
               href="/general-legar"
-              name="General Legar"
+              name={t("menu.generalLegar")}
               icon={<GavelOutlinedIcon />}
             />
             <Menu.Item
               href="/correspondenses"
-              name="Correspondenses"
+              name={t("menu.correspondenses")}
               icon={<PublicOutlinedIcon />}
             />
           </Menu>
@@ -88,6 +92,7 @@ const Page = ({ children, ...props }) => {
           {children}
         </Content>
       </Box>
+      <Settings />
     </AppProvider>
   );
 };
