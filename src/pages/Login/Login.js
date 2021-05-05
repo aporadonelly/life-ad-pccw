@@ -1,25 +1,25 @@
-import Avatar from "@material-ui/core/Avatar";
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
-import Container from "@material-ui/core/Container";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Grid from "@material-ui/core/Grid";
-import Link from "@material-ui/core/Link";
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Avatar from '@material-ui/core/Avatar';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import Container from '@material-ui/core/Container';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Grid from '@material-ui/core/Grid';
+import Link from '@material-ui/core/Link';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 // added
 //import axios from "axios";
 //import decode from "jwt-decode";
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { getUserPerLogin } from "../../actions/userActions";
-import { setTokenDecode } from "../../redux/userAuth/userAuth.actions";
-import axios from "axios";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { getUserPerLogin } from '../../actions/userActions';
+import { setTokenDecode } from '../../redux/userAuth/userAuth.actions';
+import axios from 'axios';
 
 //axios.defaults.withCredentials = true;
 // end of added
@@ -27,28 +27,28 @@ import axios from "axios";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
+      {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
         Your Website
-      </Link>{" "}
+      </Link>{' '}
       {new Date().getFullYear()}
-      {"."}
+      {'.'}
     </Typography>
   );
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   paper: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -63,18 +63,18 @@ const Login = () => {
   const classes = useStyles();
   //IMPORTANT: version is based on README_TOKEN.md
   // NOTE: Optional and for release testing only. Log-in to a specific code release version.
-  const initForm = { username: "", password: "", version: "20210201120000" };
+  const initForm = { username: '', password: '', version: '20210201120000' };
   const [user, setUser] = useState(initForm);
   const dispatch = useDispatch();
 
   // will fix here basura codes
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     const { value, name } = event.target;
     setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     event.preventDefault();
 
     // try {
@@ -106,19 +106,56 @@ const Login = () => {
     //   alert("Invalid credentials");
     // }
 
-    if (user.username === "lorem" && user.password === "password") {
+    // if (user.username === "lorem" && user.password === "password") {
+    //   dispatch({
+    //     type: "SET_USER_AUTH_DETAILS",
+    //     payload: {
+    //       firstName: "lorem",
+    //       lastName: "Ipsum",
+    //       role: "Admin Operator",
+    //     },
+    //   });
+
+    //   window.location.href = "/dashboard";
+    // } else {
+    //   alert("Invalid credentials");
+    // }
+
+    try {
+      const response = await axios.post(
+        'https://ec2-18-163-183-202.ap-east-1.compute.amazonaws.com/ad/api/auth/login',
+        user
+        // {
+        //   httpsAgent: new https.Agent({
+        //     rejectUnauthorized: false,
+        //   }),
+        // }
+      );
+
+      const res2 = await axios.get(
+        'https://ec2-18-163-183-202.ap-east-1.compute.amazonaws.com/ad/api/auth/userinfo',
+        {
+          headers: {
+            Authorization: `Bearer ${response.data.sessionToken}`,
+          },
+          // httpsAgent: new https.Agent({
+          //   rejectUnauthorized: false,
+          // }),
+        }
+      );
+
       dispatch({
-        type: "SET_USER_AUTH_DETAILS",
+        type: 'SET_USER_AUTH_DETAILS',
         payload: {
-          firstName: "lorem",
-          lastName: "Ipsum",
-          role: "Admin Operator",
+          firstName: res2.data.displayName,
+          lastName: null,
+          role: 'Admin Operator',
         },
       });
 
-      window.location.href = "/dashboard";
-    } else {
-      alert("Invalid credentials");
+      setTimeout(() => (window.location.href = '/dashbaord'), 1500);
+    } catch (error) {
+      alert('Invalid credentials');
     }
   };
 
