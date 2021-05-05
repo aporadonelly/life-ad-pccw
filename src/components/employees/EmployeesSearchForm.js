@@ -101,6 +101,7 @@ const EmployeeForm = ({
   console.log(mpf_id);
 
   useEffect(() => {
+    dispatch(fetchSchemeType());
     dispatch(fetchGender());
     dispatch(fetchIdType());
     dispatch(fetchNationality());
