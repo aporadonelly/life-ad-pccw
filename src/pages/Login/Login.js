@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getUserPerLogin } from "../../actions/userActions";
 import { setTokenDecode } from "../../redux/userAuth/userAuth.actions";
+import axios from "axios";
 
 //axios.defaults.withCredentials = true;
 // end of added
@@ -76,20 +77,49 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (user.username === "lorem" && user.password === "password") {
+    try {
+      const response = await axios.post(
+        "https://ec2-18-163-183-202.ap-east-1.compute.amazonaws.com/ad/api/auth/login",
+        {
+          username: user.username,
+          password: user.password,
+        }
+      );
+      const res = await axios.get(
+        "https://ec2-18-163-183-202.ap-east-1.compute.amazonaws.com/ad/api/auth/userinfo",
+        {
+          headers: {
+            Authorization: `Bearer ${response.data.sessionToken}`,
+          },
+        }
+      );
+
       dispatch({
         type: "SET_USER_AUTH_DETAILS",
         payload: {
-          firstName: "lorem",
-          lastName: "Ipsum",
+          firstName: res.data.displayName,
+          lastName: null,
           role: "Admin Operator",
         },
       });
-
-      window.location.href = "/dashboard";
-    } else {
+    } catch {
       alert("Invalid credentials");
     }
+
+    // if (user.username === "lorem" && user.password === "password") {
+    //   dispatch({
+    //     type: "SET_USER_AUTH_DETAILS",
+    //     payload: {
+    //       firstName: "lorem",
+    //       lastName: "Ipsum",
+    //       role: "Admin Operator",
+    //     },
+    //   });
+
+    //   window.location.href = "/dashboard";
+    // } else {
+    //   alert("Invalid credentials");
+    // }
   };
 
   return (
