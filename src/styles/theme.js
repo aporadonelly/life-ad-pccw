@@ -14,6 +14,11 @@ const theme = createMuiTheme({
       highlighted: "#FFD748",
     },
   },
+  mixins: {
+    toolbar: {
+      minHeight: 51,
+    },
+  },
   typography: {
     fontFamily: ["Roboto", "Helvetica", "Arial", "sans-serif"].join(","),
   },
@@ -23,11 +28,6 @@ theme.overrides = {
   MuiAppBar: {
     colorPrimary: {
       color: theme.palette.common.white,
-    },
-  },
-  MuiToolbar: {
-    dense: {
-      minHeight: 51,
     },
   },
   MuiContainer: {
@@ -84,10 +84,6 @@ theme.overrides = {
   },
 };
 
-theme.props = {
-  MuiToolbar: {
-    variant: "dense",
-  },
-};
+theme.props = {};
 
 export default theme;
