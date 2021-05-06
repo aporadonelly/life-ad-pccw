@@ -29,17 +29,17 @@ const useStyles = makeStyles((theme) => ({
 const Header = () => {
   const classes = useStyles();
   const { user, cycleDate, settingsToggled } = useAppState();
-  const { t } = useTranslation("header");
+  const { t } = useTranslation(["header"]);
 
   return (
     <AppBar className={classes.appBar} elevation={0}>
       <Toolbar>
         <MenuToggler />
         <Typography className={classes.title} variant="h6">
-          {t("title")}
+          {t("header:title")}
         </Typography>
         <Typography className={classes.subtitle} variant="body1">
-          {t("subtitle")}
+          {t("header:subtitle")}
         </Typography>
         {user && <UserMenu />}
         <IconButton onClick={settingsToggled}>
