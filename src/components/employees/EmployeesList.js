@@ -27,14 +27,10 @@ const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
     console.log("toDelete", chipToDelete);
     const asArray = Object.entries(chipData);
     const chips = asArray.filter(([key, value]) => key !== chipToDelete);
-    // setChipData(chips);
-    // props.dispatch({ type: 'CLEAR_FIELD_SEARCH_FORM', payload: chipToDelete });
   };
 
   const getChipDropDownValue = value => {
-    switch (
-      value // initial value
-    ) {
+    switch (value) {
       case "GT_M":
         valueLabel = "Male";
         break;
@@ -214,21 +210,23 @@ const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
         key === "employee_type" ||
         key === "reported_industry_type" ||
         key === "mpf_scheme_name" ||
-        key === "tax_residency"
+        key === "tax_residency" ||
+        key === "email"
           ? key.replace(/_/g, " ")
           : key;
 
-      // let initValue = value === 'ID_HK' ? value.replace(/_/g, ' ') : value;
-      let finalKey = initKey === "tin" ? initKey.toUpperCase() : initKey;
-      // let label = `${finalKey} :  ${initValue}`;
+      let finalKey =
+        initKey === "tin"
+          ? initKey.toUpperCase()
+          : initKey || initKey === "email"
+          ? initKey.charAt(0).toUpperCase() + initKey.slice(1)
+          : initKey;
       getChipDropDownValue(value);
       let label = `${finalKey} : ${valueLabel}`;
 
       if (value)
-        // initValue
         return (
           <Chip
-            // style={{ textTransform: 'capitalize', margin: '2px' }}
             className={key !== "email" && classes.chips}
             key={key}
             label={label}
