@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import moment from "moment";
 import { connect } from "react-redux";
 import DateFnsUtils from "@date-io/date-fns";
@@ -68,6 +69,7 @@ const EmployeeForm = ({
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = EmployeeStyles();
+  const { t } = useTranslation(["typography", "form", "button"]);
 
   const { values, setValues, errors, setError, resetForm } = useForm(
     { ...initialValues, ...enquiry },
@@ -175,7 +177,7 @@ const EmployeeForm = ({
           <Grid item xs={12}>
             <Form onSubmit={handleSubmit}>
               <div className={classes.label} style={{ marginBottom: 20 }}>
-                {intl.labels.memberEnquiry}
+                {t("typography:heading.memberEnquiry")}
               </div>
               <Grid
                 item
@@ -192,14 +194,16 @@ const EmployeeForm = ({
                   className={classes.rightSpacing}
                 >
                   <div className={classes.fieldContainer}>
-                    <h3 className={classes.fieldLabel}>{intl.labels.mpf_id}</h3>
+                    <h3 className={classes.fieldLabel}>
+                      {t("form:label.mpfId")}
+                    </h3>
                     <Controls.Input
                       className={classes.textValue}
                       onChange={handleInputChange}
                       name="mpf_id"
                       type="text"
                       id="text"
-                      placeholder="Please Input"
+                      placeholder={t("form:placeholder.custom.pleaseInput")}
                       value={mpf_id}
                       // error={errors.mpf_id}
                     />
@@ -207,7 +211,7 @@ const EmployeeForm = ({
                 </Grid>
               </Grid>
               <div className={classes.subLabel} style={{ marginBottom: 40 }}>
-                {intl.labels.personal_info}
+                {t("typography:heading.personalInformation")}
               </div>
               <Grid
                 container
@@ -220,7 +224,7 @@ const EmployeeForm = ({
                 <Grid item sm={4} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {intl.labels.english_name}
+                      {t("form:label.displayName")}
                     </h3>
                     <Controls.Input
                       type="text"
@@ -229,7 +233,9 @@ const EmployeeForm = ({
                       onChange={handleInputChange}
                       fullWidth
                       value={first_name}
-                      placeholder="Input English Name"
+                      placeholder={t(
+                        "form:placeholder.custom.inputEnglishName"
+                      )}
                       className={classes.selectValidator}
                     />
                   </div>
@@ -237,14 +243,16 @@ const EmployeeForm = ({
                 <Grid item sm={4} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {intl.labels.chinese_name}
+                      {t("form:label.chineseName")}
                     </h3>
                     <Controls.Input
                       name="chinese_name"
                       type="text"
                       id="text"
                       value={chinese_name}
-                      placeholder="Input Chinese Name"
+                      placeholder={t(
+                        "form:placeholder.custom.inputChineseName"
+                      )}
                       onChange={handleInputChange}
                       fullWidth
                       className={classes.selectValidator}
@@ -253,7 +261,9 @@ const EmployeeForm = ({
                 </Grid>
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
-                    <h3 className={classes.fieldLabel}>{intl.labels.gender}</h3>
+                    <h3 className={classes.fieldLabel}>
+                      {t("form:label.gender")}
+                    </h3>
                     <Controls.Select
                       name="gender"
                       onChange={handleInputChange}
@@ -268,7 +278,7 @@ const EmployeeForm = ({
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {intl.labels.id_type}
+                      {t("form:label.idType")}
                     </h3>
                     <Controls.Select
                       label="ID Type"
@@ -284,8 +294,7 @@ const EmployeeForm = ({
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {" "}
-                      {intl.labels.id_number}
+                      {t("form:label.idNumber")}
                     </h3>
                     <Controls.Input
                       name="id_number"
@@ -294,14 +303,14 @@ const EmployeeForm = ({
                       type="text"
                       id="text"
                       value={id_number}
-                      placeholder="Please Input"
+                      placeholder={t("form:placeholder.custom.pleaseInput")}
                     />
                   </div>
                 </Grid>
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {intl.labels.date_of_birth}
+                      {t("form:label.birthdate")}
                     </h3>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                       <Grid container justify="space-around">
@@ -342,7 +351,7 @@ const EmployeeForm = ({
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {intl.labels.nationality}
+                      {t("form:label.nationality")}
                     </h3>
                     <Select
                       displayEmpty
@@ -367,8 +376,7 @@ const EmployeeForm = ({
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {" "}
-                      {intl.labels.place_of_birth}
+                      {t("form:label.placeOfBirth")}
                     </h3>
                     <Select
                       name="place_of_birth"
@@ -392,8 +400,7 @@ const EmployeeForm = ({
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {" "}
-                      {intl.labels.mobile_number}
+                      {t("form:label.mobileNumber")}
                     </h3>
                     <Controls.Input
                       name="mobile_number"
@@ -401,15 +408,14 @@ const EmployeeForm = ({
                       fullWidth
                       type="text"
                       value={mobile_number}
-                      placeholder="Please Input"
+                      placeholder={t("form:placeholder.custom.pleaseInput")}
                     />
                   </div>
                 </Grid>
                 <Grid item xs={12} sm={8} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {" "}
-                      {intl.labels.address}
+                      {t("form:label.address")}
                     </h3>
                     <Controls.Input
                       fullWidth
@@ -417,28 +423,30 @@ const EmployeeForm = ({
                       onChange={handleInputChange}
                       name="address"
                       type="text"
-                      placeholder="Please Input"
+                      placeholder={t("form:placeholder.custom.pleaseInput")}
                       value={address}
                     />
                   </div>
                 </Grid>
                 <Grid item sm={4} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
-                    <h3 className={classes.fieldLabel}> {intl.labels.email}</h3>
+                    <h3 className={classes.fieldLabel}>
+                      {t("form:label.email")}
+                    </h3>
                     <Controls.Input
                       id="text"
                       name="email"
                       onChange={handleInputChange}
                       fullWidth
                       value={email}
-                      placeholder="Please Input"
+                      placeholder={t("form:placeholder.custom.pleaseInput")}
                       // error={errors.email}
                     />
                   </div>
                 </Grid>
               </Grid>
               <div className={classes.subLabel} style={{ marginBottom: 40 }}>
-                {intl.labels.emp_info}
+                {t("typography:heading.employmentInformation")}
               </div>
               <Grid
                 container
@@ -451,7 +459,7 @@ const EmployeeForm = ({
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {intl.labels.date_of_employment}
+                      {t("form:label.dateOfEmployment")}
                     </h3>
                     <Controls.DatePicker
                       defaultValue="2010-03-15"
@@ -487,7 +495,7 @@ const EmployeeForm = ({
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {intl.labels.employee_type}
+                      {t("form:label.employeeType")}
                     </h3>
                     <Controls.Select
                       name="employee_type"
@@ -502,7 +510,7 @@ const EmployeeForm = ({
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {intl.labels.reported_industry_type}
+                      {t("form:label.reportedIndustryType")}
                     </h3>
                     <Controls.Select
                       name="reported_industry_type"
@@ -517,7 +525,7 @@ const EmployeeForm = ({
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {intl.labels.occupation}
+                      {t("form:label.occupation")}
                     </h3>
                     <Controls.Select
                       name="occupation"
@@ -532,7 +540,7 @@ const EmployeeForm = ({
                 <Grid item sm={4} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {intl.labels.mpf_scheme_name}
+                      {t("form:label.mpfSchemeName")}
                     </h3>
                     <Controls.Select
                       name="mpf_scheme_name"
@@ -547,7 +555,7 @@ const EmployeeForm = ({
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {intl.labels.tax_residency}
+                      {t("form:label.taxResidency")}
                     </h3>
                     <Controls.Input
                       id="text"
@@ -556,13 +564,15 @@ const EmployeeForm = ({
                       fullWidth
                       type="text"
                       value={tax_residency}
-                      placeholder="Please Input"
+                      placeholder={t("form:placeholder.custom.pleaseInput")}
                     />
                   </div>
                 </Grid>
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
-                    <h3 className={classes.fieldLabel}>{intl.labels.tin}</h3>
+                    <h3 className={classes.fieldLabel}>
+                      {t("form:label.tin")}
+                    </h3>
                     <Controls.Input
                       id="text"
                       name="tin"
@@ -570,13 +580,15 @@ const EmployeeForm = ({
                       fullWidth
                       type="text"
                       value={tin}
-                      placeholder="Please Input"
+                      placeholder={t("form:placeholder.custom.pleaseInput")}
                     />
                   </div>
                 </Grid>
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
-                    <h3 className={classes.fieldLabel}>{intl.labels.status}</h3>
+                    <h3 className={classes.fieldLabel}>
+                      {t("form:label.status")}
+                    </h3>
                     <Controls.Select
                       name="status"
                       onChange={handleInputChange}
@@ -601,14 +613,14 @@ const EmployeeForm = ({
                 <div className={classes.formBtnContainer}>
                   <Controls.Button
                     data-testid="cancel-btn"
-                    text="clear"
+                    text={t("button:clear")}
                     color="default"
                     onClick={handleReset}
                   />
                   <Controls.Button
                     type="submit"
                     data-testid="submit-btn"
-                    text="search"
+                    text={t("button:search")}
                   />
                 </div>
               </Grid>
