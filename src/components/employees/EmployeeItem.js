@@ -109,12 +109,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               >
                 {intl.labels.member_reg_view}
               </Typography>
-              <Controls.Button
-                text="edit"
-                className={classes.formBtn}
-                style={{ float: 'right', bottom: '35px', width: '84px' }}
-                variant="contained"
-              ></Controls.Button>
+
               <div className={classes.label} variant="contained">
                 {intl.labels.mpf_id}
               </div>
