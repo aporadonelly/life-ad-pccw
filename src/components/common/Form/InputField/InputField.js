@@ -1,7 +1,7 @@
 import { withField } from "@hocs";
 import { TextField } from "@material-ui/core";
 
-const InputField = (props) => (
+const InputField = ({ helpers, ...props }) => (
   <TextField
     margin="none"
     fullWidth
@@ -11,4 +11,4 @@ const InputField = (props) => (
   />
 );
 
-export default withField()(InputField);
+export default withField(InputField);

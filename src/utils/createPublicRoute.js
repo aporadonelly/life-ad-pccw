@@ -23,7 +23,7 @@ function createPublicRoute({ component }) {
   const ConnectedComponent = connect(mapStateToProps)(PublicRoute);
 
   return {
-    render: (props) => <ConnectedComponent {...props} />,
+    render: props => <ConnectedComponent {...props} />,
   };
 }
 

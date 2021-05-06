@@ -97,6 +97,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
     setViewMemberState(true);
     setTableView(false);
     saveQuery();
+    // setTimeout(() => history.push('/employee-view'), 2000);
     history.push('/employee-view');
   };
 
