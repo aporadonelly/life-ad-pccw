@@ -1,6 +1,6 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import React from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 const mapStateToProps = (state, ownProps) => ({
   auth: state.userAccounts.userAuthDetails,
@@ -14,7 +14,7 @@ function createPublicRoute({ component }) {
 
     return (
       <Redirect
-        to={{ pathname: '/dashboard', state: { from: rest.location } }}
+        to={{ pathname: "/dashboard", state: { from: rest.location } }}
       />
     );
   };
