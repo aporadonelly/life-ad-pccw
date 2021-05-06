@@ -1,62 +1,62 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import moment from 'moment';
-import PropTypes from 'prop-types';
-import { Paper, Typography, makeStyles, Button, Grid } from '@material-ui/core';
-import EmployeeStyles from './styles/EmployeeStyles';
-import { useHistory } from 'react-router-dom';
-import { get } from 'lodash';
+import React from "react";
+import { connect } from "react-redux";
+import moment from "moment";
+import PropTypes from "prop-types";
+import { Paper, Typography, makeStyles, Button, Grid } from "@material-ui/core";
+import EmployeeStyles from "./styles/EmployeeStyles";
+import { useHistory } from "react-router-dom";
+import { get } from "lodash";
 
-import * as intl from '../../common/labels';
-import Controls from '../controls/Controls';
+import * as intl from "../../common/labels";
+import Controls from "../controls/Controls";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: '#fdfdff',
+    backgroundColor: "#fdfdff",
   },
   pageHeader: {
     padding: theme.spacing(1),
     marginBottom: theme.spacing(3),
   },
   pageIcon: {
-    display: 'inline-block',
+    display: "inline-block",
     padding: theme.spacing(1),
-    color: '#3c44b1',
+    color: "#3c44b1",
   },
   pageTitle: {
     paddingLeft: theme.spacing(0),
-    '& .MuiTypography-subtitle2': {
-      opacity: '0.6',
+    "& .MuiTypography-subtitle2": {
+      opacity: "0.6",
     },
-    color: '#009CCD',
-    fontSize: '#26px',
+    color: "#009CCD",
+    fontSize: "#26px",
   },
   button: {
-    background: '#6E55E2',
-    color: '#fff',
-    fontSize: '14px',
+    background: "#6E55E2",
+    color: "#fff",
+    fontSize: "14px",
     opacity: 1,
-    textTransform: 'none',
-    marginRight: '10px',
-    marginRLeft: '4px',
-    borderRadius: '16px',
-    pointerEvents: 'none',
+    textTransform: "none",
+    marginRight: "10px",
+    marginRLeft: "4px",
+    borderRadius: "16px",
+    pointerEvents: "none",
   },
   label: {
-    color: '#42526E',
-    fontSize: '13px',
-    fontWeight: '400',
+    color: "#42526E",
+    fontSize: "13px",
+    fontWeight: "400",
   },
   labelValue: {
-    color: '#42526E',
-    fontSize: '16px',
-    fontFamily: 'Roboto',
-    fontWeight: '500',
+    color: "#42526E",
+    fontSize: "16px",
+    fontFamily: "Roboto",
+    fontWeight: "500",
   },
 }));
 
 const EmployeeView = ({ employees: { employee, id } }) => {
-  console.log(employee, 'employee');
+  console.log(employee, "employee");
   const classes = { ...EmployeeStyles(), ...useStyles() };
   const history = useHistory();
 
@@ -86,12 +86,12 @@ const EmployeeView = ({ employees: { employee, id } }) => {
   } = employee;
 
   const goToSearch = () => {
-    history.push('/employee-search-results');
+    history.push("/employee-search-results");
   };
 
   return (
     <>
-      <Paper className={classes.pageContent} style={{ fontFamily: 'Roboto' }}>
+      <Paper className={classes.pageContent} style={{ fontFamily: "Roboto" }}>
         <Grid container>
           <Grid item xs={12}>
             <Grid
@@ -100,21 +100,16 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               xs={12}
               lg={12}
               sm={12}
-              style={{ marginBottom: '10px' }}
+              style={{ marginBottom: "10px" }}
             >
               <Typography
                 variant="h6"
                 component="div"
-                style={{ fontSize: '26px' }}
+                style={{ fontSize: "26px" }}
               >
                 {intl.labels.member_reg_view}
               </Typography>
-              <Controls.Button
-                text="edit"
-                className={classes.formBtn}
-                style={{ float: 'right', bottom: '35px', width: '84px' }}
-                variant="contained"
-              ></Controls.Button>
+
               <div className={classes.label} variant="contained">
                 {intl.labels.mpf_id}
               </div>
@@ -127,7 +122,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               xs={12}
               sm={6}
               lg={12}
-              style={{ marginTop: '-20px', marginBottom: '10px' }}
+              style={{ marginTop: "-20px", marginBottom: "10px" }}
             >
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
@@ -135,7 +130,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                     {intl.labels.title}
                   </div>
                   <div className={classes.labelValue}>
-                    {get(regCntcts, '[0].ttlTypId')}
+                    {get(regCntcts, "[0].ttlTypId")}
                   </div>
                 </div>
               </Grid>
@@ -177,7 +172,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                     {intl.labels.gender}
                   </div>
                   <div className={classes.labelValue}>
-                    {gndrTypId === 'GT_M' ? 'Male' : 'Female'}
+                    {gndrTypId === "GT_M" ? "Male" : "Female"}
                   </div>
                 </div>
               </Grid>
@@ -189,7 +184,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                     {intl.labels.id_type}
                   </div>
                   <div className={classes.labelValue}>
-                    {idTypId === 'ID_HK' ? 'HKID' : 'Passport'}
+                    {idTypId === "ID_HK" ? "HKID" : "Passport"}
                   </div>
                 </div>
               </Grid>
@@ -207,7 +202,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                     {intl.labels.date_of_birth}
                   </div>
                   <div className={classes.labelValue}>
-                    {moment(brthDt).format('DD MMMM YYYY')}
+                    {moment(brthDt).format("DD MMMM YYYY")}
                   </div>
                 </div>
               </Grid>
@@ -226,8 +221,8 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                   </div>
                   <div className={classes.labelValue}>
                     {get(
-                      regClntPhones.filter(v => v.phnTypId === 'TP_MB'),
-                      '[0].phnNmbr'
+                      regClntPhones.filter(v => v.phnTypId === "TP_MB"),
+                      "[0].phnNmbr"
                     )}
                   </div>
                 </div>
@@ -247,7 +242,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                 xs={12}
                 sm={8}
                 className={classes.fieldSpacing}
-                style={{ marginTop: '10px', marginBottom: '10px' }}
+                style={{ marginTop: "10px", marginBottom: "10px" }}
               >
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
@@ -255,21 +250,21 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                   </div>
                   <div className={classes.labelValue}>
                     {regAddrs.map(v =>
-                      v.addrTypId === 'AD_R'
+                      v.addrTypId === "AD_R"
                         ? v.addrRmTxt +
-                          ' ' +
+                          " " +
                           v.addrFlrTxt +
-                          ' ' +
+                          " " +
                           v.addrBldngNmTxt +
-                          ' ' +
+                          " " +
                           v.addrBlckTxt +
-                          ' ' +
+                          " " +
                           v.addrStrtTxt +
-                          ' ' +
+                          " " +
                           v.addrCtyTxt +
-                          ' ' +
+                          " " +
                           v.addrDstrctTxt +
-                          ' ' +
+                          " " +
                           v.cntryTypCd
                         : null
                     )}
@@ -281,14 +276,14 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                 sm={4}
                 xs={12}
                 className={classes.fieldSpacing}
-                style={{ marginTop: '10px', marginBottom: '10px' }}
+                style={{ marginTop: "10px", marginBottom: "10px" }}
               >
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
                     {intl.labels.email}
                   </div>
                   <div className={classes.labelValue}>
-                    {get(regCntcts, '[0].emlAddrTxt')}
+                    {get(regCntcts, "[0].emlAddrTxt")}
                   </div>
                 </div>
               </Grid>
@@ -299,21 +294,21 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                   </div>
                   <div className={classes.labelValue}>
                     {regAddrs.map(v =>
-                      v.addrTypId === 'AD_C'
+                      v.addrTypId === "AD_C"
                         ? v.addrRmTxt +
-                          ' ' +
+                          " " +
                           v.addrFlrTxt +
-                          ' ' +
+                          " " +
                           v.addrBldngNmTxt +
-                          ' ' +
+                          " " +
                           v.addrBlckTxt +
-                          ' ' +
+                          " " +
                           v.addrStrtTxt +
-                          ' ' +
+                          " " +
                           v.addrCtyTxt +
-                          ' ' +
+                          " " +
                           v.addrDstrctTxt +
-                          ' ' +
+                          " " +
                           v.cntryTypCd
                         : null
                     )}
@@ -328,14 +323,14 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               xs={12}
               sm={6}
               lg={12}
-              style={{ marginTop: '-20px' }}
+              style={{ marginTop: "-20px" }}
             >
               <Grid item sm={3} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label}>
                     {intl.labels.preferred_communication_channel}
                   </div>
-                  <div className={classes.labelValue}>{'SMS'}</div>
+                  <div className={classes.labelValue}>{"SMS"}</div>
                 </div>
               </Grid>
               <Grid item sm={3} xs={12} className={classes.fieldSpacing}>
@@ -344,7 +339,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                     {intl.labels.preferred_communication_language}
                   </div>
                   <div className={classes.labelValue}>
-                    {get(regCntcts, '[0].lnggTypId') === 'LG_EN' && 'English'}
+                    {get(regCntcts, "[0].lnggTypId") === "LG_EN" && "English"}
                   </div>
                 </div>
               </Grid>
@@ -354,7 +349,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                     {intl.labels.recv_paper_form_notif_docs}
                   </div>
                   <div className={classes.labelValue}>
-                    {get(regCntcts, '[0].rcvPprFlg')}
+                    {get(regCntcts, "[0].rcvPprFlg")}
                   </div>
                 </div>
               </Grid>
@@ -362,8 +357,8 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                 <div className={classes.fieldContainer}>
                   <div className={classes.label}>{intl.labels.status}</div>
                   <div className={classes.labelValue}>
-                    {' '}
-                    {sttsTypId === 'ST_NW' ? 'New' : 'Completed'}
+                    {" "}
+                    {sttsTypId === "ST_NW" ? "New" : "Completed"}
                   </div>
                 </div>
               </Grid>
@@ -382,12 +377,12 @@ const EmployeeView = ({ employees: { employee, id } }) => {
         <Button
           className={classes.cancelBtn}
           style={{
-            float: 'right',
-            bottom: '35px',
-            width: '163px',
-            color: '#fff',
-            top: '20px',
-            left: '20px',
+            float: "right",
+            bottom: "35px",
+            width: "163px",
+            color: "#fff",
+            top: "20px",
+            left: "20px",
           }}
           onClick={() => goToSearch(id)}
           variant="contained"
