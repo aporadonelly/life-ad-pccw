@@ -4,16 +4,14 @@ import { pick } from "lodash";
 class UserAdapter extends AxiosAdapter {
   login(payload) {
     const pickedPayload = pick(payload, ["username", "password"]);
-    return this.instance.post("/login", pickedPayload);
+    return this.instance.post(process.env.REACT_APP_AUTH_LOGIN, pickedPayload);
   }
 
   getUserByToken(token) {
-    return this.instance.get("/userinfo", {
+    return this.instance.get(process.env.REACT_APP_AUTH_USERINFO, {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
 }
 
-export default new UserAdapter({
-  baseURL: "https://empf-api.herokuapp.com",
-});
+export default new UserAdapter();
