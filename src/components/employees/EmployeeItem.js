@@ -10,7 +10,7 @@ import { get } from "lodash";
 import * as intl from "../../common/labels";
 import Controls from "../controls/Controls";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "#fdfdff",
   },
@@ -115,7 +115,9 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               </div>
               <div className={classes.labelValue}>{pnsnIdTxt}</div>
             </Grid>
-            <div className={classes.subLabel}>{intl.labels.personal_info}</div>
+            <div className={classes.subLabel} style={{ marginBottom: 40 }}>
+              {intl.labels.personal_info}
+            </div>
             <Grid
               container
               item
@@ -220,13 +222,11 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                     {intl.labels.mobile_number}
                   </div>
                   <div className={classes.labelValue}>
-
                     {Array.isArray(regClntPhones) &&
                       get(
-                        regClntPhones.filter(v => v.phnTypId === "TP_MB"),
+                        regClntPhones.filter((v) => v.phnTypId === "TP_MB"),
                         "[0].phnNmbr"
                       )}
-
                   </div>
                 </div>
               </Grid>
@@ -237,7 +237,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                   </div>
                   <div className={classes.labelValue}>
                     {Array.isArray(regCntcts) &&
-                      regCntcts.map(v => v.scndryCntctNo)}
+                      regCntcts.map((v) => v.scndryCntctNo)}
                   </div>
                 </div>
               </Grid>
@@ -253,9 +253,8 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                     {intl.labels.residential_address}
                   </div>
                   <div className={classes.labelValue}>
-
                     {Array.isArray(regAddrs) &&
-                      regAddrs.map(v =>
+                      regAddrs.map((v) =>
                         v.addrTypId === "AD_R"
                           ? v.addrRmTxt +
                             " " +
@@ -274,7 +273,6 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                             v.cntryTypCd
                           : null
                       )}
-
                   </div>
                 </div>
               </Grid>
@@ -300,9 +298,8 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                     {intl.labels.correspondence_address}
                   </div>
                   <div className={classes.labelValue}>
-
                     {Array.isArray(regAddrs) &&
-                      regAddrs.map(v =>
+                      regAddrs.map((v) =>
                         v.addrTypId === "AD_C"
                           ? v.addrRmTxt +
                             " " +
@@ -321,12 +318,13 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                             v.cntryTypCd
                           : null
                       )}
-
                   </div>
                 </div>
               </Grid>
             </Grid>
-            <div className={classes.subLabel}>{intl.labels.other_info}</div>
+            <div className={classes.subLabel} style={{ marginBottom: 40 }}>
+              {intl.labels.other_info}
+            </div>
             <Grid
               container
               item
@@ -404,7 +402,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   employees: state.employees,
 });
 

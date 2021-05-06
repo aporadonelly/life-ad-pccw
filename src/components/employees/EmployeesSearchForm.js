@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import moment from 'moment';
-import { connect } from 'react-redux';
-import DateFnsUtils from '@date-io/date-fns';
-import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { Grid, MenuItem, Paper, Select, TextField } from '@material-ui/core';
+import React, { useEffect, useState } from "react";
+import moment from "moment";
+import { connect } from "react-redux";
+import DateFnsUtils from "@date-io/date-fns";
+import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Grid, MenuItem, Paper, Select, TextField } from "@material-ui/core";
 import {
   searchMembers,
   saveQuery,
@@ -18,35 +18,35 @@ import {
   fetchOccupation,
   fetchStatus,
   fetchPlaceOfBirth,
-} from '../../actions/employeesActions';
-import EmployeeStyles from './styles/EmployeeStyles';
-import { useForm, Form } from '../UseForm';
-import Controls from '../controls/Controls';
-import * as intl from '../../common/labels';
-import './styles/index.css';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import { isNull } from 'lodash';
+} from "../../actions/employeesActions";
+import EmployeeStyles from "./styles/EmployeeStyles";
+import { useForm, Form } from "../UseForm";
+import Controls from "../controls/Controls";
+import * as intl from "../../common/labels";
+import "./styles/index.css";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { isNull } from "lodash";
 
 const initialValues = {
-  mpf_id: '',
-  first_name: '',
-  chinese_name: '',
+  mpf_id: "",
+  first_name: "",
+  chinese_name: "",
   gender: null,
   id_type: null,
-  id_number: '',
+  id_number: "",
   date_of_birth: null,
   nationality: null,
   place_of_birth: null,
-  mobile_number: '',
-  address: '',
-  email: '',
+  mobile_number: "",
+  address: "",
+  email: "",
   date_of_employment: null,
   employee_type: null,
   reported_industry_type: null,
   occupation: null,
   mpf_scheme_name: null,
-  tax_residency: '',
-  tin: '',
+  tax_residency: "",
+  tin: "",
   status: null,
 };
 
@@ -64,7 +64,7 @@ const EmployeeForm = ({
     placeOfBirth,
   },
 }) => {
-  console.log(schemeType, 'schemeType');
+  console.log(schemeType, "schemeType");
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = EmployeeStyles();
@@ -126,47 +126,47 @@ const EmployeeForm = ({
   //   if (fieldValues === values) return Object.values(temp).every(x => x === '');
   // };
 
-  const handleInputChange = e => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
 
   const handleReset = () => {
-    dispatch({ type: 'CLEAR_SEARCH_FORM' });
+    dispatch({ type: "CLEAR_SEARCH_FORM" });
     setValues(initialValues);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     let p = {};
-    if (mpf_id) p['mpf_id'] = mpf_id;
-    if (first_name) p['first_name'] = first_name;
-    if (chinese_name) p['chinese_name'] = chinese_name;
-    if (gender) p['gender'] = gender;
-    if (id_type) p['id_type'] = id_type;
-    if (id_number) p['id_number'] = id_number;
+    if (mpf_id) p["mpf_id"] = mpf_id;
+    if (first_name) p["first_name"] = first_name;
+    if (chinese_name) p["chinese_name"] = chinese_name;
+    if (gender) p["gender"] = gender;
+    if (id_type) p["id_type"] = id_type;
+    if (id_number) p["id_number"] = id_number;
     if (date_of_birth)
-      p['date_of_birth'] = moment(date_of_birth).format('YYYY/MM/DD');
+      p["date_of_birth"] = moment(date_of_birth).format("YYYY/MM/DD");
 
-    if (nationality) p['nationality'] = nationality;
-    if (place_of_birth) p['place_of_birth'] = place_of_birth;
-    if (mobile_number) p['mobile_number'] = mobile_number;
-    if (address) p['address'] = address;
-    if (email) p['email'] = email;
+    if (nationality) p["nationality"] = nationality;
+    if (place_of_birth) p["place_of_birth"] = place_of_birth;
+    if (mobile_number) p["mobile_number"] = mobile_number;
+    if (address) p["address"] = address;
+    if (email) p["email"] = email;
     if (date_of_employment)
-      p['date_of_employment'] = moment(date_of_employment).format('DD/MM/YYYY');
-    if (employee_type) p['employee_type'] = employee_type;
+      p["date_of_employment"] = moment(date_of_employment).format("DD/MM/YYYY");
+    if (employee_type) p["employee_type"] = employee_type;
     if (reported_industry_type)
-      p['reported_industry_type'] = reported_industry_type;
-    if (occupation) p['occupation'] = occupation;
-    if (mpf_scheme_name) p['mpf_scheme_name'] = mpf_scheme_name;
-    if (tax_residency) p['tax_residency'] = tax_residency;
-    if (tin) p['tin'] = tin;
-    if (status) p['status'] = status;
+      p["reported_industry_type"] = reported_industry_type;
+    if (occupation) p["occupation"] = occupation;
+    if (mpf_scheme_name) p["mpf_scheme_name"] = mpf_scheme_name;
+    if (tax_residency) p["tax_residency"] = tax_residency;
+    if (tin) p["tin"] = tin;
+    if (status) p["status"] = status;
 
     dispatch(searchMembers(p));
     dispatch(saveQuery(p));
-    history.push('/employee-search-results');
+    history.push("/employee-search-results");
   };
   return (
     <>
@@ -174,7 +174,9 @@ const EmployeeForm = ({
         <Grid container>
           <Grid item xs={12}>
             <Form onSubmit={handleSubmit}>
-              <div className={classes.label}>{intl.labels.memberEnquiry}</div>
+              <div className={classes.label} style={{ marginBottom: 20 }}>
+                {intl.labels.memberEnquiry}
+              </div>
               <Grid
                 item
                 container
@@ -204,7 +206,7 @@ const EmployeeForm = ({
                   </div>
                 </Grid>
               </Grid>
-              <div className={classes.subLabel}>
+              <div className={classes.subLabel} style={{ marginBottom: 40 }}>
                 {intl.labels.personal_info}
               </div>
               <Grid
@@ -213,7 +215,7 @@ const EmployeeForm = ({
                 xs={12}
                 sm={6}
                 lg={12}
-                style={{ marginTop: '-20px' }}
+                style={{ marginTop: "-20px" }}
               >
                 <Grid item sm={4} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
@@ -282,7 +284,7 @@ const EmployeeForm = ({
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {' '}
+                      {" "}
                       {intl.labels.id_number}
                     </h3>
                     <Controls.Input
@@ -354,7 +356,7 @@ const EmployeeForm = ({
                       <MenuItem value="" disabled>
                         Please Select
                       </MenuItem>
-                      {nationalities.map(c => (
+                      {nationalities.map((c) => (
                         <MenuItem key={c.id} value={c.cstmTypId}>
                           {c.cstmTypId}
                         </MenuItem>
@@ -365,7 +367,7 @@ const EmployeeForm = ({
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {' '}
+                      {" "}
                       {intl.labels.place_of_birth}
                     </h3>
                     <Select
@@ -379,7 +381,7 @@ const EmployeeForm = ({
                       <MenuItem value="" disabled>
                         Please Select
                       </MenuItem>
-                      {placeOfBirth.map(c => (
+                      {placeOfBirth.map((c) => (
                         <MenuItem key={c.id} value={c.cntryTypNm}>
                           {c.cntryTypNm}
                         </MenuItem>
@@ -390,7 +392,7 @@ const EmployeeForm = ({
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {' '}
+                      {" "}
                       {intl.labels.mobile_number}
                     </h3>
                     <Controls.Input
@@ -406,7 +408,7 @@ const EmployeeForm = ({
                 <Grid item xs={12} sm={8} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
                     <h3 className={classes.fieldLabel}>
-                      {' '}
+                      {" "}
                       {intl.labels.address}
                     </h3>
                     <Controls.Input
@@ -435,14 +437,16 @@ const EmployeeForm = ({
                   </div>
                 </Grid>
               </Grid>
-              <div className={classes.subLabel}>{intl.labels.emp_info}</div>
+              <div className={classes.subLabel} style={{ marginBottom: 40 }}>
+                {intl.labels.emp_info}
+              </div>
               <Grid
                 container
                 item
                 xs={12}
                 sm={6}
                 lg={12}
-                style={{ marginTop: '-20px' }}
+                style={{ marginTop: "-20px" }}
               >
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                   <div className={classes.fieldContainer}>
@@ -629,7 +633,7 @@ EmployeeForm.propTypes = {
   fetchPlaceOfBirth: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   employees: state.employees,
 });
 
