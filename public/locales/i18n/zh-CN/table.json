@@ -10,5 +10,10 @@
     "custom": {
       "action": "行动"
     }
+  },
+  "tbody": {
+    "custom": {
+      "noDataFound": "没有找到数据"
+    }
   }
 }

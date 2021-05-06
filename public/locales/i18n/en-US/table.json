@@ -10,5 +10,10 @@
     "custom": {
       "action": "Action"
     }
+  },
+  "tbody": {
+    "custom": {
+      "noDataFound": "NO DATA FOUND"
+    }
   }
 }
