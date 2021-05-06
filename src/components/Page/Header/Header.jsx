@@ -1,7 +1,14 @@
 import { useAppState } from "@contexts/AppProvider";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
-import { AppBar, Toolbar, Typography, IconButton } from "@material-ui/core";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Grid,
+  Divider,
+} from "@material-ui/core";
 import {
   Translate as TranslateIcon,
   Settings as SettingsIcon,
@@ -21,6 +28,24 @@ const useStyles = makeStyles((theme) => ({
   subtitle: {
     flexGrow: 1,
   },
+  systemEnv: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    height: 30,
+    backgroundColor: theme.palette.error.light,
+    color: theme.palette.common.white,
+    textTransform: "uppercase",
+    fontSize: theme.typography.body2.fontSize,
+    fontWeight: theme.typography.fontWeightMedium,
+    "& hr": {
+      backgroundColor: theme.palette.common.white,
+      margin: theme.spacing(0, 2),
+      width: 1.75,
+      height: theme.typography.body2.fontSize,
+    },
+  },
   cycleDate: {
     padding: theme.spacing(0, 0.5),
     textTransform: "uppercase",
@@ -29,11 +54,18 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
   const classes = useStyles();
-  const { user, cycleDate, settingsToggled } = useAppState();
+  const { systemEnv, cycleDate, user, settingsToggled } = useAppState();
   const { t } = useTranslation(["header"]);
 
   return (
     <AppBar className={classes.appBar} elevation={0}>
+      {systemEnv && (
+        <Grid container alignItems="center" className={classes.systemEnv}>
+          <div>{systemEnv?.prmtrDscrptn}</div>
+          <Divider orientation="vertical" />
+          <div>{systemEnv.prmtrTyp}</div>
+        </Grid>
+      )}
       <Toolbar>
         <MenuToggler />
         <Typography className={classes.title} variant="h6">

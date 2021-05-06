@@ -1,7 +1,10 @@
 import { Switch, Route } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { cycleDateSelector } from "./redux/features/system/selectors";
+import {
+  systemEnvSelector,
+  cycleDateSelector,
+} from "./redux/features/system/selectors";
 import { userSelector } from "./redux/features/user/selectors";
 import { logout } from "./redux/features/user/actions";
 import { Page } from "./components";
@@ -12,8 +15,13 @@ import EmployeesList from "./components/employees/EmployeesList";
 import createPrivateRoute from "./utils/createPrivateRoute";
 import createPublicRoute from "./utils/createPublicRoute";
 
-const App = ({ user, cycleDate, logout }) => (
-  <Page user={user} cycleDate={cycleDate} onLogout={logout}>
+const App = ({ systemEnv, cycleDate, user, logout }) => (
+  <Page
+    systemEnv={systemEnv}
+    cycleDate={cycleDate}
+    user={user}
+    onLogout={logout}
+  >
     <Switch>
       <Route
         path="/employee-search"
@@ -50,6 +58,7 @@ const App = ({ user, cycleDate, logout }) => (
 );
 
 const mapStateToProps = (state) => ({
+  systemEnv: systemEnvSelector(state),
   cycleDate: cycleDateSelector(state),
   user: userSelector(state),
 });
