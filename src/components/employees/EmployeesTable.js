@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { get } from 'lodash';
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { get } from "lodash";
 
 import {
   Box,
@@ -12,70 +13,75 @@ import {
   TableBody,
   TableCell,
   Typography,
-} from '@material-ui/core';
-import useTable from '../useTable';
-import { viewMember, saveQuery } from '../../actions/employeesActions';
-import EmployeeItem from './EmployeeItem';
-import reactStringReplace from '@utils/reactStringReplace';
-import AnimatedSearchBar from '@components/AnimatedSearchBar';
-import viewEnrollActive from '../../assets/icons/enroll-active.PNG';
-import viewEnrollInActive from '../../assets/icons/enroll-inactive.PNG';
-import EmployeeStyles from './styles/EmployeeStyles';
-import viewReg from '../../assets/icons/view_reg.PNG';
-import * as intl from '../../common/labels';
+} from "@material-ui/core";
+import useTable from "../useTable";
+import { viewMember, saveQuery } from "../../actions/employeesActions";
+import EmployeeItem from "./EmployeeItem";
+import reactStringReplace from "@utils/reactStringReplace";
+import AnimatedSearchBar from "@components/AnimatedSearchBar";
+import viewEnrollActive from "../../assets/icons/enroll-active.PNG";
+import viewEnrollInActive from "../../assets/icons/enroll-inactive.PNG";
+import EmployeeStyles from "./styles/EmployeeStyles";
+import viewReg from "../../assets/icons/view_reg.PNG";
+import * as intl from "../../common/labels";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: '#fdfdff',
-    display: 'flex',
-    justifyContent: 'start',
-    flexWrap: 'wrap',
-    listStyle: 'none',
+    backgroundColor: "#fdfdff",
+    display: "flex",
+    justifyContent: "start",
+    flexWrap: "wrap",
+    listStyle: "none",
   },
   pageTitle: {
     paddingLeft: theme.spacing(1),
-    '& .MuiTypography-subtitle2': {
-      opacity: '0.6',
-      fontSize: '26px',
+    "& .MuiTypography-subtitle2": {
+      opacity: "0.6",
+      fontSize: "26px",
     },
-    color: '#009CCD',
-    fontSize: '26px',
-    fontFamily: 'Roboto',
+    color: "#009CCD",
+    fontSize: "26px",
+    fontFamily: "Roboto",
   },
   disabled: {
-    pointerEvents: 'none',
-    cursor: 'not-allowed',
+    pointerEvents: "none",
+    cursor: "not-allowed",
     opacity: 0.65,
-    filter: 'alpha(opacity=65)',
-    boxShadow: 'none',
+    filter: "alpha(opacity=65)",
+    boxShadow: "none",
   },
 }));
-
-const headCells = [
-  { id: 'pnsnIdTxt', label: 'MPF ID' },
-  { id: 'fullname', label: 'Member Name' },
-  { id: 'idTypeId', label: 'ID Type' },
-  { id: 'idNoTxt', label: 'ID Number' },
-  { id: 'phoneNumber', label: 'Mobile Number' },
-  { id: 'emailAddrTxt', label: 'Email' },
-  { id: 'statusTypId', label: 'Status' },
-  { id: 'action', label: 'Action', disableSorting: true },
-];
 
 const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
   console.log(employees[0].clntPhones[0].phoneNumber);
   const history = useHistory();
   const classes = { ...useStyles(), ...EmployeeStyles() };
+  const { t } = useTranslation(["typography", "table", "button"]);
 
   const [viewMemberState, setViewMemberState] = useState(false);
   const [tableView, setTableView] = useState(true);
 
   const [filterFn, setfilterFn] = useState({
-    fn: items => {
+    fn: (items) => {
       return items;
     },
   });
   const [search, setSearch] = useState();
+
+  const headCells = [
+    { id: "pnsnIdTxt", label: t("table:thead.mpfId") },
+    { id: "fullname", label: t("table:thead.displayName") },
+    { id: "idTypeId", label: t("table:thead.idType") },
+    { id: "idNoTxt", label: t("table:thead.idNumber") },
+    { id: "phoneNumber", label: t("table:thead.mobileNumber") },
+    { id: "emailAddrTxt", label: t("table:thead.email") },
+    { id: "statusTypId", label: t("table:thead.status") },
+    {
+      id: "action",
+      label: t("table:thead.custom.action"),
+      disableSorting: true,
+    },
+  ];
 
   const {
     TblContainer,
@@ -84,21 +90,21 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
     employeesAfterPagingAndSorting,
   } = useTable(employees, headCells, filterFn);
 
-  const handleSearch = e => {
+  const handleSearch = (e) => {
     setSearch(e.target.value);
   };
 
-  const handleClear = e => {
-    setSearch('');
+  const handleClear = (e) => {
+    setSearch("");
   };
 
-  const employeeView = id => {
+  const employeeView = (id) => {
     viewMember(id);
     setViewMemberState(true);
     setTableView(false);
     saveQuery();
     // setTimeout(() => history.push('/employee-view'), 2000);
-    history.push('/employee-view');
+    history.push("/employee-view");
   };
 
   const highligtedText = (source, match) =>
@@ -110,10 +116,10 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
 
   return (
     <>
-      <Grid container alignItems="center" style={{ marginBottom: '-10px' }}>
+      <Grid container alignItems="center" style={{ marginBottom: "-10px" }}>
         <Grid className={classes.pageTitle} item lg={2} sm={3} xs={12}>
           <Typography variant="h6" component="div">
-            {intl.labels.searchResult}
+            {t("typography:heading.searchResult")}
           </Typography>
         </Grid>
         <Grid className={classes.pageTitle} item lg={8} sm={6} xs={12}>
@@ -133,9 +139,9 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
       <TblContainer>
         <TblHead />
         <TableBody>
-          {employeesAfterPagingAndSorting().map(emp => (
+          {employeesAfterPagingAndSorting().map((emp) => (
             <TableRow key={emp.pnsnIdTxt}>
-              <TableCell style={{ color: '#2D9FC3' }}>
+              <TableCell style={{ color: "#2D9FC3" }}>
                 {highligtedText(emp.pnsnIdTxt, search)}
               </TableCell>
               <TableCell>{highligtedText(emp.fullname, search)}</TableCell>
@@ -143,12 +149,12 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
                 {highligtedText(
                   (() => {
                     switch (emp.idTypeId) {
-                      case 'ID_HK':
-                        return 'HKID';
-                      case 'ID_PP':
-                        return 'Passport';
+                      case "ID_HK":
+                        return "HKID";
+                      case "ID_PP":
+                        return "Passport";
                       default:
-                        return 'test';
+                        return "test";
                     }
                   })(),
                   search
@@ -158,44 +164,44 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
               <TableCell>
                 {highligtedText(
                   get(
-                    emp.clntPhones.filter(v => v.phnTypId === 'TP_MB'),
-                    '[0].phoneNumber'
+                    emp.clntPhones.filter((v) => v.phnTypId === "TP_MB"),
+                    "[0].phoneNumber"
                   ),
                   search
                 )}
               </TableCell>
               <TableCell>
-                {highligtedText(get(emp.cntcts, '[0].emailAddrTxt'), search)}
+                {highligtedText(get(emp.cntcts, "[0].emailAddrTxt"), search)}
               </TableCell>
               <TableCell
                 style={{
-                  textTransform: 'capitalize',
+                  textTransform: "capitalize",
                 }}
               >
                 {highligtedText(
                   (() => {
                     switch (emp.statusTypId) {
-                      case 'ST_NW':
-                        return 'New';
-                      case 'ST_CP':
-                        return 'Completed';
+                      case "ST_NW":
+                        return "New";
+                      case "ST_CP":
+                        return "Completed";
                       default:
-                        return 'test';
+                        return "test";
                     }
                   })(),
                   search
                 )}
               </TableCell>
-              <TableCell style={{ padding: '0 1px' }}>
+              <TableCell style={{ padding: "0 1px" }}>
                 <img
                   src={viewReg}
                   alt="View Registration"
                   onClick={() => employeeView(emp.pnsnIdTxt)}
                   variant="contained"
                   style={{
-                    margin: '0 5px',
-                    background: '#EF841F',
-                    color: '#fff',
+                    margin: "0 5px",
+                    background: "#EF841F",
+                    color: "#fff",
                   }}
                 />
                 <img
@@ -207,9 +213,9 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
                   alt="View Enrollment"
                   variant="contained"
                   style={{
-                    margin: '0 5px',
-                    background: '#EF841F',
-                    color: '#fff',
+                    margin: "0 5px",
+                    background: "#EF841F",
+                    color: "#fff",
                   }}
                   // className={classes.disabled}
                 />
@@ -229,7 +235,7 @@ EmployeesTable.propTypes = {
   viewMember: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   employees: state.employees,
 });
 

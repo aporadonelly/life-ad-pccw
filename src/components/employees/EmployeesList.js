@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Paper, Typography, Button, Grid, Chip } from "@material-ui/core";
@@ -17,19 +18,20 @@ const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
 
   const history = useHistory();
   const [chipData, setChipData] = useState({});
+  const { t } = useTranslation(["typography", "button", "table"]);
   console.log("enquire", chipData);
 
   useEffect(() => {
     setChipData(enquiry);
   }, []);
 
-  const handleDelete = chipToDelete => () => {
+  const handleDelete = (chipToDelete) => () => {
     console.log("toDelete", chipToDelete);
     const asArray = Object.entries(chipData);
     const chips = asArray.filter(([key, value]) => key !== chipToDelete);
   };
 
-  const getChipDropDownValue = value => {
+  const getChipDropDownValue = (value) => {
     switch (value) {
       case "GT_M":
         valueLabel = "Male";
@@ -248,7 +250,7 @@ const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
           <Grid item xs={12} lg={12} sm={12}>
             <Grid className={classes.pageTitle} item xs={12} lg={12} sm={12}>
               <Typography variant="h6" component="div">
-                {intl.labels.memberEnquiry}
+                {t("typography:heading.memberEnquiry")}
               </Typography>
             </Grid>
             <Grid className={classes.root} item xs={12} lg={12} sm={12}>
@@ -271,7 +273,7 @@ const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
                   variant="contained"
                   onClick={handleEditSearch}
                 >
-                  {intl.labels.editSearch}
+                  {t("button:editSearch")}
                 </Button>
                 <Button
                   className={classes.formBtn}
@@ -287,7 +289,7 @@ const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
                     props.dispatch({ type: "CLEAR_SEARCH_FORM" });
                   }}
                 >
-                  {intl.labels.newSearch}
+                  {t("button:newSearch")}
                 </Button>
               </Grid>
             </Grid>
@@ -301,7 +303,7 @@ const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
             {employees.length > 0 ? (
               <EmployeesTable employees={employees} />
             ) : (
-              <p>NO DATA FOUND</p>
+              <p>{t("table:tbody.custom.noDataFound")}</p>
             )}
           </Grid>
         </Grid>
@@ -314,7 +316,7 @@ EmployeesList.propTypes = {
   employees: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   employees: state.employees,
 });
 
