@@ -220,10 +220,13 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                     {intl.labels.mobile_number}
                   </div>
                   <div className={classes.labelValue}>
-                    {get(
-                      regClntPhones.filter(v => v.phnTypId === "TP_MB"),
-                      "[0].phnNmbr"
-                    )}
+
+                    {Array.isArray(regClntPhones) &&
+                      get(
+                        regClntPhones.filter(v => v.phnTypId === "TP_MB"),
+                        "[0].phnNmbr"
+                      )}
+
                   </div>
                 </div>
               </Grid>
@@ -233,7 +236,8 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                     {intl.labels.secondary_mobile_no}
                   </div>
                   <div className={classes.labelValue}>
-                    {regCntcts.map(v => v.scndryCntctNo)}
+                    {Array.isArray(regCntcts) &&
+                      regCntcts.map(v => v.scndryCntctNo)}
                   </div>
                 </div>
               </Grid>
@@ -249,25 +253,28 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                     {intl.labels.residential_address}
                   </div>
                   <div className={classes.labelValue}>
-                    {regAddrs.map(v =>
-                      v.addrTypId === "AD_R"
-                        ? v.addrRmTxt +
-                          " " +
-                          v.addrFlrTxt +
-                          " " +
-                          v.addrBldngNmTxt +
-                          " " +
-                          v.addrBlckTxt +
-                          " " +
-                          v.addrStrtTxt +
-                          " " +
-                          v.addrCtyTxt +
-                          " " +
-                          v.addrDstrctTxt +
-                          " " +
-                          v.cntryTypCd
-                        : null
-                    )}
+
+                    {Array.isArray(regAddrs) &&
+                      regAddrs.map(v =>
+                        v.addrTypId === "AD_R"
+                          ? v.addrRmTxt +
+                            " " +
+                            v.addrFlrTxt +
+                            " " +
+                            v.addrBldngNmTxt +
+                            " " +
+                            v.addrBlckTxt +
+                            " " +
+                            v.addrStrtTxt +
+                            " " +
+                            v.addrCtyTxt +
+                            " " +
+                            v.addrDstrctTxt +
+                            " " +
+                            v.cntryTypCd
+                          : null
+                      )}
+
                   </div>
                 </div>
               </Grid>
@@ -293,25 +300,28 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                     {intl.labels.correspondence_address}
                   </div>
                   <div className={classes.labelValue}>
-                    {regAddrs.map(v =>
-                      v.addrTypId === "AD_C"
-                        ? v.addrRmTxt +
-                          " " +
-                          v.addrFlrTxt +
-                          " " +
-                          v.addrBldngNmTxt +
-                          " " +
-                          v.addrBlckTxt +
-                          " " +
-                          v.addrStrtTxt +
-                          " " +
-                          v.addrCtyTxt +
-                          " " +
-                          v.addrDstrctTxt +
-                          " " +
-                          v.cntryTypCd
-                        : null
-                    )}
+
+                    {Array.isArray(regAddrs) &&
+                      regAddrs.map(v =>
+                        v.addrTypId === "AD_C"
+                          ? v.addrRmTxt +
+                            " " +
+                            v.addrFlrTxt +
+                            " " +
+                            v.addrBldngNmTxt +
+                            " " +
+                            v.addrBlckTxt +
+                            " " +
+                            v.addrStrtTxt +
+                            " " +
+                            v.addrCtyTxt +
+                            " " +
+                            v.addrDstrctTxt +
+                            " " +
+                            v.cntryTypCd
+                          : null
+                      )}
+
                   </div>
                 </div>
               </Grid>

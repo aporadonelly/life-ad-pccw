@@ -1,5 +1,12 @@
 import PropTypes from "prop-types";
-import { createContext, useContext, useReducer, useCallback } from "react";
+import {
+  createContext,
+  useContext,
+  useReducer,
+  useCallback,
+  useEffect,
+} from "react";
+import { useMountedState } from "react-use";
 
 const Context = createContext();
 const { Provider } = Context;
@@ -12,18 +19,31 @@ const reducer = (state, action) => {
     case "settingsToggled":
       return { ...state, settingsOpen: !state.settingsOpen };
 
+    case "setUser":
+      return { ...state, user: action.user };
+
     default:
       return state;
   }
 };
 
-const AppProvider = ({ user, cycleDate, children }) => {
+const AppProvider = ({ user, cycleDate, onLogout, children }) => {
+  const isMounted = useMountedState();
   const [state, dispatch] = useReducer(reducer, {
     siderOpen: false,
     settingsOpen: false,
     user,
     cycleDate,
   });
+
+  useEffect(() => {
+    if (isMounted()) {
+      dispatch({
+        type: "setUser",
+        user,
+      });
+    }
+  }, [isMounted, user]);
 
   const siderToggled = useCallback(() => {
     dispatch({ type: "siderToggled" });
@@ -34,7 +54,7 @@ const AppProvider = ({ user, cycleDate, children }) => {
   }, [dispatch]);
 
   return (
-    <Provider value={{ ...state, siderToggled, settingsToggled }}>
+    <Provider value={{ ...state, siderToggled, settingsToggled, onLogout }}>
       {children}
     </Provider>
   );
@@ -42,10 +62,7 @@ const AppProvider = ({ user, cycleDate, children }) => {
 
 AppProvider.propTypes = {
   user: PropTypes.shape({
-    avatar: PropTypes.string,
-    firstName: PropTypes.string,
-    lastName: PropTypes.string,
-    role: PropTypes.string,
+    displayName: PropTypes.string,
   }),
   cycleDate: PropTypes.string,
 };

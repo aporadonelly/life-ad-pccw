@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useAppState } from "@contexts/AppProvider";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -28,16 +28,11 @@ const useStyles = makeStyles((theme) => ({
 const UserMenu = () => {
   const classes = useStyles();
   const {
-    user: { firstName, lastName, role },
+    user: { displayName },
   } = useAppState();
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
   const prevOpen = useRef(open);
-
-  const fullName = useMemo(
-    () => [firstName, lastName].filter(Boolean).join(" "),
-    [firstName, lastName]
-  );
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -79,8 +74,8 @@ const UserMenu = () => {
             <UserPlaceholderIcon className={classes.avatar} />
           </ListItemAvatar>
           <ListItemText
-            primary={fullName}
-            secondary={role}
+            primary={displayName}
+            secondary="Admin Operator"
             primaryTypographyProps={{ variant: "body2" }}
             secondaryTypographyProps={{ variant: "caption", color: "inherit" }}
           />

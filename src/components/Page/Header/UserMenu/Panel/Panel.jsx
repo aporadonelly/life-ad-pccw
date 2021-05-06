@@ -1,3 +1,4 @@
+import { useAppState } from "@contexts/AppProvider";
 import { forwardRef } from "react";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import {
@@ -36,9 +37,9 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-function Panel(props, ref) {
-  const { open, onClose, onListKeyDown } = props;
+function Panel({ open, onClose, onListKeyDown }, ref) {
   const classes = useStyles();
+  const { onLogout } = useAppState();
 
   return (
     <Popper
@@ -59,13 +60,7 @@ function Panel(props, ref) {
           <Paper className={classes.paper} variant="outlined">
             <ClickAwayListener onClickAway={onClose}>
               <MenuList onKeyDown={onListKeyDown}>
-                <MenuItem
-                  dense
-                  onClick={() => {
-                    window.localStorage.clear();
-                    window.location.href = "/signin";
-                  }}
-                >
+                <MenuItem dense onClick={onLogout}>
                   Logout
                 </MenuItem>
               </MenuList>

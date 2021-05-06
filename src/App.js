@@ -1,73 +1,59 @@
-import React from "react";
-import { ThemeProvider } from "@material-ui/core/styles";
-import theme from "./styles/theme";
 import { Switch, Route } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { userSelector } from "./redux/features/user/selectors";
+import { logout } from "./redux/features/user/actions";
 import { Page } from "./components";
-import Dashboard from "./components/dashboard/dashboard";
+import { Page404, SignIn } from "./pages";
 import Employees from "./pages/employees/EmployeesPage";
 import Employee from "./components/employees/EmployeeItem";
 import EmployeesList from "./components/employees/EmployeesList";
-import { Agent } from "./components/agent";
-import Login from "./pages/Login/Login";
-import { useSelector } from "react-redux";
 import createPrivateRoute from "./utils/createPrivateRoute";
 import createPublicRoute from "./utils/createPublicRoute";
 
-const Placeholder = () => <div>Hello</div>;
+const App = ({ user, logout }) => (
+  <Page user={user} cycleDate="3 May 2021" onLogout={logout}>
+    <Switch>
+      <Route
+        path="/employee-search"
+        {...createPrivateRoute({
+          component: Employees,
+        })}
+      />
+      <Route
+        path="/employee-search-results"
+        {...createPrivateRoute({
+          component: EmployeesList,
+        })}
+      />
+      <Route
+        path="/employee-view"
+        {...createPrivateRoute({
+          component: Employee,
+        })}
+      />
+      <Route
+        path="/signin"
+        {...createPublicRoute({
+          component: SignIn,
+        })}
+      />
+      <Route
+        path=""
+        {...createPrivateRoute({
+          component: Page404,
+        })}
+      />
+    </Switch>
+  </Page>
+);
 
-const App = () => {
-  const user = useSelector((state) => state.userAccounts);
-  return (
-    <ThemeProvider theme={theme}>
-      <Page user={user.userAuthDetails} cycleDate="3 May 2021">
-        <Switch>
-          <Route
-            exact
-            path="/"
-            {...createPrivateRoute({
-              component: Placeholder,
-            })}
-          />
-          <Route
-            path="/agent"
-            {...createPrivateRoute({
-              component: Placeholder,
-            })}
-          />
-          <Route
-            path="/employee-search"
-            {...createPrivateRoute({
-              component: Employees,
-            })}
-          />
-          <Route
-            path="/employee-search-results"
-            {...createPrivateRoute({
-              component: EmployeesList,
-            })}
-          />
-          <Route
-            path="/employee-view"
-            {...createPrivateRoute({
-              component: Employee,
-            })}
-          />
-          <Route
-            path="/signin"
-            {...createPublicRoute({
-              component: Login,
-            })}
-          />
-          <Route
-            path=""
-            {...createPrivateRoute({
-              component: Placeholder,
-            })}
-          />
-        </Switch>
-      </Page>
-    </ThemeProvider>
-  );
-};
+const mapStateToProps = (state) => ({
+  user: userSelector(state),
+});
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  ...bindActionCreators({ logout }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

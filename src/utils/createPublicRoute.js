@@ -1,14 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { userSelector } from "@redux/features/user/selectors";
 
-const mapStateToProps = (state, ownProps) => ({
-  auth: state.userAccounts.userAuthDetails,
+const mapStateToProps = (state) => ({
+  user: userSelector(state),
 });
 
 function createPublicRoute({ component }) {
-  const PublicRoute = ({ auth, ...rest }) => {
-    if (!auth) {
+  const PublicRoute = ({ user, ...rest }) => {
+    if (!user) {
       return React.createElement(component, rest);
     }
 
@@ -22,7 +23,7 @@ function createPublicRoute({ component }) {
   const ConnectedComponent = connect(mapStateToProps)(PublicRoute);
 
   return {
-    render: (props) => <ConnectedComponent {...props} />,
+    render: props => <ConnectedComponent {...props} />,
   };
 }
 
