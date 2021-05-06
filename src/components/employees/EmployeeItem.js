@@ -220,11 +220,13 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                     {intl.labels.mobile_number}
                   </div>
                   <div className={classes.labelValue}>
+
                     {Array.isArray(regClntPhones) &&
                       get(
                         regClntPhones.filter(v => v.phnTypId === "TP_MB"),
                         "[0].phnNmbr"
                       )}
+
                   </div>
                 </div>
               </Grid>
@@ -251,6 +253,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                     {intl.labels.residential_address}
                   </div>
                   <div className={classes.labelValue}>
+
                     {Array.isArray(regAddrs) &&
                       regAddrs.map(v =>
                         v.addrTypId === "AD_R"
@@ -271,6 +274,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                             v.cntryTypCd
                           : null
                       )}
+
                   </div>
                 </div>
               </Grid>
@@ -296,6 +300,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                     {intl.labels.correspondence_address}
                   </div>
                   <div className={classes.labelValue}>
+
                     {Array.isArray(regAddrs) &&
                       regAddrs.map(v =>
                         v.addrTypId === "AD_C"
@@ -316,6 +321,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                             v.cntryTypCd
                           : null
                       )}
+
                   </div>
                 </div>
               </Grid>
