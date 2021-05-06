@@ -2,6 +2,7 @@ import { useFormikContext } from "formik";
 import FormikErrorFocus from "formik-error-focus";
 import InputField from "./InputField";
 import SelectField from "./SelectField";
+import DatePickerField from "./DatePickerField";
 import SubmitButton from "./SubmitButton";
 
 const Form = ({ children, ...props }) => {
@@ -28,6 +29,7 @@ const Form = ({ children, ...props }) => {
 
 Form.Input = InputField;
 Form.Select = SelectField;
+Form.DatePicker = DatePickerField;
 Form.Submit = SubmitButton;
 
 export default Form;
