@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cycleDate: {
     padding: theme.spacing(0, 0.5),
+    textTransform: "uppercase",
   },
 }));
 
