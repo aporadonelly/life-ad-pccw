@@ -56,7 +56,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
   console.log(employees[0].clntPhones[0].phoneNumber);
   const history = useHistory();
   const classes = { ...useStyles(), ...EmployeeStyles() };
-  const { t } = useTranslation(["typography", "table", "button"]);
+  const { t } = useTranslation(["typography", "table"]);
 
   const [viewMemberState, setViewMemberState] = useState(false);
   const [tableView, setTableView] = useState(true);
