@@ -30,6 +30,13 @@ theme.overrides = {
       color: theme.palette.common.white,
     },
   },
+  MuiDrawer: {
+    paper: {
+      [theme.breakpoints.up("sm")]: {
+        paddingTop: 30, // Temporary fix for system env
+      },
+    },
+  },
   MuiPaper: {
     elevation1: {
       width: "100% !important",
@@ -74,6 +81,7 @@ theme.overrides = {
       backgroundColor: theme.palette.secondary.main,
       color: theme.palette.common.white,
       padding: theme.spacing(2, 3),
+      marginTop: 30, // Temporary fix for system env
     },
   },
 };
