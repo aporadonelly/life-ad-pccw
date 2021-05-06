@@ -19,6 +19,12 @@ const reducer = (state, action) => {
     case "settingsToggled":
       return { ...state, settingsOpen: !state.settingsOpen };
 
+    case "setSystemEnv":
+      return { ...state, systemEnv: action.systemEnv };
+
+    case "setCycleDate":
+      return { ...state, cycleDate: action.cycleDate };
+
     case "setUser":
       return { ...state, user: action.user };
 
@@ -27,14 +33,35 @@ const reducer = (state, action) => {
   }
 };
 
-const AppProvider = ({ user, cycleDate, onLogout, children }) => {
+const AppProvider = ({ systemEnv, cycleDate, user, onLogout, children }) => {
   const isMounted = useMountedState();
   const [state, dispatch] = useReducer(reducer, {
     siderOpen: false,
     settingsOpen: false,
-    user,
-    cycleDate,
+    systemEnv: null,
+    cycleDate: null,
+    user: null,
   });
+
+  console.log(systemEnv);
+
+  useEffect(() => {
+    if (isMounted()) {
+      dispatch({
+        type: "setSystemEnv",
+        systemEnv,
+      });
+    }
+  }, [isMounted, systemEnv]);
+
+  useEffect(() => {
+    if (isMounted()) {
+      dispatch({
+        type: "setCycleDate",
+        cycleDate,
+      });
+    }
+  }, [isMounted, cycleDate]);
 
   useEffect(() => {
     if (isMounted()) {
