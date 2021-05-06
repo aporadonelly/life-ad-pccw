@@ -1,0 +1,14 @@
+{
+  "thead": {
+    "mpfId": "MPF ID",
+    "displayName": "Member Name",
+    "idType": "ID Type",
+    "idNumber": "ID Number",
+    "mobileNumber": "Mobile Number",
+    "email": "Email Address",
+    "status": "Status",
+    "custom": {
+      "action": "Action"
+    }
+  }
+}

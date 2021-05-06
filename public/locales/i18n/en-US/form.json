@@ -1,6 +1,39 @@
 {
   "label": {
     "username": "Username",
-    "password": "Password"
+    "password": "Password",
+    "mpfId": "MPF ID",
+    "mpfSchemeName": "MPF Scheme Name",
+    "displayName": "Member Name",
+    "chineseName": "Member Name (Chinese)",
+    "gender": "Gender",
+    "idType": "ID Type",
+    "idNumber": "ID Number",
+    "birthdate": "Date of Birth",
+    "placeOfBirth": "Place of Birth",
+    "nationality": "Nationality",
+    "mobileNumber": "Mobile Number",
+    "address": "Address",
+    "email": "Email Address",
+    "dateOfEmployment": "Date of Employment",
+    "employeeType": "Employee Type",
+    "reportedIndustryType": "Reported Industry Type",
+    "occupation": "Occupation",
+    "taxResidency": "Tax Residency",
+    "tin": "TIN",
+    "status": "Status"
+  },
+  "placeholder": {
+    "custom": {
+      "inputEnglishName": "Input English Name",
+      "inputChineseName": "Input English Name",
+      "pleaseInput": "Please Input",
+      "pleaseSelect": "Please Select"
+    }
+  },
+  "helperText": {},
+  "validator": {
+    "required": "This field is required",
+    "email": "Please enter a valid email address"
   }
 }

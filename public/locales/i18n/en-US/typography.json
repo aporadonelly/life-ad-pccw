@@ -1,0 +1,10 @@
+{
+  "heading": {
+    "signIn": "Sign in to your account",
+    "memberEnquiry": "Member Enquiry",
+    "searchResult": "Search Result",
+    "personalInformation": "Personal Information",
+    "employmentInformation": "Employment Information"
+  },
+  "paragraph": {}
+}

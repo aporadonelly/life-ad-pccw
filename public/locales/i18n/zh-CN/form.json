@@ -1,6 +1,39 @@
 {
   "label": {
     "username": "用户名",
-    "password": "密码"
+    "password": "密码",
+    "mpfId": "强积金编号",
+    "mpfSchemeName": "强积金计划名称",
+    "displayName": "成员名字",
+    "chineseName": "会员名（中文",
+    "gender": "性别",
+    "idType": "证件类型",
+    "idNumber": "身份证号码",
+    "birthdate": "出生日期",
+    "placeOfBirth": "出生地",
+    "nationality": "国籍",
+    "mobileNumber": "手机号码",
+    "address": "地址",
+    "email": "电子邮件地址",
+    "dateOfEmployment": "工作日期",
+    "employeeType": "员工类型",
+    "reportedIndustryType": "报告的行业类型",
+    "occupation": "职业",
+    "taxResidency": "税收居留权",
+    "tin": "锡",
+    "status": "地位"
+  },
+  "placeholder": {
+    "custom": {
+      "inputEnglishName": "输入英文名称",
+      "inputChineseName": "输入英文名称",
+      "pleaseInput": "请输入",
+      "pleaseSelect": "请选择"
+    }
+  },
+  "helperText": {},
+  "validator": {
+    "required": "This field is required",
+    "email": "Please enter a valid email address"
   }
 }

@@ -1,0 +1,14 @@
+{
+  "thead": {
+    "mpfId": "强积金编号",
+    "displayName": "成员名字",
+    "idType": "证件类型",
+    "idNumber": "身份证号码",
+    "mobileNumber": "手机号码",
+    "email": "电子邮件地址",
+    "status": "地位",
+    "custom": {
+      "action": "行动"
+    }
+  }
+}
