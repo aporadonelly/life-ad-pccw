@@ -9,25 +9,169 @@ import EmployeesTable from './EmployeesTable';
 import * as intl from '../../common/labels';
 
 const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
+  let valueLabel
   const classes = {
     ...EmployeeStyles(),
     ...EmployeesListStyles(),
   };
 
-  console.log(enquiry);
-
   const history = useHistory();
   const [chipData, setChipData] = useState({});
+  console.log('enquire', chipData);
 
   useEffect(() => {
     setChipData(enquiry);
   }, []);
 
   const handleDelete = chipToDelete => () => {
+    console.log('toDelete', chipToDelete)
     const asArray = Object.entries(chipData);
     const chips = asArray.filter(([key, value]) => key !== chipToDelete);
     // setChipData(chips);
     // props.dispatch({ type: 'CLEAR_FIELD_SEARCH_FORM', payload: chipToDelete });
+  };
+
+  const getChipDropDownValue = (value) => {
+    switch (value) { // initial value
+      case 'GT_M':
+        valueLabel = 'Male'
+        break;
+      case 'GT_F':
+        valueLabel = 'Female'
+        break;
+      case 'GT_B':
+        valueLabel = 'Both'
+        break;
+      case 'ID_HK':
+        valueLabel = 'HKID'
+        break;
+      case 'ID_PP':
+        valueLabel = 'Passport'
+        break;
+      case 'EP_NW':
+        valueLabel = 'New Employee'
+        break;
+      case 'EP_EXT':
+        valueLabel = 'Existing Employee'
+        break;
+      case 'EP_IGT':
+        valueLabel = 'Intra-Group Transfer'
+        break;
+      case 'EP_EXP':
+        valueLabel = 'Exempt Person'
+        break;
+      case 'EP_EPT':
+        valueLabel = 'Expatriate Employee'
+        break;
+      case 'NT_CT':
+        valueLabel = 'Catering'
+        break;
+      case 'NT_BC':
+        valueLabel = 'Building Construction'
+        break;
+      case 'NT_M':
+        valueLabel = 'Manufacturing / Factories / Engineering'
+        break;
+      case 'NT_FN':
+        valueLabel = 'Finance / Insurance / Business Services'
+        break;
+      case 'NT_RE':
+        valueLabel = 'Real Estate / Property Management / Cleaning'
+        break;
+      case 'NT_ET':
+        valueLabel = 'Entertainment / Retail / Personal Services / Media'
+        break;
+      case 'NT_IT':
+        valueLabel = 'Information Technology'
+        break;
+      case 'NT_WH':
+        valueLabel = 'Wholesale / Import - Export Trades'
+        break;
+      case 'NT_SO':
+        valueLabel = 'Social Services / Education / Charities / Government Agencies'
+        break;
+      case 'NT_TR':
+        valueLabel = 'Transportation - Logistics Services'
+        break;
+      case 'NT_OT':
+        valueLabel = 'Others'
+        break;
+      case 'MB_RE':
+        valueLabel = 'Regular Employee'
+        break;
+      case 'MB_CE':
+        valueLabel = 'Casual Employee'
+        break;
+      case 'MB_SEP':
+        valueLabel = 'Self-Employed Person (SEP)'
+        break;
+      case 'NT_PA':
+        valueLabel = 'Personal account holder (PAH)'
+        break;
+      case 'NT_SVC':
+        valueLabel = 'SVC'
+        break;
+      case 'NT_TVC':
+        valueLabel = 'TVC'
+        break;
+      case 'ST_NW':
+        valueLabel = 'New'
+        break;
+      case 'ST_SB':
+        valueLabel = 'Submitted'
+        break;
+      case 'ST_AP':
+        valueLabel = 'Approved'
+        break;
+      case 'ST_IP':
+        valueLabel = 'In Progress'
+        break;
+      case 'ST_ST':
+        valueLabel = 'Settled'
+        break;
+      case 'ST_CP':
+        valueLabel = 'Completed'
+        break;
+      case 'ST_RJ':
+        valueLabel = 'Rejected'
+        break;
+      case 'ST_RJT':
+        valueLabel = 'Rejected (By Trustee)'
+        break;
+      case 'ST_AT':
+        valueLabel = 'Active'
+        break;
+      case 'ST_CN':
+        valueLabel = 'Cancel'
+        break;
+      case 'ST_SV':
+        valueLabel = 'Saved'
+        break;
+      case 'ST_TG':
+        valueLabel = 'Terminating'
+        break;
+      case 'ST_TD':
+        valueLabel = 'Terminated'
+        break;
+      case 'ST_EE':
+        valueLabel = 'For EE to confirm'
+        break;
+      case 'ST_EEC':
+        valueLabel = 'EE Confirm'
+        break;
+      case 'ST_EENC':
+        valueLabel = 'EE Not Confirm'
+        break;
+      case 'ST_PD_RW':
+        valueLabel = 'Pending for internal review'
+        break;
+      case 'ST_RC':
+        valueLabel = 'Received'
+        break;
+      default:
+        valueLabel = value // initValue
+        break;
+    }
   };
 
   const renderObject = () => {
@@ -49,28 +193,13 @@ const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
           ? key.replace(/_/g, ' ')
           : key;
 
-      let valueLabel
-      let initValue = value === 'HK ID' ? value.replace(/_/g, ' ') : value;
+      // let initValue = value === 'ID_HK' ? value.replace(/_/g, ' ') : value; 
       let finalKey = initKey === 'tin' ? initKey.toUpperCase() : initKey;
       // let label = `${finalKey} :  ${initValue}`;
-
-      switch (initValue) {
-        case 'GT_M':
-          valueLabel = 'Male'
-          break;
-        case 'GT_F':
-          valueLabel = 'Female'
-          break;
-        case 'GT_B':
-          valueLabel = 'Both'
-          break;
-        default:
-          valueLabel = initValue
-          break;
-      }
+      getChipDropDownValue(value);
       let label = `${finalKey} : ${valueLabel}`;
 
-      if (initValue)
+      if (value) // initValue
         return (
           <Chip
             // style={{ textTransform: 'capitalize', margin: '2px' }}
