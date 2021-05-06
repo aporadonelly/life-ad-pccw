@@ -138,37 +138,31 @@ const EmployeeForm = ({
 
   const handleSubmit = e => {
     e.preventDefault();
-    setValues(values);
-    console.log(values, 'before puting ');
     let p = {};
-    if (mpf_id !== null) p['mpf_id'] = mpf_id;
-    if (first_name !== null) p['first_name'] = first_name;
-    if (chinese_name !== null) p['chinese_name'] = chinese_name;
-    if (gender !== null) p['gender'] = gender;
-    if (id_type !== null) p['id_type'] = id_type;
-    if (id_number !== null) p['id_number'] = id_number;
-    if (date_of_birth !== null)
-      p['date_of_birth'] =
-        date_of_birth.getFullYear() +
-        '/' +
-        (date_of_birth.getMonth() + 1) +
-        '/' +
-        date_of_birth.getDate();
-    if (nationality !== null) p['nationality'] = nationality;
-    if (place_of_birth !== null) p['place_of_birth'] = place_of_birth;
-    if (mobile_number !== null) p['mobile_number'] = mobile_number;
-    if (address !== null) p['address'] = address;
-    if (email !== null) p['email'] = email;
-    if (date_of_employment !== null)
-      p['date_of_employment'] = date_of_employment;
-    if (employee_type !== null) p['employee_type'] = employee_type;
-    if (reported_industry_type !== null)
+    if (mpf_id) p['mpf_id'] = mpf_id;
+    if (first_name) p['first_name'] = first_name;
+    if (chinese_name) p['chinese_name'] = chinese_name;
+    if (gender) p['gender'] = gender;
+    if (id_type) p['id_type'] = id_type;
+    if (id_number) p['id_number'] = id_number;
+    if (date_of_birth)
+      p['date_of_birth'] = moment(date_of_birth).format('YYYY/MM/DD');
+
+    if (nationality) p['nationality'] = nationality;
+    if (place_of_birth) p['place_of_birth'] = place_of_birth;
+    if (mobile_number) p['mobile_number'] = mobile_number;
+    if (address) p['address'] = address;
+    if (email) p['email'] = email;
+    if (date_of_employment)
+      p['date_of_employment'] = moment(date_of_employment).format('DD/MM/YYYY');
+    if (employee_type) p['employee_type'] = employee_type;
+    if (reported_industry_type)
       p['reported_industry_type'] = reported_industry_type;
-    if (occupation !== null) p['occupation'] = occupation;
-    if (mpf_scheme_name !== null) p['mpf_scheme_name'] = mpf_scheme_name;
-    if (tax_residency !== null) p['tax_residency'] = tax_residency;
-    if (tin !== null) p['tin'] = tin;
-    if (status !== null) p['status'] = status;
+    if (occupation) p['occupation'] = occupation;
+    if (mpf_scheme_name) p['mpf_scheme_name'] = mpf_scheme_name;
+    if (tax_residency) p['tax_residency'] = tax_residency;
+    if (tin) p['tin'] = tin;
+    if (status) p['status'] = status;
 
     dispatch(searchMembers(p));
     dispatch(saveQuery(p));
@@ -324,23 +318,21 @@ const EmployeeForm = ({
                         ></Controls.DatePicker>
 
                         {/* <TextField
-													name='date_of_birth'
-													value={moment(date_of_birth).format(
-														'YYYY-MM-DD'
-													)}
-													onChange={handleInputChange}
-													fullWidth
-													id='date'
-													type='date'
-													format='yyyy/MM/dd'
-													defaultValue='2017-05-24'
-													className={classes.textField}
-													// value={date_of_birth}
-													InputLabelProps={{
-														shrink: true,
-													}}
-													helperText='YYYYMMDD'
-												/> */}
+                          name="date_of_birth"
+                          value={date_of_birth}
+                          onChange={handleInputChange}
+                          fullWidth
+                          id="date"
+                          type="date"
+                          format="yyyy/MM/dd"
+                          defaultValue="2017-05-24"
+                          className={classes.textField}
+                          // value={date_of_birth}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          helperText="YYYYMMDD"
+                        /> */}
                       </Grid>
                     </MuiPickersUtilsProvider>
                   </div>

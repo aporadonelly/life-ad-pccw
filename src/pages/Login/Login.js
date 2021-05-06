@@ -153,7 +153,7 @@ const Login = () => {
         },
       });
 
-      setTimeout(() => (window.location.href = '/dashbaord'), 1500);
+      setTimeout(() => (window.location.href = '/dashboard'), 1500);
     } catch (error) {
       alert('Invalid credentials');
     }
