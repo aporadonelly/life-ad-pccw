@@ -25,13 +25,13 @@ const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
     setChipData(enquiry);
   }, []);
 
-  const handleDelete = (chipToDelete) => () => {
+  const handleDelete = chipToDelete => () => {
     console.log("toDelete", chipToDelete);
     const asArray = Object.entries(chipData);
     const chips = asArray.filter(([key, value]) => key !== chipToDelete);
   };
 
-  const getChipDropDownValue = (value) => {
+  const getChipDropDownValue = value => {
     switch (value) {
       case "GT_M":
         valueLabel = "Male";
@@ -225,15 +225,20 @@ const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
           : initKey;
       getChipDropDownValue(value);
       let label = `${finalKey} : ${valueLabel}`;
+      const randomColor = Math.floor(Math.random() * 16777215).toString(16);
 
-      if (value)
+      if (valueLabel)
         return (
           <Chip
-            className={key !== "email" && classes.chips}
-            key={key}
-            label={label}
             // onDelete={handleDelete(key)}
-            color="primary"
+            label={label}
+            key={key}
+            className={classes.chips}
+            style={{
+              backgroundColor: "#" + randomColor,
+              color: "white",
+              fontWeight: "bold",
+            }}
           />
         );
     });
@@ -316,7 +321,7 @@ EmployeesList.propTypes = {
   employees: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   employees: state.employees,
 });
 
