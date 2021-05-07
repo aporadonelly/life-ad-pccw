@@ -621,6 +621,7 @@ const EmployeeForm = ({
                     type="submit"
                     data-testid="submit-btn"
                     text={t("button:search")}
+                    style={{ backgroundColor: "#EF841F", color: "#fff" }}
                   />
                 </div>
               </Grid>
