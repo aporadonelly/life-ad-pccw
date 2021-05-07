@@ -1,0 +1,19 @@
+{
+  "thead": {
+    "mpfId": "強積金編號",
+    "displayName": "成員名字",
+    "idType": "證件類型",
+    "idNumber": "身份證號碼",
+    "mobileNumber": "手機號碼",
+    "email": "電子郵件地址",
+    "status": "地位",
+    "custom": {
+      "action": "行動"
+    }
+  },
+  "tbody": {
+    "custom": {
+      "noDataFound": "沒有找到數據"
+    }
+  }
+}

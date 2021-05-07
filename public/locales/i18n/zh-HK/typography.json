@@ -1,0 +1,12 @@
+{
+  "heading": {
+    "signIn": "登錄到您的帳戶",
+    "memberEnquiry": "會員查詢",
+    "memberRegistrationView": "會員註冊視圖",
+    "searchResult": "搜索結果",
+    "personalInformation": "個人信息",
+    "employmentInformation": "就業信息",
+    "otherInformation": "其他資訊"
+  },
+  "paragraph": {}
+}
