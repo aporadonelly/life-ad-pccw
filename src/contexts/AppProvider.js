@@ -43,8 +43,6 @@ const AppProvider = ({ systemEnv, cycleDate, user, onLogout, children }) => {
     user: null,
   });
 
-  console.log(systemEnv);
-
   useEffect(() => {
     if (isMounted()) {
       dispatch({

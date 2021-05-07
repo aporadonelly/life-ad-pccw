@@ -8,7 +8,9 @@ i18n.init({
   debug: false,
   fallbackLng: "en-US",
   whitelist: ["en-US", "zh-CN", "zh-HK"],
-  backend: { loadPath: "/locales/i18n/{{lng}}/{{ns}}.json" },
+  backend: {
+    loadPath: `${process.env.PUBLIC_URL}/locales/i18n/{{lng}}/{{ns}}.json`,
+  },
 });
 
 export default i18n;

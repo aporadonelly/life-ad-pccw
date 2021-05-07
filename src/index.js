@@ -20,7 +20,7 @@ ReactDOM.render(
       <PersistGate loading={null} persistor={persistor}>
         <I18nextProvider i18n={i18n}>
           <ThemeProvider theme={theme}>
-            <Router>
+            <Router basename={process.env.PUBLIC_URL}>
               <CssBaseline />
               <App />
             </Router>
