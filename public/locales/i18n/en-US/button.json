@@ -1,3 +1,8 @@
 {
-  "signIn": "Sign In"
+  "signIn": "Sign In",
+  "clear": "Clear",
+  "search": "Search",
+  "newSearch": "New Search",
+  "editSearch": "Edit Search",
+  "backToSearch": "Back to Search"
 }

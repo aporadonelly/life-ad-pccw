@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SignIn = ({ isLoading, error, login }) => {
   const classes = useStyles();
-  const { t } = useTranslation(["content", "form", "button"]);
+  const { t } = useTranslation(["typography", "form", "button"]);
 
   const handleSubmit = (values) => {
     login(values);
@@ -66,7 +66,7 @@ const SignIn = ({ isLoading, error, login }) => {
             </Grid>
             <Grid item xs={12} align="middle">
               <Typography component="h1" variant="h5">
-                {t("content:signIn.heading")}
+                {t("typography:heading.signIn")}
               </Typography>
             </Grid>
             {error && (

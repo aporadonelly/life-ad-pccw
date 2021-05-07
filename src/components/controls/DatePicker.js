@@ -1,13 +1,15 @@
-import React from 'react';
-import moment from 'moment';
+import React from "react";
+import moment from "moment";
+import { useTranslation } from "react-i18next";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
-} from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 
 export default function DatePicker(props) {
   const { name, value, onChange, defaultValue } = props;
+  const { t } = useTranslation(["form"]);
 
   const convertToDefaultPara = (name, value) => ({
     target: {
@@ -19,14 +21,14 @@ export default function DatePicker(props) {
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <KeyboardDatePicker
-        placeholder="Please Input"
+        placeholder={t("form:placeholder.custom.pleaseInput")}
         defaultValue={defaultValue}
         error={false}
         variant="inline"
         format="yyyy/MM/dd"
         name={name}
         value={value}
-        onChange={date => onChange(convertToDefaultPara(name, date))}
+        onChange={(date) => onChange(convertToDefaultPara(name, date))}
         helperText="YYYYMMDD"
       ></KeyboardDatePicker>
     </MuiPickersUtilsProvider>

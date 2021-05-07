@@ -1,6 +1,50 @@
 {
   "label": {
     "username": "Username",
-    "password": "Password"
+    "password": "Password",
+    "title": "title",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "chineseFirstName": "First Name (Chinese)",
+    "chineseLastName": "Last Name (Chinese)",
+    "mpfId": "MPF ID",
+    "mpfSchemeName": "MPF Scheme Name",
+    "displayName": "Member Name",
+    "chineseName": "Member Name (Chinese)",
+    "gender": "Gender",
+    "idType": "ID Type",
+    "idNumber": "ID Number",
+    "birthdate": "Date of Birth",
+    "placeOfBirth": "Place of Birth",
+    "nationality": "Nationality",
+    "mobileNumber": "Mobile Number",
+    "secondaryMobileNumber": "Secondary Mobile Number",
+    "address": "Address",
+    "residentialAddress": "Residential Address",
+    "correspondenceAddress": "Correspondence Address",
+    "email": "Email Address",
+    "dateOfEmployment": "Date of Employment",
+    "employeeType": "Employee Type",
+    "reportedIndustryType": "Reported Industry Type",
+    "occupation": "Occupation",
+    "taxResidency": "Tax Residency",
+    "tin": "TIN",
+    "status": "Status",
+    "preferredCommunicationChannel": "Preferred Communication Channel",
+    "preferredCommunicationLanguage": "Preferred Communication Language",
+    "receivedPaperFormNotificationAndDocument": "Received Paper Form Notification and Document"
+  },
+  "placeholder": {
+    "custom": {
+      "inputEnglishName": "Input English Name",
+      "inputChineseName": "Input English Name",
+      "pleaseInput": "Please Input",
+      "pleaseSelect": "Please Select"
+    }
+  },
+  "helperText": {},
+  "validator": {
+    "required": "This field is required",
+    "email": "Please enter a valid email address"
   }
 }

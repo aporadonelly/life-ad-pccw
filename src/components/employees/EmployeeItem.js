@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import moment from "moment";
 import PropTypes from "prop-types";
@@ -59,6 +60,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
   console.log(employee, "employee");
   const classes = { ...EmployeeStyles(), ...useStyles() };
   const history = useHistory();
+  const { t } = useTranslation(["typography", "form", "button"]);
 
   const {
     pnsnIdTxt,
@@ -107,16 +109,16 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                 component="div"
                 style={{ fontSize: "26px" }}
               >
-                {intl.labels.member_reg_view}
+                {t("typography:heading.memberRegistrationView")}
               </Typography>
 
               <div className={classes.label} variant="contained">
-                {intl.labels.mpf_id}
+                {t("form:label.mpfId")}
               </div>
               <div className={classes.labelValue}>{pnsnIdTxt}</div>
             </Grid>
             <div className={classes.subLabel} style={{ marginBottom: 40 }}>
-              {intl.labels.personal_info}
+              {t("typography:heading.personalInformation")}
             </div>
             <Grid
               container
@@ -129,7 +131,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    {intl.labels.title}
+                    {t("form:label.title")}
                   </div>
                   <div className={classes.labelValue}>
                     {get(regCntcts, "[0].ttlTypId")}
@@ -139,7 +141,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    {intl.labels.first_name}
+                    {t("form:label.firstName")}
                   </div>
                   <div className={classes.labelValue}> {frstNm}</div>
                 </div>
@@ -147,7 +149,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    {intl.labels.last_name}
+                    {t("form:label.lastName")}
                   </div>
                   <div className={classes.labelValue}>{lstNm}</div>
                 </div>
@@ -155,7 +157,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    {intl.labels.last_name_chinese}
+                    {t("form:label.chineseLastName")}
                   </div>
                   <div className={classes.labelValue}> {chnsLstNm}</div>
                 </div>
@@ -163,7 +165,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    {intl.labels.first_name_chinese}
+                    {t("form:label.chineseFirstName")}
                   </div>
                   <div className={classes.labelValue}>{chnsFrstNm}</div>
                 </div>
@@ -171,7 +173,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    {intl.labels.gender}
+                    {t("form:label.gender")}
                   </div>
                   <div className={classes.labelValue}>
                     {gndrTypId === "GT_M" ? "Male" : "Female"}
@@ -183,7 +185,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    {intl.labels.id_type}
+                    {t("form:label.idType")}
                   </div>
                   <div className={classes.labelValue}>
                     {idTypId === "ID_HK" ? "HKID" : "Passport"}
@@ -193,7 +195,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    {intl.labels.id_number}
+                    {t("form:label.idNumber")}
                   </div>
                   <div className={classes.labelValue}>{idNoTxt}</div>
                 </div>
@@ -201,7 +203,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    {intl.labels.date_of_birth}
+                    {t("form:label.birthdate")}
                   </div>
                   <div className={classes.labelValue}>
                     {moment(brthDt).format("DD MMMM YYYY")}
@@ -211,7 +213,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    {intl.labels.place_of_birth}
+                    {t("form:label.placeOfBirth")}
                   </div>
                   <div className={classes.labelValue}>{ntnltyCntryTypCd}</div>
                 </div>
@@ -219,7 +221,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    {intl.labels.mobile_number}
+                    {t("form:label.mobileNumber")}
                   </div>
                   <div className={classes.labelValue}>
                     {Array.isArray(regClntPhones) &&
@@ -233,7 +235,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               <Grid item sm={2} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    {intl.labels.secondary_mobile_no}
+                    {t("form:label.secondaryMobileNumber")}
                   </div>
                   <div className={classes.labelValue}>
                     {Array.isArray(regCntcts) &&
@@ -250,7 +252,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               >
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    {intl.labels.residential_address}
+                    {t("form:label.residentialAddress")}
                   </div>
                   <div className={classes.labelValue}>
                     {Array.isArray(regAddrs) &&
@@ -285,7 +287,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               >
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    {intl.labels.email}
+                    {t("form:label.email")}
                   </div>
                   <div className={classes.labelValue}>
                     {get(regCntcts, "[0].emlAddrTxt")}
@@ -295,7 +297,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               <Grid item xs={12} sm={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label} variant="contained">
-                    {intl.labels.correspondence_address}
+                    {t("form:label.correspondenceAddress")}
                   </div>
                   <div className={classes.labelValue}>
                     {Array.isArray(regAddrs) &&
@@ -323,7 +325,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               </Grid>
             </Grid>
             <div className={classes.subLabel} style={{ marginBottom: 40 }}>
-              {intl.labels.other_info}
+              {t("typography:heading.otherInformation")}
             </div>
             <Grid
               container
@@ -336,7 +338,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               <Grid item sm={3} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label}>
-                    {intl.labels.preferred_communication_channel}
+                    {t("form:label.preferredCommunicationChannel")}
                   </div>
                   <div className={classes.labelValue}>{"SMS"}</div>
                 </div>
@@ -344,7 +346,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               <Grid item sm={3} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label}>
-                    {intl.labels.preferred_communication_language}
+                    {t("form:label.preferredCommunicationLanguage")}
                   </div>
                   <div className={classes.labelValue}>
                     {get(regCntcts, "[0].lnggTypId") === "LG_EN" && "English"}
@@ -354,7 +356,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               <Grid item sm={3} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
                   <div className={classes.label}>
-                    {intl.labels.recv_paper_form_notif_docs}
+                    {t("form:label.receivedPaperFormNotificationAndDocument")}
                   </div>
                   <div className={classes.labelValue}>
                     {get(regCntcts, "[0].rcvPprFlg")}
@@ -363,9 +365,8 @@ const EmployeeView = ({ employees: { employee, id } }) => {
               </Grid>
               <Grid item sm={3} xs={12} className={classes.fieldSpacing}>
                 <div className={classes.fieldContainer}>
-                  <div className={classes.label}>{intl.labels.status}</div>
+                  <div className={classes.label}>{t("form:label.status")}</div>
                   <div className={classes.labelValue}>
-                    {" "}
                     {sttsTypId === "ST_NW" ? "New" : "Completed"}
                   </div>
                 </div>
@@ -395,7 +396,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
           onClick={() => goToSearch(id)}
           variant="contained"
         >
-          {intl.labels.backToSearch}
+          {t("button:backToSearch")}
         </Button>
       </Grid>
     </>
