@@ -1,0 +1,50 @@
+{
+  "label": {
+    "username": "用戶名",
+    "password": "密碼",
+    "title": "標題",
+    "firstName": "名",
+    "lastName": "姓",
+    "chineseFirstName": "名（中文",
+    "chineseLastName": "姓氏（中文）",
+    "mpfId": "強積金編號",
+    "mpfSchemeName": "強積金計劃名稱",
+    "displayName": "成員名字",
+    "chineseName": "會員名（中文",
+    "gender": "性別",
+    "idType": "證件類型",
+    "idNumber": "身份證號碼",
+    "birthdate": "出生日期",
+    "placeOfBirth": "出生地",
+    "nationality": "國籍",
+    "mobileNumber": "手機號碼",
+    "secondaryMobileNumber": "備用手機號碼",
+    "address": "地址",
+    "residentialAddress": "居住地址",
+    "correspondenceAddress": "通訊地址",
+    "email": "電子郵件地址",
+    "dateOfEmployment": "工作日期",
+    "employeeType": "員工類型",
+    "reportedIndustryType": "報告的行業類型",
+    "occupation": "職業",
+    "taxResidency": "稅收居留權",
+    "tin": "錫",
+    "status": "地位",
+    "preferredCommunicationChannel": "首選溝通渠道",
+    "preferredCommunicationLanguage": "首選交流語言",
+    "receivedPaperFormNotificationAndDocument": "收到紙質表格通知和文件"
+  },
+  "placeholder": {
+    "custom": {
+      "inputEnglishName": "輸入英文名稱",
+      "inputChineseName": "輸入英文名稱",
+      "pleaseInput": "請輸入",
+      "pleaseSelect": "請選擇"
+    }
+  },
+  "helperText": {},
+  "validator": {
+    "required": "此字段是必需的",
+    "email": "請輸入有效的電子郵件地址"
+  }
+}

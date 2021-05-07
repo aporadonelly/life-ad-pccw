@@ -1,0 +1,14 @@
+{
+  "menu": {
+    "dashboard": "儀錶盤",
+    "enquires": "詢問",
+    "trustee": "受託人",
+    "company": "公司",
+    "individual": "個人",
+    "employer": "雇主",
+    "employee": "員工",
+    "agent": "代理人",
+    "generalLegar": "總帳",
+    "correspondenses": "對應關係"
+  }
+}

@@ -32,6 +32,7 @@ const LanguageSwitcher = () => {
     >
       <MenuItem value="en-US">English</MenuItem>
       <MenuItem value="zh-CN">Chinese (Simplified)</MenuItem>
+      <MenuItem value="zh-HK">Chinese (Traditional)</MenuItem>
     </Select>
   );
 };
