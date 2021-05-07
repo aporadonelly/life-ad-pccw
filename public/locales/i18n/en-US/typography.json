@@ -2,9 +2,11 @@
   "heading": {
     "signIn": "Sign in to your account",
     "memberEnquiry": "Member Enquiry",
+    "memberRegistrationView": "Member Registration View",
     "searchResult": "Search Result",
     "personalInformation": "Personal Information",
-    "employmentInformation": "Employment Information"
+    "employmentInformation": "Employment Information",
+    "otherInformation": "Other Information"
   },
   "paragraph": {}
 }

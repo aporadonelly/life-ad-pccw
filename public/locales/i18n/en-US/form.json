@@ -2,6 +2,11 @@
   "label": {
     "username": "Username",
     "password": "Password",
+    "title": "title",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "chineseFirstName": "First Name (Chinese)",
+    "chineseLastName": "Last Name (Chinese)",
     "mpfId": "MPF ID",
     "mpfSchemeName": "MPF Scheme Name",
     "displayName": "Member Name",
@@ -13,7 +18,10 @@
     "placeOfBirth": "Place of Birth",
     "nationality": "Nationality",
     "mobileNumber": "Mobile Number",
+    "secondaryMobileNumber": "Secondary Mobile Number",
     "address": "Address",
+    "residentialAddress": "Residential Address",
+    "correspondenceAddress": "Correspondence Address",
     "email": "Email Address",
     "dateOfEmployment": "Date of Employment",
     "employeeType": "Employee Type",
@@ -21,7 +29,10 @@
     "occupation": "Occupation",
     "taxResidency": "Tax Residency",
     "tin": "TIN",
-    "status": "Status"
+    "status": "Status",
+    "preferredCommunicationChannel": "Preferred Communication Channel",
+    "preferredCommunicationLanguage": "Preferred Communication Language",
+    "receivedPaperFormNotificationAndDocument": "Received Paper Form Notification and Document"
   },
   "placeholder": {
     "custom": {
