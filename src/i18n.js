@@ -7,7 +7,7 @@ i18n.use(HttpApi);
 i18n.init({
   debug: false,
   fallbackLng: "en-US",
-  whitelist: ["en-US", "zh-CN"],
+  whitelist: ["en-US", "zh-CN", "zh-HK"],
   backend: { loadPath: "/locales/i18n/{{lng}}/{{ns}}.json" },
 });
 
