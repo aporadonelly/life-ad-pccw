@@ -1,6 +1,6 @@
 import {
   SERVER_ADDRESS,
-  SCHEME_SERVER_ADDRESS,
+  EMPLOYEE_API_URL,
   FETCH_EMPLOYEES_SUCCESS,
   FETCH_EMPLOYEES_FAIL,
   VIEW_EMPLOYEE_SUCCESS,
@@ -26,14 +26,15 @@ import {
   FETCH_STATUS_SUCCESS,
   FETCH_POB_SUCCESS,
   FETCH_POB_FAIL,
-} from './types';
-import axios from 'axios';
-import api from '../components/employees/api/employees';
+} from "./types";
+import axios from "axios";
+import api from "../components/employees/api/employees";
 
 export const getHeaders = async () => {
   const HEADERS = {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
+      // 'Authorization': `Bearer ${token}`
     },
   };
   return HEADERS;
@@ -42,7 +43,7 @@ export const getHeaders = async () => {
 //fetch all employees or members
 export const fetchEmployees = () => async dispatch => {
   try {
-    const res = await api.get('/employees');
+    const res = await api.get("/employees");
     dispatch({
       type: FETCH_EMPLOYEES_SUCCESS,
       payload: res.data,
@@ -64,7 +65,7 @@ export const viewMember = id => async dispatch => {
         empfId: id,
       },
     };
-    const res = await axios.get('https://localhost:8082/ldRegIndInfo', config);
+    const res = await axios.get(`${EMPLOYEE_API_URL}/ldRegIndInfo`, config);
     if (res.status === 200) {
       dispatch({
         type: VIEW_EMPLOYEE_SUCCESS,
@@ -115,11 +116,9 @@ export const searchMembers = (
   };
 
   try {
-    const res = await axios.get('https://localhost:8082/ldSrchRegInd', config);
-    console.log(res.data.content, 'res');
+    const res = await axios.get(`${EMPLOYEE_API_URL}/ldSrchRegInd`, config);
     dispatch({
       type: SEARCH_MEMBERS_SUCCESS,
-      // payload: Object.values(res.data),
       payload: res.data.content,
     });
   } catch (e) {
@@ -255,7 +254,6 @@ export const fetchSchemeType = () => async dispatch => {
       `${SERVER_ADDRESS}/getCustomTypList?groupId=SC`,
       await getHeaders()
     );
-    console.log(res, 'res');
     if (res.status === 200) {
       dispatch({
         type: FETCH_SCHEME_TYPE_SUCCESS,
@@ -279,7 +277,6 @@ export const fetchOccupation = () => async dispatch => {
     );
 
     if (res.status === 200) {
-      console.log(res, 'res');
       dispatch({
         type: FETCH_OCCUPATION_SUCCESS,
         payload: res.data,
