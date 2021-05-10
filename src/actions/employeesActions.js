@@ -34,6 +34,7 @@ export const getHeaders = async () => {
   const HEADERS = {
     headers: {
       'Content-Type': 'application/json',
+      // 'Authorization': `Bearer ${token}`
     },
   };
   return HEADERS;
