@@ -11,7 +11,6 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import rootReducer from "./reducers";
-import { getSystemEnv, getCycleDate } from "./features/system/actions";
 
 export default function configureAppStore(preloadedState) {
   const debug = false;
@@ -42,9 +41,6 @@ export default function configureAppStore(preloadedState) {
   });
 
   const persistor = persistStore(store);
-
-  store.dispatch(getCycleDate());
-  store.dispatch(getSystemEnv());
 
   return { store, persistor };
 }
