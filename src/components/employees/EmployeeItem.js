@@ -390,7 +390,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
             bottom: "35px",
             width: "163px",
             color: "#fff",
-            top: "20px",
+            top: "12px",
             left: "20px",
           }}
           onClick={() => goToSearch(id)}
