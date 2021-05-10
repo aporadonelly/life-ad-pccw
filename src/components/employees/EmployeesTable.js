@@ -191,7 +191,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
                   search
                 )}
               </TableCell>
-              <TableCell style={{ padding: "0 1px", display: 'flex'}}>
+              <TableCell style={{ padding: "0 1px"}}>
                 <img
                   src={viewReg}
                   alt="View Registration"
