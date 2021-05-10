@@ -1,7 +1,9 @@
+import { useMemo } from "react";
 import AppProvider from "@contexts/AppProvider";
+import { useMeasure } from "react-use";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
-import { Box } from "@material-ui/core";
+import { RootRef, Box, Toolbar } from "@material-ui/core";
 import {
   HomeOutlined as HomeOutlinedIcon,
   SearchOutlined as SearchOutlinedIcon,
@@ -23,13 +25,22 @@ import Settings from "./Settings";
 
 const Page = ({ children, ...props }) => {
   const location = useLocation();
+  const [ref, { height }] = useMeasure();
   const { t } = useTranslation(["sider"]);
+
+  const offset = useMemo(
+    () => (height ? <div style={{ height }} /> : <Toolbar />),
+    [height]
+  );
 
   return (
     <AppProvider {...props}>
       <Box display="flex" minHeight="100vh">
-        <Header />
+        <RootRef rootRef={ref}>
+          <Header />
+        </RootRef>
         <Sider>
+          {offset}
           <Menu>
             <Menu.Item
               href="/dashboard"
@@ -84,6 +95,7 @@ const Page = ({ children, ...props }) => {
           </Menu>
         </Sider>
         <Content>
+          {offset}
           {(location.pathname === "/employee-search" ||
             location.pathname === "/employee-search-results" ||
             location.pathname === "/employee-view") && (
