@@ -1,5 +1,4 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { Toolbar } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -13,12 +12,7 @@ const useStyles = makeStyles((theme) => ({
 const Content = ({ children }) => {
   const classes = useStyles();
 
-  return (
-    <main className={classes.main}>
-      <Toolbar />
-      {children}
-    </main>
-  );
+  return <main className={classes.main}>{children}</main>;
 };
 
 export default Content;
