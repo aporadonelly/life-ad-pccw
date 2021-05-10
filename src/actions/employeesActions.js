@@ -66,7 +66,6 @@ export const viewMember = id => async dispatch => {
       },
     };
     const res = await axios.get(`${EMPLOYEE_API_URL}/ldRegIndInfo`, config);
-    console.log(res, "res");
     if (res.status === 200) {
       dispatch({
         type: VIEW_EMPLOYEE_SUCCESS,
@@ -255,7 +254,6 @@ export const fetchSchemeType = () => async dispatch => {
       `${SERVER_ADDRESS}/getCustomTypList?groupId=SC`,
       await getHeaders()
     );
-    console.log(res, "res");
     if (res.status === 200) {
       dispatch({
         type: FETCH_SCHEME_TYPE_SUCCESS,
@@ -279,7 +277,6 @@ export const fetchOccupation = () => async dispatch => {
     );
 
     if (res.status === 200) {
-      console.log(res, "res");
       dispatch({
         type: FETCH_OCCUPATION_SUCCESS,
         payload: res.data,
