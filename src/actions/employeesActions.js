@@ -28,22 +28,40 @@ import {
   FETCH_POB_FAIL,
 } from "./types";
 import axios from "axios";
-import api from "../components/employees/api/employees";
+
+axios.interceptors.request.use(
+  (config) => {
+    try {
+      const localStorage = window.localStorage.getItem("persist:root")
+      const user = JSON.parse(localStorage).user;
+      const token = JSON.parse(user).token    
+      config.headers.Authorization = `Bearer ${token}`;
+      return config
+    } catch {
+      
+    return config;
+    }
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+)
 
 export const getHeaders = async () => {
   const HEADERS = {
     headers: {
       "Content-Type": "application/json",
-      // 'Authorization': `Bearer ${token}`
     },
   };
   return HEADERS;
 };
 
+
+
 //fetch all employees or members
 export const fetchEmployees = () => async dispatch => {
   try {
-    const res = await api.get("/employees");
+    const res = await   ("/employees");
     dispatch({
       type: FETCH_EMPLOYEES_SUCCESS,
       payload: res.data,
