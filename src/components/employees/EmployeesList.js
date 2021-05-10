@@ -225,20 +225,21 @@ const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
           : initKey;
       getChipDropDownValue(value);
       let label = `${finalKey} : ${valueLabel}`;
-      const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+      // const randomColor = Math.floor(Math.random() * 16777215).toString(16);
 
       if (valueLabel)
         return (
           <Chip
+            color="primary"
             // onDelete={handleDelete(key)}
             label={label}
             key={key}
             className={classes.chips}
-            style={{
-              backgroundColor: "#" + randomColor,
-              color: "white",
-              fontWeight: "bold",
-            }}
+            // style={{
+            //   backgroundColor: "#" + randomColor,
+            //   color: "white",
+            //   fontWeight: "bold",
+            // }}
           />
         );
     });

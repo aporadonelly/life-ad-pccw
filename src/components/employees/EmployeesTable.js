@@ -25,7 +25,7 @@ import EmployeeStyles from "./styles/EmployeeStyles";
 import viewReg from "../../assets/icons/view_reg.PNG";
 import * as intl from "../../common/labels";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: "#fdfdff",
     display: "flex",
@@ -62,7 +62,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
   const [tableView, setTableView] = useState(true);
 
   const [filterFn, setfilterFn] = useState({
-    fn: (items) => {
+    fn: items => {
       return items;
     },
   });
@@ -90,20 +90,19 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
     employeesAfterPagingAndSorting,
   } = useTable(employees, headCells, filterFn);
 
-  const handleSearch = (e) => {
+  const handleSearch = e => {
     setSearch(e.target.value);
   };
 
-  const handleClear = (e) => {
+  const handleClear = e => {
     setSearch("");
   };
 
-  const employeeView = (id) => {
+  const employeeView = id => {
     viewMember(id);
     setViewMemberState(true);
     setTableView(false);
     saveQuery();
-    // setTimeout(() => history.push('/employee-view'), 2000);
     history.push("/employee-view");
   };
 
@@ -139,7 +138,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
       <TblContainer>
         <TblHead />
         <TableBody>
-          {employeesAfterPagingAndSorting().map((emp) => (
+          {employeesAfterPagingAndSorting().map(emp => (
             <TableRow key={emp.pnsnIdTxt}>
               <TableCell style={{ color: "#2D9FC3" }}>
                 {highligtedText(emp.pnsnIdTxt, search)}
@@ -164,7 +163,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
               <TableCell>
                 {highligtedText(
                   get(
-                    emp.clntPhones.filter((v) => v.phnTypId === "TP_MB"),
+                    emp.clntPhones.filter(v => v.phnTypId === "TP_MB"),
                     "[0].phoneNumber"
                   ),
                   search
@@ -235,7 +234,7 @@ EmployeesTable.propTypes = {
   viewMember: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   employees: state.employees,
 });
 

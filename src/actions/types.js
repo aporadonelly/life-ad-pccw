@@ -1,8 +1,13 @@
 import { config } from "../config";
-const { REG_BASE_API_URL, SCHEME_BASE_URL } = config;
+const {
+  SCHEME_BASE_URL,
+  EMPF_EMPLOYEE_API_URL,
+  EMPF_EMPLOYEE_CUSTOM_API_URL,
+} = config;
 
 // Server Address
-export const SERVER_ADDRESS = REG_BASE_API_URL;
+export const SERVER_ADDRESS = EMPF_EMPLOYEE_CUSTOM_API_URL;
+export const EMPLOYEE_API_URL = EMPF_EMPLOYEE_API_URL;
 export const SCHEME_SERVER_ADDRESS = SCHEME_BASE_URL;
 
 export const FETCH_EMPLOYEES_SUCCESS = "FETCH_EMPLOYEES_SUCCESS";
