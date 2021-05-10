@@ -340,7 +340,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                   <div className={classes.label}>
                     {t("form:label.preferredCommunicationChannel")}
                   </div>
-                  <div className={classes.labelValue}>{"SMS"}</div>
+                  <div className={classes.labelValue}>{get(regCntcts, "[0].cmmTypId")}</div>
                 </div>
               </Grid>
               <Grid item sm={3} xs={12} className={classes.fieldSpacing}>

@@ -145,17 +145,17 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
               </TableCell>
               <TableCell>{highligtedText(emp.fullname, search)}</TableCell>
               <TableCell>
-                {highligtedText(
-                  (() => {
-                    switch (emp.idTypeId) {
-                      case "ID_HK":
-                        return "HKID";
-                      case "ID_PP":
-                        return "Passport";
-                      default:
-                        return "test";
-                    }
-                  })(),
+                {highligtedText(emp.idTypeId,
+                  // (() => {
+                  //   switch (emp.idTypeId) {
+                  //     case "HK ID":
+                  //       return "HKID";
+                  //     case "ID_PP":
+                  //       return "Passport";
+                  //     default:
+                  //       return null;
+                  //   }
+                  // })(),
                   search
                 )}
               </TableCell>
@@ -177,17 +177,17 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
                   textTransform: "capitalize",
                 }}
               >
-                {highligtedText(
-                  (() => {
-                    switch (emp.statusTypId) {
-                      case "ST_NW":
-                        return "New";
-                      case "ST_CP":
-                        return "Completed";
-                      default:
-                        return "test";
-                    }
-                  })(),
+                {highligtedText(emp.statusTypId,
+                  // (() => {
+                  //   switch (emp.statusTypId) {
+                  //     case "New":
+                  //       return "New";
+                  //     case "ST_CP":
+                  //       return "Completed";  
+                  //     default:
+                  //       return "test";
+                  //   }
+                  // })(),
                   search
                 )}
               </TableCell>
