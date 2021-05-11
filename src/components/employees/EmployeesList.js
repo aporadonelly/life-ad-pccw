@@ -223,22 +223,18 @@ const EmployeesList = ({ employees: { employees, enquiry, isLoading }, ...props 
           ? initKey.charAt(0).toUpperCase() + initKey.slice(1)
           : initKey;
       getChipDropDownValue(value);
-      let label = `${finalKey} : ${valueLabel}`;
-      // const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+      let label = `${finalKey}: ${valueLabel}`;
+
+      const randomColor = ['#6E55E2', '#EA5F63', '#EF841F','#2D9FC3', '#707070','#42526E', '#3E84B5', '#009CCD', '#6E6E6E','#FF0000','#0D6A88','#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#02A0CF', '#EB6063', '#009CCD', '#6E55E2', '#0D6A88'];
 
       if (valueLabel)
         return (
           <Chip
-            color="primary"
+            style={{ backgroundColor: randomColor[i],  color: "white", }}
             // onDelete={handleDelete(key)}
             label={label}
             key={key}
-            className={classes.chips}
-            // style={{
-            //   backgroundColor: "#" + randomColor,
-            //   color: "white",
-            //   fontWeight: "bold",
-            // }}
+            className={classes.chips}        
           />
         );
     });
