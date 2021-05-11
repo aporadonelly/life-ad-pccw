@@ -27,8 +27,10 @@ const App = ({
 }) => {
   useEffect(() => {
     if (user) {
+     setTimeout(() => {
       getSystemEnv();
       getCycleDate();
+     }, 1500)
     }
   }, [getCycleDate, getSystemEnv, user]);
 

@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { get } from "lodash";
+import Tooltip from '@material-ui/core/Tooltip';
 
 import {
   Box,
@@ -192,6 +193,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
                 )}
               </TableCell>
               <TableCell style={{ padding: "0 1px"}}>
+              <Tooltip title="View Registration">
                 <img
                   src={viewReg}
                   alt="View Registration"
@@ -202,7 +204,8 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
                     background: "#EF841F",
                     color: "#fff",
                   }}
-                />
+                /></Tooltip>
+                <Tooltip title="View Enrollment">
                 <img
                   src={
                     emp.vwEnrFlg === true
@@ -217,7 +220,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
                     color: "#fff",
                   }}
                   // className={classes.disabled}
-                />
+                /></Tooltip>
               </TableCell>
             </TableRow>
           ))}
