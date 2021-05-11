@@ -24,7 +24,6 @@ import viewEnrollActive from "../../assets/icons/enroll-active.PNG";
 import viewEnrollInActive from "../../assets/icons/enroll-inactive.PNG";
 import EmployeeStyles from "./styles/EmployeeStyles";
 import viewReg from "../../assets/icons/view_reg.PNG";
-import * as intl from "../../common/labels";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,13 +42,6 @@ const useStyles = makeStyles(theme => ({
     color: "#009CCD",
     fontSize: "26px",
     fontFamily: "Roboto",
-  },
-  disabled: {
-    pointerEvents: "none",
-    cursor: "not-allowed",
-    opacity: 0.65,
-    filter: "alpha(opacity=65)",
-    boxShadow: "none",
   },
 }));
 
@@ -141,22 +133,12 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
         <TableBody>
           {employeesAfterPagingAndSorting().map(emp => (
             <TableRow key={emp.pnsnIdTxt}>
-              <TableCell style={{ color: "#2D9FC3" }}>
+              <TableCell style={{ color: "#2D9FC3"}}>
                 {highligtedText(emp.pnsnIdTxt, search)}
               </TableCell>
               <TableCell>{highligtedText(emp.fullname, search)}</TableCell>
               <TableCell>
                 {highligtedText(emp.idTypeId,
-                  // (() => {
-                  //   switch (emp.idTypeId) {
-                  //     case "HK ID":
-                  //       return "HKID";
-                  //     case "ID_PP":
-                  //       return "Passport";
-                  //     default:
-                  //       return null;
-                  //   }
-                  // })(),
                   search
                 )}
               </TableCell>
@@ -179,16 +161,6 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
                 }}
               >
                 {highligtedText(emp.statusTypId,
-                  // (() => {
-                  //   switch (emp.statusTypId) {
-                  //     case "New":
-                  //       return "New";
-                  //     case "ST_CP":
-                  //       return "Completed";  
-                  //     default:
-                  //       return "test";
-                  //   }
-                  // })(),
                   search
                 )}
               </TableCell>
@@ -203,23 +175,24 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
                     margin: "0 5px",
                     background: "#EF841F",
                     color: "#fff",
+                    cursor: 'pointer',
                   }}
                 /></Tooltip>
                 <Tooltip title="View Enrollment">
                 <img
                   src={
-                    emp.vwEnrFlg === true
+                    emp.vwEnrFlg
                       ? viewEnrollActive
                       : viewEnrollInActive
                   }
                   alt="View Enrollment"
                   variant="contained"
                   style={{
-                    margin: "0 5px",
+                    margin: "0 5px",                    
                     background: "#EF841F",
                     color: "#fff",
+                    
                   }}
-                  // className={classes.disabled}
                 /></Tooltip>
               </TableCell>
             </TableRow>
