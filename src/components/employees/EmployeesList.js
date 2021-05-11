@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Paper, Typography, Button, Grid, Chip } from "@material-ui/core";
+import { Paper, Typography, Button, Grid, Chip, Box } from "@material-ui/core";
 import EmployeeStyles from "./styles/EmployeeStyles";
 import EmployeesListStyles from "./styles/EmployeesListStyle";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import EmployeesTable from "./EmployeesTable";
-import * as intl from "../../common/labels";
 
 const EmployeesList = ({ employees: { employees, enquiry, isLoading }, ...props }) => {
   let valueLabel;
@@ -302,7 +302,7 @@ const EmployeesList = ({ employees: { employees, enquiry, isLoading }, ...props 
         </Grid>
       </Paper>
 
-      {isLoading ? null : <Paper className={classes.pageContentTable} style={{ top: "-25px" }}>
+      {isLoading ? <Box display='flex' justifyContent="center" mt={5}> <CircularProgress /></Box> : <Paper className={classes.pageContentTable} style={{ top: "-25px" }}>
         <Grid className={classes.root} item xs={12} lg={12} sm={12}>
           <Grid className={classes.pageTitle} item xs={12} lg={12} sm={12}>
             {employees.length > 0 ? (
