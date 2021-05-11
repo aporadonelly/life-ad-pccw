@@ -40,11 +40,18 @@ const initialState = {
 	occupationType: [],
 	statusType: [],
 	placeOfBirth: [],
+  isLoading: false
 }
 export default (state = initialState, action) => {
 	const { type, payload } = action
 
 	switch (type) {
+    case 'SEARCH_MEMBERS_PENDING':
+      return {
+        ...state,
+        employees: [],
+        isLoading: true
+      }
 		case 'CLEAR_SEARCH_FORM':
 			return {
 				...state,
@@ -91,6 +98,7 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				employeeType: payload,
+        isLoading: false
 			}
 		case FETCH_GENDER_SUCCESS:
 			return {
@@ -121,6 +129,7 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				employees: payload,
+        isLoading: false,
 			}
 		case CREATE_QUERY_SUCCESS:
 			return {
@@ -142,6 +151,7 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				error: payload,
+        isLoading: false
 			}
 		default:
 			return state

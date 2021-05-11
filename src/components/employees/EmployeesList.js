@@ -9,7 +9,7 @@ import EmployeesListStyles from "./styles/EmployeesListStyle";
 import EmployeesTable from "./EmployeesTable";
 import * as intl from "../../common/labels";
 
-const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
+const EmployeesList = ({ employees: { employees, enquiry, isLoading }, ...props }) => {
   let valueLabel;
   const classes = {
     ...EmployeeStyles(),
@@ -26,7 +26,6 @@ const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
   }, []);
 
   const handleDelete = chipToDelete => () => {
-    console.log("toDelete", chipToDelete);
     const asArray = Object.entries(chipData);
     const chips = asArray.filter(([key, value]) => key !== chipToDelete);
   };
@@ -303,27 +302,29 @@ const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
         </Grid>
       </Paper>
 
-      <Paper className={classes.pageContentTable} style={{ top: "-25px" }}>
+      {isLoading ? null : <Paper className={classes.pageContentTable} style={{ top: "-25px" }}>
         <Grid className={classes.root} item xs={12} lg={12} sm={12}>
           <Grid className={classes.pageTitle} item xs={12} lg={12} sm={12}>
             {employees.length > 0 ? (
-              <EmployeesTable employees={employees} />
+              <EmployeesTable employees={employees}  />
             ) : (
               <p>{t("table:tbody.custom.noDataFound")}</p>
             )}
           </Grid>
         </Grid>
-      </Paper>
+      </Paper>}
     </>
   );
 };
 
 EmployeesList.propTypes = {
   employees: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
   employees: state.employees,
+  isLoading: state.isLoading
 });
 
 export default connect(mapStateToProps, null)(EmployeesList);

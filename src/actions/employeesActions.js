@@ -104,6 +104,9 @@ export const searchMembers = (
   pageNo = 0,
   pageSize = 50
 ) => async dispatch => {
+  dispatch({
+    type: 'SEARCH_MEMBERS_PENDING',
+  });
   const config = {
     headers: getHeaders(),
     params: {
