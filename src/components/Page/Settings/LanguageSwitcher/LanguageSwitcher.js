@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { Select, MenuItem } from "@material-ui/core";
-// import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
+import { TextField, MenuItem } from "@material-ui/core";
+import { languages } from "@root/i18n";
 
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation("translation");
@@ -10,30 +10,21 @@ const LanguageSwitcher = () => {
   };
 
   return (
-    <Select
-      disableUnderline
-      MenuProps={{
-        classes: {
-          // paper: minimalSelectClasses.paper,
-          // list: minimalSelectClasses.list
-        },
-        anchorOrigin: {
-          vertical: "bottom",
-          horizontal: "left",
-        },
-        transformOrigin: {
-          vertical: "top",
-          horizontal: "left",
-        },
-        getContentAnchorEl: null,
-      }}
+    <TextField
+      select
+      label="Language"
+      variant="outlined"
+      size="small"
+      fullWidth
       value={i18n.language}
       onChange={handleChange}
     >
-      <MenuItem value="en-US">English</MenuItem>
-      <MenuItem value="zh-CN">Chinese (Simplified)</MenuItem>
-      <MenuItem value="zh-HK">Chinese (Traditional)</MenuItem>
-    </Select>
+      {languages.map((language) => (
+        <MenuItem key={language.code} value={language.code}>
+          {language.lang}
+        </MenuItem>
+      ))}
+    </TextField>
   );
 };
 
