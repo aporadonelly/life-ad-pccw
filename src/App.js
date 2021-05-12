@@ -10,12 +10,10 @@ import { userSelector } from "./redux/features/user/selectors";
 import { logout } from "./redux/features/user/actions";
 import { getSystemEnv, getCycleDate } from "./redux/features/system/actions";
 import { Page } from "./components";
-import { Page404, SignIn } from "./pages";
+import { Page404 } from "./pages";
 import Employees from "./pages/employees/EmployeesPage";
 import Employee from "./components/employees/EmployeeItem";
 import EmployeesList from "./components/employees/EmployeesList";
-import createPrivateRoute from "./utils/createPrivateRoute";
-import createPublicRoute from "./utils/createPublicRoute";
 
 const App = ({
   systemEnv,
@@ -27,10 +25,10 @@ const App = ({
 }) => {
   useEffect(() => {
     if (user) {
-     setTimeout(() => {
-      getSystemEnv();
-      getCycleDate();
-     }, 1500)
+      setTimeout(() => {
+        getSystemEnv();
+        getCycleDate();
+      }, 1500);
     }
   }, [getCycleDate, getSystemEnv, user]);
 
@@ -42,36 +40,10 @@ const App = ({
       onLogout={logout}
     >
       <Switch>
-        <Route
-          path="/employee-search"
-          {...createPrivateRoute({
-            component: Employees,
-          })}
-        />
-        <Route
-          path="/employee-search-results"
-          {...createPrivateRoute({
-            component: EmployeesList,
-          })}
-        />
-        <Route
-          path="/employee-view"
-          {...createPrivateRoute({
-            component: Employee,
-          })}
-        />
-        <Route
-          path="/signin"
-          {...createPublicRoute({
-            component: SignIn,
-          })}
-        />
-        <Route
-          path=""
-          {...createPrivateRoute({
-            component: Page404,
-          })}
-        />
+        <Route path="/employee-search" component={Employees} />
+        <Route path="/employee-search-results" component={EmployeesList} />
+        <Route path="/employee-view" component={Employee} />
+        <Route path="" component={Page404} />
       </Switch>
     </Page>
   );
