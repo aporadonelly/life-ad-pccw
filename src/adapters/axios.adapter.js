@@ -6,7 +6,19 @@ class AxiosAdapter {
 
     this.instance.interceptors.request.use(
       (config) => {
-        return config;
+        try {
+          const localStorage = window.localStorage.getItem("persist:root");
+          const user = JSON.parse(localStorage).user;
+          const token = JSON.parse(user).token;
+
+          if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+          }
+
+          return config;
+        } catch {
+          return config;
+        }
       },
       (error) => {
         return Promise.reject(error);

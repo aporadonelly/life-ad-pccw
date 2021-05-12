@@ -3,13 +3,13 @@ import { connect } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Paper, Typography, Button, Grid, Chip } from "@material-ui/core";
+import { Paper, Typography, Button, Grid, Chip, Box } from "@material-ui/core";
 import EmployeeStyles from "./styles/EmployeeStyles";
 import EmployeesListStyles from "./styles/EmployeesListStyle";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import EmployeesTable from "./EmployeesTable";
-import * as intl from "../../common/labels";
 
-const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
+const EmployeesList = ({ employees: { employees, enquiry, isLoading }, ...props }) => {
   let valueLabel;
   const classes = {
     ...EmployeeStyles(),
@@ -26,7 +26,6 @@ const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
   }, []);
 
   const handleDelete = chipToDelete => () => {
-    console.log("toDelete", chipToDelete);
     const asArray = Object.entries(chipData);
     const chips = asArray.filter(([key, value]) => key !== chipToDelete);
   };
@@ -224,21 +223,18 @@ const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
           ? initKey.charAt(0).toUpperCase() + initKey.slice(1)
           : initKey;
       getChipDropDownValue(value);
-      let label = `${finalKey} : ${valueLabel}`;
-      const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+      let label = `${finalKey}: ${valueLabel}`;
+
+      const randomColor = ['#6E55E2', '#EA5F63', '#EF841F','#2D9FC3', '#707070','#42526E', '#3E84B5', '#009CCD', '#6E6E6E','#FF0000','#0D6A88','#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#02A0CF', '#EB6063', '#009CCD', '#6E55E2', '#0D6A88'];
 
       if (valueLabel)
         return (
           <Chip
+            style={{ backgroundColor: randomColor[i],  color: "white", }}
             // onDelete={handleDelete(key)}
             label={label}
             key={key}
-            className={classes.chips}
-            style={{
-              backgroundColor: "#" + randomColor,
-              color: "white",
-              fontWeight: "bold",
-            }}
+            className={classes.chips}        
           />
         );
     });
@@ -302,27 +298,29 @@ const EmployeesList = ({ employees: { employees, enquiry }, ...props }) => {
         </Grid>
       </Paper>
 
-      <Paper className={classes.pageContentTable} style={{ top: "-25px" }}>
+      {isLoading ? <Box display='flex' justifyContent="center" mt={5}> <CircularProgress /></Box> : <Paper className={classes.pageContentTable} style={{ top: "-25px" }}>
         <Grid className={classes.root} item xs={12} lg={12} sm={12}>
           <Grid className={classes.pageTitle} item xs={12} lg={12} sm={12}>
             {employees.length > 0 ? (
-              <EmployeesTable employees={employees} />
+              <EmployeesTable employees={employees}  />
             ) : (
               <p>{t("table:tbody.custom.noDataFound")}</p>
             )}
           </Grid>
         </Grid>
-      </Paper>
+      </Paper>}
     </>
   );
 };
 
 EmployeesList.propTypes = {
   employees: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
   employees: state.employees,
+  isLoading: state.isLoading
 });
 
 export default connect(mapStateToProps, null)(EmployeesList);

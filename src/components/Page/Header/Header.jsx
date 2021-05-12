@@ -81,9 +81,9 @@ const Header = () => {
         <Typography className={classes.cycleDate} variant="body2">
           {cycleDate}
         </Typography>
-        <IconButton edge="end">
+        {/* <IconButton edge="end">
           <SettingsIcon fontSize="small" />
-        </IconButton>
+        </IconButton> */}
       </Toolbar>
     </AppBar>
   );

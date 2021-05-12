@@ -340,7 +340,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                   <div className={classes.label}>
                     {t("form:label.preferredCommunicationChannel")}
                   </div>
-                  <div className={classes.labelValue}>{"SMS"}</div>
+                  <div className={classes.labelValue}>{get(regCntcts, "[0].cmmTypId") === "CC_EM" && 'Email'}</div>
                 </div>
               </Grid>
               <Grid item sm={3} xs={12} className={classes.fieldSpacing}>
@@ -349,7 +349,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                     {t("form:label.preferredCommunicationLanguage")}
                   </div>
                   <div className={classes.labelValue}>
-                    {get(regCntcts, "[0].lnggTypId") === "LG_EN" && "English"}
+                    {get(regCntcts, "[0].lnggTypId") === "LG_EN" ? "English" : null}
                   </div>
                 </div>
               </Grid>
@@ -390,7 +390,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
             bottom: "35px",
             width: "163px",
             color: "#fff",
-            top: "20px",
+            top: "12px",
             left: "20px",
           }}
           onClick={() => goToSearch(id)}
