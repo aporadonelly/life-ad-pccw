@@ -257,7 +257,7 @@ const EmployeesList = ({
         return (
           <Chip
             style={{ backgroundColor: randomColor[i], color: "white" }}
-            // onDelete={handleDelete(key)}
+            onDelete={handleDelete(key)}
             label={label}
             key={key}
             className={classes.chips}
