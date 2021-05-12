@@ -10,7 +10,7 @@ import { userSelector } from "./redux/features/user/selectors";
 import { logout } from "./redux/features/user/actions";
 import { getSystemEnv, getCycleDate } from "./redux/features/system/actions";
 import { Page } from "./components";
-import { Page404 } from "./pages";
+import { SignIn, Page404 } from "./pages";
 import Employees from "./pages/employees/EmployeesPage";
 import Employee from "./components/employees/EmployeeItem";
 import EmployeesList from "./components/employees/EmployeesList";
@@ -31,7 +31,6 @@ const App = ({
       }, 1500);
     }
   }, [getCycleDate, getSystemEnv, user]);
-
   return (
     <Page
       systemEnv={systemEnv}
@@ -43,6 +42,9 @@ const App = ({
         <Route path="/employee-search" component={Employees} />
         <Route path="/employee-search-results" component={EmployeesList} />
         <Route path="/employee-view" component={Employee} />
+        {process.env.NODE_ENV === "development" && (
+          <Route path={process.env.REACT_APP_REDIRECT_URL} component={SignIn} />
+        )}
         <Route path="" component={Page404} />
       </Switch>
     </Page>
