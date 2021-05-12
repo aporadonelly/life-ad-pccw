@@ -6,7 +6,7 @@ export const login = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       const { sessionToken: token } = await userAdapter.login(payload);
-      const user = await userAdapter.getUserByToken(token);
+      const user = await userAdapter.getByToken(token);
       return { token, user };
     } catch (error) {
       return rejectWithValue({ error });

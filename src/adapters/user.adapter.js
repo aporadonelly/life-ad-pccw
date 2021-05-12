@@ -4,14 +4,16 @@ import { pick } from "lodash";
 class UserAdapter extends AxiosAdapter {
   login(payload) {
     const pickedPayload = pick(payload, ["username", "password"]);
-    return this.instance.post(process.env.REACT_APP_AUTH_LOGIN, pickedPayload);
+    return this.instance.post("/api/auth/login", pickedPayload);
   }
 
-  getUserByToken(token) {
-    return this.instance.get(process.env.REACT_APP_AUTH_USERINFO, {
+  getByToken(token) {
+    return this.instance.get("/api/auth/userinfo", {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
 }
 
-export default new UserAdapter();
+export default new UserAdapter({
+  baseURL: process.env.REACT_APP_AUTH_BASE_URL,
+});
