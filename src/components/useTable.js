@@ -8,6 +8,8 @@ import {
   TableRow,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import Pagination from '@material-ui/lab/Pagination';
+import CustomUsePagination from "../common/CustomUsePagination";
 
 const useStyles = makeStyles(theme => ({
   activeSortIcon: {
@@ -99,17 +101,9 @@ export default function useTable(employees, headCells, filterFn) {
   };
 
   const TblPagination = () => (
-    <TablePagination
-      style={{ overflow: "hidden" }}
-      component="div"
-      page={page}
-      labelRowsPerPage=""
-      rowsPerPageOptions={pages}
-      rowsPerPage={rowsPerPage}
-      count={employees.length}
-      onChangePage={handleChangePage}
-      onChangeRowsPerPage={handleChangeRowsPerPage}
-    />
+    <>
+      <CustomUsePagination count={employees.length} />
+    </>
   );
 
   function descendingComparator(a, b, orderBy) {
