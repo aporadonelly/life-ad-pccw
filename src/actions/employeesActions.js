@@ -1,5 +1,4 @@
 import {
-  SERVER_ADDRESS,
   EMPLOYEE_API_URL,
   FETCH_EMPLOYEES_SUCCESS,
   FETCH_EMPLOYEES_FAIL,
@@ -32,20 +31,19 @@ import axios from "axios";
 axios.interceptors.request.use(
   (config) => {
     try {
-      const localStorage = window.localStorage.getItem("persist:root")
+      const localStorage = window.localStorage.getItem("persist:root");
       const user = JSON.parse(localStorage).user;
-      const token = JSON.parse(user).token    
+      const token = JSON.parse(user).token;
       config.headers.Authorization = `Bearer ${token}`;
-      return config
+      return config;
     } catch {
-      
-    return config;
+      return config;
     }
   },
   (error) => {
     return Promise.reject(error);
   }
-)
+);
 
 export const getHeaders = async () => {
   const HEADERS = {
@@ -56,12 +54,10 @@ export const getHeaders = async () => {
   return HEADERS;
 };
 
-
-
 //fetch all employees or members
-export const fetchEmployees = () => async dispatch => {
+export const fetchEmployees = () => async (dispatch) => {
   try {
-    const res = await   ("/employees");
+    const res = await "/employees";
     dispatch({
       type: FETCH_EMPLOYEES_SUCCESS,
       payload: res.data,
@@ -75,7 +71,7 @@ export const fetchEmployees = () => async dispatch => {
 };
 
 //view specific member
-export const viewMember = id => async dispatch => {
+export const viewMember = (id) => async (dispatch) => {
   try {
     const config = {
       headers: getHeaders(),
@@ -83,7 +79,10 @@ export const viewMember = id => async dispatch => {
         empfId: id,
       },
     };
-    const res = await axios.get(`${EMPLOYEE_API_URL}/ldRegIndInfo`, config);
+    const res = await axios.get(
+      `${process.env.REACT_APP_REGISTRATION_EE_BASE_URL}/ldRegIndInfo`,
+      config
+    );
     if (res.status === 200) {
       dispatch({
         type: VIEW_EMPLOYEE_SUCCESS,
@@ -99,13 +98,11 @@ export const viewMember = id => async dispatch => {
 };
 
 //for searching of users via form
-export const searchMembers = (
-  p,
-  pageNo = 0,
-  pageSize = 50
-) => async dispatch => {
+export const searchMembers = (p, pageNo = 0, pageSize = 50) => async (
+  dispatch
+) => {
   dispatch({
-    type: 'SEARCH_MEMBERS_PENDING',
+    type: "SEARCH_MEMBERS_PENDING",
   });
   const config = {
     headers: getHeaders(),
@@ -137,7 +134,10 @@ export const searchMembers = (
   };
 
   try {
-    const res = await axios.get(`${EMPLOYEE_API_URL}/ldSrchRegInd`, config);
+    const res = await axios.get(
+      `${process.env.REACT_APP_REGISTRATION_EE_BASE_URL}/ldSrchRegInd`,
+      config
+    );
     dispatch({
       type: SEARCH_MEMBERS_SUCCESS,
       payload: res.data.content,
@@ -150,7 +150,7 @@ export const searchMembers = (
   }
 };
 
-export const saveQuery = p => async dispatch => {
+export const saveQuery = (p) => async (dispatch) => {
   const res = p;
   dispatch({
     type: CREATE_QUERY_SUCCESS,
@@ -159,10 +159,10 @@ export const saveQuery = p => async dispatch => {
 };
 
 //Fetch Gender
-export const fetchGender = () => async dispatch => {
+export const fetchGender = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${SERVER_ADDRESS}/getCustomTypList?groupId=GD`,
+      `${process.env.REACT_APP_SYSTEM_BASE_URL}/getCustomTypList?groupId=GD`,
       await getHeaders()
     );
 
@@ -181,10 +181,10 @@ export const fetchGender = () => async dispatch => {
 };
 
 //Fetch  Nationality
-export const fetchNationality = () => async dispatch => {
+export const fetchNationality = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${SERVER_ADDRESS}/getCustomTypList?groupId=NTN`,
+      `${process.env.REACT_APP_SYSTEM_BASE_URL}/getCustomTypList?groupId=NTN`,
       await getHeaders()
     );
 
@@ -203,10 +203,10 @@ export const fetchNationality = () => async dispatch => {
 };
 
 //Fetch ID Type
-export const fetchIdType = () => async dispatch => {
+export const fetchIdType = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${SERVER_ADDRESS}/getCustomTypList?groupId=ID`,
+      `${process.env.REACT_APP_SYSTEM_BASE_URL}/getCustomTypList?groupId=ID`,
       await getHeaders()
     );
 
@@ -225,10 +225,10 @@ export const fetchIdType = () => async dispatch => {
 };
 
 //Fetch Employee Type
-export const fetchEmployeeType = () => async dispatch => {
+export const fetchEmployeeType = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${SERVER_ADDRESS}/getCustomTypList?groupId=EP`,
+      `${process.env.REACT_APP_SYSTEM_BASE_URL}/getCustomTypList?groupId=EP`,
       await getHeaders()
     );
 
@@ -247,10 +247,10 @@ export const fetchEmployeeType = () => async dispatch => {
 };
 
 //Fetch Industry Type
-export const fetchIndustryType = () => async dispatch => {
+export const fetchIndustryType = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${SERVER_ADDRESS}/getCustomTypList?groupId=NT`,
+      `${process.env.REACT_APP_SYSTEM_BASE_URL}/getCustomTypList?groupId=NT`,
       await getHeaders()
     );
 
@@ -269,10 +269,10 @@ export const fetchIndustryType = () => async dispatch => {
 };
 
 //Fetch Scheme Type"
-export const fetchSchemeType = () => async dispatch => {
+export const fetchSchemeType = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${SERVER_ADDRESS}/getCustomTypList?groupId=SC`,
+      `${process.env.REACT_APP_SYSTEM_BASE_URL}/getCustomTypList?groupId=SC`,
       await getHeaders()
     );
     if (res.status === 200) {
@@ -290,10 +290,10 @@ export const fetchSchemeType = () => async dispatch => {
 };
 
 //Fetch Occupation"
-export const fetchOccupation = () => async dispatch => {
+export const fetchOccupation = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${SERVER_ADDRESS}/getCustomTypList?groupId=MB`,
+      `${process.env.REACT_APP_SYSTEM_BASE_URL}/getCustomTypList?groupId=MB`,
       await getHeaders()
     );
 
@@ -312,10 +312,10 @@ export const fetchOccupation = () => async dispatch => {
 };
 
 //Fetch Status"
-export const fetchStatus = () => async dispatch => {
+export const fetchStatus = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${SERVER_ADDRESS}/getCustomTypList?groupId=ST`,
+      `${process.env.REACT_APP_SYSTEM_BASE_URL}/getCustomTypList?groupId=ST`,
       await getHeaders()
     );
 
@@ -334,10 +334,10 @@ export const fetchStatus = () => async dispatch => {
 };
 
 //Fetch Place of Birth
-export const fetchPlaceOfBirth = () => async dispatch => {
+export const fetchPlaceOfBirth = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${SERVER_ADDRESS}/getCountryLst`,
+      `${process.env.REACT_APP_SYSTEM_BASE_URL}/getCountryLst`,
       await getHeaders()
     );
 
