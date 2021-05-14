@@ -1,5 +1,4 @@
 import api from "../components/employees/api/employees";
-//import { GET_USER } from "./types";
 import { GET_USER, GET_USER_DETAILS } from "./types"; //added
 
 export const getHeaders = async () => {
