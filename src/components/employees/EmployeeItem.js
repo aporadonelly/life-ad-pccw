@@ -59,7 +59,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const EmployeeView = ({ employees: { employee, id } }) => {
-  console.log(employee, "employee");
   const classes = { ...EmployeeStyles(), ...useStyles() };
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button"]);

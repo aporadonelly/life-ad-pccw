@@ -20,13 +20,11 @@ export const getUser = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (error) {
-    console.log("Oppz", error);
   }
 };
 
 //added get per login db.json
 export const getUserPerLogin = (user) => async (dispatch) => {
-  console.log("User: ", user);
 
   if (user.username === "lorem" && user.password === "ipsum") {
     dispatch({
@@ -38,17 +36,6 @@ export const getUserPerLogin = (user) => async (dispatch) => {
       },
     });
   }
-
-  // try {
-  //   const res = await api.get("users", config);
-  //   console.log(res);
-  //   dispatch({
-  //     type: GET_USER_DETAILS,
-  //     payload: res.data,
-  //   });
-  // } catch (error) {
-  //   console.log("Oppz", error);
-  // }
 };
 
-// end of added
+
