@@ -115,19 +115,6 @@ const EmployeeForm = ({
     dispatch(fetchPlaceOfBirth());
   }, [dispatch]);
 
-  // const validate = (fieldValues = values) => {
-  //   let temp = { ...errors };
-
-  //   if ('email' in fieldValues)
-  //     temp.email = /$^|.+@.+..+/.test(values.email)
-  //       ? ''
-  //       : 'Email is not valid. Please include @';
-
-  //   setErrors({ ...temp });
-
-  //   if (fieldValues === values) return Object.values(temp).every(x => x === '');
-  // };
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
@@ -205,7 +192,6 @@ const EmployeeForm = ({
                       id="text"
                       placeholder={t("form:placeholder.custom.pleaseInput")}
                       value={mpf_id}
-                      // error={errors.mpf_id}
                     />
                   </div>
                 </Grid>
@@ -328,22 +314,7 @@ const EmployeeForm = ({
                           helperText="YYYYMMDD"
                         ></Controls.DatePicker>
 
-                        {/* <TextField
-                          name="date_of_birth"
-                          value={date_of_birth}
-                          onChange={handleInputChange}
-                          fullWidth
-                          id="date"
-                          type="date"
-                          format="yyyy/MM/dd"
-                          defaultValue="2017-05-24"
-                          className={classes.textField}
-                          // value={date_of_birth}
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                          helperText="YYYYMMDD"
-                        /> */}
+                       
                       </Grid>
                     </MuiPickersUtilsProvider>
                   </div>
@@ -360,7 +331,6 @@ const EmployeeForm = ({
                       fullWidth
                       value={nationality}
                       className={classes.gender}
-                      // options={employeeMockData.nationality()}
                     >
                       <MenuItem value="" disabled>
                         Please Select
@@ -384,7 +354,6 @@ const EmployeeForm = ({
                       fullWidth
                       value={place_of_birth}
                       className={classes.gender}
-                      // options={employeeMockData.placeOfBirth()}
                     >
                       <MenuItem value="" disabled>
                         Please Select
@@ -440,7 +409,6 @@ const EmployeeForm = ({
                       fullWidth
                       value={email}
                       placeholder={t("form:placeholder.custom.pleaseInput")}
-                      // error={errors.email}
                     />
                   </div>
                 </Grid>
@@ -475,21 +443,6 @@ const EmployeeForm = ({
                       }}
                       helperText="YYYYMMDD"
                     ></Controls.DatePicker>
-
-                    {/* <TextField
-											name='date_of_employment'
-											onChange={handleInputChange}
-											fullWidth
-											id='date'
-											type='date'
-											className={classes.textField}
-											value={date_of_employment}
-											defaultValue='Please Input'
-											InputLabelProps={{
-												shrink: true,
-											}}
-											helperText='YYYYMMDD'
-										/> */}
                   </div>
                 </Grid>
                 <Grid item sm={2} xs={12} className={classes.fieldSpacing}>

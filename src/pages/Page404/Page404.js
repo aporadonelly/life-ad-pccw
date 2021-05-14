@@ -1,3 +1,5 @@
-const Page404 = () => <div></div>;
+import { AuthWrapper } from "@hocs";
 
-export default Page404;
+const Page404 = () => null;
+
+export default AuthWrapper(Page404);
