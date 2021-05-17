@@ -9,7 +9,15 @@ const Definition = (props) => <DefinitionProvider {...props} />;
 const DefinitionList = (props) => {
   const { container } = useDefinitionState();
 
-  return <Grid container {...container} {...props} />;
+  return (
+    <Grid
+      component="dl"
+      container
+      alignItems="flex-start"
+      {...container}
+      {...props}
+    />
+  );
 };
 
 const DefinitionItem = (props) => {
