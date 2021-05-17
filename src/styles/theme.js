@@ -3,81 +3,119 @@ import { createMuiTheme } from "@material-ui/core/styles";
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#0D6A88",
-    },
-    secondary: {
       main: "#2D9FC3",
     },
-    common: {
-      fiord: "#42526E",
-      orange: "#EF841F",
-      highlighted: "#FFD748",
-    },
-  },
-  mixins: {
-    toolbar: {
-      minHeight: 51,
+    secondary: {
+      main: "#EF841F",
     },
   },
   typography: {
-    fontFamily: ["Roboto", "Helvetica", "Arial", "sans-serif"].join(","),
+    fontFamily: "'Roboto', sans-serif",
+    caption: {
+      fontSize: "0.65rem",
+      lineHeight: 1,
+    },
+  },
+  custom: {
+    drawer: {
+      width: 240,
+    },
   },
 });
 
 theme.overrides = {
-  MuiAppBar: {
-    colorPrimary: {
-      color: theme.palette.common.white,
-    },
-  },
-  MuiPaper: {
-    elevation1: {
-      width: "100% !important",
-      top: "0 !important",
-      float: "none !important",
-      margin: "0 !important",
-      "&:not(:first-child)": {
-        marginTop: "24px !important",
+  MuiCssBaseline: {
+    "@global": {
+      html: {
+        height: "100%",
       },
-      padding: "24px !important",
-      boxShadow: "0px 3px 6px #00000029 !important",
-    },
-  },
-  MuiTable: {
-    root: {
-      [theme.breakpoints.down("sm")]: {
-        display: "block",
-        width: "100%",
-        overflowX: "auto",
+      body: {
+        height: "100%",
       },
     },
   },
-  MuiTablePagination: {
+  MuiCard: {
     root: {
-      overflow: "hidden",
-    },
-    spacer: {
-      display: "none",
-    },
-    action: {
-      flexGrow: 1,
-    },
-    toolbar: {
-      flexDirection: "row-reverse",
-    },
-    selectRoot: {
-      display: "none",
+      boxShadow: "0px 3px 6px #00000029",
+      borderRadius: 15,
     },
   },
-  MuiBreadcrumbs: {
+  MuiFormLabel: {
     root: {
-      backgroundColor: theme.palette.secondary.main,
+      color: theme.palette.grey[700],
+      fontSize: "0.875rem",
+    },
+  },
+  MuiInputLabel: {
+    shrink: {
+      transform: "translate(0, 1.5px) scale(1)",
+    },
+  },
+  MuiInputBase: {
+    input: {
+      "&::placeholder": {
+        fontStyle: "italic",
+      },
+    },
+  },
+  MuiFormHelperText: {
+    root: {
+      marginTop: 5,
+      "&$error": {
+        fontSize: "0.75rem",
+      },
+    },
+  },
+  MuiButton: {
+    outlined: {
+      borderWidth: 2,
+      borderRadius: 40,
+      borderColor: theme.palette.common.white,
       color: theme.palette.common.white,
-      padding: theme.spacing(2, 3),
+    },
+    outlinedSecondary: {
+      borderWidth: 2,
+      borderRadius: 40,
+      borderColor: theme.palette.secondary.main,
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
+      height: 38,
+      transition: "none",
+      "&:hover": {
+        borderWidth: 2,
+        color: theme.palette.common.white,
+        backgroundColor: theme.palette.secondary.main,
+      },
+    },
+    containedSecondary: {
+      color: theme.palette.common.white,
+      borderRadius: 40,
+      height: 38,
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
     },
   },
 };
 
-theme.props = {};
+theme.props = {
+  MuiAppBar: {
+    position: "fixed",
+    elevation: 0,
+  },
+  MuiToolbar: {
+    variant: "dense",
+  },
+  MuiTextField: {
+    InputLabelProps: {
+      shrink: true,
+    },
+    fullWidth: true,
+  },
+  MuiButton: {
+    variant: "contained",
+    color: "secondary",
+    disableElevation: true,
+  },
+};
 
 export default theme;
