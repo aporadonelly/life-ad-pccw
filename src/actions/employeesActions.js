@@ -32,7 +32,7 @@ axios.interceptors.request.use(
     try {
       const localStorage = window.localStorage.getItem("persist:root");
       const user = JSON.parse(localStorage).user;
-      const token = JSON.parse(user).token;
+      const token = JSON.parse(user).token
       config.headers.Authorization = `Bearer ${token}`;
       return config;
     } catch {
@@ -56,7 +56,7 @@ export const getHeaders = async () => {
 //fetch all employees or members
 export const fetchEmployees = () => async (dispatch) => {
   try {
-    const res = await "/employees";
+    const res = await ("/employees");
     dispatch({
       type: FETCH_EMPLOYEES_SUCCESS,
       payload: res.data,

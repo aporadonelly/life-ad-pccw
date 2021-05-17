@@ -108,13 +108,13 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
 
   return (
     <>
-      <Grid container alignItems="center" style={{ marginBottom: "-10px" }}>
+      <Grid container alignItems="center" style={{ marginBottom: "-10px", }} m={2}>
         <Grid className={classes.pageTitle} item lg={2} sm={3} xs={12}>
           <Typography variant="h6" component="div">
             {t("typography:heading.searchResult")}
           </Typography>
         </Grid>
-        <Grid className={classes.pageTitle} item lg={8} sm={6} xs={12}>
+        <Grid className={classes.pageTitle} item lg={7} sm={6} xs={12}>
           <Box display="flex" justifyContent="flex-end">
             <AnimatedSearchBar
               placeholder="Quick Search"
@@ -124,7 +124,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
             />
           </Box>
         </Grid>
-        <Grid className={classes.pageTitle} item lg={2} sm={3} xs={12}>
+        <Grid className={classes.pageTitle} item lg={3} sm={3} xs={12}>
           <TblPagination />
         </Grid>
       </Grid>
@@ -133,7 +133,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
         <TableBody>
           {employeesAfterPagingAndSorting().map(emp => (
             <TableRow key={emp.pnsnIdTxt}>
-              <TableCell style={{ color: "#2D9FC3"}}>
+              <TableCell style={{ color: "#2D9FC3" }}>
                 {highligtedText(emp.pnsnIdTxt, search)}
               </TableCell>
               <TableCell>{highligtedText(emp.fullname, search)}</TableCell>
@@ -164,42 +164,48 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
                   search
                 )}
               </TableCell>
-              <TableCell style={{ padding: "0 1px"}}>
-              <Tooltip title="View Registration">
-                <img
-                  src={viewReg}
-                  alt="View Registration"
-                  onClick={() => employeeView(emp.pnsnIdTxt)}
-                  variant="contained"
-                  style={{
-                    margin: "0 5px",
-                    background: "#EF841F",
-                    color: "#fff",
-                    cursor: 'pointer',
-                  }}
-                /></Tooltip>
+              <TableCell style={{ padding: "0 1px" }}>
+                <Tooltip title="View Registration">
+                  <img
+                    src={viewReg}
+                    alt="View Registration"
+                    onClick={() => employeeView(emp.pnsnIdTxt)}
+                    variant="contained"
+                    style={{
+                      margin: "0 5px",
+                      background: "#EF841F",
+                      color: "#fff",
+                      cursor: 'pointer',
+                    }}
+                  /></Tooltip>
                 <Tooltip title="View Enrollment">
-                <img
-                  src={
-                    emp.vwEnrFlg
-                      ? viewEnrollActive
-                      : viewEnrollInActive
-                  }
-                  alt="View Enrollment"
-                  variant="contained"
-                  style={{
-                    margin: "0 5px",                    
-                    background: "#EF841F",
-                    color: "#fff",
-                    
-                  }}
-                /></Tooltip>
+                  <img
+                    src={
+                      emp.vwEnrFlg
+                        ? viewEnrollActive
+                        : viewEnrollInActive
+                    }
+                    alt="View Enrollment"
+                    variant="contained"
+                    style={{
+                      margin: "0 5px",
+                      background: "#EF841F",
+                      color: "#fff",
+
+                    }}
+                  /></Tooltip>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
+
       </TblContainer>
-      <TblPagination />
+      <Grid container justify="flex-end" style={{ marginTop: "11px" }} m={2}>
+        <Grid className={classes.pageTitle} item lg={3} sm={3} xs={12}>
+          <TblPagination />
+        </Grid>
+      </Grid>
+
       {viewMemberState && <EmployeeItem employee={employee} />}
     </>
   );
