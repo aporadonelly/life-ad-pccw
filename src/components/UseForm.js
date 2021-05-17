@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
 
 export function useForm(initialValues, validateOnchange = false, validate) {
 	const [values, setValues] = useState(initialValues)
@@ -11,7 +10,6 @@ export function useForm(initialValues, validateOnchange = false, validate) {
 		setValues({ ...values, [name]: value })
 
 		if (validateOnchange) validate({ [name]: value })
-		console.log(value, 'value')
 	}
 
 	const resetForm = () => {

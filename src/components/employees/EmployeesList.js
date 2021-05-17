@@ -24,11 +24,10 @@ const EmployeesList = ({
   const history = useHistory();
   const [chipData, setChipData] = useState({});
   const { t } = useTranslation(["typography", "button", "table"]);
-  console.log("enquire", chipData);
 
   useEffect(() => {
     setChipData(enquiry);
-  }, []);
+  }, [enquiry]);
 
   const handleDelete = (chipToDelete) => () => {
     const asArray = Object.entries(chipData);
@@ -202,7 +201,6 @@ const EmployeesList = ({
 
   const renderObject = () => {
     return Object.entries(chipData).map(([key, value], i) => {
-      console.log(value);
       let initKey =
         key === "id_type" ||
         key === "mpf_id" ||

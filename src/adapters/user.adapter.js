@@ -4,11 +4,11 @@ import { pick } from "lodash";
 class UserAdapter extends AxiosAdapter {
   login(payload) {
     const pickedPayload = pick(payload, ["username", "password"]);
-    return this.instance.post("/api/auth/login", pickedPayload);
+    return this.instance.post("/login", pickedPayload);
   }
 
   getByToken(token) {
-    return this.instance.get("/api/auth/userinfo", {
+    return this.instance.get("/userinfo", {
       headers: { Authorization: `Bearer ${token}` },
     });
   }

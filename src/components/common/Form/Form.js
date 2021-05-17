@@ -1,20 +1,17 @@
 import { useFormikContext } from "formik";
 import FormikErrorFocus from "formik-error-focus";
-import InputField from "./InputField";
-import SelectField from "./SelectField";
 import DatePickerField from "./DatePickerField";
+import InputField from "./InputField";
+import RadioGroupField from "./RadioGroupField";
+import SelectField from "./SelectField";
 import SubmitButton from "./SubmitButton";
 
-const Form = ({ children, ...props }) => {
+const Form = (props) => {
+  const { children, ...rest } = props;
   const { handleSubmit, handleReset } = useFormikContext();
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      onReset={handleReset}
-      autoComplete="off"
-      {...props}
-    >
+    <form onSubmit={handleSubmit} onReset={handleReset} {...rest}>
       {children}
       <FormikErrorFocus
         offset={0}
@@ -27,9 +24,10 @@ const Form = ({ children, ...props }) => {
   );
 };
 
-Form.Input = InputField;
-Form.Select = SelectField;
 Form.DatePicker = DatePickerField;
+Form.Input = InputField;
+Form.RadioGroup = RadioGroupField;
+Form.Select = SelectField;
 Form.Submit = SubmitButton;
 
 export default Form;
