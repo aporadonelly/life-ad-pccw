@@ -7,8 +7,15 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   dd: {
-    fontSize: "1rem",
+    fontSize: "16px",
     marginBottom: "10px",
+  },
+  label: {
+    fontSize: "13px",
+  },
+  backBtn: {
+    backgroundColor: "#EF841F",
+    color: "#fff",
   },
 }));
 
@@ -38,6 +45,7 @@ const ViewProfile = () => {
                     component="dt"
                     variant="body1"
                     color="textSecondary"
+                    className={classes.label}
                   >
                     {t("form:label.idType")}
                   </Typography>
@@ -54,6 +62,7 @@ const ViewProfile = () => {
                   <Typography
                     component="dt"
                     variant="body1"
+                    className={classes.label}
                     color="textSecondary"
                   >
                     {t("form:label.idNumber")}
@@ -71,6 +80,7 @@ const ViewProfile = () => {
                   <Typography
                     component="dt"
                     variant="body1"
+                    className={classes.label}
                     color="textSecondary"
                   >
                     {t("form:label.birthdate")}
@@ -88,6 +98,7 @@ const ViewProfile = () => {
                   <Typography
                     component="dt"
                     variant="body1"
+                    className={classes.label}
                     color="textSecondary"
                   >
                     {t("form:label.nationality")}
@@ -107,6 +118,7 @@ const ViewProfile = () => {
                   <Typography
                     component="dt"
                     variant="body1"
+                    className={classes.label}
                     color="textSecondary"
                   >
                     {t("form:label.chineseLastName")}
@@ -124,6 +136,7 @@ const ViewProfile = () => {
                   <Typography
                     component="dt"
                     variant="body1"
+                    className={classes.label}
                     color="textSecondary"
                   >
                     {t("form:label.chineseFirstName")}
@@ -141,6 +154,7 @@ const ViewProfile = () => {
                   <Typography
                     component="dt"
                     variant="body1"
+                    className={classes.label}
                     color="textSecondary"
                   >
                     {t("form:label.lastName")}
@@ -158,6 +172,7 @@ const ViewProfile = () => {
                   <Typography
                     component="dt"
                     variant="body1"
+                    className={classes.label}
                     color="textSecondary"
                   >
                     {t("form:label.firstName")}
@@ -176,6 +191,7 @@ const ViewProfile = () => {
                   <Typography
                     component="dt"
                     variant="body1"
+                    className={classes.label}
                     color="textSecondary"
                   >
                     {t("form:label.title")}
@@ -193,6 +209,7 @@ const ViewProfile = () => {
                   <Typography
                     component="dt"
                     variant="body1"
+                    className={classes.label}
                     color="textSecondary"
                   >
                     {t("form:label.jobTitle")}
@@ -227,6 +244,7 @@ const ViewProfile = () => {
                   <Typography
                     component="dt"
                     variant="body1"
+                    className={classes.label}
                     color="textSecondary"
                   >
                     {t("form:label.registeredOfcAddress")}
@@ -243,6 +261,7 @@ const ViewProfile = () => {
                   <Typography
                     component="dt"
                     variant="body1"
+                    className={classes.label}
                     color="textSecondary"
                   >
                     {t("form:label.businessAddress")}
@@ -259,6 +278,7 @@ const ViewProfile = () => {
                   <Typography
                     component="dt"
                     variant="body1"
+                    className={classes.label}
                     color="textSecondary"
                   >
                     {t("form:label.correspondenceAddress")}
@@ -305,7 +325,7 @@ const ViewProfile = () => {
             <Button
               data-testid="back-btn"
               onClick={() => history.push("/employer")}
-              style={{ backgroundColor: "#EF841F", color: "#fff" }}
+              className={classes.backBtn}
             >
               {t("button:backToCompanyProfile")}
             </Button>
