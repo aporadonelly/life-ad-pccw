@@ -1,1 +1,1 @@
-export { default } from "./EmployerView";
+export { default } from "./ViewProfile";

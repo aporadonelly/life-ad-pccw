@@ -32,7 +32,11 @@
     "status": "地位",
     "preferredCommunicationChannel": "首選溝通渠道",
     "preferredCommunicationLanguage": "首選交流語言",
-    "receivedPaperFormNotificationAndDocument": "收到紙質表格通知和文件"
+    "receivedPaperFormNotificationAndDocument": "收到紙質表格通知和文件",
+    "jobTitle": "職稱",
+    "registeredOfcAddress": "註冊辦事處地址",
+    "businessAddress":"營業地址",
+    "eSignature": "電子簽名"
   },
   "placeholder": {
     "custom": {
