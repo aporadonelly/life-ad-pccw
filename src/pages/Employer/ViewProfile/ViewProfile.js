@@ -1,7 +1,7 @@
 import { Grid, Card, CardContent, Typography } from "@material-ui/core";
 import { PageInner } from "@components/layout";
 
-const CompanyProfile = () => {
+const ViewProfile = () => {
   return (
     <PageInner>
       <Grid container spacing={3}>
@@ -11,7 +11,7 @@ const CompanyProfile = () => {
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <Typography variant="h6" color="primary">
-                    Employer Joebert
+                    Employer Nelly
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
@@ -42,4 +42,4 @@ const CompanyProfile = () => {
   );
 };
 
-export default CompanyProfile;
+export default ViewProfile;
