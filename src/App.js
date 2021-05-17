@@ -14,6 +14,8 @@ import { SignIn, Page404 } from "./pages";
 import Employees from "./pages/employees/EmployeesPage";
 import Employee from "./components/employees/EmployeeItem";
 import EmployeesList from "./components/employees/EmployeesList";
+import Employer from "./pages/Employer";
+
 
 const App = ({
   systemEnv,
@@ -42,6 +44,8 @@ const App = ({
         <Route path="/employee-search" component={Employees} />
         <Route path="/employee-search-results" component={EmployeesList} />
         <Route path="/employee-view" component={Employee} />
+        <Route path="/employer" component={Employer} />
+
         {process.env.NODE_ENV === "development" && (
           <Route path={process.env.REACT_APP_REDIRECT_URL} component={SignIn} />
         )}
