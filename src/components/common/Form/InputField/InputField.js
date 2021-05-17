@@ -1,14 +1,12 @@
 import { withField } from "@hocs";
 import { TextField } from "@material-ui/core";
 
-const InputField = ({ helpers, ...props }) => (
-  <TextField
-    margin="none"
-    fullWidth
-    variant="outlined"
-    size="small"
-    {...props}
-  />
-);
+const InputField = ({ helpers, ...props }) => {
+  return <TextField {...props} />;
+};
+
+InputField.defaultProps = {
+  placeholder: "Please Input",
+};
 
 export default withField(InputField);
