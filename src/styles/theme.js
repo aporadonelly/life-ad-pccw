@@ -16,6 +16,11 @@ const theme = createMuiTheme({
       lineHeight: 1,
     },
   },
+  mixins: {
+    toolbar: {
+      minHeight: 50,
+    },
+  },
   custom: {
     drawer: {
       width: 240,
@@ -67,11 +72,23 @@ theme.overrides = {
     },
   },
   MuiButton: {
+    root: {
+      minWidth: 120,
+    },
     outlined: {
       borderWidth: 2,
       borderRadius: 40,
       borderColor: theme.palette.common.white,
       color: theme.palette.common.white,
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
+      height: 38,
+      transition: "none",
+      "&:hover": {
+        borderWidth: 2,
+        borderColor: theme.palette.secondary.main,
+        backgroundColor: theme.palette.secondary.main,
+      },
     },
     outlinedSecondary: {
       borderWidth: 2,
@@ -101,9 +118,6 @@ theme.props = {
   MuiAppBar: {
     position: "fixed",
     elevation: 0,
-  },
-  MuiToolbar: {
-    variant: "dense",
   },
   MuiTextField: {
     InputLabelProps: {
