@@ -21,6 +21,9 @@ const theme = createMuiTheme({
       minHeight: 50,
     },
   },
+  shape: {
+    borderRadius: 15,
+  },
   custom: {
     drawer: {
       width: 240,
