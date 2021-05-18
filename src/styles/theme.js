@@ -122,11 +122,17 @@ theme.props = {
     position: "fixed",
     elevation: 0,
   },
+  MuiFormControl: {
+    fullWidth: true,
+  },
   MuiTextField: {
     InputLabelProps: {
       shrink: true,
     },
     fullWidth: true,
+  },
+  MuiCheckbox: {
+    color: "primary",
   },
   MuiButton: {
     variant: "contained",
