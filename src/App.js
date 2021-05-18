@@ -9,7 +9,7 @@ import {
 import { userSelector } from "./redux/features/user/selectors";
 import { logout } from "./redux/features/user/actions";
 import { getSystemEnv, getCycleDate } from "./redux/features/system/actions";
-import { Page } from "./components";
+import { Page } from "./components/layout";
 import { SignIn, Page404 } from "./pages";
 import Employees from "./pages/employees/EmployeesPage";
 import Employee from "./components/employees/EmployeeItem";
