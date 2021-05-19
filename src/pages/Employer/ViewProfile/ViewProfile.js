@@ -1,9 +1,24 @@
-import { Grid, Card, CardContent, Typography, Button } from "@material-ui/core";
+import {
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Box,
+} from "@material-ui/core";
 import { PageInner } from "@components/layout";
 import { useTranslation } from "react-i18next";
 import eSig from "../../../assets/icons/signature.svg";
 import { useHistory } from "react-router-dom";
 import { Definition } from "@components/misc";
+
+const data = [
+  { value: 1, label: "Primary Contact Person" },
+  { value: 2, label: "Secondary Contact Person" },
+  { value: 3, label: "With User Account" },
+];
 
 const ViewProfile = () => {
   const history = useHistory();
@@ -82,12 +97,33 @@ const ViewProfile = () => {
                   />
                   <Definition.Item
                     item
-                    xs={3}
+                    xs={6}
                     dt={t("form:label.jobTitle")}
                     dd="Accountant"
                   />
                 </Definition.List>
               </Definition>
+              <Grid item xs={12}>
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  width="80%"
+                >
+                  {data.map(({ value, label }, index) => {
+                    return (
+                      <>
+                        <FormControlLabel
+                          control={
+                            <Checkbox key={index} name={label} value={value} />
+                          }
+                          label={label}
+                        />
+                      </>
+                    );
+                  })}
+                </Box>
+              </Grid>
             </CardContent>
           </Card>
         </Grid>
