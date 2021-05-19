@@ -4,6 +4,7 @@ import { Toolbar } from "@material-ui/core";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import MenuToggler from "./MenuToggler";
+import Settings from "./Settings";
 
 const Page = ({ children }) => {
   const classes = useStyles();
@@ -19,6 +20,7 @@ const Page = ({ children }) => {
           {children}
         </main>
       </div>
+      <Settings />
     </AppProvider>
   );
 };

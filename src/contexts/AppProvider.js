@@ -6,11 +6,11 @@ const { Provider } = Context;
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "collapsed":
+    case "sidebarCollapsed":
       return { ...state, collapsed: !state.collapsed };
 
-    case "languageSwitcher":
-      return { ...state, languageSwitcherOpen: !state.languageSwitcherOpen };
+    case "settingsToggled":
+      return { ...state, settingsOpen: !state.settingsOpen };
 
     default:
       return state;
@@ -20,7 +20,7 @@ const reducer = (state, action) => {
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, {
     collapsed: false,
-    languageSwitcherOpen: false,
+    settingsOpen: false,
   });
 
   return <Provider value={{ state, dispatch }}>{children}</Provider>;

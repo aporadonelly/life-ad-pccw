@@ -5,14 +5,15 @@ const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.drawer + 1,
     backgroundColor: "#0D6A88",
   },
-  title: {
+  project: {
     fontStyle: "italic",
     fontWeight: theme.typography.fontWeightBold,
     marginRight: theme.spacing(1),
   },
-  caption: {
+  framework: {
     maxWidth: 100,
     marginRight: theme.spacing(5),
+    textTransform: "uppercase",
   },
   grow: {
     flexGrow: 1,

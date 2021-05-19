@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useAppState } from "@contexts/AppProvider";
 import { useStyles } from "./styles";
 import { AppBar, Toolbar, Typography, IconButton } from "@material-ui/core";
@@ -10,20 +11,21 @@ import SiteMap from "./SiteMap";
 
 const Header = () => {
   const classes = useStyles();
-  const { state, dispatch } = useAppState();
+  const { t } = useTranslation(["header"]);
+  const { dispatch } = useAppState();
 
   return (
     <AppBar component="header" className={classes.appBar}>
       <Toolbar>
-        <Typography className={classes.title} variant="h5">
-          eMPF
+        <Typography className={classes.project} variant="h5">
+          {t("header:project")}
         </Typography>
         <Typography
-          className={classes.caption}
+          className={classes.framework}
           component="div"
           variant="caption"
         >
-          ADMINISTRATION PORTAL
+          {t("header:framework")}
         </Typography>
         <SiteMap />
         <div className={classes.grow} />
@@ -31,7 +33,7 @@ const Header = () => {
         <IconButton
           className={classes.translateIcon}
           edge="end"
-          onClick={() => dispatch({ type: "languageSwitcherOpen" })}
+          onClick={() => dispatch({ type: "settingsToggled" })}
         >
           <TranslateIcon fontSize="small" />
         </IconButton>
