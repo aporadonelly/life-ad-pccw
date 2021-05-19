@@ -11,16 +11,26 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 40,
   },
   listItemText: {
-    transition: theme.transitions.create("visibility", {
-      duration: theme.transitions.duration.shortest,
-    }),
-    visibility: (props) => (props.collapsed ? "visible" : "hidden"),
     fontWeight: theme.typography.fontWeightMedium,
     whiteSpace: "pre-wrap",
   },
   divider: {
     height: 2,
     margin: theme.spacing(1, 0.5),
+  },
+  show: {
+    visibility: "visible",
+    transition: theme.transitions.create("visibility", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  hide: {
+    visibility: "hidden",
+    transition: theme.transitions.create("visibility", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
   },
 }));
 
