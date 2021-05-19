@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
   framework: {
     maxWidth: 100,
-    marginRight: theme.spacing(5),
+    marginRight: theme.spacing(11.5),
     textTransform: "uppercase",
   },
   grow: {

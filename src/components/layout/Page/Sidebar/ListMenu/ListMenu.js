@@ -1,5 +1,6 @@
+import { useAppState } from "@contexts/AppProvider";
 import { useStyles } from "./styles";
-import { List, ListItemIcon, ListItemText } from "@material-ui/core";
+import { List, ListItemIcon, ListItemText, Divider } from "@material-ui/core";
 import {
   HomeOutlined as HomeOutlinedIcon,
   AccountBalanceOutlined as AccountBalanceOutlinedIcon,
@@ -13,7 +14,8 @@ import {
 import StyledListItem from "./StyledListItem";
 
 const ListMenu = () => {
-  const classes = useStyles();
+  const { state } = useAppState();
+  const classes = useStyles({ collapsed: state.collapsed });
 
   return (
     <List className={classes.list} dense>
@@ -29,6 +31,7 @@ const ListMenu = () => {
           }}
         />
       </StyledListItem>
+      <Divider className={classes.divider} />
       <StyledListItem button disableRipple>
         <ListItemIcon className={classes.listItemIcon}>
           <PeopleOutlineOutlinedIcon />
@@ -53,6 +56,7 @@ const ListMenu = () => {
           }}
         />
       </StyledListItem>
+      <Divider className={classes.divider} />
       <StyledListItem button disableRipple>
         <ListItemIcon className={classes.listItemIcon}>
           <BusinessCenterOutlinedIcon />
@@ -77,6 +81,7 @@ const ListMenu = () => {
           }}
         />
       </StyledListItem>
+      <Divider className={classes.divider} />
       <StyledListItem button disableRipple>
         <ListItemIcon className={classes.listItemIcon}>
           <AccountBalanceOutlinedIcon />
