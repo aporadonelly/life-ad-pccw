@@ -17,7 +17,7 @@ import { Definition } from "@components/misc";
 const data = [
   { value: 1, label: "Primary Contact Person" },
   { value: 2, label: "Secondary Contact Person" },
-  { value: 3, label: "With User Account" },
+  { value: 3, label: "With User Account", hasAuthPerson: true },
 ];
 
 const ViewProfile = () => {
@@ -110,12 +110,17 @@ const ViewProfile = () => {
                   justifyContent="space-between"
                   width="80%"
                 >
-                  {data.map(({ value, label }, index) => {
+                  {data.map(({ value, label, hasAuthPerson }, index) => {
                     return (
                       <>
                         <FormControlLabel
                           control={
-                            <Checkbox key={index} name={label} value={value} />
+                            <Checkbox
+                              checked={hasAuthPerson}
+                              key={index}
+                              name={label}
+                              value={value}
+                            />
                           }
                           label={label}
                         />
