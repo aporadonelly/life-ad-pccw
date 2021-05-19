@@ -3,7 +3,7 @@ import { ListItem } from "@material-ui/core";
 
 const StyledListItem = withStyles((theme) => ({
   root: {
-    padding: theme.spacing(0.75, 1.5),
+    padding: theme.spacing(0.5, 1.5),
     borderRadius: theme.spacing(0.5),
     color: theme.palette.grey[600],
     "& .MuiListItemIcon-root": {

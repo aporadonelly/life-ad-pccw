@@ -24,10 +24,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    left: theme.spacing(7) + 1,
-    [theme.breakpoints.up("sm")]: {
-      left: theme.spacing(9) + 1,
-    },
+    left: theme.spacing(10),
   },
 }));
 
