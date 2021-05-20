@@ -1,8 +1,6 @@
-import { useMemo } from "react";
-import { useLocation, useRouteMatch, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
-import { Box, Tab } from "@material-ui/core";
-import { TabContext, TabList, TabPanel } from "@material-ui/lab";
+import { Box, Tabs, Tab } from "@material-ui/core";
 
 const Lvl1Tabs = withStyles((theme) => ({
   root: {
@@ -13,7 +11,7 @@ const Lvl1Tabs = withStyles((theme) => ({
     justifyContent: "center",
     backgroundColor: "transparent",
     height: "auto",
-    transition: "none",
+    // transition: "none",
     "& > span": {
       borderLeftWidth: 10,
       borderLeftStyle: "solid",
@@ -26,9 +24,7 @@ const Lvl1Tabs = withStyles((theme) => ({
       borderBottomColor: theme.palette.common.white,
     },
   },
-}))((props) => (
-  <TabList {...props} TabIndicatorProps={{ children: <span /> }} />
-));
+}))((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
 
 const Lvl1Tab = withStyles((theme) => ({
   root: {
@@ -58,9 +54,7 @@ const Lvl2Tabs = withStyles((theme) => ({
       backgroundColor: theme.palette.primary.main,
     },
   },
-}))((props) => (
-  <TabList {...props} TabIndicatorProps={{ children: <span /> }} />
-));
+}))((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
 
 const Lvl2Tab = withStyles((theme) => ({
   root: {
@@ -79,44 +73,7 @@ const Lvl2Tab = withStyles((theme) => ({
 }))((props) => <Tab disableRipple {...props} />);
 
 const NavTabs = (props) => {
-  const { routes } = props;
-  const location = useLocation();
-  const match = useRouteMatch(location.pathname);
-
-  const activeTabs = useMemo(() => {
-    const findActiveTab = (routes, tabs = []) => {
-      return routes.reduce((result, route) => {
-        if (match.path.indexOf(route.path) !== -1) {
-          result.push(route.path);
-        }
-        if (route.children) {
-          return findActiveTab(route.children, tabs);
-        }
-        return result;
-      }, tabs);
-    };
-
-    return findActiveTab(routes);
-  }, [match.path, routes]);
-
-  const { lvl1, lvl2 } = useMemo(
-    () =>
-      routes.reduce(
-        (result, { children, ...route }) => {
-          if (children && children.length) {
-            route.redirect = children[0].path;
-            result["lvl2"].push({
-              path: route.path,
-              tabs: children,
-            });
-          }
-          result["lvl1"].push(route);
-          return result;
-        },
-        { lvl1: [], lvl2: [] }
-      ),
-    [routes]
-  );
+  const { tabs, activeTabs } = props;
 
   return (
     <Box
@@ -126,40 +83,34 @@ const NavTabs = (props) => {
       justifyContent="center"
       width="100%"
     >
-      <TabContext value={activeTabs.shift()}>
-        <Lvl1Tabs>
-          {lvl1.map((route) => (
-            <Lvl1Tab
-              key={route.path}
-              component={Link}
-              to={route.redirect ?? route.path}
-              label={route.name}
-              value={route.path}
-            />
-          ))}
-        </Lvl1Tabs>
-        {lvl2.map(({ path, tabs }) => (
-          <TabPanel
-            key={path}
-            value={path}
-            style={{ width: "100%", padding: 0 }}
-          >
-            <TabContext value={activeTabs.pop()}>
-              <Lvl2Tabs>
-                {tabs.map((route) => (
-                  <Lvl2Tab
-                    key={route.path}
-                    component={Link}
-                    to={route.path}
-                    label={route.name}
-                    value={route.path}
-                  />
-                ))}
-              </Lvl2Tabs>
-            </TabContext>
-          </TabPanel>
+      <Lvl1Tabs value={activeTabs[0]}>
+        {tabs.lvl1.map((route) => (
+          <Lvl1Tab
+            key={route.path}
+            component={Link}
+            to={route.redirect ?? route.path}
+            label={route.name}
+            value={route.path}
+          />
         ))}
-      </TabContext>
+      </Lvl1Tabs>
+      {tabs.lvl2.map(({ path, tabs }) => {
+        if (path === activeTabs[0])
+          return (
+            <Lvl2Tabs key={path} value={activeTabs[1]}>
+              {tabs.map((route) => (
+                <Lvl2Tab
+                  key={route.path}
+                  component={Link}
+                  to={route.path}
+                  label={route.name}
+                  value={route.path}
+                />
+              ))}
+            </Lvl2Tabs>
+          );
+        return null;
+      })}
     </Box>
   );
 };
