@@ -7,13 +7,13 @@ const AuthWrapper = (WrappedComponent) => {
   const Wrapper = ({ user, ...props }) => {
     const { pathname } = useLocation();
 
-    // useEffect(() => {
-    //   if (!user && pathname !== process.env.REACT_APP_REDIRECT_URL) {
-    //     window.location.href = process.env.REACT_APP_REDIRECT_URL;
-    //   }
-    // }, [user, pathname]);
+    useEffect(() => {
+      if (!user && pathname !== process.env.REACT_APP_REDIRECT_URL) {
+        window.location.href = process.env.REACT_APP_REDIRECT_URL;
+      }
+    }, [user, pathname]);
 
-    // if (!user) return null;
+    if (!user) return null;
 
     return <WrappedComponent {...props} />;
   };
