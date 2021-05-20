@@ -4,14 +4,13 @@ import { Box, Tabs, Tab } from "@material-ui/core";
 
 const Lvl1Tabs = withStyles((theme) => ({
   root: {
-    padding: theme.spacing(0, 3),
+    padding: theme.spacing(0, 5),
   },
   indicator: {
     display: "flex",
     justifyContent: "center",
     backgroundColor: "transparent",
     height: "auto",
-    // transition: "none",
     "& > span": {
       borderLeftWidth: 10,
       borderLeftStyle: "solid",
@@ -42,7 +41,7 @@ const Lvl2Tabs = withStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.common.white,
     width: "100%",
-    padding: theme.spacing(0, 3),
+    padding: theme.spacing(0, 5),
   },
   indicator: {
     display: "flex",

@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { useLocation, useRouteMatch } from "react-router-dom";
 import { AppBar, Toolbar } from "@material-ui/core";
 import SubjectInfo from "./SubjectInfo";
@@ -43,6 +43,10 @@ const PageHeader = (props) => {
       ),
     [routes]
   );
+
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent("resize"));
+  }, []);
 
   return (
     <AppBar position="relative">
