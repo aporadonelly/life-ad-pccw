@@ -1,7 +1,5 @@
-import React from "react";
-import { AuthWrapper } from "@hocs";
-import EmployeeDetails from "../../components/employeedetail/EmployeeDetails";
-import { useParams } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
+import Termination from "./index";
 import { PageHeader } from "@components/layout";
 
 const routes = [
@@ -18,7 +16,7 @@ const routes = [
   {
     name: "Termination",
     path: "/employee-termination",
-    component: null,
+    component: Termination,
   },
   {
     name: "Claims",
@@ -32,21 +30,17 @@ const routes = [
   },
 ];
 
-const Termination = (props) => {
-  //console.log(props);
-  const { clientSchemes, loadEmpSchemes } = props;
-  const { id } = useParams();
-  React.useEffect(() => {
-    loadEmpSchemes({ accountNumber: id });
-  }, []);
-  //return null;
+const TerminationRoutes = (props) => {
+  const path = props.match.path;
+  //console.log(path);
   return (
     <>
       <PageHeader subjectInfo={{ firstName: "" }} routes={routes} />;
-      <EmployeeDetails {...props} />
+      <Switch>
+        <Route exact path={`${path}`} />
+      </Switch>
     </>
   );
-  //return <pre>{JSON.stringify(clientSchemes, null, 2)}</pre>;
 };
 
-export default Termination;
+export default TerminationRoutes;

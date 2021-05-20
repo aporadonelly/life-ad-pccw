@@ -16,7 +16,7 @@ import Employee from "./components/employees/EmployeeItem";
 import EmployeesList from "./components/employees/EmployeesList";
 import Employer from "./pages/Employer";
 import Termination from "./pages/Termination";
-//import EmployeeDetails from "./pages/employeeDetails/EmployeeTermination"; //EmployeeDetailsPage";
+import TerminationRoutes from "./pages/Termination/TerminationRoutes";
 
 const App = ({
   systemEnv,
@@ -46,6 +46,10 @@ const App = ({
         <Route path="/employee-search-results" component={EmployeesList} />
         <Route path="/employee-view" component={Employee} />
         <Route path="/employer" render={(props) => <Employer {...props} />} />
+        <Route
+          path="/employee"
+          render={(props) => <TerminationRoutes {...props} />}
+        />
         <Route path="/employee-termination/:id" component={Termination} />
         {/* <Route path="/employee-termination/:id" component={EmployeeDetails} /> */}
 
