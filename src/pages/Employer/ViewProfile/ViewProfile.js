@@ -1,3 +1,13 @@
+import { useEffect } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import {
+  isLoadingSelector,
+  errorSelector,
+  employersSelector,
+} from "@redux/features/employers/selectors";
+import { getEmployers } from "@redux/features/employers/actions";
+
 import {
   Grid,
   Card,
@@ -20,9 +30,16 @@ const data = [
   { value: 3, label: "With User Account", hasAuthPerson: true },
 ];
 
-const ViewProfile = () => {
+const ViewProfile = (props) => {
+  console.log(props, "props");
+  const { getEmployers } = props;
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button"]);
+
+  useEffect(() => {
+    getEmployers();
+  }, [getEmployers]);
+
   return (
     <PageInner>
       <Grid container spacing={3}>
@@ -215,4 +232,14 @@ const ViewProfile = () => {
   );
 };
 
-export default ViewProfile;
+const mapStateToProps = (state) => ({
+  isLoading: isLoadingSelector(state),
+  error: errorSelector(state),
+  employers: employersSelector(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  ...bindActionCreators({ getEmployers }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ViewProfile);
