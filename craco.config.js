@@ -20,8 +20,14 @@ module.exports = {
       "@styles": path.resolve(__dirname, "src/styles"),
       "@ui": path.resolve(__dirname, "src/ui"),
     },
-    plugins: [
-      new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn|zh-hk/),
-    ],
+    plugins: {
+      add: [
+        new webpack.ContextReplacementPlugin(
+          /moment[/\\]locale$/,
+          /zh-cn|zh-hk/
+        ),
+      ],
+      remove: ["IgnorePlugin"],
+    },
   },
 };
