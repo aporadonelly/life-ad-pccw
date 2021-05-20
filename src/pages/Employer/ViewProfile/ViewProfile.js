@@ -31,8 +31,8 @@ const data = [
 ];
 
 const ViewProfile = (props) => {
-  console.log(props, "props");
-  const { getEmployers } = props;
+  const { getEmployers, employers } = props;
+  console.log(employers, "employers");
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button"]);
 
