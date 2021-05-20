@@ -6,7 +6,8 @@
     "searchResult": "Search Result",
     "personalInformation": "Personal Information",
     "employmentInformation": "Employment Information",
-    "otherInformation": "Other Information"
+    "otherInformation": "Other Information",
+    "authorizedPerson": "Authorized Person"
   },
   "paragraph": {}
 }
