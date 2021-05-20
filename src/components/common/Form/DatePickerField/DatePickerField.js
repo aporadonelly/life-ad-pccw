@@ -1,23 +1,24 @@
 import { useState, useEffect } from "react";
 import { withField } from "@hocs";
-import moment from "moment";
 import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 
-const DatePickerField = (props) => {
-  const { helpers, helperText, format, KeyboardButtonProps, ...rest } = props;
+import { useTranslation } from "react-i18next";
+
+const DatePickerField = ({ helpers, helperText, ...props }) => {
   const [selectedDate, setSelectedDate] = useState(null);
+  const { t } = useTranslation(["form"]);
 
   const handleChange = (date) => {
     if (date) {
       setSelectedDate(date);
       try {
-        const fdate = moment(date).format(format);
-        helpers.setValue(fdate);
-      } catch {
+        const ISODateString = date.toISOString();
+        helpers.setValue(ISODateString);
+      } catch (error) {
         helpers.setValue(date);
       }
     } else {
@@ -35,24 +36,20 @@ const DatePickerField = (props) => {
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <KeyboardDatePicker
-        {...rest}
-        format={format}
+        {...props}
         value={selectedDate}
         onChange={handleChange}
         invalidDateMessage={helperText}
         helperText={helperText}
-        KeyboardButtonProps={{
-          ...KeyboardButtonProps,
-          edge: "end",
-        }}
+        placeholder={t("form:placeholder.custom.pleaseInput")}
       />
     </MuiPickersUtilsProvider>
   );
 };
 
 DatePickerField.defaultProps = {
+  size: "small",
   format: "yyyy/MM/dd",
-  placeholder: "Please Input",
 };
 
 export default withField(DatePickerField);

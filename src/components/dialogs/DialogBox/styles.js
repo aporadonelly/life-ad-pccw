@@ -25,6 +25,25 @@ const useStyles = makeStyles((theme) => ({
       height: theme.spacing(4),
     },
   },
+  imgDialog: {
+    width: "4rem",
+    height: "4rem",
+  },
+  btnContainer: {
+    marginTop: "1rem",
+    display: "flex",
+    justifyContent: "center",
+  },
+  dialogContainer: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  dialogText: {
+    marginLeft: "1rem",
+    fontSize: "1.4rem",
+    color: "grey",
+    flexWrap: "wrap",
+  },
 }));
 
 export { useStyles };
