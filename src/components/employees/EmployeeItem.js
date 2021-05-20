@@ -392,10 +392,9 @@ const EmployeeView = ({ employees: { employee, id } }) => {
           className={classes.cancelBtn}
           style={{
             float: "right",
-            bottom: "35px",
-            width: "163px",
+            bottom: "12px",
+            width: "auto",
             color: "#fff",
-            top: "12px",
             left: "20px",
           }}
           onClick={() => goToSearch(id)}
