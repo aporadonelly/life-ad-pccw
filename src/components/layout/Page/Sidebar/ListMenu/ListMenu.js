@@ -1,5 +1,7 @@
+import { useAppState } from "@contexts/AppProvider";
+import clsx from "clsx";
 import { useStyles } from "./styles";
-import { List, ListItemIcon, ListItemText } from "@material-ui/core";
+import { List, ListItemIcon, ListItemText, Divider } from "@material-ui/core";
 import {
   HomeOutlined as HomeOutlinedIcon,
   AccountBalanceOutlined as AccountBalanceOutlinedIcon,
@@ -13,6 +15,7 @@ import {
 import StyledListItem from "./StyledListItem";
 
 const ListMenu = () => {
+  const { state } = useAppState();
   const classes = useStyles();
 
   return (
@@ -24,11 +27,15 @@ const ListMenu = () => {
         <ListItemText
           primary="Task"
           primaryTypographyProps={{
-            className: classes.listItemText,
+            className: clsx(classes.listItemText, {
+              [classes.show]: state.collapsed,
+              [classes.hide]: !state.collapsed,
+            }),
             color: "inherit",
           }}
         />
       </StyledListItem>
+      <Divider className={classes.divider} />
       <StyledListItem button disableRipple>
         <ListItemIcon className={classes.listItemIcon}>
           <PeopleOutlineOutlinedIcon />
@@ -36,7 +43,10 @@ const ListMenu = () => {
         <ListItemText
           primary="Member"
           primaryTypographyProps={{
-            className: classes.listItemText,
+            className: clsx(classes.listItemText, {
+              [classes.show]: state.collapsed,
+              [classes.hide]: !state.collapsed,
+            }),
             color: "inherit",
           }}
         />
@@ -48,11 +58,15 @@ const ListMenu = () => {
         <ListItemText
           primary="Individual"
           primaryTypographyProps={{
-            className: classes.listItemText,
+            className: clsx(classes.listItemText, {
+              [classes.show]: state.collapsed,
+              [classes.hide]: !state.collapsed,
+            }),
             color: "inherit",
           }}
         />
       </StyledListItem>
+      <Divider className={classes.divider} />
       <StyledListItem button disableRipple>
         <ListItemIcon className={classes.listItemIcon}>
           <BusinessCenterOutlinedIcon />
@@ -60,7 +74,10 @@ const ListMenu = () => {
         <ListItemText
           primary="Employer"
           primaryTypographyProps={{
-            className: classes.listItemText,
+            className: clsx(classes.listItemText, {
+              [classes.show]: state.collapsed,
+              [classes.hide]: !state.collapsed,
+            }),
             color: "inherit",
           }}
         />
@@ -72,11 +89,15 @@ const ListMenu = () => {
         <ListItemText
           primary="Company"
           primaryTypographyProps={{
-            className: classes.listItemText,
+            className: clsx(classes.listItemText, {
+              [classes.show]: state.collapsed,
+              [classes.hide]: !state.collapsed,
+            }),
             color: "inherit",
           }}
         />
       </StyledListItem>
+      <Divider className={classes.divider} />
       <StyledListItem button disableRipple>
         <ListItemIcon className={classes.listItemIcon}>
           <AccountBalanceOutlinedIcon />
@@ -84,7 +105,10 @@ const ListMenu = () => {
         <ListItemText
           primary="Trustee"
           primaryTypographyProps={{
-            className: classes.listItemText,
+            className: clsx(classes.listItemText, {
+              [classes.show]: state.collapsed,
+              [classes.hide]: !state.collapsed,
+            }),
             color: "inherit",
           }}
         />
@@ -96,7 +120,10 @@ const ListMenu = () => {
         <ListItemText
           primary="Transaction History"
           primaryTypographyProps={{
-            className: classes.listItemText,
+            className: clsx(classes.listItemText, {
+              [classes.show]: state.collapsed,
+              [classes.hide]: !state.collapsed,
+            }),
             color: "inherit",
           }}
         />
@@ -108,7 +135,10 @@ const ListMenu = () => {
         <ListItemText
           primary="Instruction"
           primaryTypographyProps={{
-            className: classes.listItemText,
+            className: clsx(classes.listItemText, {
+              [classes.show]: state.collapsed,
+              [classes.hide]: !state.collapsed,
+            }),
             color: "inherit",
           }}
         />
@@ -120,7 +150,10 @@ const ListMenu = () => {
         <ListItemText
           primary="Configuration"
           primaryTypographyProps={{
-            className: classes.listItemText,
+            className: clsx(classes.listItemText, {
+              [classes.show]: state.collapsed,
+              [classes.hide]: !state.collapsed,
+            }),
             color: "inherit",
           }}
         />
