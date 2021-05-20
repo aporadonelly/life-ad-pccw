@@ -15,6 +15,7 @@ import Employees from "./pages/employees/EmployeesPage";
 import Employee from "./components/employees/EmployeeItem";
 import EmployeesList from "./components/employees/EmployeesList";
 import Employer from "./pages/Employer";
+import CompanyProfile from "./pages/Employer/CompanyProfile";
 
 const App = ({
   systemEnv,
@@ -44,6 +45,7 @@ const App = ({
         <Route path="/employee-search-results" component={EmployeesList} />
         <Route path="/employee-view" component={Employee} />
         <Route path="/employer" render={(props) => <Employer {...props} />} />
+        <Route path="/company" component={CompanyProfile} />
 
         {process.env.NODE_ENV === "development" && (
           <Route path={process.env.REACT_APP_REDIRECT_URL} component={SignIn} />
