@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 
 module.exports = {
   webpack: {
@@ -18,6 +19,15 @@ module.exports = {
       "@redux": path.resolve(__dirname, "src/redux"),
       "@styles": path.resolve(__dirname, "src/styles"),
       "@ui": path.resolve(__dirname, "src/ui"),
+    },
+    plugins: {
+      add: [
+        new webpack.ContextReplacementPlugin(
+          /moment[/\\]locale$/,
+          /zh-cn|zh-hk/
+        ),
+      ],
+      remove: ["IgnorePlugin"],
     },
   },
 };

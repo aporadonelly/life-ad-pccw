@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
   },
+  cycleDate: {
+    textTransform: "uppercase",
+  },
   translateIcon: {
     marginRight: theme.spacing(0.5),
   },
