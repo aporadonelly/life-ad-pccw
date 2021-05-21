@@ -14,3 +14,17 @@ export const getEmployers = createAsyncThunk(
     }
   }
 );
+
+export const viewAuthPerson = createAsyncThunk(
+  "@@EMPF/EMPLOYER/VIEW_AUTH_PERSON",
+  async (_payload, { rejectWithValue }) => {
+    try {
+      const authPerson = await employerAdapter.viewEmployerAuthPerson();
+      return {
+        authPerson,
+      };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);

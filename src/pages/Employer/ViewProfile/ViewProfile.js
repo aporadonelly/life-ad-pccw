@@ -5,8 +5,16 @@ import {
   isLoadingSelector,
   errorSelector,
   employersSelector,
+  authPersonSelector,
 } from "@redux/features/employers/selectors";
-import { getEmployers } from "@redux/features/employers/actions";
+import {
+  getEmployers,
+  viewAuthPerson,
+} from "@redux/features/employers/actions";
+// import {
+//   viewEmployerAuthPerson,
+//   fetchEmployers,
+// } from "../../../actions/employersActions";
 
 import {
   Grid,
@@ -27,18 +35,20 @@ import { Definition } from "@components/misc";
 const data = [
   { value: 1, label: "Primary Contact Person" },
   { value: 2, label: "Secondary Contact Person" },
-  { value: 3, label: "With User Account", hasAuthPerson: true },
+  { value: 3, label: "With User Account", withUserAcct: true },
 ];
 
 const ViewProfile = (props) => {
-  const { getEmployers, employers } = props;
-  console.log(employers, "employers");
+  const { viewAuthPerson, getEmployers, employers, authPerson } = props;
+  console.log(authPerson, "authPerson");
+
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button"]);
 
   useEffect(() => {
     getEmployers();
-  }, [getEmployers]);
+    viewAuthPerson();
+  }, []);
 
   return (
     <PageInner>
@@ -57,66 +67,66 @@ const ViewProfile = (props) => {
                     item
                     xs={3}
                     dt={t("form:label.idType")}
-                    dd="HKID"
+                    dd={authPerson.map((x) => x.id_type)}
                   />
 
                   <Definition.Item
                     item
                     xs={3}
                     dt={t("form:label.idNumber")}
-                    dd="Y371385(4)"
+                    dd={authPerson.map((x) => x.id_number)}
                   />
 
                   <Definition.Item
                     item
                     xs={3}
                     dt={t("form:label.birthdate")}
-                    dd=" 1970/04/21"
+                    dd={authPerson.map((x) => x.date_of_birth)}
                   />
 
                   <Definition.Item
                     item
                     xs={3}
                     dt={t("form:label.nationality")}
-                    dd=" Hong Kong"
+                    dd={authPerson.map((x) => x.nationality)}
                   />
 
                   <Definition.Item
                     item
                     xs={3}
                     dt={t("form:label.chineseLastName")}
-                    dd=" 听"
+                    dd={authPerson.map((x) => x.last_name_chinese)}
                   />
                   <Definition.Item
                     item
                     xs={3}
                     dt={t("form:label.chineseFirstName")}
-                    dd="  耐莉"
+                    dd={authPerson.map((x) => x.first_name_chinese)}
                   />
                   <Definition.Item
                     item
                     xs={3}
                     dt={t("form:label.lastName")}
-                    dd="Aporado"
+                    dd={authPerson.map((x) => x.last_name)}
                   />
                   <Definition.Item
                     item
                     xs={3}
                     dt={t("form:label.firstName")}
-                    dd="  Nelly"
+                    dd={authPerson.map((x) => x.first_name)}
                   />
 
                   <Definition.Item
                     item
                     xs={3}
                     dt={t("form:label.title")}
-                    dd="Ms."
+                    dd={authPerson.map((x) => x.title)}
                   />
                   <Definition.Item
                     item
                     xs={6}
                     dt={t("form:label.jobTitle")}
-                    dd="Accountant"
+                    dd={authPerson.map((x) => x.job_title)}
                   />
                 </Definition.List>
               </Definition>
@@ -127,13 +137,13 @@ const ViewProfile = (props) => {
                   justifyContent="space-between"
                   width="80%"
                 >
-                  {data.map(({ value, label, hasAuthPerson }, index) => {
+                  {data.map(({ value, label, withUserAcct }, index) => {
                     return (
                       <>
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={hasAuthPerson}
+                              checked={withUserAcct}
                               key={index}
                               name={label}
                               value={value}
@@ -170,19 +180,19 @@ const ViewProfile = (props) => {
                       item
                       xs={6}
                       dt={t("form:label.registeredOfcAddress")}
-                      dd=" Rm 307, Man Tai Building, 31 Lok Man Street, Tai Po, NT."
+                      dd={authPerson.map((x) => x.regOfcAdd)}
                     />
                     <Definition.Item
                       item
                       xs={6}
                       dt={t("form:label.businessAddress")}
-                      dd=" Same as Correspondence Address"
+                      dd={authPerson.map((x) => x.address)}
                     />
                     <Definition.Item
                       item
                       xs={6}
                       dt={t("form:label.correspondenceAddress")}
-                      dd=" Same as Correspondence Address"
+                      dd={authPerson.map((x) => x.correspondence_address)}
                     />
                   </Definition.List>
                 </Definition>
@@ -236,10 +246,21 @@ const mapStateToProps = (state) => ({
   isLoading: isLoadingSelector(state),
   error: errorSelector(state),
   employers: employersSelector(state),
+  authPerson: authPersonSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  ...bindActionCreators({ getEmployers }, dispatch),
+  ...bindActionCreators({ getEmployers, viewAuthPerson }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewProfile);
+
+//my kind of setup
+// const mapStateToProps = (state) => ({
+//   employers: state.employers,
+// });
+
+// export default connect(mapStateToProps, {
+//   viewEmployerAuthPerson,
+//   fetchEmployers,
+// })(ViewProfile);

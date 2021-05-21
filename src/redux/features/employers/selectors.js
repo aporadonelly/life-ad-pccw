@@ -6,7 +6,10 @@ export const employersSelector = createSelector(
   stateSelector,
   (state) => state.employers
 );
-
+export const authPersonSelector = createSelector(
+  stateSelector,
+  (state) => state.authPerson
+);
 export const isLoadingSelector = createSelector(
   stateSelector,
   (state) => state.isLoading
