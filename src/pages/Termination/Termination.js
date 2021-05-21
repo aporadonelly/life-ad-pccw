@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AuthWrapper } from "@hocs";
 import EmployeeDetails from "../../components/employeedetail/EmployeeDetails";
 import { useParams } from "react-router-dom";
@@ -34,9 +34,10 @@ const routes = [
 
 const Termination = (props) => {
   //console.log(props);
-  const { clientSchemes, loadEmpSchemes } = props;
+  const { loadTermReason, loadEmpSchemes } = props;
   const { id } = useParams();
-  React.useEffect(() => {
+  useEffect(() => {
+    loadTermReason();
     loadEmpSchemes({ accountNumber: id });
   }, []);
   //return null;

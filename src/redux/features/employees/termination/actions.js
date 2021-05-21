@@ -42,10 +42,37 @@ export const saveTermination = createAsyncThunk(
   "@@EMPF/TERMINATION/svEETermInst",
   async (payload, { rejectWithValue }) => {
     try {
-      await terminationAdapter.saveTermination(payload);
+      await terminationAdapter.save(payload);
       console.log("actions-termination");
       return { message: "success" };
     } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const validTermination = createAsyncThunk(
+  "@@EMPF/TERMINATION/vldEETermSbmssn",
+  async (payload, { rejectWithValue }) => {
+    try {
+      await terminationAdapter.postValidate(payload);
+      console.log("actions-termination");
+      return { validation: "success" };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const loadTermReason = createAsyncThunk(
+  "@@EMPF/TERMINATION/getTermRsnLst",
+  async (_payload, { rejectWithValue }) => {
+    try {
+      const reasonTerm = await terminationAdapter.getReason();
+      console.log("actions-termination", reasonTerm);
+      return { reasonTerm };
+    } catch (error) {
+      console.error(error);
       return rejectWithValue({ error });
     }
   }

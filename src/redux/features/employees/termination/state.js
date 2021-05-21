@@ -6,6 +6,8 @@ export const initialState = adapter.getInitialState({
   employeeTermination: {},
   loadSchemes: {},
   loadTerms: {},
+  validTerms: {},
+  loadReason: {},
   isLoading: false,
   error: null,
 });

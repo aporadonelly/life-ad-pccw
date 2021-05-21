@@ -5,6 +5,8 @@ import {
   loadEmpSchemes,
   loadEmpTerm,
   saveTermination,
+  validTermination,
+  loadTermReason,
 } from "./actions";
 
 export const employeeTerminationReducer = createReducer(
@@ -42,10 +44,34 @@ export const employeeTerminationReducer = createReducer(
         return { ...state, isLoading: true, error: null };
       })
       .addCase(saveTermination.fulfilled, (state, action) => {
-        const { saved } = action.payload;
-        return { ...state, isLoading: false, saved };
+        const { validation } = action.payload;
+        return { ...state, isLoading: false, validation };
       })
       .addCase(saveTermination.rejected, (state, action) => {
+        const { error } = action.payload;
+        return { ...state, isLoading: false, error };
+      })
+
+      .addCase(validTermination.pending, (state, _action) => {
+        return { ...state, isLoading: true, error: null };
+      })
+      .addCase(validTermination.fulfilled, (state, action) => {
+        const { message } = action.payload;
+        return { ...state, isLoading: false, message };
+      })
+      .addCase(validTermination.rejected, (state, action) => {
+        const { error } = action.payload;
+        return { ...state, isLoading: false, error };
+      })
+
+      .addCase(loadTermReason.pending, (state, _action) => {
+        return { ...state, isLoading: true, error: null };
+      })
+      .addCase(loadTermReason.fulfilled, (state, action) => {
+        const { reasonTerm } = action.payload;
+        return { ...state, isLoading: false, reasonTerm };
+      })
+      .addCase(loadTermReason.rejected, (state, action) => {
         const { error } = action.payload;
         return { ...state, isLoading: false, error };
       })

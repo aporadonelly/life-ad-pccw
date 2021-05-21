@@ -19,6 +19,14 @@ class TerminationAdapter extends AxiosAdapter {
   save(payload) {
     return this.instance.post("/svEETermInst", payload);
   }
+
+  postValidate(payload) {
+    return this.instance.post("/vldEETermSbmssn", payload);
+  }
+
+  getReason() {
+    return this.instance.get("/getTermRsnLst");
+  }
 }
 
 export default new TerminationAdapter({

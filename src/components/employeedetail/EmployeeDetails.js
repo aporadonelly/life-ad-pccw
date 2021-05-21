@@ -38,19 +38,19 @@ import { Cancel as CancelIcon } from "@material-ui/icons";
 // import { clientSchemesSelector } from "@redux/features/employees/termination/selectors";
 
 const EmployeeDetails = (props) => {
-  const { clientSchemes, loadEmpSchemes } = props;
+  const { clientSchemes, reason, loadEmpSchemes, validTermination } = props;
 
   //const { setFieldValue } = useFormikContext();
 
   //console.log(clientSchemes);
   const initialValues = {
     state: "",
-    last_date_of_employment: moment("").format("YYYY/MM/DD"),
-    terminationReason: "",
+    lastDateOfEmployment: moment("").format("YYYY/MM/DD"),
+    terminationReasonId: "",
     effective_date_of_termination: moment("").format("YYYY/MM/DD"),
-    selectedValueEntitle_ESP_SP: "",
-    selectedValue_ESP_SP: "",
-    total_LSP_SP_entitlement_amount: "",
+    entitleToLspsp: "",
+    lspspTypeId: "",
+    lspspEntitlementAmount: "",
     payment_amount_by_ER: "",
     effective_date: moment("").format("YYYY/MM/DD"),
     change_date: moment("").format("YYYY/MM/DD"),
@@ -58,10 +58,10 @@ const EmployeeDetails = (props) => {
   };
 
   const validationSchema = yup.object().shape({
-    last_date_of_employment: yup.date(),
-    terminationReason: yup.string(), //.required("Please pick a reason"),
+    lastDateOfEmployment: yup.date(),
+    terminationReasonId: yup.string(), //.required("Please pick a reason"),
     effective_date_of_termination: yup.date(), //.required(),
-    selectedValueEntitle_ESP_SP: yup.string(),
+    entitleToLspsp: yup.string(),
     //.required("Please choose yes or no"),
     // selectedValueEntitle_ESP_SP: yup
     //   .string()
@@ -74,8 +74,8 @@ const EmployeeDetails = (props) => {
     //     otherwise: yup.string().notRequired(),
     //   }),
 
-    selectedValue_ESP_SP: yup.string(), //.required("Please choose yes or no"),
-    total_LSP_SP_entitlement_amount: yup
+    lspspTypeId: yup.string(), //.required("Please choose yes or no"),
+    lspspEntitlementAmount: yup
       .number()
       .positive("Money must be greater than zero"),
     //.required("Money input is required"),
@@ -89,17 +89,16 @@ const EmployeeDetails = (props) => {
   });
 
   const classes = useStyles();
-  const [formDialog, setFormDialog] = useState(false);
-  const [btnDialogCnt, setBtnDialogCnt] = useState(null);
-  const [messageDt, setMessageDt] = useState({ header: "", subtitle: "" });
   const [formValues, setFormValues] = useState({ initialValues });
+  const [LSP_SP_Disable, setLSP_SP_Disable] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [btnStatus, setBtnStatus] = useState("");
   let circleId = 0;
   const [schemeMpf, setSchemeMpf] = useState({
     schemes: employeeMockData.getScheme_LSP_SP_offect_sequence(),
   });
-  const [LSP_SP_Disable, setLSP_SP_Disable] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [btnStatus, setBtnStatus] = useState("");
+  const [data, setData] = useState(replaceNull(clientSchemes));
+  console.log(data);
 
   const handleClose = (e) => {
     setOpen((open) => !open);
@@ -109,9 +108,6 @@ const EmployeeDetails = (props) => {
       }
     }
   };
-
-  const [data, setData] = useState(replaceNull(clientSchemes));
-  console.log(data);
 
   function replaceNull(someObj, replaceValue = "") {
     const replacer = (key, value) =>
@@ -127,12 +123,12 @@ const EmployeeDetails = (props) => {
   const formikHandleSubmit = (values, actions) => {
     console.log(values);
     if (values.state === "save") {
-      onSave(values.state);
+      onSave(values);
       setBtnStatus("ExMsg_SvdSccss");
       return;
     }
     if (values.state === "submit") {
-      onSubmit(values.state);
+      onSubmit(values);
       setBtnStatus("ExMsg_SvdSccss");
       actions.resetForm({ initialValues });
       return values;
@@ -140,37 +136,40 @@ const EmployeeDetails = (props) => {
   };
 
   const onSave = (values) => {
-    //renderDialogContent("error", "save");
     handleClose();
-    //setBtnDialogCnt(1);
-    // setMessageDt({
-    //   title: "Saving Message Reminders",
-    //   subtitle: "Saving will create an employee draft termination",
-    // });
-    // formSaveSubmitDialog();
   };
 
   const onSubmit = (values) => {
-    //renderDialogContent("error", "submit");
+    // vldEETermSbmssn
+    // {
+    //     "accountNumber": 970001,
+    //     "lastDateOfEmployment": "2020-05-01",
+    //     "entitleToLspsp": true,
+    //   "lspspTypeId": "LS_SP",
+    //     "terminationReasonId": "TR_RD",
+    //     "lspspEntitlementAmount": 390000.00,
+    //     "orsoOffsetAmount": 0.00,
+    //     "otherOffsetAmount": 0.00
+    // }
+
+    const addedValues = {
+      accountNumber: clientSchemes.accountNumber,
+      orsoOffsetAmount: 0.0,
+      otherOffsetAmount: 0.0,
+    };
+    const newValues = { ...values, ...addedValues };
+    console.log(newValues);
+    //validTermination(values);
     handleClose();
   };
 
   const onCancel = (resetForm) => {
-    //e.preventDefault();
     handleClose();
     setBtnStatus("ExMsg_CnclPrcss");
   };
 
   const onReset = (resetForm) => {
     resetForm();
-  };
-
-  const formSaveSubmitDialog = () => {
-    setFormDialog(true);
-  };
-
-  const formhandleClose = () => {
-    setFormDialog(false);
   };
 
   const disableLSP_SP = (event) => {
@@ -185,24 +184,6 @@ const EmployeeDetails = (props) => {
   return (
     <React.Fragment>
       <PageInner>
-        {/* <DialogBox open={open} onClose={handleClose}>
-          <div className={classes.dialogContainer}>
-            <img
-              src={CheckMark}
-              alt="View Enrollment"
-              variant="contained"
-              name="DialogCheck"
-              className={classes.imgCheck}
-            />
-
-            <div className={classes.dialogText}>
-              Employee Termination has been submitted
-            </div>
-          </div>
-          <div className={classes.btnContainer}>
-            <FloatingButton text="ok" onClick={handleClose} />
-          </div>
-        </DialogBox> */}
         <DialogBox open={open} onClose={handleClose} msgCode={btnStatus} />
 
         <Paper className={classes.paperContainer} elevation={3}>
@@ -316,9 +297,9 @@ const EmployeeDetails = (props) => {
                   <Grid item sm={3} xs={12} className={classes.datepickers}>
                     <span className={classes.labels}>{labels.last_date}</span>
                     <FormikForm.DatePicker
-                      name="last_date_of_employment"
+                      name="lastDateOfEmployment"
                       //onChange={handleInputChange}
-                      value={formValues.last_date_of_employment}
+                      value={formValues.lastDateOfEmployment}
                       helperText="YYYYMMDD"
                     />
                   </Grid>
@@ -328,11 +309,11 @@ const EmployeeDetails = (props) => {
                       {labels.termination_reason}
                     </span>
                     <FormikForm.SelectOption
-                      name="terminationReason"
+                      name="terminationReasonId"
                       //displayEmpty
                       //onChange={handleInputChange}
-                      value={formValues.terminationReason}
-                      options={employeeMockData.getTerminationReasonList()}
+                      value={formValues.terminationReasonId}
+                      options={reason} //{employeeMockData.getTerminationReasonList()}
                     />
                   </Grid>
                   <Grid item sm={3} xs={12} className={classes.datepickers}>
@@ -350,10 +331,10 @@ const EmployeeDetails = (props) => {
                 <div className={classes.labels}>{labels.entitle_to}</div>
                 <FormikForm.RadioGroup
                   row
-                  name="selectedValueEntitle_ESP_SP"
+                  name="entitleToLspsp"
                   //onChange={handleInputChange}
                   onClick={disableLSP_SP}
-                  value={formValues.selectedValueEntitle_ESP_SP}
+                  value={formValues.entitleToLspsp}
                   data={employeeMockData.getEntitle_LSP_SP_items()}
                   helperText="Please select Yes or No"
                 />
@@ -372,8 +353,8 @@ const EmployeeDetails = (props) => {
                       <div className={classes.labels}>{labels.entitle_lsp}</div>
                       <FormikForm.RadioGroup
                         row
-                        name="selectedValue_ESP_SP"
-                        value={formValues.selectedValue_ESP_SP}
+                        name="lspspTypeId"
+                        value={formValues.lspspTypeId}
                         //onChange={onChangeRadio}
                         data={employeeMockData.getLSP_SP_items()}
                         helperText="Please select Yes or No"
@@ -390,11 +371,11 @@ const EmployeeDetails = (props) => {
                         {labels.total_entitle_amount}
                       </span>
                       <FormikForm.Input
-                        name="total_LSP_SP_entitlement_amount"
+                        name="lspspEntitlementAmount"
                         //onChange={handleInputChange}
                         fullWidth
                         type="number"
-                        value={formValues.total_LSP_SP_entitlement_amount}
+                        value={formValues.lspspEntitlementAmount}
                         placeholder="Input Amount in HKD"
                         //disabled={LSP_SP_Disable ? "disabled" : ""}
                       />

@@ -22,6 +22,16 @@ export const saveSelector = createSelector(
   (state) => state.saved
 );
 
+export const validateSelector = createSelector(
+  stateSelector,
+  (state) => state.validation
+);
+
+export const reasonSelector = createSelector(
+  stateSelector,
+  (state) => state.reasonTerm
+);
+
 export const isLoadingSelector = createSelector(
   stateSelector,
   (state) => state.isLoading

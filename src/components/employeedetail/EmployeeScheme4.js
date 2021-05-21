@@ -114,4 +114,4 @@ const EmployeeScheme4 = (props) => {
   );
 };
 
-export default React.memo(EmployeeScheme4);
+export default EmployeeScheme4;
