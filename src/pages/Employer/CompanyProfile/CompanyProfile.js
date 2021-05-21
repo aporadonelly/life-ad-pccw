@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { Grid, Card, CardContent, Typography, makeStyles, Divider } from "@material-ui/core";
 import { PageInner } from "@components/layout";
 import Button from "../../../common/Button";
@@ -6,6 +7,11 @@ import { Definition } from "@components/misc";
 import CompanySupportingDocs from "./SupportingDocuments";
 import AuthorizedPerson from "./AuthorizedPerson";
 import { labels } from "../../../common/labels";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { get } from "lodash";
+import { getCompanyRegInfoAction } from "@redux/features/company/action";
+import { companyRegInfoSelector, errorSelector, isLoadingSelector } from "../../../redux/features/company/selector";
 
 const useStyles = makeStyles((theme) => ({
   titleLabel: {
@@ -52,24 +58,52 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const supportingDocuments = [
-  { id: 1, fileName: "Filename upload 00001.pdf" },
-  { id: 2, fileName: "Filename upload 00002.pdf" },
-  { id: 3, fileName: "Filename upload 00003pdf" },
-  { id: 4, fileName: "Filename upload 00004.pdf" },
-  { id: 5, fileName: "Filename upload 00005.pdf" },
-];
-
-const AuthPerson = [
-  { id: 1, lastNameEng: "Wong", firstNameEng: "Joe", lastNameChi: "-", firstNameChi: "-" },
-  { id: 1, lastNameEng: "Uy", firstNameEng: "Ben", lastNameChi: "-", firstNameChi: "-" },
-  { id: 1, lastNameEng: "Wu", firstNameEng: "Jov", lastNameChi: "-", firstNameChi: "-" },
-  { id: 1, lastNameEng: "Lee", firstNameEng: "Leng", lastNameChi: "-", firstNameChi: "-" },
-];
-
-const CompanyProfile = () => {
+const CompanyProfile = ({ getCompanyRegInfoAction, companyRegInfo }) => {
   const classes = useStyles();
   const { t } = useTranslation(["typography", "form", "button"]);
+
+  const {
+    companyNameEng,
+    branchName,
+    companyNameChi,
+    dateOfIncorporation,
+    natureOfBusiness,
+    placeOfIncorporation,
+    preferredLanguage,
+    registrationNumber,
+    registrationType,
+    typeOfCompany } = get(companyRegInfo, "[0].companyRegistrationInfo") ?? {};
+
+  const { registeredOfficeAddress, businessAddress, correspondenceAddress } = get(companyRegInfo, "[1].address") ?? {};
+  const authorizedPerson = get(companyRegInfo, "[2].authorizedPerson") ?? [];
+  const {
+    lastName,
+    firstName,
+    nameTitle,
+    jobTitle,
+    telNo,
+    mobileNo,
+    emailAddress,
+    preferredLanguagePriContact
+  } = get(companyRegInfo, "[3].primaryContactPerson") ?? {};
+
+  const {
+    lastName2,
+    firstName2,
+    nameTitle2,
+    jobTitle2,
+    telNo2,
+    mobileNo2,
+    emailAddress2,
+    preferredLanguageContact2
+  } = get(companyRegInfo, "[4].secondaryContactPerson") ?? {};
+
+  const supportingDocuments = get(companyRegInfo, "[5].supportingDocuments") ?? [];
+
+  useEffect(() => {
+    getCompanyRegInfoAction();
+  }, [getCompanyRegInfoAction])
+
   return (
     <PageInner>
       <Grid container spacing={3}>
@@ -79,22 +113,22 @@ const CompanyProfile = () => {
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <Typography className={[classes.titleLabel, classes.compRegInfor]}>
-                    {labels.companyRegistrationInfo}
+                    {t("typography:heading.companyRegInfo")}
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
                   <Definition spacing={2} xs={3}>
                     <Definition.List>
-                      <Definition.Item dt={labels.companyNameEng} dd="Great Company Limited" />
-                      <Definition.Item dt={labels.companyNameChi} dd="-" />
-                      <Definition.Item dt={labels.typeOfCompany} dd="-" />
-                      <Definition.Item dt={labels.dateOfIncorporation} dd="2010/04/21" />
-                      <Definition.Item dt={labels.placeOfIncorporation} dd="Hongkong" />
-                      <Definition.Item dt={labels.registrationType} dd="-" />
-                      <Definition.Item dt={labels.registrationNumber} dd="09176932536" />
-                      <Definition.Item dt={labels.branchName} dd="42" />
-                      <Definition.Item dt={labels.natureOfBusiness} dd="IT" />
-                      <Definition.Item dt={labels.preferredLanguage} dd="English" />
+                      <Definition.Item dt={labels.companyNameEng} dd={companyNameEng} />
+                      <Definition.Item dt={labels.companyNameChi} dd={companyNameChi} />
+                      <Definition.Item dt={labels.typeOfCompany} dd={typeOfCompany} />
+                      <Definition.Item dt={labels.dateOfIncorporation} dd={dateOfIncorporation} />
+                      <Definition.Item dt={labels.placeOfIncorporation} dd={placeOfIncorporation} />
+                      <Definition.Item dt={labels.registrationType} dd={registrationType} />
+                      <Definition.Item dt={labels.registrationNumber} dd={registrationNumber} />
+                      <Definition.Item dt={labels.branchName} dd={branchName} />
+                      <Definition.Item dt={labels.natureOfBusiness} dd={natureOfBusiness} />
+                      <Definition.Item dt={labels.preferredLanguage} dd={preferredLanguage} />
                     </Definition.List>
                   </Definition>
                 </Grid>
@@ -111,22 +145,22 @@ const CompanyProfile = () => {
                   <Grid container alignItems="center">
                     <Grid item xs={6}>
                       <Typography className={classes.titleLabel}>
-                        {labels.address}
+                        {t("typography:heading.address")}
                       </Typography>
                     </Grid>
-                    <Grid item xs={6} align="right">
+                    {/* <Grid item xs={6} align="right">
                       <Button
                         text={t("button:edit")}
                       />
-                    </Grid>
+                    </Grid> */}
                   </Grid>
                 </Grid>
                 <Grid item xs={12}>
                   <Definition spacing={2} xs={6}>
                     <Definition.List>
-                      <Definition.Item dt={labels.registeredOfficeAddress} dd="RM 307, Man Tai Building, 31 Lok Man Street, Tai Po, NT" />
-                      <Definition.Item dt={labels.businessAddress} dd="Same as Correspndense Address" />
-                      <Definition.Item dt={labels.correspondenceAddress} dd="Same as Correspndense Address" />
+                      <Definition.Item dt={labels.registeredOfficeAddress} dd={registeredOfficeAddress} />
+                      <Definition.Item dt={labels.businessAddress} dd={businessAddress} />
+                      <Definition.Item dt={labels.correspondenceAddress} dd={correspondenceAddress} />
                     </Definition.List>
                   </Definition>
                 </Grid>
@@ -146,15 +180,15 @@ const CompanyProfile = () => {
                         {labels.authorizedPerson}
                       </Typography>
                     </Grid>
-                    <Grid item xs={6} align="right">
+                    {/* <Grid item xs={6} align="right">
                       <Button
                         text={t("button:edit")}
                       />
-                    </Grid>
+                    </Grid> */}
                   </Grid>
                 </Grid>
                 <Grid item xs={12}>
-                  <AuthorizedPerson AuthPerson={AuthPerson} />
+                  <AuthorizedPerson authPerson={authorizedPerson} />
                 </Grid>
               </Grid>
             </CardContent>
@@ -172,24 +206,24 @@ const CompanyProfile = () => {
                         {labels.primaryContactPerson}
                       </Typography>
                     </Grid>
-                    <Grid item xs={6} align="right">
+                    {/* <Grid item xs={6} align="right">
                       <Button
                         text={t("button:edit")}
                       />
-                    </Grid>
+                    </Grid> */}
                   </Grid>
                 </Grid>
                 <Grid item xs={12}>
                   <Definition spacing={2} xs={3}>
                     <Definition.List>
-                      <Definition.Item dt={labels.last_name} dd="Chan" />
-                      <Definition.Item dt={labels.first_name} dd="Carmen" />
-                      <Definition.Item dt={labels.nameTitle} dd="Ms." />
-                      <Definition.Item dt={labels.jobTitle} dd="Admin" />
-                      <Definition.Item dt={labels.telephoneNumber} dd="+852 4634 4773" />
-                      <Definition.Item dt={labels.mobilePhoneNumber} dd="+852 4634 4773" />
-                      <Definition.Item dt={labels.emailAddress} dd="carmen.chan@gmail.com" />
-                      <Definition.Item dt={labels.preferredLanguage} dd="English" />
+                      <Definition.Item dt={labels.last_name} dd={lastName} />
+                      <Definition.Item dt={labels.first_name} dd={firstName} />
+                      <Definition.Item dt={labels.nameTitle} dd={nameTitle} />
+                      <Definition.Item dt={labels.jobTitle} dd={jobTitle} />
+                      <Definition.Item dt={labels.telephoneNumber} dd={telNo} />
+                      <Definition.Item dt={labels.mobilePhoneNumber} dd={mobileNo} />
+                      <Definition.Item dt={labels.emailAddress} dd={emailAddress} />
+                      <Definition.Item dt={labels.preferredLanguage} dd={preferredLanguagePriContact} />
                     </Definition.List>
                   </Definition>
                 </Grid>
@@ -209,24 +243,24 @@ const CompanyProfile = () => {
                         {labels.secondaryContactPerson}
                       </Typography>
                     </Grid>
-                    <Grid item xs={6} align="right">
+                    {/* <Grid item xs={6} align="right">
                       <Button
                         text={t("button:edit")}
                       />
-                    </Grid>
+                    </Grid> */}
                   </Grid>
                 </Grid>
                 <Grid item xs={12}>
                   <Definition spacing={2} xs={3}>
                     <Definition.List>
-                      <Definition.Item dt={labels.last_name} dd="Chan" />
-                      <Definition.Item dt={labels.first_name} dd="Carmen" />
-                      <Definition.Item dt={labels.nameTitle} dd="Ms." />
-                      <Definition.Item dt={labels.jobTitle} dd="Admin" />
-                      <Definition.Item dt={labels.telephoneNumber} dd="+852 4634 4773" />
-                      <Definition.Item dt={labels.mobilePhoneNumber} dd="+852 4634 4773" />
-                      <Definition.Item dt={labels.emailAddress} dd="carmen.chan@gmail.com" />
-                      <Definition.Item dt={labels.preferredLanguage} dd="English" />
+                      <Definition.Item dt={labels.last_name} dd={lastName2} />
+                      <Definition.Item dt={labels.first_name} dd={firstName2} />
+                      <Definition.Item dt={labels.nameTitle} dd={nameTitle2} />
+                      <Definition.Item dt={labels.jobTitle} dd={jobTitle2} />
+                      <Definition.Item dt={labels.telephoneNumber} dd={telNo2} />
+                      <Definition.Item dt={labels.mobilePhoneNumber} dd={mobileNo2} />
+                      <Definition.Item dt={labels.emailAddress} dd={emailAddress2} />
+                      <Definition.Item dt={labels.preferredLanguage} dd={preferredLanguageContact2} />
                     </Definition.List>
                   </Definition>
                 </Grid>
@@ -268,4 +302,14 @@ const CompanyProfile = () => {
   );
 };
 
-export default CompanyProfile;
+const mapStateToProps = state => ({
+  isLoading: isLoadingSelector(state),
+  error: errorSelector(state),
+  companyRegInfo: companyRegInfoSelector(state),
+});
+
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({ getCompanyRegInfoAction }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CompanyProfile);

@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import EnhancedTableHead from './TableHeader';
 import { Icon } from '@material-ui/core';
 import { BusinessCenter } from '../../../assets/icons';
+import _ from 'lodash';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -76,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function AuthorizedPerson({ AuthPerson }) {
+export default function AuthorizedPerson({ authPerson }) {
   const classes = useStyles();
   const [orderDirection, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('status');
@@ -102,7 +103,7 @@ export default function AuthorizedPerson({ AuthPerson }) {
             onRequestSort={handleRequestSort}
           />
           <TableBody>
-            {stableSort(AuthPerson, getComparator(orderDirection, orderBy))
+            {stableSort(authPerson, getComparator(orderDirection, orderBy))
               .map((row, index) => {
                 return (
                   <TableRow

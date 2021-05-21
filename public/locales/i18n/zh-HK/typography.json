@@ -6,7 +6,9 @@
     "searchResult": "搜索結果",
     "personalInformation": "個人信息",
     "employmentInformation": "就業信息",
-    "otherInformation": "其他資訊"
+    "otherInformation": "其他資訊",
+    "companyRegInfo": "公司註冊信息",
+    "address": "地址"
   },
   "paragraph": {}
 }
