@@ -4,10 +4,10 @@ export const adapter = createEntityAdapter({});
 
 export const initialState = adapter.getInitialState({
   employeeTermination: {},
-  loadSchemes: {},
-  loadTerms: {},
-  validTerms: {},
-  loadReason: {},
+  clientSchemes: [],
+  empTerm: {},
+  saved: "",
+  validation: "",
   isLoading: false,
   error: null,
 });

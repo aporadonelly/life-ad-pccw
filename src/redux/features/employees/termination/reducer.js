@@ -17,7 +17,7 @@ export const employeeTerminationReducer = createReducer(
       //   return { ...state, employeeTermination: {} };
       // })
       .addCase(loadEmpSchemes.pending, (state, _action) => {
-        return { ...state, isLoading: true, error: null };
+        return { ...state, clientSchemes: [], isLoading: true, error: null };
       })
       .addCase(loadEmpSchemes.fulfilled, (state, action) => {
         const { clientSchemes } = action.payload;
@@ -41,11 +41,11 @@ export const employeeTerminationReducer = createReducer(
       })
 
       .addCase(saveTermination.pending, (state, _action) => {
-        return { ...state, isLoading: true, error: null };
+        return { ...state, saved: "", isLoading: true, error: null };
       })
       .addCase(saveTermination.fulfilled, (state, action) => {
-        const { validation } = action.payload;
-        return { ...state, isLoading: false, validation };
+        const { saved } = action.payload;
+        return { ...state, isLoading: false, saved };
       })
       .addCase(saveTermination.rejected, (state, action) => {
         const { error } = action.payload;
@@ -53,7 +53,7 @@ export const employeeTerminationReducer = createReducer(
       })
 
       .addCase(validTermination.pending, (state, _action) => {
-        return { ...state, isLoading: true, error: null };
+        return { ...state, validation: "", isLoading: true, error: null };
       })
       .addCase(validTermination.fulfilled, (state, action) => {
         const { validation } = action.payload;

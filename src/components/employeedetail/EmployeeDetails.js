@@ -39,7 +39,9 @@ import { Cancel as CancelIcon } from "@material-ui/icons";
 
 const EmployeeDetails = (props) => {
   const { clientSchemes, reason, valid, validTermination } = props;
-
+  //console.log(clientSchemes);
+  let data = replaceNull(clientSchemes);
+  console.log(data);
   //const { setFieldValue } = useFormikContext();
 
   //console.log(clientSchemes);
@@ -97,8 +99,6 @@ const EmployeeDetails = (props) => {
   const [schemeMpf, setSchemeMpf] = useState({
     schemes: employeeMockData.getScheme_LSP_SP_offect_sequence(),
   });
-  const [data, setData] = useState(replaceNull(clientSchemes));
-  console.log(data);
 
   const handleClose = (e) => {
     setOpen((open) => !open);
@@ -188,15 +188,19 @@ const EmployeeDetails = (props) => {
         "YYYY-MM-DD"
       ),
       entitleToLspsp: parseBoolean(values.entitleToLspsp),
-      lspspTypeId: values.lspspTypeId,
+      lspspTypeId: "LS_SP", //values.lspspTypeId,
       terminationReasonId: values.terminationReasonId,
       lspspEntitlementAmount: values.lspspEntitlementAmount,
       orsoOffsetAmount: values.orsoOffsetAmount,
       otherOffsetAmount: 0.0,
       payableAmount: values.lspspEntitlementAmount - values.orsoOffsetAmount,
     };
-    console.log(forValidationValues);
+    //console.log(forValidationValues);
     validTermination(forValidationValues);
+    //console.log(chk);
+    // if (valid === "success") {
+    //   alert("tae");
+    // }
 
     //const newValues = { ...values, ...addedValues };
 
@@ -209,6 +213,10 @@ const EmployeeDetails = (props) => {
 
     handleClose();
   };
+  console.log(valid);
+  if (valid === "success") {
+    alert("test");
+  }
 
   const onCancel = (resetForm) => {
     handleClose();
@@ -242,7 +250,7 @@ const EmployeeDetails = (props) => {
               <div>
                 <div className={classes.labels}>{labels.schemeName}</div>
                 <div className={classes.textValueWithColor}>
-                  {!(data.schemes === "") && data.schemes[0].schemeName}
+                  {/* {!(data.schemes === "") && data.schemes[0].schemeName} */}
                 </div>
               </div>
               <div>

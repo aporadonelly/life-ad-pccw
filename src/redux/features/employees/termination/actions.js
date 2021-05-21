@@ -15,6 +15,7 @@ export const loadEmpSchemes = createAsyncThunk(
     try {
       const clientSchemes = await terminationAdapter.getClientSchemes(payload);
       //console.log("actions-termination", clientSchemes);
+      //console.log("actions-termination", payload);
       return { clientSchemes };
     } catch (error) {
       console.error(error);
