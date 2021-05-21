@@ -5,7 +5,7 @@ import SubjectInfo from "./SubjectInfo";
 import NavTabs from "./NavTabs";
 
 const PageHeader = (props) => {
-  const { routes } = props;
+  const { subjectInfo, routes } = props;
   const location = useLocation();
   const match = useRouteMatch(location.pathname);
 
@@ -51,11 +51,16 @@ const PageHeader = (props) => {
   return (
     <AppBar position="relative">
       <Toolbar>
-        <SubjectInfo />
+        <SubjectInfo data={subjectInfo} />
       </Toolbar>
       <NavTabs tabs={tabs} activeTabs={activeTabs} />
     </AppBar>
   );
+};
+
+PageHeader.defaultProps = {
+  subjectInfo: [],
+  routes: [],
 };
 
 export default PageHeader;
