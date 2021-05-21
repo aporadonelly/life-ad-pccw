@@ -28,6 +28,35 @@ const initialValues = {
   tin: "",
   status: null,
 };
+// const gender = [
+//   {
+//     version: null,
+//     id: "c172a061-2de8-464f-e053-870a1fac8115",
+//     cstmTypId: "GT_M",
+//     cstmGrpId: "GD",
+//     cstmGrpTxt: "Gender Type",
+//     cstmTypDtlTxt: "Male",
+//     lnggTypId: "en",
+//   },
+//   {
+//     version: null,
+//     id: "c172a061-2de9-464f-e053-870a1fac8115",
+//     cstmTypId: "GT_F",
+//     cstmGrpId: "GD",
+//     cstmGrpTxt: "Gender Type",
+//     cstmTypDtlTxt: "Female",
+//     lnggTypId: "en",
+//   },
+//   {
+//     version: null,
+//     id: "c172a061-2dea-464f-e053-870a1fac8115",
+//     cstmTypId: "GT_B",
+//     cstmGrpId: "GD",
+//     cstmGrpTxt: "Gender Type",
+//     cstmTypDtlTxt: "Both",
+//     lnggTypId: "en",
+//   },
+// ];
 
 const validationSchema = yup.object().shape({
   email: yup.string().email(),
@@ -96,7 +125,14 @@ const MemberSearch = () => {
                     </Grid>
                     <Grid item xs={12} lg={2}>
                       <Form.Select
-                        // options={genderType}
+                        //option 1
+                        data={{
+                          options: gender,
+                          label: (option) => option.cstmTypDtlTxt,
+                          value: (option) => option.cstmTypId,
+                        }}
+                        //option 2
+                        // data={{ options: genderType }}
                         label={t("form:label.gender")}
                         name="gender"
                         type="text"
