@@ -1,11 +1,13 @@
 import { useMemo, useEffect } from "react";
 import { useLocation, useRouteMatch } from "react-router-dom";
-import { AppBar, Toolbar } from "@material-ui/core";
+import { useStyles } from "./styles";
+import { AppBar, Box } from "@material-ui/core";
 import SubjectInfo from "./SubjectInfo";
 import NavTabs from "./NavTabs";
 
 const PageHeader = (props) => {
-  const { routes } = props;
+  const { routes, children } = props;
+  const classes = useStyles();
   const location = useLocation();
   const match = useRouteMatch(location.pathname);
 
@@ -50,12 +52,25 @@ const PageHeader = (props) => {
 
   return (
     <AppBar position="relative">
-      <Toolbar>
-        <SubjectInfo />
-      </Toolbar>
+      <Box
+        className={classes.spacing}
+        display="flex"
+        flexWrap="wrap"
+        alignItems="flex-start"
+        pt={2}
+        px={5}
+      >
+        {children}
+      </Box>
       <NavTabs tabs={tabs} activeTabs={activeTabs} />
     </AppBar>
   );
 };
+
+PageHeader.defaultProps = {
+  routes: [],
+};
+
+PageHeader.SubjectInfo = SubjectInfo;
 
 export default PageHeader;

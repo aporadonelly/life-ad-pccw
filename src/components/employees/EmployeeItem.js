@@ -392,7 +392,9 @@ const EmployeeView = ({ employees: { employee, id } }) => {
           className={classes.cancelBtn}
           style={{
             float: "right",
-            bottom: "12px",
+
+            bottom: "13px",
+
             width: "auto",
             color: "#fff",
             left: "20px",

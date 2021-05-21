@@ -3,8 +3,8 @@
     "username": "Username",
     "password": "Password",
     "title": "Title",
-    "firstName": "First Name",
-    "lastName": "Last Name",
+    "firstName": "First Name (English)",
+    "lastName": "Last Name (English)",
     "chineseFirstName": "First Name (Chinese)",
     "chineseLastName": "Last Name (Chinese)",
     "mpfId": "MPF ID",
@@ -32,7 +32,11 @@
     "status": "Status",
     "preferredCommunicationChannel": "Preferred Communication Channel",
     "preferredCommunicationLanguage": "Preferred Communication Language",
-    "receivedPaperFormNotificationAndDocument": "Received Paper Form Notification and Document"
+    "receivedPaperFormNotificationAndDocument": "Received Paper Form Notification and Document",
+    "jobTitle": "Job Title",
+    "registeredOfcAddress": "Registered Office Address",
+    "businessAddress":"Business Address",
+    "eSignature": "E - Signature"
   },
   "placeholder": {
     "custom": {
