@@ -106,8 +106,8 @@ export const getCurrency = () => [
 ];
 
 export const getEntitle_LSP_SP_items = () => [
-  { value: "yes_entitle_LSP_SP", label: "Yes" },
-  { value: "no_entitle_LSP_SP", label: "No" },
+  { value: true, label: "Yes" },
+  { value: false, label: "No" },
 ];
 
 export const getLSP_SP_items = () => [

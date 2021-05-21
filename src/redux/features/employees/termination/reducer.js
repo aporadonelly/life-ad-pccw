@@ -56,8 +56,8 @@ export const employeeTerminationReducer = createReducer(
         return { ...state, isLoading: true, error: null };
       })
       .addCase(validTermination.fulfilled, (state, action) => {
-        const { message } = action.payload;
-        return { ...state, isLoading: false, message };
+        const { validation } = action.payload;
+        return { ...state, isLoading: false, validation };
       })
       .addCase(validTermination.rejected, (state, action) => {
         const { error } = action.payload;

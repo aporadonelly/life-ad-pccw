@@ -38,29 +38,29 @@ import { Cancel as CancelIcon } from "@material-ui/icons";
 // import { clientSchemesSelector } from "@redux/features/employees/termination/selectors";
 
 const EmployeeDetails = (props) => {
-  const { clientSchemes, reason, loadEmpSchemes, validTermination } = props;
+  const { clientSchemes, reason, valid, validTermination } = props;
 
   //const { setFieldValue } = useFormikContext();
 
   //console.log(clientSchemes);
   const initialValues = {
     state: "",
-    lastDateOfEmployment: moment("").format("YYYY/MM/DD"),
+    lastDateOfEmployment: moment().format("YYYY/MM/DD"),
     terminationReasonId: "",
-    effective_date_of_termination: moment("").format("YYYY/MM/DD"),
+    effective_date_of_termination: moment().format("YYYY/MM/DD"),
     entitleToLspsp: "",
     lspspTypeId: "",
     lspspEntitlementAmount: "",
-    payment_amount_by_ER: "",
-    effective_date: moment("").format("YYYY/MM/DD"),
-    change_date: moment("").format("YYYY/MM/DD"),
+    orsoOffsetAmount: "",
+    effective_date: moment().format("YYYY/MM/DD"),
+    change_date: moment().format("YYYY/MM/DD"),
     schemes: employeeMockData.getScheme_LSP_SP_offect_sequence(),
   };
 
   const validationSchema = yup.object().shape({
     lastDateOfEmployment: yup.date(),
-    terminationReasonId: yup.string(), //.required("Please pick a reason"),
-    effective_date_of_termination: yup.date(), //.required(),
+    terminationReasonId: yup.string().required("Please pick a reason"),
+    //effective_date_of_termination: yup.date().required(),
     entitleToLspsp: yup.string(),
     //.required("Please choose yes or no"),
     // selectedValueEntitle_ESP_SP: yup
@@ -77,12 +77,12 @@ const EmployeeDetails = (props) => {
     lspspTypeId: yup.string(), //.required("Please choose yes or no"),
     lspspEntitlementAmount: yup
       .number()
-      .positive("Money must be greater than zero"),
-    //.required("Money input is required"),
-    payment_amount_by_ER: yup
+      .positive("Money must be greater than zero")
+      .required("Money input is required"),
+    orsoOffsetAmount: yup
       .number()
-      .positive("Money must be greater than zero"),
-    //.required("Money input is required"),
+      .positive("Money must be greater than zero")
+      .required("Money input is required"),
     //effective_date: yup.date(),
     //change_date: yup.date(),
     schemes: yup.array(),
@@ -120,6 +120,17 @@ const EmployeeDetails = (props) => {
     return JSON.parse(JSON.stringify(someObj, replacer));
   }
 
+  function parseBoolean(str) {
+    switch (str.toLowerCase()) {
+      case "true":
+        return true;
+      case "false":
+        return false;
+      default:
+        throw new Error("Boolean.parse: Cannot convert string to boolean.");
+    }
+  }
+
   const formikHandleSubmit = (values, actions) => {
     console.log(values);
     if (values.state === "save") {
@@ -130,7 +141,7 @@ const EmployeeDetails = (props) => {
     if (values.state === "submit") {
       onSubmit(values);
       setBtnStatus("ExMsg_SvdSccss");
-      actions.resetForm({ initialValues });
+      actions.resetForm(initialValues);
       return values;
     }
   };
@@ -140,26 +151,62 @@ const EmployeeDetails = (props) => {
   };
 
   const onSubmit = (values) => {
+    // IMPORTANT: ACTUAL POST JSON
+    // accountNumber	integer($int64)
+    // eeNotAgr	boolean
+    // employmentDate	string($date-time)
+    // entitleToLspsp	boolean
+    // lastDateOfEmployment	string($date-time)
+    // lspspEntitlementAmount	number
+    // lspspType	string
+    // lspspTypeId	string
+    // orsoOffsetAmount	number
+    // otherOffsetAmount	number
+    // payableAmount	number  ///NOTE: Real time calculation
+    // paymentAmount	number
+    // statusType	string
+    // statusTypeId	string
+    // terminationReason	string
+    // terminationReasonIdn
+
+    // IMPORTANT: required in db post
     // vldEETermSbmssn
     // {
     //     "accountNumber": 970001,
     //     "lastDateOfEmployment": "2020-05-01",
     //     "entitleToLspsp": true,
-    //   "lspspTypeId": "LS_SP",
+    //     "lspspTypeId": "LS_SP",
     //     "terminationReasonId": "TR_RD",
     //     "lspspEntitlementAmount": 390000.00,
     //     "orsoOffsetAmount": 0.00,
     //     "otherOffsetAmount": 0.00
     // }
 
-    const addedValues = {
+    const forValidationValues = {
       accountNumber: clientSchemes.accountNumber,
-      orsoOffsetAmount: 0.0,
+      lastDateOfEmployment: moment(values.lastDateOfEmployment).format(
+        "YYYY-MM-DD"
+      ),
+      entitleToLspsp: parseBoolean(values.entitleToLspsp),
+      lspspTypeId: values.lspspTypeId,
+      terminationReasonId: values.terminationReasonId,
+      lspspEntitlementAmount: values.lspspEntitlementAmount,
+      orsoOffsetAmount: values.orsoOffsetAmount,
       otherOffsetAmount: 0.0,
+      payableAmount: values.lspspEntitlementAmount - values.orsoOffsetAmount,
     };
-    const newValues = { ...values, ...addedValues };
-    console.log(newValues);
-    //validTermination(values);
+    console.log(forValidationValues);
+    validTermination(forValidationValues);
+
+    //const newValues = { ...values, ...addedValues };
+
+    // values = prevState => (
+    //   {
+    //     ...prevState,
+    //     values: {...prevState.values, b: }
+    //   }
+    // )
+
     handleClose();
   };
 
@@ -173,10 +220,10 @@ const EmployeeDetails = (props) => {
   };
 
   const disableLSP_SP = (event) => {
-    if (event.target.value === "no_entitle_LSP_SP") {
+    if (event.target.value === "false") {
       setLSP_SP_Disable(true);
       //setFieldValue("selectedValue_ESP_SP", "");
-    } else if (event.target.value === "yes_entitle_LSP_SP") {
+    } else if (event.target.value === "true") {
       setLSP_SP_Disable(false);
     }
   };
@@ -390,11 +437,11 @@ const EmployeeDetails = (props) => {
                         {labels.pay_amount_er}
                       </span>
                       <FormikForm.Input
-                        name="payment_amount_by_ER"
+                        name="orsoOffsetAmount"
                         //onChange={handleInputChange}
                         fullWidth
                         type="number"
-                        value={formValues.payment_amount_by_ER}
+                        value={formValues.orsoOffsetAmount}
                         placeholder="Input Amount in HKD"
                         //disabled={LSP_SP_Disable ? "disabled" : ""}
                       />
@@ -442,11 +489,7 @@ const EmployeeDetails = (props) => {
             </Paper>
 
             <BottomAppBar>
-              <FloatingButton
-                type="reset"
-                text="reset"
-                onClick={(e) => Formik.resetForm()}
-              />
+              <FloatingButton type="reset" text="reset" />
               <FloatingButton text="cancel" onClick={onCancel} />
               <FormikForm.FloatingButton text="save" />
               <FormikForm.FloatingButton text="submit" />
