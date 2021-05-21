@@ -6,6 +6,7 @@ import InputField from "./InputField";
 import RadioGroupField from "./RadioGroupField";
 import SelectField from "./SelectField";
 import SubmitButton from "./SubmitButton";
+import ResetButton from "./ResetButton";
 
 const Form = (props) => {
   const { children, ...rest } = props;
@@ -31,5 +32,6 @@ Form.Input = InputField;
 Form.RadioGroup = RadioGroupField;
 Form.Select = SelectField;
 Form.Submit = SubmitButton;
+Form.Reset = ResetButton;
 
 export default Form;

@@ -37,8 +37,12 @@ const Header = () => {
         >
           <TranslateIcon fontSize="small" />
         </IconButton>
-        <Typography variant="body2" color="inherit">
-          12 JAN 2021
+        <Typography
+          className={classes.cycleDate}
+          variant="body2"
+          color="inherit"
+        >
+          {t("header:cycleDate", { date: "2021-01-12" })}
         </Typography>
         <IconButton className={classes.settingsIcon} edge="end">
           <SettingsIcon fontSize="small" />
