@@ -1,70 +1,102 @@
-import { Grid, Card, CardContent, Typography, Box } from "@material-ui/core";
-import { PageInner } from "@components/layout";
-import { Formik } from "formik";
-import { Form } from "@components/common";
+import { useEffect } from "react";
+import { Grid, Card, CardContent, Typography } from "@material-ui/core";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { get } from "lodash";
+import {
+  isLoadingSelector,
+  errorSelector,
+  genderSelector,
+  idTypeSelector,
+  nationalitySelector,
+  placeOfBirthSelector,
+  employeeTypeSelector,
+  industryTypeSelector,
+  occupationSelector,
+  schemeTypeSelector,
+  statusSelector,
+} from "@redux/features/employees/selectors";
+import {
+  getGender,
+  getIdType,
+  getNationality,
+  getPlaceOfBirth,
+  getEmployeeType,
+  getIndustryType,
+  getOccupation,
+  getSchemeType,
+  getStatus,
+} from "@redux/features/employees/actions";
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
+import { Formik } from "formik";
+import { PageInner } from "@components/layout";
+import { Form } from "@components/common";
 import EmployeeStyles from "../../components/employees/styles/EmployeeStyles";
 
 const initialValues = {
   mpf_id: "",
   first_name: "",
   chinese_name: "",
-  gender: null,
-  id_type: null,
+  gender: "",
+  id_type: "",
   id_number: "",
-  date_of_birth: null,
-  nationality: null,
-  place_of_birth: null,
+  date_of_birth: "",
+  nationality: "",
+  place_of_birth: "",
   mobile_number: "",
   address: "",
   email: "",
-  date_of_employment: null,
-  employee_type: null,
-  reported_industry_type: null,
-  occupation: null,
-  mpf_scheme_name: null,
+  date_of_employment: "",
+  employee_type: "",
+  reported_industry_type: "",
+  occupation: "",
+  mpf_scheme_name: "",
   tax_residency: "",
   tin: "",
-  status: null,
+  status: "",
 };
-// const gender = [
-//   {
-//     version: null,
-//     id: "c172a061-2de8-464f-e053-870a1fac8115",
-//     cstmTypId: "GT_M",
-//     cstmGrpId: "GD",
-//     cstmGrpTxt: "Gender Type",
-//     cstmTypDtlTxt: "Male",
-//     lnggTypId: "en",
-//   },
-//   {
-//     version: null,
-//     id: "c172a061-2de9-464f-e053-870a1fac8115",
-//     cstmTypId: "GT_F",
-//     cstmGrpId: "GD",
-//     cstmGrpTxt: "Gender Type",
-//     cstmTypDtlTxt: "Female",
-//     lnggTypId: "en",
-//   },
-//   {
-//     version: null,
-//     id: "c172a061-2dea-464f-e053-870a1fac8115",
-//     cstmTypId: "GT_B",
-//     cstmGrpId: "GD",
-//     cstmGrpTxt: "Gender Type",
-//     cstmTypDtlTxt: "Both",
-//     lnggTypId: "en",
-//   },
-// ];
 
 const validationSchema = yup.object().shape({
   email: yup.string().email(),
 });
 
-const MemberSearch = () => {
+const MemberSearch = (props) => {
+  const {
+    gender,
+    getGender,
+    idType,
+    getIdType,
+    getNationality,
+    nationality,
+    placeOfBirth,
+    getPlaceOfBirth,
+    getEmployeeType,
+    employeeType,
+    industryType,
+    getIndustryType,
+    getOccupation,
+    occupation,
+    getSchemeType,
+    schemeType,
+    getStatus,
+    status,
+  } = props;
+
   const classes = EmployeeStyles();
   const { t } = useTranslation(["typography", "form", "button"]);
+
+  useEffect(() => {
+    getGender();
+    getIdType();
+    getNationality();
+    getPlaceOfBirth();
+    getEmployeeType();
+    getIndustryType();
+    getOccupation();
+    getSchemeType();
+    getStatus();
+  }, []);
 
   const handleSubmit = (values) => {
     console.log(values, "hey");
@@ -125,14 +157,11 @@ const MemberSearch = () => {
                     </Grid>
                     <Grid item xs={12} lg={2}>
                       <Form.Select
-                        //option 1
                         data={{
                           options: gender,
                           label: (option) => option.cstmTypDtlTxt,
                           value: (option) => option.cstmTypId,
                         }}
-                        //option 2
-                        // data={{ options: genderType }}
                         label={t("form:label.gender")}
                         name="gender"
                         type="text"
@@ -148,6 +177,11 @@ const MemberSearch = () => {
                         name="id_type"
                         type="text"
                         placeholder={t("form:placeholder.custom.pleaseSelect")}
+                        data={{
+                          options: idType,
+                          label: (option) => option.cstmTypDtlTxt,
+                          value: (option) => option.cstmTypId,
+                        }}
                       />
                     </Grid>
                     <Grid item xs={12} lg={2}>
@@ -169,6 +203,11 @@ const MemberSearch = () => {
                     </Grid>
                     <Grid item xs={12} lg={2}>
                       <Form.Select
+                        data={{
+                          options: nationality,
+                          label: (option) => option.cstmTypId,
+                          value: (option) => option.cstmTypDtlTxt,
+                        }}
                         label={t("form:label.nationality")}
                         name="nationality"
                         type="text"
@@ -177,6 +216,11 @@ const MemberSearch = () => {
                     </Grid>
                     <Grid item xs={12} lg={2}>
                       <Form.Select
+                        data={{
+                          options: placeOfBirth,
+                          label: (option) => option.cntryTypNm,
+                          value: (option) => option.cntryTypCd,
+                        }}
                         label={t("form:label.placeOfBirth")}
                         name="place_of_birth"
                         type="text"
@@ -228,6 +272,11 @@ const MemberSearch = () => {
                     </Grid>
                     <Grid item xs={12} lg={2}>
                       <Form.Select
+                        data={{
+                          options: employeeType,
+                          label: (option) => option.cstmTypDtlTxt,
+                          value: (option) => option.cstmTypId,
+                        }}
                         label={t("form:label.employeeType")}
                         name="employee_type"
                         type="text"
@@ -236,6 +285,11 @@ const MemberSearch = () => {
                     </Grid>
                     <Grid item xs={12} lg={2}>
                       <Form.Select
+                        data={{
+                          options: industryType,
+                          label: (option) => option.cstmTypDtlTxt,
+                          value: (option) => option.cstmTypId,
+                        }}
                         label={t("form:label.reportedIndustryType")}
                         name="reported_industry_type"
                         type="text"
@@ -244,6 +298,11 @@ const MemberSearch = () => {
                     </Grid>
                     <Grid item xs={12} lg={2}>
                       <Form.Select
+                        data={{
+                          options: occupation,
+                          label: (option) => option.cstmTypDtlTxt,
+                          value: (option) => option.cstmTypId,
+                        }}
                         label={t("form:label.occupation")}
                         name="occupation"
                         type="text"
@@ -252,6 +311,11 @@ const MemberSearch = () => {
                     </Grid>
                     <Grid item xs={12} lg={4}>
                       <Form.Select
+                        data={{
+                          options: schemeType,
+                          label: (option) => option.cstmTypDtlTxt,
+                          value: (option) => option.cstmTypId,
+                        }}
                         label={t("form:label.mpfSchemeName")}
                         name="mpf_scheme_name"
                         type="text"
@@ -276,6 +340,11 @@ const MemberSearch = () => {
                     </Grid>
                     <Grid item xs={12} lg={2}>
                       <Form.Select
+                        data={{
+                          options: status,
+                          label: (option) => option.cstmTypDtlTxt,
+                          value: (option) => option.cstmTypId,
+                        }}
                         label={t("form:label.status")}
                         name="status"
                         type="text"
@@ -308,4 +377,35 @@ const MemberSearch = () => {
   );
 };
 
-export default MemberSearch;
+const mapStateToProps = (state) => ({
+  isLoading: isLoadingSelector(state),
+  error: errorSelector(state),
+  gender: genderSelector(state),
+  idType: idTypeSelector(state),
+  nationality: nationalitySelector(state),
+  placeOfBirth: placeOfBirthSelector(state),
+  employeeType: employeeTypeSelector(state),
+  industryType: industryTypeSelector(state),
+  occupation: occupationSelector(state),
+  schemeType: schemeTypeSelector(state),
+  status: statusSelector(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  ...bindActionCreators(
+    {
+      getGender,
+      getIdType,
+      getNationality,
+      getPlaceOfBirth,
+      getEmployeeType,
+      getIndustryType,
+      getOccupation,
+      getSchemeType,
+      getStatus,
+    },
+    dispatch
+  ),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MemberSearch);

@@ -1,13 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { EmployeesAdapter } from "@adapters";
+import { employeesAdapter } from "@adapters";
 
-export const getEmployers = createAsyncThunk(
-  "@@EMPF/EMPLOYER/GET_EMPLOYERS",
+export const getGender = createAsyncThunk(
+  "@@EMPF/EMPLOYEES/GET_GENDER",
   async (_payload, { rejectWithValue }) => {
     try {
-      const employers = await employerAdapter.getAll();
+      const gender = await employeesAdapter.fetchGender();
       return {
-        employers,
+        gender,
       };
     } catch (error) {
       return rejectWithValue({ error });
@@ -15,13 +15,111 @@ export const getEmployers = createAsyncThunk(
   }
 );
 
-export const viewAuthPerson = createAsyncThunk(
-  "@@EMPF/EMPLOYER/VIEW_AUTH_PERSON",
+export const getIdType = createAsyncThunk(
+  "@@EMPF/EMPLOYEES/GET_ID_TYPE",
   async (_payload, { rejectWithValue }) => {
     try {
-      const authPerson = await employerAdapter.viewEmployerAuthPerson();
+      const idType = await employeesAdapter.fetchIdType();
       return {
-        authPerson,
+        idType,
+      };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const getNationality = createAsyncThunk(
+  "@@EMPF/EMPLOYEES/GET_NATIONALITY",
+  async (_payload, { rejectWithValue }) => {
+    try {
+      const nationality = await employeesAdapter.fetchNationality();
+      return {
+        nationality,
+      };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const getPlaceOfBirth = createAsyncThunk(
+  "@@EMPF/EMPLOYEES/GET_PLC_OF_BIRTH",
+  async (_payload, { rejectWithValue }) => {
+    try {
+      const placeOfBirth = await employeesAdapter.fetchPlaceOfBirth();
+      return {
+        placeOfBirth,
+      };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const getEmployeeType = createAsyncThunk(
+  "@@EMPF/EMPLOYEES/GET_EMPLOYEE_TYPE",
+  async (_payload, { rejectWithValue }) => {
+    try {
+      const employeeType = await employeesAdapter.fetchEmployeeType();
+      return {
+        employeeType,
+      };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const getIndustryType = createAsyncThunk(
+  "@@EMPF/EMPLOYEES/GET_INDUSTRY_TYPE",
+  async (_payload, { rejectWithValue }) => {
+    try {
+      const industryType = await employeesAdapter.fetchIndustryType();
+      return {
+        industryType,
+      };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const getOccupation = createAsyncThunk(
+  "@@EMPF/EMPLOYEES/GET_OCCUPATION",
+  async (_payload, { rejectWithValue }) => {
+    try {
+      const occupation = await employeesAdapter.fetchOccupation();
+      return {
+        occupation,
+      };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const getSchemeType = createAsyncThunk(
+  "@@EMPF/EMPLOYEES/GET_SCHEME_TYPE",
+  async (_payload, { rejectWithValue }) => {
+    try {
+      const schemeType = await employeesAdapter.fetchSchemeType();
+      return {
+        schemeType,
+      };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const getStatus = createAsyncThunk(
+  "@@EMPF/EMPLOYEES/GET_STATUS",
+  async (_payload, { rejectWithValue }) => {
+    try {
+      const status = await employeesAdapter.fetchStatus();
+      return {
+        status,
       };
     } catch (error) {
       return rejectWithValue({ error });

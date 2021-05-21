@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import employeesReducer from "@reducers/employeesReducer";
+import { employeesReducer } from "./features/employees/reducer";
 import { systemReducer } from "./features/system/reducer";
 import { userReducer } from "./features/user/reducer";
 
