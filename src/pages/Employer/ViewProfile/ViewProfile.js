@@ -35,13 +35,13 @@ const data = [
 ];
 
 const ViewProfile = (props) => {
-  const { viewAuthPerson, authPerson } = props;
-  console.log(authPerson, "authPerson");
+  const { viewAuthPerson, getEmployers, authPerson, employers } = props;
 
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button"]);
 
   useEffect(() => {
+    getEmployers();
     viewAuthPerson();
   }, []);
 
