@@ -86,7 +86,6 @@ const EmployeeScheme4 = (props) => {
                 {console.log((circleId = index + 1))}
                 <Avatar className={classes.schemeAvatar}>{circleId}</Avatar>
                 <Form.Select
-                  variant="outlined"
                   size="small"
                   name={`schemes.${index}.id`}
                   data={{
