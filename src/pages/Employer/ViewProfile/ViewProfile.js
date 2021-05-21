@@ -11,10 +11,6 @@ import {
   getEmployers,
   viewAuthPerson,
 } from "@redux/features/employers/actions";
-// import {
-//   viewEmployerAuthPerson,
-//   fetchEmployers,
-// } from "../../../actions/employersActions";
 
 import {
   Grid,
@@ -39,14 +35,13 @@ const data = [
 ];
 
 const ViewProfile = (props) => {
-  const { viewAuthPerson, getEmployers, employers, authPerson } = props;
+  const { viewAuthPerson, authPerson } = props;
   console.log(authPerson, "authPerson");
 
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button"]);
 
   useEffect(() => {
-    getEmployers();
     viewAuthPerson();
   }, []);
 
@@ -254,13 +249,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewProfile);
-
-//my kind of setup
-// const mapStateToProps = (state) => ({
-//   employers: state.employers,
-// });
-
-// export default connect(mapStateToProps, {
-//   viewEmployerAuthPerson,
-//   fetchEmployers,
-// })(ViewProfile);
