@@ -1,18 +1,12 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: theme.spacing(2, 2, 0),
-    "& > :not(:first-child):not(:last-child)": {
-      margin: "0 auto",
-    },
-  },
   spacing: {
     "&:nth-child(odd)": {
-      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
     },
     "&:nth-child(even)": {
-      paddingRight: theme.spacing(2),
+      paddingLeft: theme.spacing(2),
     },
   },
   divider: {
@@ -28,11 +22,8 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.common.white,
     },
   },
-  fontWeightMedium: {
-    fontWeight: theme.typography.fontWeightMedium,
-  },
-  fontWeightLight: {
-    fontWeight: theme.typography.fontWeightLight,
+  typography: {
+    fontWeight: "inherit",
   },
 }));
 
