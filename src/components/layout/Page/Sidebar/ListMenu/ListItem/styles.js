@@ -1,7 +1,6 @@
-import { withStyles } from "@material-ui/core/styles";
-import { ListItem } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
-const StyledListItem = withStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(0.5, 1.5),
     borderRadius: theme.spacing(0.5),
@@ -32,6 +31,6 @@ const StyledListItem = withStyles((theme) => ({
     },
   },
   selected: {},
-}))(ListItem);
+}));
 
-export default StyledListItem;
+export { useStyles };
