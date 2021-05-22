@@ -1,78 +1,54 @@
-import { Link } from "react-router-dom";
-import { withStyles } from "@material-ui/core/styles";
-import { Box, Tabs, Tab } from "@material-ui/core";
+import { useMemo, useEffect } from "react";
+import { useRouteMatch, Link } from "react-router-dom";
+import { map } from "lodash";
+import {
+  useLvl1TabsStyles,
+  useLvl1TabStyles,
+  useLvl2TabsStyles,
+  useLvl2TabStyles,
+} from "./styles";
+import { Box, Tab } from "@material-ui/core";
+import {
+  TabContext as MuiTabContext,
+  TabPanel,
+  TabList,
+} from "@material-ui/lab";
 
-const Lvl1Tabs = withStyles((theme) => ({
-  root: {
-    padding: theme.spacing(0, 5),
-  },
-  indicator: {
-    display: "flex",
-    justifyContent: "center",
-    backgroundColor: "transparent",
-    height: "auto",
-    "& > span": {
-      borderLeftWidth: 10,
-      borderLeftStyle: "solid",
-      borderLeftColor: "transparent",
-      borderRightWidth: 10,
-      borderRightStyle: "solid",
-      borderRightColor: "transparent",
-      borderBottomWidth: 10,
-      borderBottomStyle: "solid",
-      borderBottomColor: theme.palette.common.white,
-    },
-  },
-}))((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
+const TabContext = (props) => {
+  const { tabs, children } = props;
+  const match = useRouteMatch(map(tabs, "path"));
 
-const Lvl1Tab = withStyles((theme) => ({
-  root: {
-    textTransform: "none",
-    color: theme.palette.common.white,
-    fontWeight: theme.typography.fontWeightRegular,
-    fontSize: theme.typography.body1.fontSize,
-    minWidth: "fit-content",
-    padding: 0,
-    marginRight: theme.spacing(3),
-  },
-}))((props) => <Tab disableRipple {...props} />);
-
-const Lvl2Tabs = withStyles((theme) => ({
-  root: {
-    backgroundColor: theme.palette.common.white,
-    width: "100%",
-    padding: theme.spacing(0, 5),
-  },
-  indicator: {
-    display: "flex",
-    justifyContent: "center",
-    backgroundColor: "transparent",
-    height: 3,
-    "& > span": {
-      width: "100%",
-      backgroundColor: theme.palette.primary.main,
-    },
-  },
-}))((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
-
-const Lvl2Tab = withStyles((theme) => ({
-  root: {
-    textTransform: "none",
-    color: theme.palette.primary.main,
-    fontWeight: theme.typography.fontWeightRegular,
-    fontSize: theme.typography.body2.fontSize,
-    minWidth: "fit-content",
-    padding: 0,
-    marginRight: theme.spacing(3),
-    "&$selected": {
-      fontWeight: theme.typography.fontWeightBold,
-    },
-  },
-  selected: {},
-}))((props) => <Tab disableRipple {...props} />);
+  return <MuiTabContext value={match?.path}>{children}</MuiTabContext>;
+};
 
 const NavTabs = (props) => {
-  const { tabs, activeTabs } = props;
+  const { routes } = props;
+  const lvl1TabsClasses = useLvl1TabsStyles();
+  const lvl1TabClasses = useLvl1TabStyles();
+  const lvl2TabsClasses = useLvl2TabsStyles();
+  const lvl2TabClasses = useLvl2TabStyles();
+
+  const tabs = useMemo(
+    () =>
+      routes.reduce(
+        (result, { children, ...route }) => {
+          if (children && children.length) {
+            result["lvl2"].push({
+              path: route.path,
+              tabs: children,
+            });
+          }
+          result["lvl1"].push(route);
+          return result;
+        },
+        { lvl1: [], lvl2: [] }
+      ),
+    [routes]
+  );
+
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent("resize"));
+  }, []);
 
   return (
     <Box
@@ -82,34 +58,46 @@ const NavTabs = (props) => {
       justifyContent="center"
       width="100%"
     >
-      <Lvl1Tabs value={activeTabs[0]}>
-        {tabs.lvl1.map((route) => (
-          <Lvl1Tab
-            key={route.path}
-            component={Link}
-            to={route.redirect ?? route.path}
-            label={route.name}
-            value={route.path}
-          />
+      <TabContext tabs={tabs.lvl1}>
+        <TabList
+          classes={lvl1TabsClasses}
+          TabIndicatorProps={{ children: <span /> }}
+        >
+          {tabs.lvl1.map((tab) => (
+            <Tab
+              key={tab.name}
+              classes={lvl1TabClasses}
+              component={Link}
+              to={tab.redirect ?? tab.path}
+              label={tab.name}
+              value={tab.path}
+              disableRipple
+            />
+          ))}
+        </TabList>
+        {tabs.lvl2.map((tab) => (
+          <TabPanel key={tab.path} value={tab.path}>
+            <TabContext tabs={tab.tabs}>
+              <TabList
+                classes={lvl2TabsClasses}
+                TabIndicatorProps={{ children: <span /> }}
+              >
+                {tab.tabs.map((tab) => (
+                  <Tab
+                    key={tab.name}
+                    classes={lvl2TabClasses}
+                    component={Link}
+                    to={tab.redirect ?? tab.path}
+                    label={tab.name}
+                    value={tab.path}
+                    disableRipple
+                  />
+                ))}
+              </TabList>
+            </TabContext>
+          </TabPanel>
         ))}
-      </Lvl1Tabs>
-      {tabs.lvl2.map(({ path, tabs }) => {
-        if (path === activeTabs[0])
-          return (
-            <Lvl2Tabs key={path} value={activeTabs[1]}>
-              {tabs.map((route) => (
-                <Lvl2Tab
-                  key={route.path}
-                  component={Link}
-                  to={route.path}
-                  label={route.name}
-                  value={route.path}
-                />
-              ))}
-            </Lvl2Tabs>
-          );
-        return null;
-      })}
+      </TabContext>
     </Box>
   );
 };
