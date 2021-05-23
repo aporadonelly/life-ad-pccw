@@ -40,18 +40,6 @@ export const employeeTerminationReducer = createReducer(
         return { ...state, isLoading: false, error };
       })
 
-      .addCase(saveTermination.pending, (state, _action) => {
-        return { ...state, saved: "", isLoading: true, error: null };
-      })
-      .addCase(saveTermination.fulfilled, (state, action) => {
-        const { saved } = action.payload;
-        return { ...state, isLoading: false, saved };
-      })
-      .addCase(saveTermination.rejected, (state, action) => {
-        const { error } = action.payload;
-        return { ...state, isLoading: false, error };
-      })
-
       .addCase(validTermination.pending, (state, _action) => {
         return { ...state, validation: "", isLoading: true, error: null };
       })
@@ -60,6 +48,18 @@ export const employeeTerminationReducer = createReducer(
         return { ...state, isLoading: false, validation };
       })
       .addCase(validTermination.rejected, (state, action) => {
+        const { error } = action.payload;
+        return { ...state, isLoading: false, error };
+      })
+
+      .addCase(saveTermination.pending, (state, _action) => {
+        return { ...state, saved: "", isLoading: true, error: null };
+      })
+      .addCase(saveTermination.fulfilled, (state, action) => {
+        const { saved } = action.payload;
+        return { ...state, isLoading: false, saved };
+      })
+      .addCase(saveTermination.rejected, (state, action) => {
         const { error } = action.payload;
         return { ...state, isLoading: false, error };
       })

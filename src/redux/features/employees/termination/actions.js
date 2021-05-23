@@ -58,7 +58,7 @@ export const validTermination = createAsyncThunk(
     try {
       await terminationAdapter.postValidate(payload);
       console.log("actions-termination");
-      return { validation: "success" };
+      return { validation: payload };
     } catch (error) {
       return rejectWithValue({ error });
     }

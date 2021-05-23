@@ -87,17 +87,17 @@ const EmployeeScheme4 = (props) => {
                 <Avatar className={classes.schemeAvatar}>{circleId}</Avatar>
                 <Form.Select
                   size="small"
-                  name={`schemes.${index}.id`}
+                  name={`schemes.${index}.schemeId`}
                   data={{
                     options: form.values.schemes,
-                    label: (scheme) => scheme.scheme,
-                    value: (scheme) => scheme.id,
+                    label: (scheme) => scheme.schemeName,
+                    value: (scheme) => scheme.schemeId,
                   }}
                   onChange={(e) => {
                     swap(
                       index,
                       form.values.schemes.findIndex(
-                        (v) => v.id === e.target.value
+                        (v) => v.schemeId === e.target.value
                       )
                     );
                   }}

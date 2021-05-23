@@ -167,6 +167,23 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#2D9FC3",
     marginRight: "23px",
   },
+  btnReverse: {
+    margin: theme.spacing(0.5),
+    font: "normal normal Bold 14px/24px Roboto",
+    width: "107px",
+    height: "38px",
+    border: `2px solid #fff`,
+    borderRadius: "19px",
+    opacity: 1,
+    color: "#fff",
+    background: "#42526E 0% 0% no-repeat padding-box",
+    "&:hover": {
+      backgroundColor: "#EF841F",
+      border: `2px solid #EF841F`,
+      boxShadow: `0px 2px 8px`,
+      color: "#fff",
+    },
+  },
 }));
 
 export default useStyles;

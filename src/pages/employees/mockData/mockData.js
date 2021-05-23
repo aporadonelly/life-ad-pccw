@@ -59,21 +59,28 @@ export const getTerminationReasonList = () => [
 
 export const getScheme_LSP_SP_offect_sequence = () => [
   {
-    id: "LSP_SP_1",
-    scheme: "SUN MPF Scheme",
+    changeDate: "",
+    effectiveDate: "2021-04-23T03:44:16.000+00:00",
+    schemeId: "79cef4fb-4fb8-4530-a98e-909042525776",
+    schemeName: "SCHEME1",
+    schemeNumber: 1,
+    schemeType: "",
+
+    // schemeId: "LSP_SP_1",
+    // schemeName: "SUN MPF Scheme",
   },
-  {
-    id: "LSP_SP_2",
-    scheme: "HSBC MPF Scheme",
-  },
-  {
-    id: "LSP_SP_3",
-    scheme: "AIA MPF Scheme",
-  },
-  {
-    id: "LSP_SP_4",
-    scheme: "China Life MPF Master Trust Scheme",
-  },
+  // {
+  //   schemeId: "LSP_SP_2",
+  //   schemeName: "HSBC MPF Scheme",
+  // },
+  // {
+  //   schemeId: "LSP_SP_3",
+  //   schemeName: "AIA MPF Scheme",
+  // },
+  // {
+  //   schemeId: "LSP_SP_4",
+  //   schemeName: "China Life MPF Master Trust Scheme",
+  // },
 ];
 
 export const getScheme_per_Employee = () => [
@@ -111,8 +118,8 @@ export const getEntitle_LSP_SP_items = () => [
 ];
 
 export const getLSP_SP_items = () => [
-  { value: "LSP", label: "LSP" },
-  { value: "SP", label: "SP" },
+  { value: "LS_LSP", label: "LSP" },
+  { value: "LS_SP", label: "SP" },
 ];
 
 export function insertEmployee(data) {

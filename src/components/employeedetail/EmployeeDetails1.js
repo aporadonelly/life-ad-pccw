@@ -1,8 +1,9 @@
 import { Avatar, Grid, Paper } from "@material-ui/core";
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
 import { add_employee_details } from "../../actions/employeesActions";
+import AlertDialog from "../../common/confirmMessage";
 import { labels } from "../../common/labelsList";
 import BottomMenuBar from "../../menu/toolbar/bottomMenuBar";
 import Controls from "../controls/Controls";
@@ -26,14 +27,13 @@ import * as yup from "yup";
 import { Formik, useFormikContext } from "formik";
 import { PageInner } from "@components/layout";
 import { DialogBox } from "@components/dialogs";
-import MessageRender from "./Message/MessageRender";
-
 import { Button } from "@material-ui/core";
 import BottomAppBar from "../../components/misc/BottomAppBar/BottomAppBar";
 import FloatingButton from "@components/controls/floatingButton/floatingButton";
+import CheckMark from "@assets/icons/Checkmark.png";
+import XMark from "../../assets/icons/x-mark-1.png";
 
 import { Cancel as CancelIcon } from "@material-ui/icons";
-import { validate } from "@material-ui/pickers";
 // import { loadEmpSchemes } from "@redux/features/employees/termination/actions";
 // import { clientSchemesSelector } from "@redux/features/employees/termination/selectors";
 
@@ -41,39 +41,30 @@ const EmployeeDetails = (props) => {
   const { clientSchemes, reason, valid, validTermination } = props;
   //console.log(clientSchemes);
   let data = replaceNull(clientSchemes);
-  let filterArrayLSP_SP = ""; // will be used dynamically in LSP/SP option change
   console.log(reason);
-  console.log(data);
+  //console.log(data);
+  //const { setFieldValue } = useFormikContext();
 
+  //console.log(clientSchemes);
   const initialValues = {
     state: "",
-    lastDateOfEmployment: moment("").format("YYYY/MM/DD"),
+    lastDateOfEmployment: "",
     terminationReasonId: "",
-    effective_date_of_termination: moment("").format("YYYY/MM/DD"),
+    effective_date_of_termination: "",
     entitleToLspsp: "",
     lspspTypeId: "",
-    lspspEntitlementAmount: "",
-    orsoOffsetAmount: "",
-    effective_date: moment("").format("YYYY/MM/DD"),
-    change_date: moment("").format("YYYY/MM/DD"),
-    schemes: employeeMockData.getScheme_LSP_SP_offect_sequence(), //data.schemes, //
+    // lspspEntitlementAmount: "",
+    // orsoOffsetAmount: "",
+    // effective_date: moment("").format("YYYY/MM/DD"),
+    // change_date: moment("").format("YYYY/MM/DD"),
+    // schemes: employeeMockData.getScheme_LSP_SP_offect_sequence(),
   };
 
   const validationSchema = yup.object().shape({
-    //lastDateOfEmployment: yup.date(),
-    terminationReasonId: yup.string(), //.required("Please pick a reason"),
-    //effective_date_of_termination: yup.date().required(),
+    lastDateOfEmployment: yup.date(),
+    terminationReasonId: yup.string().required("Please pick a reason"),
+    effective_date_of_termination: yup.date(),
     entitleToLspsp: yup.string(),
-    lspspTypeId: yup.string(), //.required("Please choose yes or no"),
-    lspspEntitlementAmount: yup
-      .number()
-      .positive("Money must be greater than zero"),
-    //.required("Money input is required"),
-    orsoOffsetAmount: yup.number().positive("Money must be greater than zero"),
-    //.required("Money input is required"),
-    //effective_date: yup.date(),
-    //change_date: yup.date(),
-    schemes: yup.array(),
     //.required("Please choose yes or no"),
     // selectedValueEntitle_ESP_SP: yup
     //   .string()
@@ -85,12 +76,36 @@ const EmployeeDetails = (props) => {
     //     then: yup.string().required("Please choose yes or no"),
     //     otherwise: yup.string().notRequired(),
     //   }),
+
+    // lspspTypeId: yup.string(), //.required("Please choose yes or no"),
+    // lspspEntitlementAmount: yup
+    //   .number()
+    //   .positive("Money must be greater than zero")
+    //   .required("Money input is required"),
+    // orsoOffsetAmount: yup
+    //   .number()
+    //   .positive("Money must be greater than zero")
+    //   .required("Money input is required"),
+    // //effective_date: yup.date(),
+    // //change_date: yup.date(),
+    // schemes: yup.array(),
   });
 
   const classes = useStyles();
-  const [LSP_SP_Disable, setLSP_SP_Disable] = useState(true);
+  const [formValues, setFormValues] = useState(initialValues);
+  const [LSP_SP_Disable, setLSP_SP_Disable] = useState(false);
   const [open, setOpen] = useState(false);
   const [btnStatus, setBtnStatus] = useState("");
+  let circleId = 0;
+  const [schemeMpf, setSchemeMpf] = useState({
+    schemes: employeeMockData.getScheme_LSP_SP_offect_sequence(),
+  });
+  const myRefname = useRef(null);
+
+  const getFormData = (values) => {
+    console.log("getFormData::", values);
+  };
+  console.log("formValues::", formValues);
 
   const handleClose = (e) => {
     setOpen((open) => !open);
@@ -119,84 +134,29 @@ const EmployeeDetails = (props) => {
       case "false":
         return false;
       default:
-        throw new Error("Cannot convert string to boolean.");
+        throw new Error("Boolean.parse: Cannot convert string to boolean.");
     }
   }
-
-  const ldoeChange = (values) => {
-    const dateLdoe = Date.parse(values.lastDateOfEmployment);
-    if (!dateLdoe) {
-      handleClose();
-      setBtnStatus("ExMsg_incrrtLDOE");
-      return false;
-    }
-
-    const dateJoin = Date.parse(clientSchemes.joinSchemeDate);
-    const dateEffect = Date.parse(clientSchemes.effectiveDate);
-    //const dateEmp_dt = "No idea where this is";
-    if (dateLdoe < dateJoin || dateLdoe < dateEffect) {
-      handleClose();
-      setBtnStatus("ExMsg_incrrtLDOE");
-      return false;
-    }
-    return true;
-  };
 
   const formikHandleSubmit = (values, actions) => {
-    validateForm(values, actions);
     console.log(values);
+    myRefname.current.click();
+    // if (values.state === "save") {
+    //   onSave(values);
+    //   setBtnStatus("ExMsg_SvdSccss");
+    //   return;
+    // }
+    // if (values.state === "submit") {
+    //   onSubmit(values);
+    //   setBtnStatus("ExMsg_SvdSccss");
+    //   actions.resetForm(initialValues);
+    //   return values;
+    // }
   };
 
-  const validateForm = (values, actions) => {
-    const chkLdoe = ldoeChange(values);
-    if (!chkLdoe) return;
-
-    const forValidationValues = {
-      // accountNumber: 970001,
-      // lastDateOfEmployment: "2020-05-01",
-      // entitleToLspsp: true,
-      // lspspTypeId: "LS_SP",
-      // terminationReasonId: "TR_RD",
-      // lspspEntitlementAmount: 390000.0,
-      // orsoOffsetAmount: 0.0,
-      // otherOffsetAmount: 0.0,
-
-      accountNumber: data.accountNumber, //clientSchemes.accountNumber,
-      lastDateOfEmployment: moment(values.lastDateOfEmployment).format(
-        "YYYY-MM-DD"
-      ),
-      entitleToLspsp: parseBoolean(values.entitleToLspsp),
-      lspspTypeId: values.lspspTypeId,
-      terminationReasonId: "TR_RD", //values.terminationReasonId, FIX: error in swagger values cannot be changed
-      lspspEntitlementAmount: values.lspspEntitlementAmount,
-      orsoOffsetAmount: values.orsoOffsetAmount,
-      otherOffsetAmount: 0.0,
-      payableAmount: values.lspspEntitlementAmount - values.orsoOffsetAmount,
-    };
-    console.log(forValidationValues);
-    validTermination(forValidationValues);
+  const onSave = (values) => {
+    handleClose();
   };
-
-  // IMPORTANT: during validtermination the page refreshes so valid payload
-  // NOTE:        was changed to forValidationValues
-  console.log(valid);
-  if (valid !== "") {
-    console.log("validation", valid);
-    //saveTermination(values)
-
-    if (valid.state === "save") {
-      //onSave(values);
-      handleClose();
-      setBtnStatus("ExMsg_SvdSccss");
-      return;
-    }
-    if (valid.state === "submit") {
-      //onSubmit(values);
-      handleClose();
-      setBtnStatus("ExMsg_SvdSccss");
-    }
-    //actions.resetForm(initialValues);
-  }
 
   const onSubmit = (values) => {
     // IMPORTANT: ACTUAL POST JSON
@@ -230,9 +190,24 @@ const EmployeeDetails = (props) => {
     //     "otherOffsetAmount": 0.00
     // }
 
+    const forValidationValues = {
+      accountNumber: clientSchemes.accountNumber,
+      lastDateOfEmployment: moment(values.lastDateOfEmployment).format(
+        "YYYY-MM-DD"
+      ),
+      entitleToLspsp: parseBoolean(values.entitleToLspsp),
+      lspspTypeId: "LS_SP", //values.lspspTypeId,
+      terminationReasonId: values.terminationReasonId,
+      lspspEntitlementAmount: values.lspspEntitlementAmount,
+      orsoOffsetAmount: values.orsoOffsetAmount,
+      otherOffsetAmount: 0.0,
+      payableAmount: values.lspspEntitlementAmount - values.orsoOffsetAmount,
+    };
+    //console.log(forValidationValues);
+    validTermination(forValidationValues);
     //console.log(chk);
     // if (valid === "success") {
-    //   alert("check");
+    //   alert("tae");
     // }
 
     //const newValues = { ...values, ...addedValues };
@@ -246,6 +221,10 @@ const EmployeeDetails = (props) => {
 
     handleClose();
   };
+  console.log(valid);
+  if (valid === "success") {
+    alert("test");
+  }
 
   const onCancel = (resetForm) => {
     handleClose();
@@ -256,10 +235,14 @@ const EmployeeDetails = (props) => {
     resetForm();
   };
 
+  const ldoeChange = () => {
+    alert("1");
+  };
+
   return (
     <React.Fragment>
       <PageInner>
-        {/* <DialogBox open={open} onClose={handleClose} msgCode={btnStatus} /> */}
+        <DialogBox open={open} onClose={handleClose} msgCode={btnStatus} />
 
         <Paper className={classes.paperContainer} elevation={3}>
           <div className={classes.paperContentContainer}>
@@ -270,7 +253,7 @@ const EmployeeDetails = (props) => {
               <div>
                 <div className={classes.labels}>{labels.schemeName}</div>
                 <div className={classes.textValueWithColor}>
-                  {data.schemes && data.schemes[0].schemeName}
+                  {/* {!(data.schemes === "") && data.schemes[0].schemeName} */}
                 </div>
               </div>
               <div>
@@ -354,61 +337,38 @@ const EmployeeDetails = (props) => {
           </div>
         </Paper>
         {/* </Form> */}
-
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={(values, actions) => formikHandleSubmit(values, actions)}
-          //onReset={(values, actions) => formikHandleReset(values, actions)}
+          //onReset={formikHandleReset}
         >
-          {({ setFieldValue }) => {
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+            setFieldValue,
+            resetForm,
+          }) => {
+            // setFormValues(values);
+            // getFormData(values);
+
             const disableLSP_SP = (event) => {
               if (event.target.value === "false") {
                 setLSP_SP_Disable(true);
                 setFieldValue("lspspTypeId", "");
-                //setFieldValue("lastDateOfEmployment", "");
+                setFieldValue("lastDateOfEmployment", "");
               } else if (event.target.value === "true") {
                 setLSP_SP_Disable(false);
-                if (filterArrayLSP_SP !== "") {
-                  setFieldValue("terminationReasonId", reason);
-                }
-                filterArrayLSP_SP = "";
-              }
-            };
-
-            const onClickLSP_SPReason = (event) => {
-              setFieldValue("terminationReasonId", "");
-              let notIncluded,
-                newArray = { records: reason };
-              if (event.target.value === "LS_LSP") {
-                notIncluded = [
-                  "TR_RT",
-                  "TR_DA",
-                  "TR_IH",
-                  "TR_TI",
-                  "TR_LO",
-                  "LR_CE",
-                ];
-                filterArrayLSP_SP = newArray.records.filter(function (obj) {
-                  return !(notIncluded.indexOf(obj.cstmTypId) > -1);
-                });
-                //setFieldValue("terminationReasonId", filterArrayLSP_SP);
-              } else if (event.target.value === "LS_SP") {
-                notIncluded = ["TR_RD", "TR_LO", "TR_CE"];
-                filterArrayLSP_SP = newArray.records.filter(function (obj) {
-                  return !(notIncluded.indexOf(obj.cstmTypId) > -1);
-                });
-                //setFieldValue("terminationReasonId", filterArrayLSP_SP);
               }
             };
 
             return (
               <Form>
-                <MessageRender
-                  open={open}
-                  onClose={handleClose}
-                  msgCode={btnStatus}
-                />
                 <Paper
                   className={classes.terminationOuterContainer}
                   elevation={3}
@@ -438,10 +398,7 @@ const EmployeeDetails = (props) => {
                         <FormikForm.Select
                           name="terminationReasonId"
                           data={{
-                            options:
-                              filterArrayLSP_SP !== ""
-                                ? filterArrayLSP_SP
-                                : reason,
+                            options: reason,
                             label: (option) => option.cstmTypDtlTxt,
                             value: (option) => option.cstmTypId,
                           }}
@@ -459,6 +416,7 @@ const EmployeeDetails = (props) => {
                           name="effective_date_of_termination"
                           //onChange={handleInputChange}
                           //value={formValues.effective_date_of_termination}
+                          defaultValue={""}
                           helperText="YYYYMMDD"
                         />
                       </Grid>
@@ -467,136 +425,41 @@ const EmployeeDetails = (props) => {
                     <FormikForm.RadioGroup
                       row
                       name="entitleToLspsp"
+                      //onChange={handleInputChange}
                       onClick={disableLSP_SP}
                       //value={formValues.entitleToLspsp}
                       data={employeeMockData.getEntitle_LSP_SP_items()}
                       helperText="Please select Yes or No"
                     />
 
-                    <div className={classes.mgTop}>
-                      <div className={classes.terminationTitle}>
-                        {labels.lsp_details}
-                      </div>
-                      <div className={classes.lspRow}>
-                        <Grid
-                          item
-                          sm={3}
-                          xs={12}
-                          className={`${classes.mgTop} ${classes.mgRight}`}
-                        >
-                          <div className={classes.labels}>
-                            {labels.entitle_lsp}
-                          </div>
-                          <FormikForm.RadioGroup
-                            row
-                            name="lspspTypeId"
-                            //value={formValues.lspspTypeId}
-                            onClick={onClickLSP_SPReason}
-                            data={employeeMockData.getLSP_SP_items()}
-                            helperText="Please select Yes or No"
-                            disabled={LSP_SP_Disable ? "disabled" : ""}
-                          />
-                        </Grid>
-                        <Grid
-                          item
-                          sm={3}
-                          xs={12}
-                          className={`${classes.mgTop} ${classes.mgRight}`}
-                        >
-                          <span className={classes.labels}>
-                            {labels.total_entitle_amount}
-                          </span>
-                          <FormikForm.Input
-                            name="lspspEntitlementAmount"
-                            //onChange={handleInputChange}
-                            fullWidth
-                            type="number"
-                            //value={formValues.lspspEntitlementAmount}
-                            placeholder="Input Amount in HKD"
-                            //disabled={LSP_SP_Disable ? "disabled" : ""}
-                          />
-                        </Grid>
-                        <Grid
-                          item
-                          sm={3}
-                          xs={12}
-                          className={`${classes.mgTop} ${classes.mgRight}`}
-                        >
-                          <span className={classes.labels}>
-                            {labels.pay_amount_er}
-                          </span>
-                          <FormikForm.Input
-                            name="orsoOffsetAmount"
-                            //onChange={handleInputChange}
-                            fullWidth
-                            type="number"
-                            //value={formValues.orsoOffsetAmount}
-                            placeholder="Input Amount in HKD"
-                            //disabled={LSP_SP_Disable ? "disabled" : ""}
-                          />
-                        </Grid>
-                      </div>
-                    </div>
-
-                    <div className={`${classes.mgTop}`}>
-                      <div>
-                        {/* <EmpScheme
-                    //handleInputChange={handleInputChange}
-                    //values={formValues.scheme_LSP_SP}
-                    /> */}
-
-                        {/* <EmpScheme2 /> */}
-                        {/* <EmpScheme3 /> */}
-                        {data.schemes && (
-                          <EmpScheme4
-                            name="schemes"
-                            schemes={initialValues.schemes}
-                          />
-                        )}
-                      </div>
-
-                      <div className={classes.effDateTop}>
-                        <Grid
-                          item
-                          sm={3}
-                          xs={12}
-                          className={classes.effDateInside}
-                        >
-                          <span className={classes.labels}>
-                            {labels.effectiveDate}
-                          </span>
-                          <FormikForm.DatePicker
-                            name="effective_date"
-                            //onChange={handleInputChange}
-                            //value={formValues.effective_date}
-                            helperText="YYYYMMDD"
-                          />
-                        </Grid>
-                        <Grid item sm={3} xs={12} className={classes.mgTop}>
-                          <span className={classes.labels}>Change Date</span>
-                          <FormikForm.DatePicker
-                            name="change_date"
-                            //onChange={handleInputChange}
-
-                            //value={formValues.change_date}
-                            helperText="YYYYMMDD"
-                          />
-                        </Grid>
-                      </div>
-                    </div>
+                    <Grid
+                      item
+                      sm={3}
+                      xs={12}
+                      className={`${classes.mgTop} ${classes.mgRight}`}
+                    >
+                      <div className={classes.labels}>{labels.entitle_lsp}</div>
+                      <FormikForm.RadioGroup
+                        row
+                        name="lspspTypeId"
+                        //value={formValues.lspspTypeId}
+                        //onChange={onChangeRadio}
+                        data={employeeMockData.getLSP_SP_items()}
+                        helperText="Please select Yes or No"
+                        disabled={LSP_SP_Disable ? "disabled" : ""}
+                      />
+                    </Grid>
                   </div>
                 </Paper>
 
                 <BottomAppBar>
-                  <FormikForm.Reset className={classes.btnReverse}>
+                  {/* <FormikForm.Reset text="reset" />
+              <FloatingButton text="cancel" onClick={onCancel} />
+              <FormikForm.FloatingButton text="save" />
+              <FormikForm.FloatingButton text="submit" /> */}
+                  <FormikForm.Reset ref={myRefname} className={classes.reverse}>
                     RESET
                   </FormikForm.Reset>
-                  <FloatingButton text="cancel" onClick={onCancel} />
-                  {/* <FormikForm.FloatingButton text="save" /> */}
-                  <FormikForm.Submit className={classes.btnReverse}>
-                    SAVE
-                  </FormikForm.Submit>
-                  {/* <FormikForm.FloatingButton text="submit" /> */}
                   <FormikForm.Submit>SUBMIT</FormikForm.Submit>
                 </BottomAppBar>
               </Form>

@@ -6,7 +6,10 @@ import {
   saveSelector,
   validateSelector,
   reasonSelector,
+  isLoadingSelector,
+  errorSelector,
 } from "@redux/features/employees/termination/selectors";
+
 import {
   loadEmpSchemes,
   loadEmpTerm,
@@ -22,6 +25,8 @@ const mapStateToProps = (state) => ({
   save: saveSelector(state),
   valid: validateSelector(state),
   reason: reasonSelector(state),
+  isLoading: isLoadingSelector(state),
+  error: errorSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

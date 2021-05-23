@@ -7,7 +7,8 @@ export const initialState = adapter.getInitialState({
   clientSchemes: [],
   empTerm: {},
   saved: "",
-  validation: "",
+  //validation: "",
+  validation: {},
   isLoading: false,
   error: null,
 });
