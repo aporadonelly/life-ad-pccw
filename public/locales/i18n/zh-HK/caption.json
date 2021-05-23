@@ -1,0 +1,28 @@
+{
+  "label": {
+    "companyNameEnglish": "公司名稱（英文）",
+    "companyNameChinese": "公司名稱（中文",
+    "typeOfCompany": "公司類型",
+    "dateOfIncorporation": "註冊成立日期",
+    "placeOfIncorporation": "成立地點",
+    "registrationType": "登記類型",
+    "registrationNumber": "註冊號碼",
+    "branchNumber": "分行號碼",
+    "natureOfBusiness": "業務性質",
+    "preferredLanguage": "首選交流語言",
+    "registeredOfficeAddress": "註冊辦事處地址",
+    "businessAddress": "營業地址",
+    "correspondenceAddress": "通訊地址",
+    "lastName": "姓",
+    "firstName": "名",
+    "nameTitle": "標題",
+    "jobTitle": "職稱",
+    "telNo": "電話號碼。",
+    "mobileNo": "手機號碼",
+    "emailAddress": "電子郵件地址",
+    "prefferedLanguageContact": "首選交流語言",
+    "fileName": "文件名",
+    "viewAction": "看法"
+  },
+  "paragraph": {}
+}

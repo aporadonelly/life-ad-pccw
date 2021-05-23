@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CompanyProfile = ({ getCompanyRegInfoAction, companyRegInfo }) => {
   const classes = useStyles();
-  const { t } = useTranslation(["typography", "form", "button"]);
+  const { t } = useTranslation(["typography", "form", "button", "caption"]);
 
   const {
     companyNameEng,
@@ -119,16 +119,16 @@ const CompanyProfile = ({ getCompanyRegInfoAction, companyRegInfo }) => {
                 <Grid item xs={12}>
                   <Definition spacing={2} xs={3}>
                     <Definition.List>
-                      <Definition.Item dt={labels.companyNameEng} dd={companyNameEng} />
-                      <Definition.Item dt={labels.companyNameChi} dd={companyNameChi} />
-                      <Definition.Item dt={labels.typeOfCompany} dd={typeOfCompany} />
-                      <Definition.Item dt={labels.dateOfIncorporation} dd={dateOfIncorporation} />
-                      <Definition.Item dt={labels.placeOfIncorporation} dd={placeOfIncorporation} />
-                      <Definition.Item dt={labels.registrationType} dd={registrationType} />
-                      <Definition.Item dt={labels.registrationNumber} dd={registrationNumber} />
-                      <Definition.Item dt={labels.branchName} dd={branchName} />
-                      <Definition.Item dt={labels.natureOfBusiness} dd={natureOfBusiness} />
-                      <Definition.Item dt={labels.preferredLanguage} dd={preferredLanguage} />
+                      <Definition.Item dt={t("caption:label.companyNameEnglish")} dd={companyNameEng} />
+                      <Definition.Item dt={t("caption:label.companyNameChinese")} dd={companyNameChi} />
+                      <Definition.Item dt={t("caption:label.typeOfCompany")} dd={typeOfCompany} />
+                      <Definition.Item dt={t("caption:label.dateOfIncorporation")} dd={dateOfIncorporation} />
+                      <Definition.Item dt={t("caption:label.placeOfIncorporation")} dd={placeOfIncorporation} />
+                      <Definition.Item dt={t("caption:label.registrationType")} dd={registrationType} />
+                      <Definition.Item dt={t("caption:label.registrationNumber")} dd={registrationNumber} />
+                      <Definition.Item dt={t("caption:label.branchNumber")} dd={branchName} />
+                      <Definition.Item dt={t("caption:label.natureOfBusiness")} dd={natureOfBusiness} />
+                      <Definition.Item dt={t("caption:label.preferredLanguage")} dd={preferredLanguage} />
                     </Definition.List>
                   </Definition>
                 </Grid>
@@ -158,9 +158,9 @@ const CompanyProfile = ({ getCompanyRegInfoAction, companyRegInfo }) => {
                 <Grid item xs={12}>
                   <Definition spacing={2} xs={6}>
                     <Definition.List>
-                      <Definition.Item dt={labels.registeredOfficeAddress} dd={registeredOfficeAddress} />
-                      <Definition.Item dt={labels.businessAddress} dd={businessAddress} />
-                      <Definition.Item dt={labels.correspondenceAddress} dd={correspondenceAddress} />
+                      <Definition.Item dt={t("caption:label.registeredOfficeAddress")} dd={registeredOfficeAddress} />
+                      <Definition.Item dt={t("caption:label.businessAddress")} dd={businessAddress} />
+                      <Definition.Item dt={t("caption:label.correspondenceAddress")} dd={correspondenceAddress} />
                     </Definition.List>
                   </Definition>
                 </Grid>
@@ -177,7 +177,7 @@ const CompanyProfile = ({ getCompanyRegInfoAction, companyRegInfo }) => {
                   <Grid container alignItems="center">
                     <Grid item xs={6}>
                       <Typography className={classes.titleLabel}>
-                        {labels.authorizedPerson}
+                        {t("typography:heading.authorizedPersonOfEmployer")}
                       </Typography>
                     </Grid>
                     {/* <Grid item xs={6} align="right">
@@ -203,7 +203,7 @@ const CompanyProfile = ({ getCompanyRegInfoAction, companyRegInfo }) => {
                   <Grid container alignItems="center">
                     <Grid item xs={6}>
                       <Typography className={classes.titleLabel}>
-                        {labels.primaryContactPerson}
+                        {t("typography:heading.primaryContactPerson")}
                       </Typography>
                     </Grid>
                     {/* <Grid item xs={6} align="right">
@@ -216,14 +216,14 @@ const CompanyProfile = ({ getCompanyRegInfoAction, companyRegInfo }) => {
                 <Grid item xs={12}>
                   <Definition spacing={2} xs={3}>
                     <Definition.List>
-                      <Definition.Item dt={labels.last_name} dd={lastName} />
-                      <Definition.Item dt={labels.first_name} dd={firstName} />
-                      <Definition.Item dt={labels.nameTitle} dd={nameTitle} />
-                      <Definition.Item dt={labels.jobTitle} dd={jobTitle} />
-                      <Definition.Item dt={labels.telephoneNumber} dd={telNo} />
-                      <Definition.Item dt={labels.mobilePhoneNumber} dd={mobileNo} />
-                      <Definition.Item dt={labels.emailAddress} dd={emailAddress} />
-                      <Definition.Item dt={labels.preferredLanguage} dd={preferredLanguagePriContact} />
+                      <Definition.Item dt={t("caption:label.lastName")} dd={lastName} />
+                      <Definition.Item dt={t("caption:label.firstName")} dd={firstName} />
+                      <Definition.Item dt={t("caption:label.nameTitle")} dd={nameTitle} />
+                      <Definition.Item dt={t("caption:label.jobTitle")} dd={jobTitle} />
+                      <Definition.Item dt={t("caption:label.telNo")} dd={telNo} />
+                      <Definition.Item dt={t("caption:label.mobileNo")} dd={mobileNo} />
+                      <Definition.Item dt={t("caption:label.emailAddress")} dd={emailAddress} />
+                      <Definition.Item dt={t("caption:label.prefferedLanguageContact")} dd={preferredLanguagePriContact} />
                     </Definition.List>
                   </Definition>
                 </Grid>
@@ -240,7 +240,7 @@ const CompanyProfile = ({ getCompanyRegInfoAction, companyRegInfo }) => {
                   <Grid container alignItems="center">
                     <Grid item xs={6}>
                       <Typography className={classes.titleLabel}>
-                        {labels.secondaryContactPerson}
+                        {t("typography:heading.secondaryContactPerson")}
                       </Typography>
                     </Grid>
                     {/* <Grid item xs={6} align="right">
@@ -253,14 +253,14 @@ const CompanyProfile = ({ getCompanyRegInfoAction, companyRegInfo }) => {
                 <Grid item xs={12}>
                   <Definition spacing={2} xs={3}>
                     <Definition.List>
-                      <Definition.Item dt={labels.last_name} dd={lastName2} />
-                      <Definition.Item dt={labels.first_name} dd={firstName2} />
-                      <Definition.Item dt={labels.nameTitle} dd={nameTitle2} />
-                      <Definition.Item dt={labels.jobTitle} dd={jobTitle2} />
-                      <Definition.Item dt={labels.telephoneNumber} dd={telNo2} />
-                      <Definition.Item dt={labels.mobilePhoneNumber} dd={mobileNo2} />
-                      <Definition.Item dt={labels.emailAddress} dd={emailAddress2} />
-                      <Definition.Item dt={labels.preferredLanguage} dd={preferredLanguageContact2} />
+                      <Definition.Item dt={t("caption:label.lastName")} dd={lastName2} />
+                      <Definition.Item dt={t("caption:label.firstName")} dd={firstName2} />
+                      <Definition.Item dt={t("caption:label.nameTitle")} dd={nameTitle2} />
+                      <Definition.Item dt={t("caption:label.jobTitle")} dd={jobTitle2} />
+                      <Definition.Item dt={t("caption:label.telNo")} dd={telNo2} />
+                      <Definition.Item dt={t("caption:label.mobileNo")} dd={mobileNo2} />
+                      <Definition.Item dt={t("caption:label.emailAddress")} dd={emailAddress2} />
+                      <Definition.Item dt={t("caption:label.prefferedLanguageContact")} dd={preferredLanguageContact2} />
                     </Definition.List>
                   </Definition>
                 </Grid>
@@ -275,13 +275,13 @@ const CompanyProfile = ({ getCompanyRegInfoAction, companyRegInfo }) => {
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <Typography className={classes.titleLabel}>
-                    {labels.supportingDocs}
+                    {t("typography:heading.supportingDocs")}
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                  <Grid container justify="space-between" style={{ backgroundColor: '' }}>
-                    <Grid className={classes.supportingDocsLabel}>{labels.fileName}</Grid>
-                    <Grid className={classes.supportingDocsLabel}>{labels.view}</Grid>
+                  <Grid container justify="space-between" >
+                    <Grid className={classes.supportingDocsLabel}>{t("caption:label.fileName")}</Grid>
+                    <Grid className={classes.supportingDocsLabel}>{t("caption:label.viewAction")}</Grid>
                   </Grid>
                   <Grid item xs={12}>
                     <Divider />

@@ -8,7 +8,11 @@
     "employmentInformation": "就業信息",
     "otherInformation": "其他資訊",
     "companyRegInfo": "公司註冊信息",
-    "address": "地址"
+    "address": "地址",
+    "authorizedPersonOfEmployer": "雇主的授權人",
+    "primaryContactPerson": "主要聯繫人",
+    "secondaryContactPerson": "次要聯繫人",
+    "supportingDocs": "商業登記證明/合夥契約/非法人證明"
   },
   "paragraph": {}
 }

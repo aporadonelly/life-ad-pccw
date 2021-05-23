@@ -8,7 +8,11 @@
     "employmentInformation": "Employment Information",
     "otherInformation": "Other Information",
     "companyRegInfo": "Company Registration Information",
-    "address": "Address"
+    "address": "Address",
+    "authorizedPersonOfEmployer": "Authorized Person(s) of Employer",
+    "primaryContactPerson": "Primary Contact Person",
+    "secondaryContactPerson": "Secondary Contact Person",
+    "supportingDocs": "Supporting for Business Registration / Partnership Deed / Evidence of Unincorporated"
   },
   "paragraph": {},
   "labelCaption": ""

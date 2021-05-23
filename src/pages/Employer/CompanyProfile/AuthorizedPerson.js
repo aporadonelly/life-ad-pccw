@@ -7,7 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import EnhancedTableHead from './TableHeader';
-import { Icon } from '@material-ui/core';
+import { Icon, Tooltip } from '@material-ui/core';
 import { BusinessCenter } from '../../../assets/icons';
 import _ from 'lodash';
 
@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '0px 0px 0px 0px',
   },
   alignAction: {
-    display: 'flex',
+    // display: 'flex',
     // marginRight: '5.5rem'
   },
 
@@ -117,13 +117,12 @@ export default function AuthorizedPerson({ authPerson }) {
                     <TableCell>{row.firstNameEng}</TableCell>
                     <TableCell>{row.lastNameChi}</TableCell>
                     <TableCell>{row.firstNameChi}</TableCell>
-                    <TableCell
-                    >
-                      <div style={{ marginLeft: '12px' }}>
+                    <TableCell align="right">
+                      <Tooltip title="View" placement="top" arrow>
                         <Icon>
-                          <img src={BusinessCenter} width="70%" />
+                          <img src={BusinessCenter} width="32px" />
                         </Icon>
-                      </div>
+                      </Tooltip>
                     </TableCell>
                   </TableRow>
                 );

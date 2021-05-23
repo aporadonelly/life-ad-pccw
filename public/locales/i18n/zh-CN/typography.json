@@ -7,7 +7,12 @@
     "personalInformation": "个人信息",
     "employmentInformation": "就业信息",
     "otherInformation": "其他资讯",
-    "companyRegInfo": "公司注册信息"
+    "companyRegInfo": "公司注册信息",
+    "address": "地址",
+    "authorizedPersonOfEmployer": "雇主的授权人",
+    "primaryContactPerson": "主要联系人",
+    "secondaryContactPerson": "次要联系人",
+    "supportingDocs": "商业登记证明/合伙契约/非法人证明"
   },
   "paragraph": {}
 }

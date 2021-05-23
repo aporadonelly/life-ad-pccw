@@ -9,7 +9,12 @@
     "status": "Status",
     "custom": {
       "action": "Action"
-    }
+    },
+    "lastNameEng": "Last Name in English",
+    "lastNameChi": "Last Name in Chinese",
+    "firstNameEng": "First Name in English",
+    "firstNameChi": "First Name in Chinese",
+    "viewAction": "View"
   },
   "tbody": {
     "custom": {

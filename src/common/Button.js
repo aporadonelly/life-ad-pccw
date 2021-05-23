@@ -37,7 +37,7 @@ export default function Button(props) {
       size={size || 'large'}
       onClick={onClick}
       {...other}
-      className={text === 'edit' ? classes.btn : null}
+      className={text === 'edit' ? classes.btn : classes.btn}
       classes={{
         root: classes.root,
         label: classes.label,

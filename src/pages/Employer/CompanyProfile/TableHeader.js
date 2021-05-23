@@ -6,9 +6,12 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import { labels } from '../../../common/labels';
+import { useTranslation } from 'react-i18next';
 
 const EnhancedTableHead = (props) => {
   const { classes, orderDirection, orderBy, onRequestSort } = props;
+  const { t } = useTranslation(["table"]);
+
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -27,7 +30,7 @@ const EnhancedTableHead = (props) => {
             active={orderBy === "lastNameEng"}
             direction={orderBy === "lastNameEng" ? orderDirection : 'desc'}
             onClick={createSortHandler('lastNameEng')}
-          >{labels.lastNameEng}</TableSortLabel>
+          >{t("table:thead.lastNameEng")}</TableSortLabel>
         </TableCell>
         <TableCell key="firstNameEng">
           <TableSortLabel
@@ -37,7 +40,7 @@ const EnhancedTableHead = (props) => {
             active={orderBy === "firstNameEng"}
             direction={orderBy === "firstNameEng" ? orderDirection : 'desc'}
             onClick={createSortHandler('firstNameEng')}
-          >{labels.firstNameEng}</TableSortLabel>
+          >{t("table:thead.firstNameEng")}</TableSortLabel>
         </TableCell>
         <TableCell
           key="lastNameChi"
@@ -50,7 +53,7 @@ const EnhancedTableHead = (props) => {
             active={orderBy === "lastNameChi"}
             direction={orderBy === "lastNameChi" ? orderDirection : 'desc'}
             onClick={createSortHandler('lastNameChi')}
-          >{labels.lastNameChi}</TableSortLabel>
+          >{t("table:thead.lastNameChi")}</TableSortLabel>
         </TableCell>
         <TableCell
           key="firstNameChi"
@@ -63,9 +66,9 @@ const EnhancedTableHead = (props) => {
             active={orderBy === "firstNameChi"}
             direction={orderBy === "firstNameChi" ? orderDirection : 'desc'}
             onClick={createSortHandler('firstNameChi')}
-          >{labels.firstNameChi}</TableSortLabel>
+          >{t("table:thead.firstNameChi")}</TableSortLabel>
         </TableCell>
-        <TableCell classes={{ root: classes.alignAction }} key="view" align="right">{labels.view}</TableCell>
+        <TableCell classes={{ root: classes.alignAction }} key="view" align="right" >{t("table:thead.viewAction")}</TableCell>
       </TableRow>
     </TableHead>
   );

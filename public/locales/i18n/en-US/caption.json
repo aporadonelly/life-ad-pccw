@@ -1,0 +1,28 @@
+{
+  "label": {
+    "companyNameEnglish": "Company Name (English)",
+    "companyNameChinese": "Company Name (Chinese)",
+    "typeOfCompany": "Type of Company",
+    "dateOfIncorporation": "Date of Incorporation",
+    "placeOfIncorporation": "Place of Incorporation",
+    "registrationType": "Registration Type",
+    "registrationNumber": "Registration Number",
+    "branchNumber": "Branch Number",
+    "natureOfBusiness": "Nature of Business",
+    "preferredLanguage": "Preferred Communication Language",
+    "registeredOfficeAddress": "Registered Office Address",
+    "businessAddress": "Business Address",
+    "correspondenceAddress": "Correspondence Address",
+    "lastName": "Last Name",
+    "firstName": "First Name",
+    "nameTitle": "Title",
+    "jobTitle": "Job Title",
+    "telNo": "Telephone No.",
+    "mobileNo": "Mobile Phone No.",
+    "emailAddress": "Email Address",
+    "prefferedLanguageContact": "Preferred Communication Language",
+    "fileName": "File Name",
+    "viewAction": "View"
+  },
+  "paragraph": {}
+}
