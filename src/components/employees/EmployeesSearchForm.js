@@ -63,7 +63,6 @@ const EmployeeForm = ({
     placeOfBirth,
   },
 }) => {
-
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = EmployeeStyles();
@@ -97,7 +96,6 @@ const EmployeeForm = ({
     tin,
     status,
   } = values;
-
 
   useEffect(() => {
     dispatch(fetchSchemeType());
@@ -310,8 +308,6 @@ const EmployeeForm = ({
                           }}
                           helperText="YYYYMMDD"
                         ></Controls.DatePicker>
-
-                       
                       </Grid>
                     </MuiPickersUtilsProvider>
                   </div>

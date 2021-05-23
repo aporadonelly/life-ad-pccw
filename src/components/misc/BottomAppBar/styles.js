@@ -5,11 +5,11 @@ const useStyles = makeStyles((theme) => ({
     top: "auto",
     bottom: 0,
     color: theme.palette.common.white,
-    backgroundColor: darken(theme.palette.common.white, 0.5),
+    backgroundColor: darken(theme.palette.common.white, 0.35),
   },
   toolbar: {
     justifyContent: "flex-end",
-    minHeight: 60,
+    minHeight: 76,
   },
 }));
 

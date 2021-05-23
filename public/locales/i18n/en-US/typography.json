@@ -12,7 +12,8 @@
     "authorizedPersonOfEmployer": "Authorized Person(s) of Employer",
     "primaryContactPerson": "Primary Contact Person",
     "secondaryContactPerson": "Secondary Contact Person",
-    "supportingDocs": "Supporting for Business Registration / Partnership Deed / Evidence of Unincorporated"
+    "supportingDocs": "Supporting for Business Registration / Partnership Deed / Evidence of Unincorporated",
+    "authorizedPerson": "Authorized Person"
   },
   "paragraph": {},
   "labelCaption": ""

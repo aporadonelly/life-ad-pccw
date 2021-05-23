@@ -30,11 +30,7 @@ const DefinitionItem = (props) => {
       <Typography component="dt" variant="body2" color="textSecondary">
         {dt}
       </Typography>
-      <Typography
-        className={classes.fontWeightBold}
-        component="dd"
-        variant="body1"
-      >
+      <Typography className={classes.fontWeight} component="dd" variant="body1">
         {dd}
       </Typography>
     </Grid>
