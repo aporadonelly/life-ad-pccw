@@ -33,7 +33,6 @@ const ViewProfile = (props) => {
     viewAuthPerson();
   }, []);
 
-  person.map((k) => console.log(k.id_number, "kauthPerson"));
   return (
     <PageInner>
       <Grid container spacing={3}>
