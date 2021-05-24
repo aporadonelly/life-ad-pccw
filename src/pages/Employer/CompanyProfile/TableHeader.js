@@ -68,7 +68,7 @@ const EnhancedTableHead = (props) => {
             onClick={createSortHandler('firstNameChi')}
           >{t("table:thead.firstNameChi")}</TableSortLabel>
         </TableCell>
-        <TableCell classes={{ root: classes.alignAction }} key="view" align="right" >{t("table:thead.viewAction")}</TableCell>
+        <TableCell key="view" align="right" >{t("table:thead.viewAction")}</TableCell>
       </TableRow>
     </TableHead>
   );

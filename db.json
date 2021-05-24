@@ -65,7 +65,7 @@
         "jobTitle": "Accountant",
         "telNo": "+852 4634 4773",
         "mobileNo": "+852 7253 7364",
-        "emailAdrress": "Chan.Carmen@email.com",
+        "emailAddress": "Chan.Carmen@email.com",
         "preferredLanguagePriContact": "English"
       }
     },
@@ -78,7 +78,7 @@
         "jobTitle2": "Admin",
         "telNo2": "+852 7310 4103",
         "mobileNo2": "+852 7310 7304",
-        "emailAdrress2": "leung.laura@email.com",
+        "emailAddress2": "leung.laura@email.com",
         "preferredLanguageContact2": "English"
       }
     },
@@ -91,11 +91,11 @@
         },
         {
           "id": 2,
-          "fileName": "Filename upload 00002.pdf"
+          "fileName": "Filename upload 00002.png"
         },
         {
           "id": 3,
-          "fileName": "Filename upload 00003pdf"
+          "fileName": "Filename upload 00003.jpg"
         }
       ]
     }

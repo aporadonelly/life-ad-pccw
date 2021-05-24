@@ -8,7 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import EnhancedTableHead from './TableHeader';
 import { Icon, Tooltip } from '@material-ui/core';
-import { BusinessCenter } from '../../../assets/icons';
+import { ViewButton } from '../../../assets/icons';
 import _ from 'lodash';
 
 function descendingComparator(a, b, orderBy) {
@@ -70,10 +70,6 @@ const useStyles = makeStyles((theme) => ({
   tableHeadAlign: {
     padding: '0px 0px 0px 0px',
   },
-  alignAction: {
-    // display: 'flex',
-    // marginRight: '5.5rem'
-  },
 
 }));
 
@@ -119,8 +115,8 @@ export default function AuthorizedPerson({ authPerson }) {
                     <TableCell>{row.firstNameChi}</TableCell>
                     <TableCell align="right">
                       <Tooltip title="View" placement="top" arrow>
-                        <Icon>
-                          <img src={BusinessCenter} width="32px" />
+                        <Icon style={{ cursor: "pointer" }}>
+                          <img src={ViewButton} width="32px" />
                         </Icon>
                       </Tooltip>
                     </TableCell>

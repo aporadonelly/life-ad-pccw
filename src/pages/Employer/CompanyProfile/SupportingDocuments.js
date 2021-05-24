@@ -1,5 +1,6 @@
 import { Grid, Divider, Icon, Tooltip } from "@material-ui/core";
-import { BusinessCenter } from "../../../assets/icons";
+import PropTypes from 'prop-types';
+import { ViewButton } from "../../../assets/icons";
 
 const CompanySupportingDocs = ({ item, classes }) => {
   return (
@@ -8,8 +9,8 @@ const CompanySupportingDocs = ({ item, classes }) => {
         <Grid item key={item.id} className={classes.supportingDocsValue}>{item.fileName}</Grid>
         <Grid item>
           <Tooltip title="View" placement="top" arrow>
-            <Icon>
-              <img src={BusinessCenter} width="32px" />
+            <Icon style={{ cursor: "pointer" }}>
+              <img src={ViewButton} width="32px" />
             </Icon>
           </Tooltip>
         </Grid>
@@ -17,6 +18,11 @@ const CompanySupportingDocs = ({ item, classes }) => {
       <Divider />
     </>
   );
+};
+
+CompanySupportingDocs.propTypes = {
+  item: PropTypes.object,
+  classes: PropTypes.object
 };
 
 export default CompanySupportingDocs;
