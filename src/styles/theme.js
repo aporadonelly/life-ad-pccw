@@ -48,7 +48,7 @@ theme.overrides = {
   MuiFormLabel: {
     root: {
       color: theme.palette.grey[700],
-      fontSize: "0.875rem",
+      fontSize: 13,
     },
   },
   MuiInputLabel: {
@@ -60,6 +60,7 @@ theme.overrides = {
     input: {
       "&::placeholder": {
         fontStyle: "italic",
+        fontSize: 16,
       },
     },
   },
