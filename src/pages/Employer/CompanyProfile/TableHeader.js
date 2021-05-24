@@ -44,7 +44,6 @@ const EnhancedTableHead = (props) => {
         </TableCell>
         <TableCell
           key="lastNameChi"
-        //  sortDirection={orderBy === 'lastNameChi' ? orderDirection : false} 
         >
           <TableSortLabel
             classes={{
@@ -57,7 +56,6 @@ const EnhancedTableHead = (props) => {
         </TableCell>
         <TableCell
           key="firstNameChi"
-        //  sortDirection={orderBy === 'firstNameChi' ? orderDirection : false}  
         >
           <TableSortLabel
             classes={{

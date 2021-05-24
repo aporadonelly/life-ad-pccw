@@ -1,63 +1,19 @@
 import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
-import { Grid, Card, CardContent, Typography, makeStyles, Divider, CircularProgress, Box } from "@material-ui/core";
+import { Grid, Card, CardContent, Typography, Divider, CircularProgress, Box } from "@material-ui/core";
 import { PageInner } from "@components/layout";
 import Button from "../../../common/Button";
 import { useTranslation } from "react-i18next";
 import { Definition } from "@components/misc";
 import CompanySupportingDocs from "./SupportingDocuments";
-import AuthorizedPerson from "./AuthorizedPerson";
+import AuthorizedPerson from "./AuthorizedPerson/AuthorizedPerson";
 import { labels } from "../../../common/labels";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { get } from "lodash";
 import { getCompanyRegInfoAction } from "@redux/features/company/action";
 import { companyRegInfoSelector, errorSelector, isLoadingSelector } from "../../../redux/features/company/selector";
-
-const useStyles = makeStyles((theme) => ({
-  titleLabel: {
-    textAlign: "left",
-    font: "normal normal bold 26px/28px Roboto",
-    letterSpacing: "0px",
-    color: "#009CCD",
-    opacity: 1,
-  },
-  compRegInfor: {
-    marginTop: "13px"
-  },
-  captionAndValueContainer: {
-    marginBottom: 20
-  },
-  subtitleCaption: {
-    textAlign: "left",
-    font: "normal normal normal 13px/15px Roboto",
-    letterSpacing: "0px",
-    color: "#42526E",
-    opacity: 1,
-    marginBottom: "6px"
-  },
-  textValue: {
-    textAlign: "left",
-    font: "normal normal medium 16px/31px Roboto",
-    letterSpacing: "0px",
-    color: "#42526E",
-    opacity: 1,
-  },
-  supportingDocsLabel: {
-    textAlign: "left",
-    font: "normal normal bold 14px/16px Roboto",
-    letterSpacing: "0px",
-    color: "#42526E",
-    opacity: 1,
-  },
-  supportingDocsValue: {
-    textAlign: "left",
-    font: "normal normal medium 14px/31px Roboto",
-    letterSpacing: "0px",
-    color: "#42526E",
-    opacity: 1,
-  }
-}));
+import useStyles from "./styles";
 
 const CompanyProfile = ({ getCompanyRegInfoAction, companyRegInfo, isLoading }) => {
   const classes = useStyles();
