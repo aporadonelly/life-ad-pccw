@@ -129,6 +129,8 @@ const MemberSearch = (props) => {
                       />
                     </Grid>
                   </Grid>
+
+                  {/* Personal Info */}
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
                       <Typography variant="h6" color="primary">
@@ -155,7 +157,7 @@ const MemberSearch = (props) => {
                         )}
                       />
                     </Grid>
-                    <Grid item xs={12} lg={2}>
+                    <Grid item xs={12} lg={3}>
                       <Form.Select
                         data={{
                           options: gender,
@@ -168,9 +170,6 @@ const MemberSearch = (props) => {
                         placeholder={t("form:placeholder.custom.pleaseSelect")}
                       />
                     </Grid>
-                  </Grid>
-
-                  <Grid container spacing={2}>
                     <Grid item xs={12} lg={2}>
                       <Form.Select
                         label={t("form:label.idType")}
@@ -254,7 +253,6 @@ const MemberSearch = (props) => {
                       />
                     </Grid>
                   </Grid>
-
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
                       <Typography variant="h6" color="primary">
