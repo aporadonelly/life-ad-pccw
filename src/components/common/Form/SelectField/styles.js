@@ -9,6 +9,10 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: 0,
     background: theme.palette.common.white,
   },
+  adornment: {
+    position: "absolute",
+    right: theme.spacing(3),
+  },
 }));
 
 export { useStyles };
