@@ -38,23 +38,23 @@ import EmployeeStyles from "../../components/employees/styles/EmployeeStyles";
 
 const initialValues = {
   mpfID: "",
-  first_name: "",
-  chinese_name: "",
+  fullName: "",
+  chineseName: "",
   gender: "",
-  id_type: "",
-  id_number: "",
-  date_of_birth: "",
+  idType: "",
+  idNumber: "",
+  dateOfBirth: "",
   nationality: "",
-  place_of_birth: "",
-  mobile_number: "",
+  placeOfBirth: "",
+  mobileNumber: "",
   address: "",
   email: "",
-  date_of_employment: "",
-  employee_type: "",
-  reported_industry_type: "",
+  dateOfEmployment: "",
+  employeeType: "",
+  reportedIndustryType: "",
   occupation: "",
-  mpf_scheme_name: "",
-  tax_residency: "",
+  schemeUuid: "",
+  taxResidency: "",
   tin: "",
   status: "",
 };
@@ -84,7 +84,6 @@ const MemberSearch = (props) => {
     getStatus,
     status,
     getAllMembers,
-    employees,
   } = props;
 
   const classes = EmployeeStyles();
@@ -144,7 +143,7 @@ const MemberSearch = (props) => {
                     <Grid item xs={12} lg={4}>
                       <Form.Input
                         label={t("form:label.displayName")}
-                        name="first_name"
+                        name="fullName"
                         type="text"
                         placeholder={t(
                           "form:placeholder.custom.inputEnglishName"
@@ -154,7 +153,7 @@ const MemberSearch = (props) => {
                     <Grid item xs={12} lg={4}>
                       <Form.Input
                         label={t("form:label.chineseName")}
-                        name="chinese_name"
+                        name="chineseName"
                         type="text"
                         placeholder={t(
                           "form:placeholder.custom.inputChineseName"
@@ -177,7 +176,7 @@ const MemberSearch = (props) => {
                     <Grid item xs={12} lg={2}>
                       <Form.Select
                         label={t("form:label.idType")}
-                        name="id_type"
+                        name="idType"
                         type="text"
                         placeholder={t("form:placeholder.custom.pleaseSelect")}
                         data={{
@@ -190,7 +189,7 @@ const MemberSearch = (props) => {
                     <Grid item xs={12} lg={2}>
                       <Form.Input
                         label={t("form:label.idNumber")}
-                        name="id_number"
+                        name="idNumber"
                         type="text"
                         placeholder={t("form:placeholder.custom.pleaseInput")}
                       />
@@ -198,7 +197,7 @@ const MemberSearch = (props) => {
                     <Grid item xs={12} lg={2}>
                       <Form.DatePicker
                         label={t("form:label.birthdate")}
-                        name="date_of_birth"
+                        name="dateOfBirth"
                         type="text"
                         placeholder={t("form:placeholder.custom.pleaseInput")}
                         helperText="DDMMYYYY"
@@ -225,7 +224,7 @@ const MemberSearch = (props) => {
                           value: (option) => option.cntryTypCd,
                         }}
                         label={t("form:label.placeOfBirth")}
-                        name="place_of_birth"
+                        name="placeOfBirth"
                         type="text"
                         placeholder={t("form:placeholder.custom.pleaseSelect")}
                       />
@@ -233,7 +232,7 @@ const MemberSearch = (props) => {
                     <Grid item xs={12} lg={2}>
                       <Form.Input
                         label={t("form:label.mobileNumber")}
-                        name="mobile_number"
+                        name="mobileNumber"
                         type="text"
                         placeholder={t("form:placeholder.custom.pleaseInput")}
                       />
@@ -266,7 +265,7 @@ const MemberSearch = (props) => {
                     <Grid item xs={12} lg={2}>
                       <Form.DatePicker
                         label={t("form:label.dateOfEmployment")}
-                        name="date_of_employment"
+                        name="dateOfEmployment"
                         type="text"
                         placeholder={t("form:placeholder.custom.pleaseInput")}
                         helperText="DDMMYYYY"
@@ -280,7 +279,7 @@ const MemberSearch = (props) => {
                           value: (option) => option.cstmTypId,
                         }}
                         label={t("form:label.employeeType")}
-                        name="employee_type"
+                        name="employeeType"
                         type="text"
                         placeholder={t("form:placeholder.custom.pleaseSelect")}
                       />
@@ -293,7 +292,7 @@ const MemberSearch = (props) => {
                           value: (option) => option.cstmTypId,
                         }}
                         label={t("form:label.reportedIndustryType")}
-                        name="reported_industry_type"
+                        name="reportedIndustryType"
                         type="text"
                         placeholder={t("form:placeholder.custom.pleaseSelect")}
                       />
@@ -319,7 +318,7 @@ const MemberSearch = (props) => {
                           value: (option) => option.cstmTypId,
                         }}
                         label={t("form:label.mpfSchemeName")}
-                        name="mpf_scheme_name"
+                        name="schemeUuid"
                         type="text"
                         placeholder={t("form:placeholder.custom.pleaseInput")}
                       />
@@ -327,7 +326,7 @@ const MemberSearch = (props) => {
                     <Grid item xs={12} lg={2}>
                       <Form.Input
                         label={t("form:label.taxResidency")}
-                        name="tax_residency"
+                        name="taxResidency"
                         type="text"
                         placeholder={t("form:placeholder.custom.pleaseInput")}
                       />

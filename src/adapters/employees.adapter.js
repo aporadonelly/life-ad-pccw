@@ -1,5 +1,5 @@
 import AxiosAdapter from "./axios.adapter";
-import { pickBy, identity } from "lodash";
+import { pickBy } from "lodash";
 
 class EmployeesAdapter extends AxiosAdapter {
   // for searching of users via form
@@ -9,24 +9,24 @@ class EmployeesAdapter extends AxiosAdapter {
         {
           pageNo,
           pageSize,
-          mpfID: p.mpf_id,
-          fullName: p.first_name,
+          mpfID: p.mpfID,
+          fullName: p.fullName,
           gender: p.gender,
-          chineseName: p.chinese_name,
-          idType: p.id_type,
-          idNumber: p.id_number,
-          dateOfBirth: p.date_of_birth,
+          chineseName: p.chineseName,
+          idType: p.idType,
+          idNumber: p.idNumber,
+          dateOfBirth: p.dateOfBirth,
           nationality: p.nationality,
-          placeOfBirth: p.place_of_birth,
-          mobileNumber: p.mobile_number,
+          placeOfBirth: p.placeOfBirth,
+          mobileNumber: p.mobileNumber,
           address: p.address,
           email: p.email,
-          dateOfEmployment: p.date_of_employment,
+          dateOfEmployment: p.dateOfEmployment,
           employeeType: p.employee_type,
-          reportedIndustryType: p.reported_industry_type,
+          reportedIndustryType: p.reportedIndustryType,
           occupation: p.occupation,
-          schemeUuid: p.mpf_scheme_name,
-          taxResidency: p.tax_residency,
+          schemeUuid: p.schemeUuid,
+          taxResidency: p.taxResidency,
           tin: p.tin,
           status: p.status,
         },
