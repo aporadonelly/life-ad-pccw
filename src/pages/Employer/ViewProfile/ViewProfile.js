@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { get } from "lodash";
 import {
   Grid,
@@ -21,10 +22,16 @@ const data = [
   { value: 3, label: "With User Account", withUserAcct: true },
 ];
 
-const ViewAuthPersonProfile = ({ authPerson }) => {
+const ViewProfile = (props) => {
+  const { viewAuthPerson, authPerson, getEmployers } = props;
   const person = get(authPerson, "0.employees") ?? [];
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button"]);
+
+  useEffect(() => {
+    getEmployers();
+    viewAuthPerson();
+  }, []);
 
   person.map((k) => console.log(k.id_number, "kauthPerson"));
   return (
@@ -258,4 +265,4 @@ const ViewAuthPersonProfile = ({ authPerson }) => {
   );
 };
 
-export default ViewAuthPersonProfile;
+export default ViewProfile;

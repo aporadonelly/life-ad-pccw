@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import {
@@ -11,18 +10,7 @@ import {
   getEmployers,
   viewAuthPerson,
 } from "@redux/features/employers/actions";
-import ViewAuthProfile from "./ViewAuthPersonProfile";
-
-const ViewProfile = (props) => {
-  const { viewAuthPerson, authPerson, employers } = props;
-
-  useEffect(() => {
-    getEmployers();
-    viewAuthPerson();
-  }, []);
-
-  return <ViewAuthProfile authPerson={authPerson} employers={employers} />;
-};
+import ViewProfile from "./ViewProfile";
 
 const mapStateToProps = (state) => ({
   isLoading: isLoadingSelector(state),
