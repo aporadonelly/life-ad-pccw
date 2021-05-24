@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { Grid, Card, CardContent, Typography } from "@material-ui/core";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { get } from "lodash";
 import {
   isLoadingSelector,
   errorSelector,
@@ -84,6 +83,7 @@ const MemberSearch = (props) => {
     getStatus,
     status,
     getAllMembers,
+    employees,
   } = props;
 
   const classes = EmployeeStyles();
