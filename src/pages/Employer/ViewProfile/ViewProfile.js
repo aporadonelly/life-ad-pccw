@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { get } from "lodash";
 import {
   Grid,
   Card,
@@ -17,12 +19,20 @@ import { Definition } from "@components/misc";
 const data = [
   { value: 1, label: "Primary Contact Person" },
   { value: 2, label: "Secondary Contact Person" },
-  { value: 3, label: "With User Account", hasAuthPerson: true },
+  { value: 3, label: "With User Account", withUserAcct: true },
 ];
 
-const ViewProfile = () => {
+const ViewProfile = (props) => {
+  const { viewAuthPerson, authPerson, getEmployers } = props;
+  const person = get(authPerson, "0.employees") ?? [];
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button"]);
+
+  useEffect(() => {
+    getEmployers();
+    viewAuthPerson();
+  }, []);
+
   return (
     <PageInner>
       <Grid container spacing={3}>
@@ -40,66 +50,96 @@ const ViewProfile = () => {
                     item
                     xs={3}
                     dt={t("form:label.idType")}
-                    dd="HKID"
+                    dd={
+                      Array.isArray(authPerson) &&
+                      authPerson.map((v) => v.id_type)
+                    }
                   />
 
                   <Definition.Item
                     item
                     xs={3}
                     dt={t("form:label.idNumber")}
-                    dd="Y371385(4)"
+                    dd={
+                      Array.isArray(authPerson) &&
+                      authPerson.map((v) => v.id_number)
+                    }
                   />
 
                   <Definition.Item
                     item
                     xs={3}
                     dt={t("form:label.birthdate")}
-                    dd=" 1970/04/21"
+                    dd={
+                      Array.isArray(authPerson) &&
+                      authPerson.map((v) => v.date_of_birth)
+                    }
                   />
 
                   <Definition.Item
                     item
                     xs={3}
                     dt={t("form:label.nationality")}
-                    dd=" Hong Kong"
+                    dd={
+                      Array.isArray(authPerson) &&
+                      authPerson.map((v) => v.nationality)
+                    }
                   />
 
                   <Definition.Item
                     item
                     xs={3}
                     dt={t("form:label.chineseLastName")}
-                    dd=" 听"
+                    dd={
+                      Array.isArray(authPerson) &&
+                      authPerson.map((v) => v.last_name_chinese)
+                    }
                   />
                   <Definition.Item
                     item
                     xs={3}
                     dt={t("form:label.chineseFirstName")}
-                    dd="  耐莉"
+                    dd={
+                      Array.isArray(authPerson) &&
+                      authPerson.map((v) => v.first_name_chinese)
+                    }
                   />
                   <Definition.Item
                     item
                     xs={3}
                     dt={t("form:label.lastName")}
-                    dd="Aporado"
+                    dd={
+                      Array.isArray(authPerson) &&
+                      authPerson.map((v) => v.last_name)
+                    }
                   />
                   <Definition.Item
                     item
                     xs={3}
                     dt={t("form:label.firstName")}
-                    dd="  Nelly"
+                    dd={
+                      Array.isArray(authPerson) &&
+                      authPerson.map((v) => v.first_name)
+                    }
                   />
 
                   <Definition.Item
                     item
                     xs={3}
                     dt={t("form:label.title")}
-                    dd="Ms."
+                    dd={
+                      Array.isArray(authPerson) &&
+                      authPerson.map((v) => v.title)
+                    }
                   />
                   <Definition.Item
                     item
                     xs={6}
                     dt={t("form:label.jobTitle")}
-                    dd="Accountant"
+                    dd={
+                      Array.isArray(authPerson) &&
+                      authPerson.map((v) => v.job_title)
+                    }
                   />
                 </Definition.List>
               </Definition>
@@ -110,13 +150,13 @@ const ViewProfile = () => {
                   justifyContent="space-between"
                   width="80%"
                 >
-                  {data.map(({ value, label, hasAuthPerson }, index) => {
+                  {data.map(({ value, label, withUserAcct }, index) => {
                     return (
                       <>
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={hasAuthPerson}
+                              checked={withUserAcct}
                               key={index}
                               name={label}
                               value={value}
@@ -153,19 +193,28 @@ const ViewProfile = () => {
                       item
                       xs={6}
                       dt={t("form:label.registeredOfcAddress")}
-                      dd=" Rm 307, Man Tai Building, 31 Lok Man Street, Tai Po, NT."
+                      dd={
+                        Array.isArray(authPerson) &&
+                        authPerson.map((v) => v.regOfcAdd)
+                      }
                     />
                     <Definition.Item
                       item
                       xs={6}
                       dt={t("form:label.businessAddress")}
-                      dd=" Same as Correspondence Address"
+                      dd={
+                        Array.isArray(authPerson) &&
+                        authPerson.map((v) => v.address)
+                      }
                     />
                     <Definition.Item
                       item
                       xs={6}
                       dt={t("form:label.correspondenceAddress")}
-                      dd=" Same as Correspondence Address"
+                      dd={
+                        Array.isArray(authPerson) &&
+                        authPerson.map((v) => v.correspondence_address)
+                      }
                     />
                   </Definition.List>
                 </Definition>
