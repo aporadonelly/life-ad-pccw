@@ -26,11 +26,13 @@ const DatePickerField = (props) => {
   };
 
   useEffect(() => {
-    if (props.value) {
-      const date = new Date(props.value);
+    if (rest.value) {
+      const date = new Date(rest.value);
       setSelectedDate(date);
+    } else {
+      setSelectedDate(null);
     }
-  }, [props.value]);
+  }, [rest.value]);
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -51,7 +53,7 @@ const DatePickerField = (props) => {
 };
 
 DatePickerField.defaultProps = {
-  format: "yyyy/MM/dd",
+  format: "dd/MM/yyyy",
   placeholder: "Please Input",
 };
 
