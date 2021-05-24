@@ -15,10 +15,14 @@ import {
 } from "@material-ui/icons";
 
 const SelectField = (props) => {
-  const { helpers, initialValue, data, placeholder, ...rest } = defaultsDeep(
-    props,
-    SelectField.defaultProps
-  );
+  const {
+    helpers,
+    initialValue,
+    data,
+    placeholder,
+    clearButton,
+    ...rest
+  } = defaultsDeep(props, SelectField.defaultProps);
   const classes = useStyles();
 
   const handleClear = () => {
@@ -60,7 +64,7 @@ const SelectField = (props) => {
         displayEmpty: true,
       }}
       InputProps={{
-        endAdornment: rest.value && (
+        endAdornment: rest.value && clearButton && (
           <InputAdornment className={classes.adornment}>
             <IconButton size="small" onClick={handleClear}>
               <CancelIcon />
@@ -80,6 +84,7 @@ const SelectField = (props) => {
 };
 
 SelectField.defaultProps = {
+  clearButton: false,
   placeholder: "Please Select",
   data: {
     options: [],
@@ -89,6 +94,7 @@ SelectField.defaultProps = {
 };
 
 SelectField.propTypes = {
+  clearButton: PropTypes.bool,
   data: PropTypes.shape({
     options: PropTypes.array,
     value: PropTypes.func,
