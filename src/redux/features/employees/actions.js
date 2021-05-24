@@ -1,11 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { userAdapter, employeesAdapter } from "@adapters";
+import { systemAdapter, employeesAdapter } from "@adapters";
 
 export const getGender = createAsyncThunk(
   "@@EMPF/EMPLOYEES/GET_GENDER",
   async (_payload, { rejectWithValue }) => {
     try {
-      const gender = await employeesAdapter.fetchGender();
+      const gender = await systemAdapter.fetchGender();
       return {
         gender,
       };
@@ -19,7 +19,7 @@ export const getIdType = createAsyncThunk(
   "@@EMPF/EMPLOYEES/GET_ID_TYPE",
   async (_payload, { rejectWithValue }) => {
     try {
-      const idType = await employeesAdapter.fetchIdType();
+      const idType = await systemAdapter.fetchIdType();
       return {
         idType,
       };
@@ -33,7 +33,7 @@ export const getNationality = createAsyncThunk(
   "@@EMPF/EMPLOYEES/GET_NATIONALITY",
   async (_payload, { rejectWithValue }) => {
     try {
-      const nationality = await employeesAdapter.fetchNationality();
+      const nationality = await systemAdapter.fetchNationality();
       return {
         nationality,
       };
@@ -47,7 +47,7 @@ export const getPlaceOfBirth = createAsyncThunk(
   "@@EMPF/EMPLOYEES/GET_PLC_OF_BIRTH",
   async (_payload, { rejectWithValue }) => {
     try {
-      const placeOfBirth = await employeesAdapter.fetchPlaceOfBirth();
+      const placeOfBirth = await systemAdapter.fetchPlaceOfBirth();
       return {
         placeOfBirth,
       };
@@ -61,7 +61,7 @@ export const getEmployeeType = createAsyncThunk(
   "@@EMPF/EMPLOYEES/GET_EMPLOYEE_TYPE",
   async (_payload, { rejectWithValue }) => {
     try {
-      const employeeType = await employeesAdapter.fetchEmployeeType();
+      const employeeType = await systemAdapter.fetchEmployeeType();
       return {
         employeeType,
       };
@@ -75,7 +75,7 @@ export const getIndustryType = createAsyncThunk(
   "@@EMPF/EMPLOYEES/GET_INDUSTRY_TYPE",
   async (_payload, { rejectWithValue }) => {
     try {
-      const industryType = await employeesAdapter.fetchIndustryType();
+      const industryType = await systemAdapter.fetchIndustryType();
       return {
         industryType,
       };
@@ -89,7 +89,7 @@ export const getOccupation = createAsyncThunk(
   "@@EMPF/EMPLOYEES/GET_OCCUPATION",
   async (_payload, { rejectWithValue }) => {
     try {
-      const occupation = await employeesAdapter.fetchOccupation();
+      const occupation = await systemAdapter.fetchOccupation();
       return {
         occupation,
       };
@@ -103,7 +103,7 @@ export const getSchemeType = createAsyncThunk(
   "@@EMPF/EMPLOYEES/GET_SCHEME_TYPE",
   async (_payload, { rejectWithValue }) => {
     try {
-      const schemeType = await employeesAdapter.fetchSchemeType();
+      const schemeType = await systemAdapter.fetchSchemeType();
       return {
         schemeType,
       };
@@ -117,7 +117,7 @@ export const getStatus = createAsyncThunk(
   "@@EMPF/EMPLOYEES/GET_STATUS",
   async (_payload, { rejectWithValue }) => {
     try {
-      const status = await employeesAdapter.fetchStatus();
+      const status = await systemAdapter.fetchStatus();
       return {
         status,
       };
@@ -132,6 +132,7 @@ export const getAllMembers = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       const employees = await employeesAdapter.searchMembers(payload);
+      console.log(employees, "employees");
       return { employees };
     } catch (error) {
       return rejectWithValue({ error });

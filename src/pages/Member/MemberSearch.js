@@ -37,7 +37,7 @@ import { Form } from "@components/common";
 import EmployeeStyles from "../../components/employees/styles/EmployeeStyles";
 
 const initialValues = {
-  mpf_id: "",
+  mpfID: "",
   first_name: "",
   chinese_name: "",
   gender: "",
@@ -103,8 +103,7 @@ const MemberSearch = (props) => {
   }, []);
 
   const handleSubmit = (values) => {
-    getAllMembers();
-    console.log(values, "hey");
+    getAllMembers(values);
   };
 
   return (
@@ -128,7 +127,7 @@ const MemberSearch = (props) => {
                     <Grid item xs={3}>
                       <Form.Input
                         label={t("form:label.mpfId")}
-                        name="mpf_id"
+                        name="mpfID"
                         type="text"
                         placeholder={t("form:placeholder.custom.pleaseInput")}
                       />
