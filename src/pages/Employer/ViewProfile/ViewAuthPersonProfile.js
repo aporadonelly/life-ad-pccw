@@ -1,18 +1,4 @@
-import { useEffect } from "react";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
 import { get } from "lodash";
-import {
-  isLoadingSelector,
-  errorSelector,
-  employersSelector,
-  authPersonSelector,
-} from "@redux/features/employers/selectors";
-import {
-  getEmployers,
-  viewAuthPerson,
-} from "@redux/features/employers/actions";
-
 import {
   Grid,
   Card,
@@ -35,17 +21,12 @@ const data = [
   { value: 3, label: "With User Account", withUserAcct: true },
 ];
 
-const ViewProfile = (props) => {
-  const { viewAuthPerson, getEmployers, authPerson, employers } = props;
-  const person = get(authPerson, "employees") ?? [];
+const ViewAuthPersonProfile = ({ authPerson }) => {
+  const person = get(authPerson, "0.employees") ?? [];
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button"]);
 
-  useEffect(() => {
-    getEmployers();
-    viewAuthPerson();
-  }, []);
-
+  person.map((k) => console.log(k.id_number, "kauthPerson"));
   return (
     <PageInner>
       <Grid container spacing={3}>
@@ -63,7 +44,6 @@ const ViewProfile = (props) => {
                     item
                     xs={3}
                     dt={t("form:label.idType")}
-                    // dd={authPerson.map((x) => x.id_type)}
                     dd={
                       Array.isArray(authPerson) &&
                       authPerson.map((v) => v.id_type)
@@ -278,15 +258,4 @@ const ViewProfile = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  isLoading: isLoadingSelector(state),
-  error: errorSelector(state),
-  employers: employersSelector(state),
-  authPerson: authPersonSelector(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  ...bindActionCreators({ getEmployers, viewAuthPerson }, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ViewProfile);
+export default ViewAuthPersonProfile;
