@@ -9,6 +9,7 @@ import {
   getOccupation,
   getSchemeType,
   getStatus,
+  getAllMembers,
 } from "./actions";
 import { initialState } from "./state";
 
@@ -124,6 +125,19 @@ export const employeesReducer = createReducer(initialState, (builder) =>
       return { ...state, isLoading: false, status };
     })
     .addCase(getStatus.rejected, (state, action) => {
+      const { error } = action.payload;
+      return { ...state, isLoading: false, error };
+    })
+
+    //Fetching all employees by search
+    .addCase(getAllMembers.pending, (state, _action) => {
+      return { ...state, isLoading: true, employees: [], error: null };
+    })
+    .addCase(getAllMembers.fulfilled, (state, action) => {
+      const { employees } = action.payload;
+      return { ...state, isLoading: false, employees };
+    })
+    .addCase(getAllMembers.rejected, (state, action) => {
       const { error } = action.payload;
       return { ...state, isLoading: false, error };
     })

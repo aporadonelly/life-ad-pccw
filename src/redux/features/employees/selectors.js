@@ -1,6 +1,13 @@
 import { createSelector } from "@reduxjs/toolkit";
 
 const stateSelector = (state) => state.employees;
+
+//All employees
+export const employeesSelector = createSelector(
+  stateSelector,
+  (state) => state.employees
+);
+
 //Gender
 export const genderSelector = createSelector(
   stateSelector,

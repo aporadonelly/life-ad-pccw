@@ -15,6 +15,7 @@ import {
   occupationSelector,
   schemeTypeSelector,
   statusSelector,
+  employeesSelector,
 } from "@redux/features/employees/selectors";
 import {
   getGender,
@@ -26,6 +27,7 @@ import {
   getOccupation,
   getSchemeType,
   getStatus,
+  getAllMembers,
 } from "@redux/features/employees/actions";
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
@@ -81,6 +83,8 @@ const MemberSearch = (props) => {
     schemeType,
     getStatus,
     status,
+    getAllMembers,
+    employees,
   } = props;
 
   const classes = EmployeeStyles();
@@ -99,6 +103,7 @@ const MemberSearch = (props) => {
   }, []);
 
   const handleSubmit = (values) => {
+    getAllMembers();
     console.log(values, "hey");
   };
 
@@ -360,7 +365,7 @@ const MemberSearch = (props) => {
                     <div className={classes.formBtnContainer}>
                       <Form.Submit variant="outlined">
                         {t("button:clear")}
-                      </Form.Submit>{" "}
+                      </Form.Submit>
                       &nbsp;
                       <Form.Submit>{t("button:search")}</Form.Submit>
                     </div>
@@ -387,6 +392,7 @@ const mapStateToProps = (state) => ({
   occupation: occupationSelector(state),
   schemeType: schemeTypeSelector(state),
   status: statusSelector(state),
+  employees: employeesSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -401,6 +407,7 @@ const mapDispatchToProps = (dispatch) => ({
       getOccupation,
       getSchemeType,
       getStatus,
+      getAllMembers,
     },
     dispatch
   ),

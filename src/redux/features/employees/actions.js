@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { employeesAdapter } from "@adapters";
+import { userAdapter, employeesAdapter } from "@adapters";
 
 export const getGender = createAsyncThunk(
   "@@EMPF/EMPLOYEES/GET_GENDER",
@@ -121,6 +121,18 @@ export const getStatus = createAsyncThunk(
       return {
         status,
       };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const getAllMembers = createAsyncThunk(
+  "@@EMPF/EMPLOYEES/SEARCH_MEMBERS",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const employees = await employeesAdapter.searchMembers(payload);
+      return { employees };
     } catch (error) {
       return rejectWithValue({ error });
     }
