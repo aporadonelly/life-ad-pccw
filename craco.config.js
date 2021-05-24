@@ -17,6 +17,7 @@ module.exports = {
       "@pages": path.resolve(__dirname, "src/pages"),
       "@reducers": path.resolve(__dirname, "src/reducers"),
       "@redux": path.resolve(__dirname, "src/redux"),
+      "@routes": path.resolve(__dirname, "src/routes"),
       "@styles": path.resolve(__dirname, "src/styles"),
       "@ui": path.resolve(__dirname, "src/ui"),
     },

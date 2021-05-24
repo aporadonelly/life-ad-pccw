@@ -112,6 +112,12 @@ theme.overrides = {
       paddingRight: theme.spacing(3),
     },
   },
+  MuiTabPanel: {
+    root: {
+      padding: 0,
+      width: "100%",
+    },
+  },
 };
 
 theme.props = {
