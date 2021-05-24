@@ -69,18 +69,36 @@ export const getScheme_LSP_SP_offect_sequence = () => [
     // schemeId: "LSP_SP_1",
     // schemeName: "SUN MPF Scheme",
   },
-  // {
-  //   schemeId: "LSP_SP_2",
-  //   schemeName: "HSBC MPF Scheme",
-  // },
-  // {
-  //   schemeId: "LSP_SP_3",
-  //   schemeName: "AIA MPF Scheme",
-  // },
-  // {
-  //   schemeId: "LSP_SP_4",
-  //   schemeName: "China Life MPF Master Trust Scheme",
-  // },
+  {
+    changeDate: "",
+    effectiveDate: "2021-04-23T03:44:16.000+00:00",
+    schemeId: "79cef4fb-4fb8-4530-a98e-909042525123",
+    schemeName: "SCHEME2",
+    schemeNumber: 2,
+    schemeType: "",
+    // schemeId: "LSP_SP_2",
+    // schemeName: "HSBC MPF Scheme",
+  },
+  {
+    changeDate: "",
+    effectiveDate: "2021-04-23T03:44:16.000+00:00",
+    schemeId: "79cef4fb-4fb8-4530-a98e-9090425251456",
+    schemeName: "SCHEME3",
+    schemeNumber: 3,
+    schemeType: "",
+    // schemeId: "LSP_SP_3",
+    // schemeName: "AIA MPF Scheme",
+  },
+  {
+    changeDate: "",
+    effectiveDate: "2021-04-23T03:44:16.000+00:00",
+    schemeId: "79cef4fb-4fb8-4530-a98e-9090425251789",
+    schemeName: "SCHEME4",
+    schemeNumber: 4,
+    schemeType: "",
+    // schemeId: "LSP_SP_4",
+    // schemeName: "China Life MPF Master Trust Scheme",
+  },
 ];
 
 export const getScheme_per_Employee = () => [

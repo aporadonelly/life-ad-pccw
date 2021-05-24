@@ -24,6 +24,19 @@ class TerminationAdapter extends AxiosAdapter {
     return this.instance.post("/vldEETermSbmssn", payload);
   }
 
+  // IMPORTANT: MULTIPLE API CALLS
+
+  // postValidate(payload) {
+  //   return new Promise(async(resolve, reject) => {
+  //     try {
+  //       const response = await this.instance.post("/vldEETermSbmssn", payload)
+  //       resolve(response)
+  //     } catch (error) {
+  //       reject("Error")
+  //     }
+  //   });
+  // }
+
   getReason() {
     return this.instance.get("/getTermRsnLst");
   }

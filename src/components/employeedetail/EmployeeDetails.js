@@ -1,6 +1,6 @@
 import { Avatar, Grid, Paper } from "@material-ui/core";
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React, { useState, useRef } from "react";
 import { connect } from "react-redux";
 import { add_employee_details } from "../../actions/employeesActions";
 import { labels } from "../../common/labelsList";
@@ -38,29 +38,39 @@ import { validate } from "@material-ui/pickers";
 // import { clientSchemesSelector } from "@redux/features/employees/termination/selectors";
 
 const EmployeeDetails = (props) => {
-  const { clientSchemes, reason, valid, validTermination } = props;
+  const {
+    clientSchemes,
+    reason,
+    valid,
+    validTermination,
+    saveTermination,
+  } = props;
   //console.log(clientSchemes);
-  let data = replaceNull(clientSchemes);
+  //let data = replaceNull(clientSchemes);
+  let data = clientSchemes;
   let filterArrayLSP_SP = ""; // will be used dynamically in LSP/SP option change
-  console.log(reason);
-  console.log(data);
+  //console.log(reason);
+  //console.log(data);
+
+  console.log(data.schemes);
+  //return null;
 
   const initialValues = {
     state: "",
-    lastDateOfEmployment: moment("").format("YYYY/MM/DD"),
+    lastDateOfEmployment: "", //moment("").format("YYYY/MM/DD"),
     terminationReasonId: "",
-    effective_date_of_termination: moment("").format("YYYY/MM/DD"),
+    effective_date_of_termination: "", //moment("").format("YYYY/MM/DD"),
     entitleToLspsp: "",
     lspspTypeId: "",
     lspspEntitlementAmount: "",
     orsoOffsetAmount: "",
-    effective_date: moment("").format("YYYY/MM/DD"),
-    change_date: moment("").format("YYYY/MM/DD"),
-    schemes: employeeMockData.getScheme_LSP_SP_offect_sequence(), //data.schemes, //
+    effective_date: "", //moment("").format("YYYY/MM/DD"),
+    change_date: "", //moment("").format("YYYY/MM/DD"),
+    schemes: data.schemes ?? [], //employeeMockData.getScheme_LSP_SP_offect_sequence(), //
   };
 
   const validationSchema = yup.object().shape({
-    //lastDateOfEmployment: yup.date(),
+    lastDateOfEmployment: yup.string(), //yup.date(),
     terminationReasonId: yup.string(), //.required("Please pick a reason"),
     //effective_date_of_termination: yup.date().required(),
     entitleToLspsp: yup.string(),
@@ -71,8 +81,8 @@ const EmployeeDetails = (props) => {
     //.required("Money input is required"),
     orsoOffsetAmount: yup.number().positive("Money must be greater than zero"),
     //.required("Money input is required"),
-    //effective_date: yup.date(),
-    //change_date: yup.date(),
+    effective_date: yup.string(), //yup.date(),
+    change_date: yup.string(), //yup.date(),
     schemes: yup.array(),
     //.required("Please choose yes or no"),
     // selectedValueEntitle_ESP_SP: yup
@@ -91,12 +101,13 @@ const EmployeeDetails = (props) => {
   const [LSP_SP_Disable, setLSP_SP_Disable] = useState(true);
   const [open, setOpen] = useState(false);
   const [btnStatus, setBtnStatus] = useState("");
+  const btnClick = React.useRef(null);
 
   const handleClose = (e) => {
     setOpen((open) => !open);
     if (!(e === undefined)) {
       if (e.target.textContent === "yes") {
-        onReset();
+        //btnClick.current.click();
       }
     }
   };
@@ -142,16 +153,43 @@ const EmployeeDetails = (props) => {
     return true;
   };
 
+  // const formikHandleSubmit = (values, actions) => {
+  //   validateForm(values, actions);
+  //   localStorage.setItem("state", values.state); /// refresh fix
+  //   console.log(values);
+  // };
+
   const formikHandleSubmit = (values, actions) => {
-    validateForm(values, actions);
     console.log(values);
+
+    const forValidationValues = {
+      accountNumber: data.accountNumber, //clientSchemes.accountNumber,
+      lastDateOfEmployment: moment(values.lastDateOfEmployment).format(
+        "YYYY-MM-DD"
+      ),
+      entitleToLspsp: parseBoolean(values.entitleToLspsp),
+      lspspTypeId: values.lspspTypeId,
+      terminationReasonId: values.terminationReasonId,
+      lspspEntitlementAmount: values.lspspEntitlementAmount,
+      orsoOffsetAmount: values.orsoOffsetAmount,
+      otherOffsetAmount: 0.0,
+      payableAmount: values.lspspEntitlementAmount - values.orsoOffsetAmount,
+    };
+    // } catch (err) {
+    //   console.error(err);
+    // }
+    console.log(forValidationValues);
+
+    validTermination(forValidationValues);
   };
 
   const validateForm = (values, actions) => {
     const chkLdoe = ldoeChange(values);
     if (!chkLdoe) return;
+    console.log(values);
 
     const forValidationValues = {
+      // NOTE: proven validated values
       // accountNumber: 970001,
       // lastDateOfEmployment: "2020-05-01",
       // entitleToLspsp: true,
@@ -167,7 +205,7 @@ const EmployeeDetails = (props) => {
       ),
       entitleToLspsp: parseBoolean(values.entitleToLspsp),
       lspspTypeId: values.lspspTypeId,
-      terminationReasonId: "TR_RD", //values.terminationReasonId, FIX: error in swagger values cannot be changed
+      terminationReasonId: values.terminationReasonId,
       lspspEntitlementAmount: values.lspspEntitlementAmount,
       orsoOffsetAmount: values.orsoOffsetAmount,
       otherOffsetAmount: 0.0,
@@ -179,81 +217,47 @@ const EmployeeDetails = (props) => {
 
   // IMPORTANT: during validtermination the page refreshes so valid payload
   // NOTE:        was changed to forValidationValues
-  console.log(valid);
-  if (valid !== "") {
-    console.log("validation", valid);
-    //saveTermination(values)
 
-    if (valid.state === "save") {
-      //onSave(values);
-      handleClose();
-      setBtnStatus("ExMsg_SvdSccss");
-      return;
-    }
-    if (valid.state === "submit") {
-      //onSubmit(values);
-      handleClose();
-      setBtnStatus("ExMsg_SvdSccss");
-    }
-    //actions.resetForm(initialValues);
-  }
+  // useEffect(() => {
+  //   effect
+  //   return () => {
+  //     cleanup
+  //   }
+  // }, [input])
 
-  const onSubmit = (values) => {
-    // IMPORTANT: ACTUAL POST JSON
-    // accountNumber	integer($int64)
-    // eeNotAgr	boolean
-    // employmentDate	string($date-time)
-    // entitleToLspsp	boolean
-    // lastDateOfEmployment	string($date-time)
-    // lspspEntitlementAmount	number
-    // lspspType	string
-    // lspspTypeId	string
-    // orsoOffsetAmount	number
-    // otherOffsetAmount	number
-    // payableAmount	number  ///NOTE: Real time calculation
-    // paymentAmount	number
-    // statusType	string
-    // statusTypeId	string
-    // terminationReason	string
-    // terminationReasonIdn
+  // console.log(valid);
+  // if (valid !== "") {
+  //   console.log("validation", valid);
+  //   const stateBtn = localStorage.getItem("state"); /// refresh fix
 
-    // IMPORTANT: required in db post
-    // vldEETermSbmssn
-    // {
-    //     "accountNumber": 970001,
-    //     "lastDateOfEmployment": "2020-05-01",
-    //     "entitleToLspsp": true,
-    //     "lspspTypeId": "LS_SP",
-    //     "terminationReasonId": "TR_RD",
-    //     "lspspEntitlementAmount": 390000.00,
-    //     "orsoOffsetAmount": 0.00,
-    //     "otherOffsetAmount": 0.00
-    // }
-
-    //console.log(chk);
-    // if (valid === "success") {
-    //   alert("check");
-    // }
-
-    //const newValues = { ...values, ...addedValues };
-
-    // values = prevState => (
-    //   {
-    //     ...prevState,
-    //     values: {...prevState.values, b: }
-    //   }
-    // )
-
-    handleClose();
-  };
+  //   if (stateBtn === "save") {
+  //     const addedValues = { statusType: "Saved", statusTypeId: "ST_SV" };
+  //     const newValues = { ...valid, ...addedValues };
+  //     handleClose();
+  //     setBtnStatus("ExMsg_SvdSccss"); // refresh fix
+  //     saveTermination(newValues);
+  //     return;
+  //   }
+  //   if (stateBtn === "submit") {
+  //     const addedValues = {
+  //       statusType: "Pending for internal review",
+  //       statusTypeId: "ST_PD_RW",
+  //     };
+  //     const newValues = { ...valid, ...addedValues };
+  //     //onSubmit(values);
+  //     handleClose();
+  //     setBtnStatus("ExMsg_SvdSccss"); // refresh fix
+  //     saveTermination(newValues);
+  //   }
+  //   //FIX: reset cannot be used page refreshes when a request sent to ACTIONS
+  //   //actions.resetForm(initialValues);
+  //   localStorage.removeItem("state"); // refresh fix
+  // }
 
   const onCancel = (resetForm) => {
     handleClose();
     setBtnStatus("ExMsg_CnclPrcss");
-  };
-
-  const onReset = (resetForm) => {
-    resetForm();
+    //resetForm();
   };
 
   return (
@@ -356,12 +360,19 @@ const EmployeeDetails = (props) => {
         {/* </Form> */}
 
         <Formik
+          enableReinitialize
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={(values, actions) => formikHandleSubmit(values, actions)}
+          onSubmit={formikHandleSubmit}
+          //onSubmit={(values, actions) => formikHandleSubmit(values, actions)}
           //onReset={(values, actions) => formikHandleReset(values, actions)}
         >
-          {({ setFieldValue }) => {
+          {({ setFieldValue, resetForm, handleSubmit }) => {
+            const onHandleClick = (e, state) => {
+              setFieldValue("state", state);
+              handleSubmit(e);
+            };
+
             const disableLSP_SP = (event) => {
               if (event.target.value === "false") {
                 setLSP_SP_Disable(true);
@@ -428,6 +439,7 @@ const EmployeeDetails = (props) => {
                           name="lastDateOfEmployment"
                           //value={formValues.lastDateOfEmployment}
                           helperText="YYYYMMDD"
+                          format="yyyy/MM/dd"
                         />
                       </Grid>
 
@@ -460,17 +472,23 @@ const EmployeeDetails = (props) => {
                           //onChange={handleInputChange}
                           //value={formValues.effective_date_of_termination}
                           helperText="YYYYMMDD"
+                          format="yyyy/MM/dd"
                         />
                       </Grid>
                     </div>
                     <div className={classes.labels}>{labels.entitle_to}</div>
-                    <FormikForm.RadioGroup
+                    <FormikForm.RadioGroupField
                       row
                       name="entitleToLspsp"
                       onClick={disableLSP_SP}
                       //value={formValues.entitleToLspsp}
-                      data={employeeMockData.getEntitle_LSP_SP_items()}
-                      helperText="Please select Yes or No"
+                      //data={employeeMockData.getEntitle_LSP_SP_items()}
+                      data={{
+                        options: employeeMockData.getEntitle_LSP_SP_items(),
+                        label: (option) => option.label,
+                        value: (option) => option.value,
+                      }}
+                      //helperText="Please select Yes or No"
                     />
 
                     <div className={classes.mgTop}>
@@ -487,13 +505,17 @@ const EmployeeDetails = (props) => {
                           <div className={classes.labels}>
                             {labels.entitle_lsp}
                           </div>
-                          <FormikForm.RadioGroup
+                          <FormikForm.RadioGroupField
                             row
                             name="lspspTypeId"
                             //value={formValues.lspspTypeId}
                             onClick={onClickLSP_SPReason}
-                            data={employeeMockData.getLSP_SP_items()}
-                            helperText="Please select Yes or No"
+                            data={{
+                              options: employeeMockData.getLSP_SP_items(),
+                              label: (option) => option.label,
+                              value: (option) => option.value,
+                            }}
+                            //helperText="Please select Yes or No"
                             disabled={LSP_SP_Disable ? "disabled" : ""}
                           />
                         </Grid>
@@ -570,6 +592,7 @@ const EmployeeDetails = (props) => {
                             //onChange={handleInputChange}
                             //value={formValues.effective_date}
                             helperText="YYYYMMDD"
+                            format="yyyy/MM/dd"
                           />
                         </Grid>
                         <Grid item sm={3} xs={12} className={classes.mgTop}>
@@ -580,6 +603,7 @@ const EmployeeDetails = (props) => {
 
                             //value={formValues.change_date}
                             helperText="YYYYMMDD"
+                            format="yyyy/MM/dd"
                           />
                         </Grid>
                       </div>
@@ -588,16 +612,29 @@ const EmployeeDetails = (props) => {
                 </Paper>
 
                 <BottomAppBar>
-                  <FormikForm.Reset className={classes.btnReverse}>
-                    RESET
-                  </FormikForm.Reset>
-                  <FloatingButton text="cancel" onClick={onCancel} />
+                  <FloatingButton
+                    text="cancel"
+                    onClick={onCancel.bind(null, resetForm)}
+                  />
                   {/* <FormikForm.FloatingButton text="save" /> */}
-                  <FormikForm.Submit className={classes.btnReverse}>
+
+                  {/* <FormikForm.FloatingButton text="submit" /> */}
+                  {/* <FormikForm.Submit className={classes.btnReverse} text="save">
                     SAVE
                   </FormikForm.Submit>
-                  {/* <FormikForm.FloatingButton text="submit" /> */}
-                  <FormikForm.Submit>SUBMIT</FormikForm.Submit>
+                  <FormikForm.Submit text="submit">SUBMIT</FormikForm.Submit> */}
+                  <Button
+                    type="submit"
+                    onClick={(e) => onHandleClick(e, "save")}
+                  >
+                    Save
+                  </Button>
+                  <Button
+                    type="submit"
+                    onClick={(e) => onHandleClick(e, "submit")}
+                  >
+                    Submit
+                  </Button>
                 </BottomAppBar>
               </Form>
             );

@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { AuthWrapper } from "@hocs";
 import EmployeeDetails from "../../components/employeedetail/EmployeeDetails";
-import EmployeeDetails1 from "../../components/employeedetail/EmployeeDetails1";
+// import EmployeeDetails1 from "../../components/employeedetail/EmployeeDetails1";
+// import EmployeeDetails2 from "../../components/employeedetail/EmployeeDetails2";
 import { useParams } from "react-router-dom";
 import { PageHeader } from "@components/layout";
 import TerminationRoutes from "./TerminationRoutes";
@@ -20,21 +21,20 @@ const Termination = (props) => {
   return (
     <>
       <TerminationRoutes {...props} />
-      {isLoading ? (
+      {/* {isLoading ? (
         <Box display="flex" justifyContent="center" mt={5}>
-          {" "}
           <CircularProgress />
         </Box>
-      ) : (
-        <>
-          {error && (
-            <Grid item xs={12}>
-              {/* <Alert severity="error">{error}</Alert> */}
-            </Grid>
-          )}
-          <EmployeeDetails {...props} />
-        </>
-      )}
+      ) : (*/}
+      <>
+        {/* {error && (
+          <Grid item xs={12}>
+           <Alert severity="error">{error}</Alert> 
+          </Grid>
+        )}*/}
+        <EmployeeDetails {...props} />
+      </>
+      {/* )} */}
     </>
   );
 };

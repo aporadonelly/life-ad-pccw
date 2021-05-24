@@ -2,28 +2,6 @@ import { Switch, Route } from "react-router-dom";
 import Termination from "./index";
 import { PageHeader } from "@components/layout";
 
-const subjectInfo = [
-  [
-    "Chan, Tai Man",
-    {
-      "eMDF ID:": "3746474",
-    },
-    {
-      "Member No.": "273 637 338",
-    },
-  ],
-  [
-    "Great Company Limited",
-    {
-      "Employer NO.": "223344433",
-    },
-    {
-      "Employer NO.": "223344433",
-    },
-  ],
-  ["AIA MPF - Prime Value Choice"],
-];
-
 const routes = [
   {
     name: "Enrollment",
@@ -74,7 +52,23 @@ const TerminationRoutes = (props) => {
   //console.log(path);
   return (
     <>
-      <PageHeader subjectInfo={subjectInfo} routes={routes} />;
+      <PageHeader routes={routes}>
+        <PageHeader.SubjectInfo
+          subject="Chan, Tai Man"
+          info={{
+            "eMDF ID:": "3746474",
+            "Member No.": "273 637 338",
+          }}
+        />
+        <PageHeader.SubjectInfo
+          subject="Great Company Limited"
+          info={{
+            "Employer NO.": "223344433",
+          }}
+        />
+        <PageHeader.SubjectInfo subject="AIA MPF - Prime Value Choice" />
+      </PageHeader>
+
       <Switch>
         <Route exact path={`${path}`} />
       </Switch>

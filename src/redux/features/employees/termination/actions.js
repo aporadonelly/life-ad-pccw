@@ -24,14 +24,14 @@ export const loadEmpSchemes = createAsyncThunk(
   }
 );
 
-export const loadEmpTerm = createAsyncThunk(
+export const loadMbrTerm = createAsyncThunk(
   "@@EMPF/TERMINATION/vldMbrTerm",
   // async (_payload, { rejectWithValue }) => { // no payload
   async (payload, { rejectWithValue }) => {
     try {
-      const empTerm = await terminationAdapter.getMbrTerm(payload);
+      const mbrTerm = await terminationAdapter.getMbrTerm(payload);
       //console.log("actions-termination", empTerm);
-      return { empTerm };
+      return { mbrTerm };
     } catch (error) {
       console.error(error);
       return rejectWithValue({ error });
@@ -44,7 +44,7 @@ export const saveTermination = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       await terminationAdapter.save(payload);
-      console.log("actions-termination");
+      //console.log("actions-termination");
       return { message: "success" };
     } catch (error) {
       return rejectWithValue({ error });
@@ -57,7 +57,7 @@ export const validTermination = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       await terminationAdapter.postValidate(payload);
-      console.log("actions-termination");
+      console.log("actions-termination", payload);
       return { validation: payload };
     } catch (error) {
       return rejectWithValue({ error });
@@ -70,7 +70,7 @@ export const loadTermReason = createAsyncThunk(
   async (_payload, { rejectWithValue }) => {
     try {
       const reasonTerm = await terminationAdapter.getReason();
-      console.log("actions-termination", reasonTerm);
+      //console.log("actions-termination", reasonTerm);
       return { reasonTerm };
     } catch (error) {
       console.error(error);

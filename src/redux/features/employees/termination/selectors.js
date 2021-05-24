@@ -14,7 +14,7 @@ export const clientSchemesSelector = createSelector(
 
 export const termsSelector = createSelector(
   stateSelector,
-  (state) => state.empTerm
+  (state) => state.mbrTerm
 );
 
 export const saveSelector = createSelector(

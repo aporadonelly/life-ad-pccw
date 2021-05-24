@@ -3,7 +3,7 @@ import { initialState } from "./state";
 import {
   resetTermination,
   loadEmpSchemes,
-  loadEmpTerm,
+  loadMbrTerm,
   saveTermination,
   validTermination,
   loadTermReason,
@@ -20,6 +20,7 @@ export const employeeTerminationReducer = createReducer(
         return { ...state, clientSchemes: [], isLoading: true, error: null };
       })
       .addCase(loadEmpSchemes.fulfilled, (state, action) => {
+        console.log("reducer", action.payload);
         const { clientSchemes } = action.payload;
         return { ...state, isLoading: false, clientSchemes };
       })
@@ -28,14 +29,14 @@ export const employeeTerminationReducer = createReducer(
         return { ...state, isLoading: false, error };
       })
 
-      .addCase(loadEmpTerm.pending, (state, _action) => {
+      .addCase(loadMbrTerm.pending, (state, _action) => {
         return { ...state, isLoading: true, error: null };
       })
-      .addCase(loadEmpTerm.fulfilled, (state, action) => {
-        const { empTerm } = action.payload;
-        return { ...state, isLoading: false, empTerm };
+      .addCase(loadMbrTerm.fulfilled, (state, action) => {
+        const { mbrTerm } = action.payload;
+        return { ...state, isLoading: false, mbrTerm };
       })
-      .addCase(loadEmpTerm.rejected, (state, action) => {
+      .addCase(loadMbrTerm.rejected, (state, action) => {
         const { error } = action.payload;
         return { ...state, isLoading: false, error };
       })

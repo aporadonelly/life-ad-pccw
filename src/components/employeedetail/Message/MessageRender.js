@@ -7,9 +7,16 @@ import { DialogBox } from "@components/dialogs";
 import { useStyles } from "./MessageStyles";
 import { Form as FormikForm } from "@components/common";
 import FloatingButton from "@components/controls/floatingButton/floatingButton";
+import { useFormikContext } from "formik";
 
 const MessageRender = ({ open, onClose, msgCode }) => {
   const classes = useStyles();
+  const { handleReset } = useFormikContext();
+
+  const handleClose = () => {
+    onClose();
+    handleReset();
+  };
 
   const renderDialogContent = () => {
     let msgDialog = "",
@@ -41,12 +48,10 @@ const MessageRender = ({ open, onClose, msgCode }) => {
         );
         btnType = (
           <div className={classes.dialogContainer}>
-            {/* <FormikForm.Reset>Yes</FormikForm.Reset> */}
-
             <FloatingButton
               className={classes.btnReverse}
               text="yes"
-              onClick={onClose}
+              onClick={handleClose}
             />
             <FloatingButton text="no" onClick={onClose} />
           </div>

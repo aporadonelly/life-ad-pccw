@@ -12,7 +12,7 @@ import {
 
 import {
   loadEmpSchemes,
-  loadEmpTerm,
+  loadMbrTerm,
   saveTermination,
   validTermination,
   loadTermReason,
@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators(
     {
       loadEmpSchemes,
-      loadEmpTerm,
+      loadMbrTerm,
       saveTermination,
       validTermination,
       loadTermReason,
