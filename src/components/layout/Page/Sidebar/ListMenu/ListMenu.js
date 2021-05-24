@@ -1,7 +1,7 @@
 import { useRouteMatch, Link } from "react-router-dom";
 import { useAppState } from "@contexts/AppProvider";
 import { nanoid } from "@reduxjs/toolkit";
-import { map } from "lodash";
+import { map, compact } from "lodash";
 import clsx from "clsx";
 import { useStyles } from "./styles";
 import { List, ListItemIcon, ListItemText, Divider } from "@material-ui/core";
@@ -10,7 +10,7 @@ import { sidebarRoutes } from "@routes/";
 
 const ListMenu = () => {
   const { state } = useAppState();
-  const match = useRouteMatch(map(sidebarRoutes, "path"));
+  const match = useRouteMatch(compact(map(sidebarRoutes, "path")));
   const classes = useStyles();
 
   return (
