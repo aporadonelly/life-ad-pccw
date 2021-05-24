@@ -1,4 +1,3 @@
-import { Members } from "@pages";
 
 const appRoutes = [
   {
@@ -9,7 +8,7 @@ const appRoutes = [
   {
     name: "Member",
     path: "/members",
-    component: Members,
+    component: null,
   },
   {
     name: "Individual",
