@@ -13,13 +13,9 @@ const Page = (props) => {
   return (
     <AppProvider>
       <div className={classes.root}>
-        <Header
-          displayName={user?.displayName}
-          cycleDate={cycleDate}
-          onLogout={logout}
-        />
-        <Sidebar />
-        <MenuToggler />
+        <Header user={user} cycleDate={cycleDate} onLogout={logout} />
+        {user && <Sidebar />}
+        {user && <MenuToggler />}
         <main className={classes.content}>
           <Toolbar />
           {children}

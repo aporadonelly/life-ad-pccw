@@ -10,7 +10,7 @@ import UserMenu from "./UserMenu";
 import SiteMap from "./SiteMap";
 
 const Header = (props) => {
-  const { displayName, cycleDate, onLogout } = props;
+  const { user, cycleDate, onLogout } = props;
   const { t } = useTranslation(["header"]);
   const { dispatch } = useAppState();
   const classes = useStyles();
@@ -28,9 +28,9 @@ const Header = (props) => {
         >
           {t("header:framework")}
         </Typography>
-        <SiteMap />
+        {/* <SiteMap /> */}
         <div className={classes.grow} />
-        <UserMenu displayName={displayName} onClick={onLogout} />
+        {user && <UserMenu displayName={user.displayName} onClick={onLogout} />}
         <IconButton
           className={classes.translateIcon}
           edge="end"
