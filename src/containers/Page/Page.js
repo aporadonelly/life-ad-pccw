@@ -6,15 +6,16 @@ import Sidebar from "./Sidebar";
 import MenuToggler from "./MenuToggler";
 import Settings from "./Settings";
 
-const Page = ({ children }) => {
+const Page = (props) => {
+  const { user, cycleDate, logout, children } = props;
   const classes = useStyles();
 
   return (
     <AppProvider>
       <div className={classes.root}>
-        <Header />
-        <Sidebar />
-        <MenuToggler />
+        <Header user={user} cycleDate={cycleDate} onLogout={logout} />
+        {user && <Sidebar />}
+        {user && <MenuToggler />}
         <main className={classes.content}>
           <Toolbar />
           {children}
