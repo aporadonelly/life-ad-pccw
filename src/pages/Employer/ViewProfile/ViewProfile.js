@@ -65,67 +65,44 @@ const ViewProfile = (props) => {
                   <Definition spacing={2} xs={3}>
                     <Definition.List>
                       <Definition.Item
-                        item
-                        xs={3}
                         dt={t("form:label.idType")}
                         dd={id_type}
                       />
 
                       <Definition.Item
-                        item
-                        xs={3}
                         dt={t("form:label.idNumber")}
                         dd={id_number}
                       />
 
                       <Definition.Item
-                        item
-                        xs={3}
                         dt={t("form:label.birthdate")}
                         dd={date_of_birth}
                       />
 
                       <Definition.Item
-                        item
-                        xs={3}
                         dt={t("form:label.nationality")}
                         dd={nationality}
                       />
 
                       <Definition.Item
-                        item
-                        xs={3}
                         dt={t("form:label.chineseLastName")}
                         dd={last_name_chinese}
                       />
                       <Definition.Item
-                        item
-                        xs={3}
                         dt={t("form:label.chineseFirstName")}
                         dd={first_name_chinese}
                       />
                       <Definition.Item
-                        item
-                        xs={3}
                         dt={t("form:label.lastName")}
                         dd={last_name}
                       />
                       <Definition.Item
-                        item
-                        xs={3}
                         dt={t("form:label.firstName")}
                         dd={first_name}
                       />
 
+                      <Definition.Item dt={t("form:label.title")} dd={title} />
                       <Definition.Item
-                        item
-                        xs={3}
-                        dt={t("form:label.title")}
-                        dd={title}
-                      />
-                      <Definition.Item
-                        item
-                        xs={6}
                         dt={t("form:label.jobTitle")}
                         dd={job_title}
                       />
@@ -182,20 +159,14 @@ const ViewProfile = (props) => {
                   <Definition spacing={2} xs={6}>
                     <Definition.List>
                       <Definition.Item
-                        item
-                        xs={6}
                         dt={t("form:label.registeredOfcAddress")}
                         dd={regOfcAdd}
                       />
                       <Definition.Item
-                        item
-                        xs={6}
                         dt={t("form:label.businessAddress")}
                         dd={address}
                       />
                       <Definition.Item
-                        item
-                        xs={6}
                         dt={t("form:label.correspondenceAddress")}
                         dd={correspondence_address}
                       />
