@@ -212,7 +212,7 @@ const ViewProfile = (props) => {
         </Grid>
 
         {/* Back Button */}
-        <Grid item xs={12} container spacing={2}>
+        <Grid item xs={12}>
           <Grid container component="dl" spacing={1} justify="flex-end">
             <Button
               data-testid="back-btn"
