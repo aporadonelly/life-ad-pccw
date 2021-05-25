@@ -1,8 +1,16 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { initialState } from "./state";
 import { getSystemEnv, getCycleDate } from "./actions";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-export const systemReducer = createReducer(initialState, (builder) =>
+const persistConfig = {
+  key: "system",
+  storage: storage,
+  blacklist: ["isLoading", "error"],
+};
+
+const systemReducer = createReducer(initialState, (builder) =>
   builder
     .addCase(getSystemEnv.pending, (state, _action) => {
       return { ...state, isLoading: true, error: null };
@@ -27,3 +35,5 @@ export const systemReducer = createReducer(initialState, (builder) =>
       return { ...state, isLoading: false, error };
     })
 );
+
+export default persistReducer(persistConfig, systemReducer);

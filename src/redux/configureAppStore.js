@@ -1,7 +1,6 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import {
   persistStore,
-  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -9,18 +8,12 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
 import rootReducer from "./reducers";
 import { getSystemEnv, getCycleDate } from "./features/system/actions";
 
 export default function configureAppStore(preloadedState) {
   const debug = false;
   const middlewares = [];
-  const persistConfig = {
-    key: "root",
-    version: 1,
-    storage,
-  };
 
   if (debug) {
     const { logger } = require("redux-logger");
@@ -28,7 +21,7 @@ export default function configureAppStore(preloadedState) {
   }
 
   const store = configureStore({
-    reducer: persistReducer(persistConfig, rootReducer),
+    reducer: rootReducer,
     middleware: [
       ...getDefaultMiddleware({
         serializableCheck: {

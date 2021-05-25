@@ -1,4 +1,5 @@
 import Axios from "axios";
+import { isNull } from "lodash";
 
 class AxiosAdapter {
   constructor(config) {
@@ -7,11 +8,10 @@ class AxiosAdapter {
     this.instance.interceptors.request.use(
       (config) => {
         try {
-          const localStorage = window.localStorage.getItem("persist:root");
-          const user = JSON.parse(localStorage).user;
+          const user = window.localStorage.getItem("persist:user");
           const token = JSON.parse(user).token;
 
-          if (token) {
+          if (token && token !== "null") {
             config.headers.Authorization = `Bearer ${token}`;
           }
 
