@@ -30,7 +30,9 @@ const Header = (props) => {
         </Typography>
         {/* <SiteMap /> */}
         <div className={classes.grow} />
-        {user && <UserMenu displayName={user.displayName} onClick={onLogout} />}
+        {user && (
+          <UserMenu displayName={user.displayName} onLogout={onLogout} />
+        )}
         <IconButton
           className={classes.translateIcon}
           edge="end"
