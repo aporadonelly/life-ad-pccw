@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useRouteMatch, Link } from "react-router-dom";
 import { useAppState } from "@contexts/AppProvider";
 import { nanoid } from "@reduxjs/toolkit";
@@ -10,6 +11,7 @@ import { sidebarRoutes } from "@routes/";
 
 const ListMenu = () => {
   const { state } = useAppState();
+  const { t } = useTranslation(["sider"]);
   const match = useRouteMatch(compact(map(sidebarRoutes, "path")));
   const classes = useStyles();
 
@@ -31,7 +33,7 @@ const ListMenu = () => {
               {route.icon}
             </ListItemIcon>
             <ListItemText
-              primary={route.name}
+              primary={t(`sider:menu.${route.name}`)}
               primaryTypographyProps={{
                 className: clsx(classes.listItemText, {
                   [classes.show]: state.collapsed,
