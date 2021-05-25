@@ -49,7 +49,7 @@ const EmployeeDetails = (props) => {
   //let data = replaceNull(clientSchemes);
   let data = clientSchemes;
   let filterArrayLSP_SP = ""; // will be used dynamically in LSP/SP option change
-  //console.log(reason);
+  console.log(reason);
   //console.log(data);
 
   console.log(data.schemes);
@@ -70,20 +70,23 @@ const EmployeeDetails = (props) => {
   };
 
   const validationSchema = yup.object().shape({
-    lastDateOfEmployment: yup.string(), //yup.date(),
-    terminationReasonId: yup.string(), //.required("Please pick a reason"),
-    //effective_date_of_termination: yup.date().required(),
-    entitleToLspsp: yup.string(),
+    lastDateOfEmployment: yup.date().required(), //yup.date(),
+    terminationReasonId: yup.string().required("Please pick a reason"), //.required("Please pick a reason"),
+    effective_date_of_termination: yup.date(), //.required(),
+    entitleToLspsp: yup.string().required("Please choose yes or no"),
     lspspTypeId: yup.string(), //.required("Please choose yes or no"),
     lspspEntitlementAmount: yup
       .number()
-      .positive("Money must be greater than zero"),
+      .positive("Money must be greater than zero")
+      .required("Money input is required"),
+    orsoOffsetAmount: yup
+      .number()
+      .positive("Money must be greater than zero")
+      .required("Money input is required"),
     //.required("Money input is required"),
-    orsoOffsetAmount: yup.number().positive("Money must be greater than zero"),
-    //.required("Money input is required"),
-    effective_date: yup.string(), //yup.date(),
-    change_date: yup.string(), //yup.date(),
-    schemes: yup.array(),
+    //effective_date: yup.string(), //yup.date(),
+    //change_date: yup.string(), //yup.date(),
+    //schemes: yup.array(),
     //.required("Please choose yes or no"),
     // selectedValueEntitle_ESP_SP: yup
     //   .string()
@@ -101,7 +104,8 @@ const EmployeeDetails = (props) => {
   const [LSP_SP_Disable, setLSP_SP_Disable] = useState(true);
   const [open, setOpen] = useState(false);
   const [btnStatus, setBtnStatus] = useState("");
-  const btnClick = React.useRef(null);
+  const [bottomBar, setBottomBar] = useState(false);
+  //const btnClick = React.useRef(null);
 
   const handleClose = (e) => {
     setOpen((open) => !open);
@@ -153,52 +157,27 @@ const EmployeeDetails = (props) => {
     return true;
   };
 
-  // const formikHandleSubmit = (values, actions) => {
-  //   validateForm(values, actions);
-  //   localStorage.setItem("state", values.state); /// refresh fix
-  //   console.log(values);
-  // };
+  const chkLsp_Sp_Amount = (values) => {
+    if (parseFloat(values.lspspEntitlementAmount) > parseFloat(390000.0)) {
+      handleClose();
+      setBtnStatus("ExMsg_ExcdLspspAmt");
+      return false;
+    }
+    return true;
+  };
 
   const formikHandleSubmit = (values, actions) => {
     console.log(values);
-
-    const forValidationValues = {
-      accountNumber: data.accountNumber, //clientSchemes.accountNumber,
-      lastDateOfEmployment: moment(values.lastDateOfEmployment).format(
-        "YYYY-MM-DD"
-      ),
-      entitleToLspsp: parseBoolean(values.entitleToLspsp),
-      lspspTypeId: values.lspspTypeId,
-      terminationReasonId: values.terminationReasonId,
-      lspspEntitlementAmount: values.lspspEntitlementAmount,
-      orsoOffsetAmount: values.orsoOffsetAmount,
-      otherOffsetAmount: 0.0,
-      payableAmount: values.lspspEntitlementAmount - values.orsoOffsetAmount,
-    };
-    // } catch (err) {
-    //   console.error(err);
-    // }
-    console.log(forValidationValues);
-
-    validTermination(forValidationValues);
-  };
-
-  const validateForm = (values, actions) => {
+    //actions.validateForm();
+    //const chkValid = await validationSchema.isValid(initialValues);
+    //console.log(chkValid);
     const chkLdoe = ldoeChange(values);
     if (!chkLdoe) return;
-    console.log(values);
+
+    const chkLsp_SpAmt = chkLsp_Sp_Amount(values);
+    if (!chkLsp_SpAmt) return;
 
     const forValidationValues = {
-      // NOTE: proven validated values
-      // accountNumber: 970001,
-      // lastDateOfEmployment: "2020-05-01",
-      // entitleToLspsp: true,
-      // lspspTypeId: "LS_SP",
-      // terminationReasonId: "TR_RD",
-      // lspspEntitlementAmount: 390000.0,
-      // orsoOffsetAmount: 0.0,
-      // otherOffsetAmount: 0.0,
-
       accountNumber: data.accountNumber, //clientSchemes.accountNumber,
       lastDateOfEmployment: moment(values.lastDateOfEmployment).format(
         "YYYY-MM-DD"
@@ -211,19 +190,54 @@ const EmployeeDetails = (props) => {
       otherOffsetAmount: 0.0,
       payableAmount: values.lspspEntitlementAmount - values.orsoOffsetAmount,
     };
+
     console.log(forValidationValues);
-    validTermination(forValidationValues);
+    try {
+      validTermination(forValidationValues);
+    } catch (err) {
+      handleClose();
+      setBtnStatus("");
+      return;
+    }
+    areValidated(values, actions, forValidationValues);
   };
 
-  // IMPORTANT: during validtermination the page refreshes so valid payload
-  // NOTE:        was changed to forValidationValues
-
-  // useEffect(() => {
-  //   effect
-  //   return () => {
-  //     cleanup
-  //   }
-  // }, [input])
+  function areValidated(values, actions, forValidationValues) {
+    console.log(valid); // will check
+    if (values.state === "save") {
+      const addedValues = { statusType: "Saved", statusTypeId: "ST_SV" };
+      const newValues = { ...forValidationValues, ...addedValues };
+      try {
+        saveTermination(newValues);
+        handleClose();
+        setBtnStatus("ExMsg_SvdSccss");
+      } catch (err) {
+        handleClose();
+        setBtnStatus("");
+        return;
+      }
+    }
+    if (values.state === "submit") {
+      //const entyId = "327D2230-AE4C-43CF-8314-4B3525AE6CA3"
+      //loadMbrTerm(entyId);
+      const addedValues = {
+        statusType: "Pending for internal review",
+        statusTypeId: "ST_PD_RW",
+      };
+      const newValues = { ...forValidationValues, ...addedValues };
+      //onSubmit(values);
+      try {
+        saveTermination(newValues);
+        handleClose();
+        setBtnStatus("ExMsg_SvdSccss");
+      } catch (err) {
+        handleClose();
+        setBtnStatus("");
+        return;
+      }
+    }
+    actions.resetForm();
+  }
 
   // console.log(valid);
   // if (valid !== "") {
@@ -257,7 +271,6 @@ const EmployeeDetails = (props) => {
   const onCancel = (resetForm) => {
     handleClose();
     setBtnStatus("ExMsg_CnclPrcss");
-    //resetForm();
   };
 
   return (
@@ -302,7 +315,8 @@ const EmployeeDetails = (props) => {
               <div>
                 <div className={classes.labels}>{labels.effectiveDate}</div>
                 <div className={classes.textValue}>
-                  {moment(data.effectiveDate).format("d MMMM y")}
+                  {data.effectiveDate &&
+                    moment(data.effectiveDate).format("d MMMM y")}
                 </div>
               </div>
             </div>
@@ -315,7 +329,7 @@ const EmployeeDetails = (props) => {
               <div>
                 <div className={classes.labels}>{labels.memberName}</div>
                 <div className={classes.textValue}>
-                  {data.firstName + " " + data.lastName}
+                  {data.lastName && data.firstName + " " + data.lastName}
                 </div>
               </div>
               <div>
@@ -341,13 +355,15 @@ const EmployeeDetails = (props) => {
               <div>
                 <div className={classes.labels}>{labels.dateJoin}</div>
                 <div className={classes.textValue}>
-                  {moment(data.joinSchemeDate).format("d MMMM y")}
+                  {data.joinSchemeDate &&
+                    moment(data.joinSchemeDate).format("d MMMM y")}
                 </div>
               </div>
               <div>
                 <div className={classes.labels}>{labels.terminationDate}</div>
                 <div className={classes.textValue}>
-                  {moment(data.terminationDate).format("d MMMM y")}
+                  {data.terminationDate &&
+                    moment(data.terminationDate).format("d MMMM y")}
                 </div>
               </div>
               <div>
@@ -414,7 +430,7 @@ const EmployeeDetails = (props) => {
             };
 
             return (
-              <Form>
+              <Form onChange={() => setBottomBar(true)}>
                 <MessageRender
                   open={open}
                   onClose={handleClose}
@@ -611,31 +627,34 @@ const EmployeeDetails = (props) => {
                   </div>
                 </Paper>
 
-                <BottomAppBar>
-                  <FloatingButton
-                    text="cancel"
-                    onClick={onCancel.bind(null, resetForm)}
-                  />
-                  {/* <FormikForm.FloatingButton text="save" /> */}
-
-                  {/* <FormikForm.FloatingButton text="submit" /> */}
-                  {/* <FormikForm.Submit className={classes.btnReverse} text="save">
+                {bottomBar && (
+                  <BottomAppBar>
+                    <FloatingButton
+                      text="cancel"
+                      onClick={onCancel.bind(null, resetForm)}
+                    />
+                    {/* <FormikForm.FloatingButton text="save" /> */}
+                    {/* <FormikForm.FloatingButton text="submit" /> */}
+                    {/* <FormikForm.Submit className={classes.btnReverse} text="save">
                     SAVE
                   </FormikForm.Submit>
                   <FormikForm.Submit text="submit">SUBMIT</FormikForm.Submit> */}
-                  <Button
-                    type="submit"
-                    onClick={(e) => onHandleClick(e, "save")}
-                  >
-                    Save
-                  </Button>
-                  <Button
-                    type="submit"
-                    onClick={(e) => onHandleClick(e, "submit")}
-                  >
-                    Submit
-                  </Button>
-                </BottomAppBar>
+                    <Button
+                      type="submit"
+                      className={classes.btnReverse}
+                      onClick={(e) => onHandleClick(e, "save")}
+                    >
+                      Save
+                    </Button>
+                    &nbsp;
+                    <Button
+                      type="submit"
+                      onClick={(e) => onHandleClick(e, "submit")}
+                    >
+                      Submit
+                    </Button>
+                  </BottomAppBar>
+                )}
               </Form>
             );
           }}

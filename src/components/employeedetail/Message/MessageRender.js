@@ -36,6 +36,19 @@ const MessageRender = ({ open, onClose, msgCode }) => {
         );
         btnType = <FloatingButton text="ok" onClick={onClose} />;
         break;
+      case "ExMsg_ExcdLspspAmt":
+        msgDialog =
+          "The inputted amount cannot exceed the current statutory maximum amount HKD $390,000. Please input again.";
+        imgType = (
+          <img
+            src={ExclamationMark}
+            alt="Checked"
+            variant="contained"
+            className={classes.imgDialog}
+          />
+        );
+        btnType = <FloatingButton text="ok" onClick={onClose} />;
+        break;
       case "ExMsg_CnclPrcss":
         msgDialog = "Are you sure to cancel the process?";
         imgType = (
@@ -70,6 +83,14 @@ const MessageRender = ({ open, onClose, msgCode }) => {
         btnType = <FloatingButton text="ok" onClick={onClose} />;
         break;
       default:
+        imgType = (
+          <img
+            src={ExclamationMark}
+            alt="Checked"
+            variant="contained"
+            className={classes.imgDialog}
+          />
+        );
         break;
     }
 

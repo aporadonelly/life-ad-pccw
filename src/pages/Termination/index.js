@@ -8,6 +8,7 @@ import {
   reasonSelector,
   isLoadingSelector,
   errorSelector,
+  isSavingSelector,
 } from "@redux/features/employees/termination/selectors";
 
 import {
@@ -27,6 +28,7 @@ const mapStateToProps = (state) => ({
   reason: reasonSelector(state),
   isLoading: isLoadingSelector(state),
   error: errorSelector(state),
+  isSaving: isSavingSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

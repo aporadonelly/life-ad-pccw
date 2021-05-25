@@ -37,6 +37,11 @@ export const isLoadingSelector = createSelector(
   (state) => state.isLoading
 );
 
+export const isSavingSelector = createSelector(
+  stateSelector,
+  (state) => state.isSaving
+);
+
 export const errorSelector = createSelector(
   stateSelector,
   (state) => state.error

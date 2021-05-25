@@ -21,20 +21,20 @@ const Termination = (props) => {
   return (
     <>
       <TerminationRoutes {...props} />
-      {/* {isLoading ? (
+      {isLoading ? (
         <Box display="flex" justifyContent="center" mt={5}>
           <CircularProgress />
         </Box>
-      ) : (*/}
-      <>
-        {/* {error && (
-          <Grid item xs={12}>
-           <Alert severity="error">{error}</Alert> 
-          </Grid>
-        )}*/}
-        <EmployeeDetails {...props} />
-      </>
-      {/* )} */}
+      ) : (
+        <>
+          {error && (
+            <Grid item xs={12}>
+              {/* <Alert severity="error">{error}</Alert>  */}
+            </Grid>
+          )}
+          <EmployeeDetails {...props} />
+        </>
+      )}
     </>
   );
 };
