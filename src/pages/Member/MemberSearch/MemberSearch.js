@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Grid, Card, CardContent, Typography } from "@material-ui/core";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -63,6 +63,8 @@ const validationSchema = yup.object().shape({
 });
 
 const MemberSearch = (props) => {
+  const [value, setValues] = useState("");
+
   const {
     gender,
     getGender,
@@ -122,7 +124,7 @@ const MemberSearch = (props) => {
                         {t("typography:heading.memberEnquiry")}
                       </Typography>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={2}>
                       <Form.Input
                         label={t("form:label.mpfId")}
                         name="mpfID"
@@ -139,7 +141,7 @@ const MemberSearch = (props) => {
                         {t("typography:heading.personalInformation")}
                       </Typography>
                     </Grid>
-                    <Grid item xs={12} lg={4}>
+                    <Grid item xs={4}>
                       <Form.Input
                         label={t("form:label.displayName")}
                         name="fullName"
@@ -149,7 +151,7 @@ const MemberSearch = (props) => {
                         )}
                       />
                     </Grid>
-                    <Grid item xs={12} lg={4}>
+                    <Grid item xs={4}>
                       <Form.Input
                         label={t("form:label.chineseName")}
                         name="chineseName"
@@ -159,7 +161,7 @@ const MemberSearch = (props) => {
                         )}
                       />
                     </Grid>
-                    <Grid item xs={12} lg={3}>
+                    <Grid item xs={2}>
                       <Form.Select
                         data={{
                           options: gender,
@@ -170,9 +172,11 @@ const MemberSearch = (props) => {
                         name="gender"
                         type="text"
                         placeholder={t("form:placeholder.custom.pleaseSelect")}
+                        clearButton
                       />
                     </Grid>
-                    <Grid item xs={12} lg={2}>
+                    <Grid item xs={2}></Grid>
+                    <Grid item xs={2}>
                       <Form.Select
                         label={t("form:label.idType")}
                         name="idType"
@@ -183,9 +187,10 @@ const MemberSearch = (props) => {
                           label: (option) => option.cstmTypDtlTxt,
                           value: (option) => option.cstmTypId,
                         }}
+                        clearButton
                       />
                     </Grid>
-                    <Grid item xs={12} lg={2}>
+                    <Grid item xs={2}>
                       <Form.Input
                         label={t("form:label.idNumber")}
                         name="idNumber"
@@ -193,7 +198,7 @@ const MemberSearch = (props) => {
                         placeholder={t("form:placeholder.custom.pleaseInput")}
                       />
                     </Grid>
-                    <Grid item xs={12} lg={2}>
+                    <Grid item xs={2}>
                       <Form.DatePicker
                         label={t("form:label.birthdate")}
                         name="dateOfBirth"
@@ -202,7 +207,7 @@ const MemberSearch = (props) => {
                         helperText="DDMMYYYY"
                       />
                     </Grid>
-                    <Grid item xs={12} lg={2}>
+                    <Grid item xs={2}>
                       <Form.Select
                         data={{
                           options: nationality,
@@ -213,9 +218,10 @@ const MemberSearch = (props) => {
                         name="nationality"
                         type="text"
                         placeholder={t("form:placeholder.custom.pleaseSelect")}
+                        clearButton
                       />
                     </Grid>
-                    <Grid item xs={12} lg={2}>
+                    <Grid item xs={2}>
                       <Form.Select
                         data={{
                           options: placeOfBirth,
@@ -226,9 +232,10 @@ const MemberSearch = (props) => {
                         name="placeOfBirth"
                         type="text"
                         placeholder={t("form:placeholder.custom.pleaseSelect")}
+                        clearButton
                       />
                     </Grid>
-                    <Grid item xs={12} lg={2}>
+                    <Grid item xs={2}>
                       <Form.Input
                         label={t("form:label.mobileNumber")}
                         name="mobileNumber"
@@ -238,7 +245,7 @@ const MemberSearch = (props) => {
                     </Grid>
                   </Grid>
                   <Grid container spacing={2}>
-                    <Grid item xs={12} lg={8}>
+                    <Grid item xs={8}>
                       <Form.Input
                         label={t("form:label.address")}
                         name="address"
@@ -246,7 +253,7 @@ const MemberSearch = (props) => {
                         placeholder={t("form:placeholder.custom.pleaseInput")}
                       />
                     </Grid>
-                    <Grid item xs={12} lg={4}>
+                    <Grid item xs={4}>
                       <Form.Input
                         label={t("form:label.email")}
                         name="email"
@@ -261,7 +268,7 @@ const MemberSearch = (props) => {
                         {t("typography:heading.employmentInformation")}
                       </Typography>
                     </Grid>
-                    <Grid item xs={12} lg={2}>
+                    <Grid item xs={2}>
                       <Form.DatePicker
                         label={t("form:label.dateOfEmployment")}
                         name="dateOfEmployment"
@@ -270,7 +277,7 @@ const MemberSearch = (props) => {
                         helperText="DDMMYYYY"
                       />
                     </Grid>
-                    <Grid item xs={12} lg={2}>
+                    <Grid item xs={2}>
                       <Form.Select
                         data={{
                           options: employeeType,
@@ -283,7 +290,7 @@ const MemberSearch = (props) => {
                         placeholder={t("form:placeholder.custom.pleaseSelect")}
                       />
                     </Grid>
-                    <Grid item xs={12} lg={2}>
+                    <Grid item xs={2}>
                       <Form.Select
                         data={{
                           options: industryType,
@@ -294,9 +301,10 @@ const MemberSearch = (props) => {
                         name="reportedIndustryType"
                         type="text"
                         placeholder={t("form:placeholder.custom.pleaseSelect")}
+                        clearButton
                       />
                     </Grid>
-                    <Grid item xs={12} lg={2}>
+                    <Grid item xs={2}>
                       <Form.Select
                         data={{
                           options: occupation,
@@ -307,9 +315,10 @@ const MemberSearch = (props) => {
                         name="occupation"
                         type="text"
                         placeholder={t("form:placeholder.custom.pleaseInput")}
+                        clearButton
                       />
                     </Grid>
-                    <Grid item xs={12} lg={4}>
+                    <Grid item xs={4}>
                       <Form.Select
                         data={{
                           options: schemeType,
@@ -320,9 +329,10 @@ const MemberSearch = (props) => {
                         name="schemeUuid"
                         type="text"
                         placeholder={t("form:placeholder.custom.pleaseInput")}
+                        clearButton
                       />
                     </Grid>
-                    <Grid item xs={12} lg={2}>
+                    <Grid item xs={2}>
                       <Form.Input
                         label={t("form:label.taxResidency")}
                         name="taxResidency"
@@ -330,7 +340,7 @@ const MemberSearch = (props) => {
                         placeholder={t("form:placeholder.custom.pleaseInput")}
                       />
                     </Grid>
-                    <Grid item xs={12} lg={2}>
+                    <Grid item xs={2}>
                       <Form.Input
                         label={t("form:label.tin")}
                         name="tin"
@@ -338,7 +348,7 @@ const MemberSearch = (props) => {
                         placeholder={t("form:placeholder.custom.pleaseInput")}
                       />
                     </Grid>
-                    <Grid item xs={12} lg={2}>
+                    <Grid item xs={2}>
                       <Form.Select
                         data={{
                           options: status,
@@ -349,6 +359,7 @@ const MemberSearch = (props) => {
                         name="status"
                         type="text"
                         placeholder={t("form:placeholder.custom.pleaseSelect")}
+                        clearButton
                       />
                     </Grid>
                   </Grid>
@@ -360,9 +371,9 @@ const MemberSearch = (props) => {
                     className={classes.fieldSpacing}
                   >
                     <div className={classes.formBtnContainer}>
-                      <Form.Submit variant="outlined">
+                      <Form.Reset variant="outlined">
                         {t("button:clear")}
-                      </Form.Submit>
+                      </Form.Reset>
                       &nbsp;
                       <Form.Submit>{t("button:search")}</Form.Submit>
                     </div>
