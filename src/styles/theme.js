@@ -23,7 +23,7 @@ const theme = createMuiTheme({
   },
   custom: {
     drawer: {
-      width: 200,
+      width: 230,
     },
   },
 });

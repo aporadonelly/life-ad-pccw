@@ -1,14 +1,13 @@
 {
   "menu": {
-    "dashboard": "仪表盘",
-    "enquires": "询问",
-    "trustee": "受托人",
-    "company": "公司",
+    "task": "任务",
+    "member": "成员",
     "individual": "个人",
     "employer": "雇主",
-    "employee": "员工",
-    "agent": "代理人",
-    "generalLegar": "总帐",
-    "correspondenses": "对应关系"
+    "company": "公司",
+    "trustee": "受托人",
+    "transactionHistory": "交易记录",
+    "instruction": "操作说明",
+    "configuration": "配置"
   }
 }
