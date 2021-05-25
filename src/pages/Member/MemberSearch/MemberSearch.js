@@ -34,6 +34,7 @@ import { Formik } from "formik";
 import { PageInner } from "@components/layout";
 import { Form } from "@components/common";
 import EmployeeStyles from "../../../components/employees/styles/EmployeeStyles";
+import moment from "moment";
 
 const initialValues = {
   mpfID: "",
@@ -63,8 +64,6 @@ const validationSchema = yup.object().shape({
 });
 
 const MemberSearch = (props) => {
-  const [value, setValues] = useState("");
-
   const {
     gender,
     getGender,
@@ -103,7 +102,13 @@ const MemberSearch = (props) => {
   }, []);
 
   const handleSubmit = (values) => {
-    getAllMembers(values);
+    // console.log(values, "values");
+    //
+    const newValues = { ...values };
+    newValues.dateOfBirth =
+      newValues.dateOfBirth &&
+      moment(newValues.dateOfBirth).format("YYYY-MM-DD");
+    getAllMembers(newValues);
   };
 
   return (
@@ -202,7 +207,7 @@ const MemberSearch = (props) => {
                       <Form.DatePicker
                         label={t("form:label.birthdate")}
                         name="dateOfBirth"
-                        type="text"
+                        format="dd/MM/yyyy"
                         placeholder={t("form:placeholder.custom.pleaseInput")}
                         helperText="DDMMYYYY"
                       />
