@@ -2,7 +2,8 @@ import { useStyles } from "./styles";
 import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import { UserPlaceholder as UserPlaceholderIcon } from "@components/icons";
 
-const UserMenu = () => {
+const UserMenu = (props) => {
+  const { displayName } = props;
   const classes = useStyles();
 
   return (
@@ -13,7 +14,7 @@ const UserMenu = () => {
         </ListItemIcon>
         <ListItemText
           className={classes.info}
-          primary="Rosetta Chan"
+          primary={displayName}
           secondary="Admin Operator"
           secondaryTypographyProps={{ variant: "caption", color: "inherit" }}
         />
