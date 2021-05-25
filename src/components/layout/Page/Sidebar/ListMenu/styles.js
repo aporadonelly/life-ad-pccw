@@ -6,13 +6,13 @@ const useStyles = makeStyles((theme) => ({
     "& > *": {
       margin: theme.spacing(0.5, 0),
     },
+    overflowX: "hidden",
   },
   listItemIcon: {
     minWidth: 40,
   },
   listItemText: {
     fontWeight: theme.typography.fontWeightMedium,
-    whiteSpace: "pre-wrap",
   },
   divider: {
     height: 2,
