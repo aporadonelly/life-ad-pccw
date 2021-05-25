@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { withField } from "@hocs";
 import moment from "moment";
-import DateFnsUtils from "@date-io/date-fns";
+import MomentUtils from "@date-io/moment";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
@@ -35,7 +35,7 @@ const DatePickerField = (props) => {
   }, [rest.value]);
 
   return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
       <KeyboardDatePicker
         {...rest}
         format={format}
