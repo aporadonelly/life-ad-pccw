@@ -1,7 +1,8 @@
 import { Switch, Route } from "react-router-dom";
-import CompanyProfile from "./CompanyProfile";
-import ViewProfile from "./ViewProfile";
 import { PageHeader } from "@components/layout";
+import MemberSearch from "./MemberSearch";
+import Members from "./Members";
+import ViewMember from "./ViewMember";
 
 const routes = [
   {
@@ -16,19 +17,19 @@ const routes = [
   },
 ];
 
-const Employer = (props) => {
+const Member = (props) => {
   const path = props.match.path;
 
   return (
     <>
       <PageHeader routes={routes} />
       <Switch>
-        <Route exact path={`${path}`} component={CompanyProfile} />
-        <Route path={`${path}/profile`} component={ViewProfile} />
-        {/* <Route path={`${path}/employer/enrollment-scheme`} component={null} /> */}
+        <Route exact path={`${path}`} component={Members} />
+        <Route path={`${path}/search`} component={MemberSearch} />
+        <Route path={`${path}/details`} component={ViewMember} />
       </Switch>
     </>
   );
 };
 
-export default Employer;
+export default Member;

@@ -13,7 +13,7 @@ import {
 } from "./actions";
 import { initialState } from "./state";
 
-export const employeesReducer = createReducer(initialState, (builder) =>
+export const membersReducer = createReducer(initialState, (builder) =>
   //Gender
   builder
     .addCase(getGender.pending, (state, _action) => {

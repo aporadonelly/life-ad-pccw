@@ -1,1 +1,1 @@
-export { default } from "./MemberSearch";
+export { default } from "./Member";

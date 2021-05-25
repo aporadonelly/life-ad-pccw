@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { systemAdapter, employeesAdapter } from "@adapters";
 
 export const getGender = createAsyncThunk(
-  "@@EMPF/EMPLOYEES/GET_GENDER",
+  "@@EMPF/MEMBERS/GET_GENDER",
   async (_payload, { rejectWithValue }) => {
     try {
       const gender = await systemAdapter.fetchGender();
@@ -16,7 +16,7 @@ export const getGender = createAsyncThunk(
 );
 
 export const getIdType = createAsyncThunk(
-  "@@EMPF/EMPLOYEES/GET_ID_TYPE",
+  "@@EMPF/MEMBERS/GET_ID_TYPE",
   async (_payload, { rejectWithValue }) => {
     try {
       const idType = await systemAdapter.fetchIdType();
@@ -30,7 +30,7 @@ export const getIdType = createAsyncThunk(
 );
 
 export const getNationality = createAsyncThunk(
-  "@@EMPF/EMPLOYEES/GET_NATIONALITY",
+  "@@EMPF/MEMBERS/GET_NATIONALITY",
   async (_payload, { rejectWithValue }) => {
     try {
       const nationality = await systemAdapter.fetchNationality();
@@ -44,7 +44,7 @@ export const getNationality = createAsyncThunk(
 );
 
 export const getPlaceOfBirth = createAsyncThunk(
-  "@@EMPF/EMPLOYEES/GET_PLC_OF_BIRTH",
+  "@@EMPF/MEMBERS/GET_PLC_OF_BIRTH",
   async (_payload, { rejectWithValue }) => {
     try {
       const placeOfBirth = await systemAdapter.fetchPlaceOfBirth();
@@ -58,7 +58,7 @@ export const getPlaceOfBirth = createAsyncThunk(
 );
 
 export const getEmployeeType = createAsyncThunk(
-  "@@EMPF/EMPLOYEES/GET_EMPLOYEE_TYPE",
+  "@@EMPF/MEMBERS/GET_EMPLOYEE_TYPE",
   async (_payload, { rejectWithValue }) => {
     try {
       const employeeType = await systemAdapter.fetchEmployeeType();
@@ -72,7 +72,7 @@ export const getEmployeeType = createAsyncThunk(
 );
 
 export const getIndustryType = createAsyncThunk(
-  "@@EMPF/EMPLOYEES/GET_INDUSTRY_TYPE",
+  "@@EMPF/MEMBERS/GET_INDUSTRY_TYPE",
   async (_payload, { rejectWithValue }) => {
     try {
       const industryType = await systemAdapter.fetchIndustryType();
@@ -86,7 +86,7 @@ export const getIndustryType = createAsyncThunk(
 );
 
 export const getOccupation = createAsyncThunk(
-  "@@EMPF/EMPLOYEES/GET_OCCUPATION",
+  "@@EMPF/MEMBERS/GET_OCCUPATION",
   async (_payload, { rejectWithValue }) => {
     try {
       const occupation = await systemAdapter.fetchOccupation();
@@ -100,7 +100,7 @@ export const getOccupation = createAsyncThunk(
 );
 
 export const getSchemeType = createAsyncThunk(
-  "@@EMPF/EMPLOYEES/GET_SCHEME_TYPE",
+  "@@EMPF/MEMBERS/GET_SCHEME_TYPE",
   async (_payload, { rejectWithValue }) => {
     try {
       const schemeType = await systemAdapter.fetchSchemeType();
@@ -114,7 +114,7 @@ export const getSchemeType = createAsyncThunk(
 );
 
 export const getStatus = createAsyncThunk(
-  "@@EMPF/EMPLOYEES/GET_STATUS",
+  "@@EMPF/MEMBERS/GET_STATUS",
   async (_payload, { rejectWithValue }) => {
     try {
       const status = await systemAdapter.fetchStatus();
@@ -128,11 +128,10 @@ export const getStatus = createAsyncThunk(
 );
 
 export const getAllMembers = createAsyncThunk(
-  "@@EMPF/EMPLOYEES/SEARCH_MEMBERS",
+  "@@EMPF/MEMBERS/SEARCH_MEMBERS",
   async (payload, { rejectWithValue }) => {
     try {
       const employees = await employeesAdapter.searchMembers(payload);
-      console.log(employees, "employees");
       return { employees };
     } catch (error) {
       return rejectWithValue({ error });

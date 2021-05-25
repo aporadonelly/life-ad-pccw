@@ -1,11 +1,11 @@
 import { combineReducers } from "redux";
-import { employeesReducer } from "./features/employees/reducer";
+import { membersReducer } from "./features/members/reducer";
 import { systemReducer } from "./features/system/reducer";
 import { userReducer } from "./features/user/reducer";
 import { employerReducer } from "./features/employers/reducer";
 
 const rootReducer = combineReducers({
-  employees: employeesReducer,
+  employees: membersReducer,
   system: systemReducer,
   user: userReducer,
   employers: employerReducer,

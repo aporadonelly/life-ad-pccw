@@ -15,7 +15,7 @@ import {
   schemeTypeSelector,
   statusSelector,
   employeesSelector,
-} from "@redux/features/employees/selectors";
+} from "@redux/features/members/selectors";
 import {
   getGender,
   getIdType,
@@ -27,13 +27,13 @@ import {
   getSchemeType,
   getStatus,
   getAllMembers,
-} from "@redux/features/employees/actions";
+} from "@redux/features/members/actions";
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
 import { Formik } from "formik";
 import { PageInner } from "@components/layout";
 import { Form } from "@components/common";
-import EmployeeStyles from "../../components/employees/styles/EmployeeStyles";
+import EmployeeStyles from "../../../components/employees/styles/EmployeeStyles";
 
 const initialValues = {
   mpfID: "",
@@ -83,7 +83,6 @@ const MemberSearch = (props) => {
     getStatus,
     status,
     getAllMembers,
-    employees,
   } = props;
 
   const classes = EmployeeStyles();
