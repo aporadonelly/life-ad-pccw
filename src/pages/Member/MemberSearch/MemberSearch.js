@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Grid, Card, CardContent, Typography } from "@material-ui/core";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
+
 import {
   isLoadingSelector,
   errorSelector,
@@ -86,6 +88,7 @@ const MemberSearch = (props) => {
     getAllMembers,
   } = props;
 
+  const history = useHistory();
   const classes = EmployeeStyles();
   const { t } = useTranslation(["typography", "form", "button"]);
 
@@ -107,10 +110,8 @@ const MemberSearch = (props) => {
       newValues.dateOfBirth &&
       moment(newValues.dateOfBirth).format("YYYY/MM/DD");
     getAllMembers(newValues);
-    console.log(newValues, "newValues");
+    history.push("/member");
   };
-  console.log(gender, "gender");
-  // return null;
 
   return (
     <PageInner>
