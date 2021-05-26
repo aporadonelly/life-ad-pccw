@@ -8,9 +8,6 @@ const useStyles = makeStyles((theme) => ({
     color: "#009CCD",
     opacity: 1,
   },
-  compRegInfor: {
-    marginTop: "13px"
-  },
   supportingDocsLabel: {
     textAlign: "left",
     font: "normal normal bold 14px/16px Roboto",

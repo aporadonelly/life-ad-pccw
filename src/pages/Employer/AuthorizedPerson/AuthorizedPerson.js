@@ -1,14 +1,8 @@
 import React from 'react';
-import clsx from 'clsx';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableRow from '@material-ui/core/TableRow';
-import EnhancedTableHead from '../TableHeader';
-import { Icon, Tooltip } from '@material-ui/core';
-import { ViewButton } from '../../../../assets/icons';
-import _ from 'lodash';
+import { TableContainer, TableRow, Table, TableBody, TableCell, Icon, Tooltip } from '@material-ui/core';
+import EnhancedTableHead from './TableHeader';
+import { ViewButton } from '../../../assets/icons';
+import { _ } from 'lodash';
 import useStyles from './styles';
 
 function descendingComparator(a, b, orderBy) {
@@ -49,7 +43,7 @@ export default function AuthorizedPerson({ authPerson }) {
     setOrderBy(property);
   };
   return (
-    <div className={classes.root}>
+    <div className={classes.root} >
       <TableContainer>
         <Table
           className={classes.table}

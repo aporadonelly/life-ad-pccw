@@ -45,7 +45,7 @@ const App = ({
         <Route path="/employee-search-results" component={EmployeesList} />
         <Route path="/employee-view" component={Employee} />
         <Route path="/employer" render={(props) => <Employer {...props} />} />
-        <Route path="/company" component={CompanyProfile} />
+        <Route path="/companies" component={CompanyProfile} />
 
         {process.env.NODE_ENV === "development" && (
           <Route path={process.env.REACT_APP_REDIRECT_URL} component={SignIn} />

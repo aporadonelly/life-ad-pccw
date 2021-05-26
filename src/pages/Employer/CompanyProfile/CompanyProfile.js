@@ -1,24 +1,20 @@
 import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
-import { Grid, Card, CardContent, Typography, Divider, CircularProgress, Box } from "@material-ui/core";
-import { PageInner } from "@components/layout";
-import Button from "../../../common/Button";
+import { Grid, Card, CardContent, Typography, Divider, CircularProgress, Box, Button } from "@material-ui/core";
+import { PageHeader, PageInner } from "@components/layout";
 import { useTranslation } from "react-i18next";
 import { Definition } from "@components/misc";
 import CompanySupportingDocs from "./SupportingDocuments";
-import AuthorizedPerson from "./AuthorizedPerson/AuthorizedPerson";
-import { labels } from "../../../common/labels";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import AuthorizedPerson from "../AuthorizedPerson/AuthorizedPerson";
 import { get } from "lodash";
-import { getCompanyRegInfoAction } from "@redux/features/company/action";
-import { companyRegInfoSelector, errorSelector, isLoadingSelector } from "../../../redux/features/company/selector";
+import { useHistory } from "react-router-dom";
 import useStyles from "./styles";
 
-const CompanyProfile = ({ getCompanyRegInfoAction, companyRegInfo, isLoading }) => {
+const CompanyProfile = (props) => {
   const classes = useStyles();
-  const { t } = useTranslation(["typography", "form", "button", "caption"]);
-
+  const history = useHistory();
+  const { t } = useTranslation(["typography", "form", "button"]);
+  const { LdRegCmpnyInfoforAdmnPrtl, companyRegInfo, isLoading } = props;
   const {
     companyNameEng,
     branchName,
@@ -58,239 +54,255 @@ const CompanyProfile = ({ getCompanyRegInfoAction, companyRegInfo, isLoading }) 
   const supportingDocuments = get(companyRegInfo, "[5].supportingDocuments") ?? [];
 
   useEffect(() => {
-    getCompanyRegInfoAction();
-  }, [getCompanyRegInfoAction])
+    LdRegCmpnyInfoforAdmnPrtl();
+  }, [LdRegCmpnyInfoforAdmnPrtl])
 
   return (
-    <PageInner>
-      {isLoading ? (
-        <Box display="flex" justifyContent="center" mt={5}>
-          {" "}
-          <CircularProgress />
-        </Box>
-      ) : (
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            {companyNameEng && (
-              <Card>
-                <CardContent>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <Typography className={[classes.titleLabel, classes.compRegInfor]}>
-                        {t("typography:heading.companyRegInfo")}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Definition spacing={2} xs={3}>
-                        <Definition.List>
-                          <Definition.Item item xs={3} sm={3} dt={t("caption:label.companyNameEnglish")} dd={companyNameEng} />
-                          <Definition.Item item xs={3} dt={t("caption:label.companyNameChinese")} dd={companyNameChi} />
-                          <Definition.Item item xs={3} dt={t("caption:label.typeOfCompany")} dd={typeOfCompany} />
-                          <Definition.Item item xs={3} dt={t("caption:label.dateOfIncorporation")} dd={dateOfIncorporation} />
-                          <Definition.Item item xs={3} dt={t("caption:label.placeOfIncorporation")} dd={placeOfIncorporation} />
-                          <Definition.Item item xs={3} dt={t("caption:label.registrationType")} dd={registrationType} />
-                          <Definition.Item item xs={3} dt={t("caption:label.registrationNumber")} dd={registrationNumber} />
-                          <Definition.Item item xs={3} dt={t("caption:label.branchNumber")} dd={branchName} />
-                          <Definition.Item item xs={3} dt={t("caption:label.natureOfBusiness")} dd={natureOfBusiness} />
-                          <Definition.Item item xs={3} dt={t("caption:label.preferredLanguage")} dd={preferredLanguage} />
-                        </Definition.List>
-                      </Definition>
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
-            )}
-          </Grid>
-
-          <Grid item xs={12}>
-            {registeredOfficeAddress && (
-              <Card>
-                <CardContent>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <Grid container alignItems="center">
-                        <Grid item xs={6}>
-                          <Typography className={classes.titleLabel}>
-                            {t("typography:heading.address")}
-                          </Typography>
-                        </Grid>
-                        {/* <Grid item xs={6} align="right">
-                      <Button
-                        text={t("button:edit")}
-                      />
-                    </Grid> */}
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Definition spacing={2} xs={6}>
-                        <Definition.List>
-                          <Definition.Item dt={t("caption:label.registeredOfficeAddress")} dd={registeredOfficeAddress} />
-                          <Definition.Item dt={t("caption:label.businessAddress")} dd={businessAddress} />
-                          <Definition.Item dt={t("caption:label.correspondenceAddress")} dd={correspondenceAddress} />
-                        </Definition.List>
-                      </Definition>
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
-            )}
-          </Grid>
-
-          <Grid item xs={12}>
-            {authorizedPerson.length > 0 && (
-              <Card>
-                <CardContent>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <Grid container alignItems="center">
-                        <Grid item xs={6}>
-                          <Typography className={classes.titleLabel}>
-                            {t("typography:heading.authorizedPersonOfEmployer")}
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={6} align="right">
-                          {/* <Button
-                            text={t("button:edit")}
-                          /> */}
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <AuthorizedPerson authPerson={authorizedPerson} />
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
-            )}
-          </Grid>
-
-          <Grid item xs={12}>
-            {lastName && (
-              <Card>
-                <CardContent>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <Grid container alignItems="center">
-                        <Grid item xs={6}>
-                          <Typography className={classes.titleLabel}>
-                            {t("typography:heading.primaryContactPerson")}
-                          </Typography>
-                        </Grid>
-                        {/* <Grid item xs={6} align="right">
-                      <Button
-                        text={t("button:edit")}
-                      />
-                    </Grid> */}
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Definition spacing={2} xs={3}>
-                        <Definition.List>
-                          <Definition.Item dt={t("caption:label.lastName")} dd={lastName} />
-                          <Definition.Item dt={t("caption:label.firstName")} dd={firstName} />
-                          <Definition.Item dt={t("caption:label.nameTitle")} dd={nameTitle} />
-                          <Definition.Item dt={t("caption:label.jobTitle")} dd={jobTitle} />
-                          <Definition.Item dt={t("caption:label.telNo")} dd={telNo} />
-                          <Definition.Item dt={t("caption:label.mobileNo")} dd={mobileNo} />
-                          <Definition.Item dt={t("caption:label.emailAddress")} dd={emailAddress} />
-                          <Definition.Item dt={t("caption:label.prefferedLanguageContact")} dd={preferredLanguagePriContact} />
-                        </Definition.List>
-                      </Definition>
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
-            )}
-          </Grid>
-
-          <Grid item xs={12}>
-            {lastName2 && (
-              <Card>
-                <CardContent>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <Grid container alignItems="center">
-                        <Grid item xs={6}>
-                          <Typography className={classes.titleLabel}>
-                            {t("typography:heading.secondaryContactPerson")}
-                          </Typography>
-                        </Grid>
-                        {/* <Grid item xs={6} align="right">
-                      <Button
-                        text={t("button:edit")}
-                      />
-                    </Grid> */}
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Definition spacing={2} xs={3}>
-                        <Definition.List>
-                          <Definition.Item dt={t("caption:label.lastName")} dd={lastName2} />
-                          <Definition.Item dt={t("caption:label.firstName")} dd={firstName2} />
-                          <Definition.Item dt={t("caption:label.nameTitle")} dd={nameTitle2} />
-                          <Definition.Item dt={t("caption:label.jobTitle")} dd={jobTitle2} />
-                          <Definition.Item dt={t("caption:label.telNo")} dd={telNo2} />
-                          <Definition.Item dt={t("caption:label.mobileNo")} dd={mobileNo2} />
-                          <Definition.Item dt={t("caption:label.emailAddress")} dd={emailAddress2} />
-                          <Definition.Item dt={t("caption:label.prefferedLanguageContact")} dd={preferredLanguageContact2} />
-                        </Definition.List>
-                      </Definition>
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
-            )}
-          </Grid>
-
-          <Grid item xs={12}>
-            {supportingDocuments.length > 0 && (
-              <Card>
-                <CardContent>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <Typography className={classes.titleLabel}>
-                        {t("typography:heading.supportingDocs")}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Grid container justify="space-between" >
-                        <Grid className={classes.supportingDocsLabel}>{t("caption:label.fileName")}</Grid>
-                        <Grid className={classes.supportingDocsLabel}>{t("caption:label.viewAction")}</Grid>
+    <>
+      <PageHeader
+        routes={[
+          {
+            name: "Company Registration Information",
+            path: "/employer",
+            component: null,
+          },
+          {
+            name: "Termination",
+            path: "/employer/profile",
+            component: null,
+          },
+        ]}
+      >
+        <PageHeader.SubjectInfo
+          subject="ABC Company Limited"
+          info={{
+            "Employer NO.": 123132,
+          }}
+        />
+        <PageHeader.SubjectInfo subject="Branch 002" />
+      </PageHeader>
+      <PageInner>
+        {isLoading ? (
+          <Box display="flex" justifyContent="center" mt={5}>
+            {" "}
+            <CircularProgress />
+          </Box>
+        ) : (
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              {companyNameEng && (
+                <Card>
+                  <CardContent>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12} style={{ marginTop: 13 }}>
+                        <Typography className={classes.titleLabel}>
+                          {t("typography:heading.companyRegInfo")}
+                        </Typography>
                       </Grid>
                       <Grid item xs={12}>
-                        <Divider />
-                        {
-                          supportingDocuments.map((item, index) => (
-                            <CompanySupportingDocs item={item} key={index} classes={classes} />
-                          ))
-                        }
+                        <Definition spacing={2} xs={3}>
+                          <Definition.List>
+                            <Definition.Item item xs={3} sm={3} dt={t("form:label.companyNameEnglish")} dd={companyNameEng} />
+                            <Definition.Item item xs={3} dt={t("form:label.companyNameChinese")} dd={companyNameChi} />
+                            <Definition.Item item xs={3} dt={t("form:label.typeOfCompany")} dd={typeOfCompany} />
+                            <Definition.Item item xs={3} dt={t("form:label.dateOfIncorporation")} dd={dateOfIncorporation} />
+                            <Definition.Item item xs={3} dt={t("form:label.placeOfIncorporation")} dd={placeOfIncorporation} />
+                            <Definition.Item item xs={3} dt={t("form:label.registrationType")} dd={registrationType} />
+                            <Definition.Item item xs={3} dt={t("form:label.registrationNumber")} dd={registrationNumber} />
+                            <Definition.Item item xs={3} dt={t("form:label.branchNumber")} dd={branchName} />
+                            <Definition.Item item xs={3} dt={t("form:label.natureOfBusiness")} dd={natureOfBusiness} />
+                            <Definition.Item item xs={3} dt={t("form:label.preferredCommunicationLanguage")} dd={preferredLanguage} />
+                          </Definition.List>
+                        </Definition>
                       </Grid>
                     </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
-            )}
-          </Grid>
+                  </CardContent>
+                </Card>
+              )}
+            </Grid>
 
-        </Grid>
-      )}
-    </PageInner >
+            <Grid item xs={12}>
+              {registeredOfficeAddress && (
+                <Card>
+                  <CardContent>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <Grid container alignItems="center">
+                          <Grid item xs={6}>
+                            <Typography className={classes.titleLabel}>
+                              {t("typography:heading.address")}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Definition spacing={2} xs={6}>
+                          <Definition.List>
+                            <Definition.Item dt={t("form:label.registeredOfcAddress")} dd={registeredOfficeAddress} />
+                            <Definition.Item dt={t("form:label.businessAddress")} dd={businessAddress} />
+                            <Definition.Item dt={t("form:label.correspondenceAddress")} dd={correspondenceAddress} />
+                          </Definition.List>
+                        </Definition>
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                </Card>
+              )}
+            </Grid>
+
+            <Grid item xs={12}>
+              {authorizedPerson.length > 0 && (
+                <Card>
+                  <CardContent>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <Grid container alignItems="center">
+                          <Grid item xs={6}>
+                            <Typography className={classes.titleLabel}>
+                              {t("typography:heading.authorizedPersonOfEmployer")}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <AuthorizedPerson authPerson={authorizedPerson} />
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                </Card>
+              )}
+            </Grid>
+
+            <Grid item xs={12}>
+              {lastName && (
+                <Card>
+                  <CardContent>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <Grid container alignItems="center">
+                          <Grid item xs={6}>
+                            <Typography className={classes.titleLabel}>
+                              {t("typography:heading.primaryContactPerson")}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Definition spacing={2} xs={3}>
+                          <Definition.List>
+                            <Definition.Item dt={t("form:label.lastNameContactPerson")} dd={lastName} />
+                            <Definition.Item dt={t("form:label.firstNameContactPerson")} dd={firstName} />
+                            <Definition.Item dt={t("form:label.title")} dd={nameTitle} />
+                            <Definition.Item dt={t("form:label.jobTitle")} dd={jobTitle} />
+                            <Definition.Item dt={t("form:label.telNo")} dd={telNo} />
+                            <Definition.Item dt={t("form:label.mobileNo")} dd={mobileNo} />
+                            <Definition.Item dt={t("form:label.email")} dd={emailAddress} />
+                            <Definition.Item dt={t("form:label.preferredCommunicationLanguage")} dd={preferredLanguagePriContact} />
+                          </Definition.List>
+                        </Definition>
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                </Card>
+              )}
+            </Grid>
+
+            <Grid item xs={12}>
+              {lastName2 && (
+                <Card>
+                  <CardContent>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <Grid container alignItems="center">
+                          <Grid item xs={6}>
+                            <Typography className={classes.titleLabel}>
+                              {t("typography:heading.secondaryContactPerson")}
+                            </Typography>
+                          </Grid>
+
+                        </Grid>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Definition spacing={2} xs={3}>
+                          <Definition.List>
+                            <Definition.Item dt={t("form:label.lastNameContactPerson")} dd={lastName2} />
+                            <Definition.Item dt={t("form:label.firstNameContactPerson")} dd={firstName2} />
+                            <Definition.Item dt={t("form:label.title")} dd={nameTitle2} />
+                            <Definition.Item dt={t("form:label.jobTitle")} dd={jobTitle2} />
+                            <Definition.Item dt={t("form:label.telNo")} dd={telNo2} />
+                            <Definition.Item dt={t("form:label.mobileNo")} dd={mobileNo2} />
+                            <Definition.Item dt={t("form:label.email")} dd={emailAddress2} />
+                            <Definition.Item dt={t("form:label.preferredCommunicationLanguage")} dd={preferredLanguageContact2} />
+                          </Definition.List>
+                        </Definition>
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                </Card>
+              )}
+            </Grid>
+
+            <Grid item xs={12}>
+              {supportingDocuments.length > 0 && (
+                <Card>
+                  <CardContent>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <Typography className={classes.titleLabel}>
+                          {t("typography:heading.supportingDocs")}
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Grid container justify="space-between" >
+                          <Grid className={classes.supportingDocsLabel}>{t("form:label.fileName")}</Grid>
+                          <Grid className={classes.supportingDocsLabel}>{t("form:label.viewAction")}</Grid>
+                        </Grid>
+                        <Grid item xs={12} style={{ paddingTop: 5 }}>
+                          <Divider />
+                          {
+                            supportingDocuments.map((item, index) => (
+                              <CompanySupportingDocs item={item} key={index} classes={classes} />
+                            ))
+                          }
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                </Card>
+              )}
+            </Grid>
+
+            <Grid item xs={12} align="right">
+              <Button variant="outlined" onClick={() => history.push("/")}>{t("button:back")}</Button>
+            </Grid>
+          </Grid>
+        )}
+      </PageInner >
+    </>
   );
 };
 
 CompanyProfile.propTypes = {
-  companyRegInfo: PropTypes.array,
-  getCompanyRegInfoAction: PropTypes.func.isRequired
+  companyRegInfo: PropTypes.arrayOf(PropTypes.shape({
+    companyRegistrationInfo: PropTypes.object,
+    address: PropTypes.object,
+    authorizedPerson: PropTypes.arrayOf(PropTypes.object),
+    primaryContactPerson: PropTypes.object,
+    secondaryContactPerson: PropTypes.object,
+    supportingDocuments: PropTypes.arrayOf(PropTypes.object)
+  })),
+  LdRegCmpnyInfoforAdmnPrtl: PropTypes.func.isRequired
 }
 
-const mapStateToProps = state => ({
-  isLoading: isLoadingSelector(state),
-  error: errorSelector(state),
-  companyRegInfo: companyRegInfoSelector(state),
-});
+CompanyProfile.defaultProps = {
+  companyRegInfo: [{}],
+  companyRegistrationInfo: {},
+  address: {},
+  authorizedPerson: [{}],
+  primaryContactPerson: {},
+  secondaryContactPerson: {},
+  supportingDocuments: [{}],
+  LdRegCmpnyInfoforAdmnPrtl: () => { }
+}
 
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ getCompanyRegInfoAction }, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CompanyProfile);
+export default CompanyProfile;

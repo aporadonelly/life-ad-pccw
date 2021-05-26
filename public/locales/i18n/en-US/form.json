@@ -35,8 +35,23 @@
     "receivedPaperFormNotificationAndDocument": "Received Paper Form Notification and Document",
     "jobTitle": "Job Title",
     "registeredOfcAddress": "Registered Office Address",
-    "businessAddress":"Business Address",
-    "eSignature": "E - Signature"
+    "businessAddress": "Business Address",
+    "eSignature": "E - Signature",
+    "companyNameEnglish": "Company Name (English)",
+    "companyNameChinese": "Company Name (Chinese)",
+    "typeOfCompany": "Type of Company",
+    "dateOfIncorporation": "Date of Incorporation",
+    "placeOfIncorporation": "Place of Incorporation",
+    "registrationType": "Registration Type",
+    "registrationNumber": "Registration Number",
+    "branchNumber": "Branch Number",
+    "natureOfBusiness": "Nature of Business",
+    "lastNameContactPerson": "Last Name",
+    "firstNameContactPerson": "First Name",
+    "telNo": "Telephone No.",
+    "mobileNo": "Mobile Phone No.",
+    "fileName": "File Name",
+    "viewAction": "View"
   },
   "placeholder": {
     "custom": {

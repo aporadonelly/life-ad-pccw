@@ -2,7 +2,7 @@ import AxiosAdapter from "./axios.adapter";
 
 class CompanyAdapter extends AxiosAdapter {
 
-  getCompanyProfile(clientId) {
+  LdRegCmpnyInfoforAdmnPrtl(clientId) {
     return this.instance.get("/companyprofile", {
       // params: { client_uuid: 149 },
     });
