@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import { SignIn, Page404 } from "./pages";
 import { Page } from "./containers";
