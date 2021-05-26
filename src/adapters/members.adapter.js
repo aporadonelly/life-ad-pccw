@@ -37,6 +37,13 @@ class EmployeesAdapter extends AxiosAdapter {
     };
     return this.instance.get("/ldSrchRegInd", config);
   }
+
+  //view specific member
+  viewMember(id) {
+    return this.instance.get("/ldRegIndInfo", {
+      params: { empfId: "A123456(3)" },
+    });
+  }
 }
 
 export default new EmployeesAdapter({

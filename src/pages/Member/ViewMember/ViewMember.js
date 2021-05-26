@@ -1,252 +1,248 @@
 import { useEffect } from "react";
+import moment from "moment";
 import { get } from "lodash";
-import {
-  Grid,
-  Card,
-  CardContent,
-  Typography,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Box,
-} from "@material-ui/core";
+import { Grid, Card, CardContent, Typography, Button } from "@material-ui/core";
 import { PageInner } from "@components/layout";
 import { useTranslation } from "react-i18next";
-import eSig from "../../../assets/icons/signature.svg";
 import { useHistory } from "react-router-dom";
 import { Definition } from "@components/misc";
 
-const ViewMember = (props) => {
-  const { viewAuthPerson, authPerson } = props;
-  const person = get(authPerson, "0.employees") ?? [];
+const ViewMember = ({ getSpecificMember, employee }) => {
+  console.log(employee, "employee");
+  const {
+    pnsnIdTxt,
+    ttlTypId,
+    frstNm,
+    lstNm,
+    chnsFrstNm,
+    chnsLstNm,
+    gndrTypId,
+    idTypId,
+    idNoTxt,
+    brthDt,
+    ntnltyCntryTypCd,
+    regClntPhones,
+    phnNmbr,
+    scndryCntctNo,
+    regCntcts,
+    regAddrs,
+    correspondence_address,
+    emlAddrTxt,
+    preferred_communication_channel,
+    preferred_communication_language,
+    receive_paper_form_notifications_and_document,
+    sttsTypId,
+  } = employee;
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button"]);
 
   useEffect(() => {
-    viewAuthPerson();
+    getSpecificMember();
   }, []);
 
   return (
     <PageInner>
       <Grid container spacing={3}>
+        {/* Authorized Person */}
         <Grid item xs={12}>
           <Card>
             <CardContent>
-              <Grid item xs={12}>
-                <Typography variant="h6" color="primary">
-                  {t("typography:heading.authorizedPerson")}
-                </Typography>
-              </Grid>
-              <Definition spacing={2} xs={3}>
-                <Definition.List>
-                  <Definition.Item
-                    item
-                    xs={3}
-                    dt={t("form:label.idType")}
-                    dd={
-                      Array.isArray(authPerson) &&
-                      authPerson.map((v) => v.id_type)
-                    }
-                  />
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Typography variant="h6" color="primary">
+                    {t("typography:heading.memberRegistrationView")}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Definition spacing={2} xs={3}>
+                    <Definition.List>
+                      <Definition.Item
+                        dt={t("form:label.mpfId")}
+                        dd={pnsnIdTxt}
+                      />
+                    </Definition.List>
+                  </Definition>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="h6" color="primary">
+                    {t("typography:heading.personalInformation")}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Definition spacing={2} xs={2}>
+                    <Definition.List>
+                      <Definition.Item
+                        dt={t("form:label.title")}
+                        dd={get(regCntcts, "[0].ttlTypId")}
+                      />
 
-                  <Definition.Item
-                    item
-                    xs={3}
-                    dt={t("form:label.idNumber")}
-                    dd={
-                      Array.isArray(authPerson) &&
-                      authPerson.map((v) => v.id_number)
-                    }
-                  />
+                      <Definition.Item
+                        dt={t("form:label.firstName")}
+                        dd={frstNm}
+                      />
+                      <Definition.Item
+                        dt={t("form:label.lastName")}
+                        dd={lstNm}
+                      />
 
-                  <Definition.Item
-                    item
-                    xs={3}
-                    dt={t("form:label.birthdate")}
-                    dd={
-                      Array.isArray(authPerson) &&
-                      authPerson.map((v) => v.date_of_birth)
-                    }
-                  />
+                      <Definition.Item
+                        dt={t("form:label.chineseLastName")}
+                        dd={chnsLstNm}
+                      />
 
-                  <Definition.Item
-                    item
-                    xs={3}
-                    dt={t("form:label.nationality")}
-                    dd={
-                      Array.isArray(authPerson) &&
-                      authPerson.map((v) => v.nationality)
-                    }
-                  />
+                      <Definition.Item
+                        dt={t("form:label.chineseFirstName")}
+                        dd={chnsFrstNm}
+                      />
 
-                  <Definition.Item
-                    item
-                    xs={3}
-                    dt={t("form:label.chineseLastName")}
-                    dd={
-                      Array.isArray(authPerson) &&
-                      authPerson.map((v) => v.last_name_chinese)
-                    }
-                  />
-                  <Definition.Item
-                    item
-                    xs={3}
-                    dt={t("form:label.chineseFirstName")}
-                    dd={
-                      Array.isArray(authPerson) &&
-                      authPerson.map((v) => v.first_name_chinese)
-                    }
-                  />
-                  <Definition.Item
-                    item
-                    xs={3}
-                    dt={t("form:label.lastName")}
-                    dd={
-                      Array.isArray(authPerson) &&
-                      authPerson.map((v) => v.last_name)
-                    }
-                  />
-                  <Definition.Item
-                    item
-                    xs={3}
-                    dt={t("form:label.firstName")}
-                    dd={
-                      Array.isArray(authPerson) &&
-                      authPerson.map((v) => v.first_name)
-                    }
-                  />
+                      <Definition.Item
+                        dt={t("form:label.gender")}
+                        dd={gndrTypId === "GT_M" ? "Male" : "Female"}
+                      />
+                      <Definition.Item
+                        dt={t("form:label.idType")}
+                        dd={idTypId === "ID_HK" ? "HKID" : "Passport"}
+                      />
+                      <Definition.Item
+                        dt={t("form:label.idNumber")}
+                        dd={idNoTxt}
+                      />
+                      <Definition.Item
+                        dt={t("form:label.birthdate")}
+                        dd={moment(brthDt).format("DD MMMM YYYY")}
+                      />
 
-                  <Definition.Item
-                    item
-                    xs={3}
-                    dt={t("form:label.title")}
-                    dd={
-                      Array.isArray(authPerson) &&
-                      authPerson.map((v) => v.title)
-                    }
-                  />
-                  <Definition.Item
-                    item
-                    xs={6}
-                    dt={t("form:label.jobTitle")}
-                    dd={
-                      Array.isArray(authPerson) &&
-                      authPerson.map((v) => v.job_title)
-                    }
-                  />
-                </Definition.List>
-              </Definition>
-              {/* <Grid item xs={12}>
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  width="80%"
-                >
-                  {data.map(({ value, label, withUserAcct }, index) => {
-                    return (
-                      <>
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              checked={withUserAcct}
-                              key={index}
-                              name={label}
-                              value={value}
+                      <Definition.Item
+                        dt={t("form:label.placeOfBirth")}
+                        dd={ntnltyCntryTypCd}
+                      />
+                      <Definition.Item
+                        dt={t("form:label.mobileNumber")}
+                        dd={
+                          Array.isArray(regClntPhones) &&
+                          get(
+                            regClntPhones.filter((v) => v.phnTypId === "TP_MB"),
+                            "[0].phnNmbr"
+                          )
+                        }
+                      />
+                      <Definition.Item
+                        dt={t("form:label.secondaryMobileNumber")}
+                        dd={
+                          Array.isArray(regCntcts) &&
+                          regCntcts.map((v) => v.scndryCntctNo)
+                        }
+                      />
+                      <Definition.Item
+                        xs={8}
+                        dt={t("form:label.residentialAddress")}
+                        dd={
+                          Array.isArray(regAddrs) &&
+                          regAddrs.map((v) =>
+                            v.addrTypId === "AD_R"
+                              ? v.addrRmTxt +
+                                " " +
+                                v.addrFlrTxt +
+                                " " +
+                                v.addrBldngNmTxt +
+                                " " +
+                                v.addrBlckTxt +
+                                " " +
+                                v.addrStrtTxt +
+                                " " +
+                                v.addrCtyTxt +
+                                " " +
+                                v.addrDstrctTxt +
+                                " " +
+                                v.cntryTypCd
+                              : null
+                          )
+                        }
+                      />
+                      <Definition.Item
+                        xs={4}
+                        dt={t("form:label.email")}
+                        dd={get(regCntcts, "[0].emlAddrTxt")}
+                      />
+
+                      <Definition.Item
+                        xs={4}
+                        dt={t("form:label.correspondenceAddress")}
+                        dd={
+                          Array.isArray(regAddrs) &&
+                          regAddrs.map((v) =>
+                            v.addrTypId === "AD_C"
+                              ? v.addrRmTxt +
+                                " " +
+                                v.addrFlrTxt +
+                                " " +
+                                v.addrBldngNmTxt +
+                                " " +
+                                v.addrBlckTxt +
+                                " " +
+                                v.addrStrtTxt +
+                                " " +
+                                v.addrCtyTxt +
+                                " " +
+                                v.addrDstrctTxt +
+                                " " +
+                                v.cntryTypCd
+                              : null
+                          )
+                        }
+                      />
+                      <Grid item xs={12}>
+                        <Typography variant="h6" color="primary">
+                          {t("typography:heading.otherInformation")}
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Definition spacing={2} xs={3}>
+                          <Definition.List>
+                            <Definition.Item
+                              dt={t("form:label.preferredCommunicationChannel")}
+                              dd={
+                                get(regCntcts, "[0].cmmTypId") === "CC_EM" &&
+                                "Email"
+                              }
                             />
-                          }
-                          label={label}
-                        />
-                      </>
-                    );
-                  })}
-                </Box>
-              </Grid> */}
+                            <Definition.Item
+                              dt={t(
+                                "form:label.preferredCommunicationLanguage"
+                              )}
+                              dd={
+                                get(regCntcts, "[0].lnggTypId") === "LG_EN"
+                                  ? "English"
+                                  : null
+                              }
+                            />
+                            <Definition.Item
+                              dt={t(
+                                "form:label.receivedPaperFormNotificationAndDocument"
+                              )}
+                              dd={get(regCntcts, "[0].rcvPprFlg")}
+                            />
+                            <Definition.Item
+                              dt={t("form:label.status")}
+                              dd={sttsTypId === "ST_NW" ? "New" : "Completed"}
+                            />
+                          </Definition.List>
+                        </Definition>
+                      </Grid>
+                    </Definition.List>
+                  </Definition>
+                </Grid>
+              </Grid>
             </CardContent>
           </Card>
         </Grid>
 
-        <Grid item xs={12}>
-          <Card>
-            <CardContent>
-              <Grid
-                container
-                component="dl"
-                spacing={1}
-                alignItems="flex-start"
-              >
-                <Grid item xs={12}>
-                  <Typography variant="h6" color="primary">
-                    {t("form:label.address")}
-                  </Typography>
-                </Grid>
-                <Definition spacing={2} xs={6}>
-                  <Definition.List>
-                    <Definition.Item
-                      item
-                      xs={6}
-                      dt={t("form:label.registeredOfcAddress")}
-                      dd={
-                        Array.isArray(authPerson) &&
-                        authPerson.map((v) => v.regOfcAdd)
-                      }
-                    />
-                    <Definition.Item
-                      item
-                      xs={6}
-                      dt={t("form:label.businessAddress")}
-                      dd={
-                        Array.isArray(authPerson) &&
-                        authPerson.map((v) => v.address)
-                      }
-                    />
-                    <Definition.Item
-                      item
-                      xs={6}
-                      dt={t("form:label.correspondenceAddress")}
-                      dd={
-                        Array.isArray(authPerson) &&
-                        authPerson.map((v) => v.correspondence_address)
-                      }
-                    />
-                  </Definition.List>
-                </Definition>
-              </Grid>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12}>
-          <Card>
-            <CardContent>
-              <Grid
-                container
-                component="dl"
-                spacing={1}
-                alignItems="flex-start"
-              >
-                <Grid item xs={12}>
-                  <Typography variant="h6" color="primary">
-                    {t("form:label.eSignature")}
-                  </Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <img
-                    src={eSig}
-                    style={{
-                      width: "20em",
-                    }}
-                    alt="caret left icon"
-                  />
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Card>
-        </Grid>
+        {/* Back Button */}
         <Grid item xs={12}>
           <Grid container component="dl" spacing={1} justify="flex-end">
             <Button
               data-testid="back-btn"
-              onClick={() => history.push("/employer")}
+              onClick={() => history.push("/member")}
             >
               {t("button:backToCompanyProfile")}
             </Button>

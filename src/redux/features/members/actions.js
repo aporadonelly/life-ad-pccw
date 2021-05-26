@@ -138,3 +138,15 @@ export const getAllMembers = createAsyncThunk(
     }
   }
 );
+
+export const getSpecificMember = createAsyncThunk(
+  "@@EMPF/MEMBERS/VIEW_MEMBER",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const employee = await employeesAdapter.viewMember(payload);
+      return { employee };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);

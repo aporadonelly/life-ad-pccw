@@ -10,6 +10,7 @@ import {
   getSchemeType,
   getStatus,
   getAllMembers,
+  getSpecificMember,
 } from "./actions";
 import { initialState } from "./state";
 
@@ -138,6 +139,19 @@ export const membersReducer = createReducer(initialState, (builder) =>
       return { ...state, isLoading: false, employees };
     })
     .addCase(getAllMembers.rejected, (state, action) => {
+      const { error } = action.payload;
+      return { ...state, isLoading: false, error };
+    })
+
+    //Viewing specific employee or member
+    .addCase(getSpecificMember.pending, (state, _action) => {
+      return { ...state, isLoading: true, employee: {}, error: null };
+    })
+    .addCase(getSpecificMember.fulfilled, (state, action) => {
+      const { employee } = action.payload;
+      return { ...state, isLoading: false, employee };
+    })
+    .addCase(getSpecificMember.rejected, (state, action) => {
       const { error } = action.payload;
       return { ...state, isLoading: false, error };
     })
