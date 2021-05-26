@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { get } from "lodash";
 import {
   Grid,
   Card,
@@ -17,129 +19,135 @@ import { Definition } from "@components/misc";
 const data = [
   { value: 1, label: "Primary Contact Person" },
   { value: 2, label: "Secondary Contact Person" },
-  { value: 3, label: "With User Account", hasAuthPerson: true },
+  { value: 3, label: "With User Account", withUserAcct: true },
 ];
 
-const ViewProfile = () => {
+const ViewProfile = (props) => {
+  const { viewAuthPerson, authPerson, getEmployers } = props;
+
+  const {
+    id_type,
+    id_number,
+    date_of_birth,
+    nationality,
+    last_name_chinese,
+    first_name_chinese,
+    last_name,
+    first_name,
+    title,
+    job_title,
+    regOfcAdd,
+    address,
+    correspondence_address,
+  } = get(authPerson, "[0]") ?? {};
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button"]);
+
+  useEffect(() => {
+    getEmployers();
+    viewAuthPerson();
+  }, []);
+
   return (
     <PageInner>
       <Grid container spacing={3}>
+        {/* Authorized Person */}
         <Grid item xs={12}>
           <Card>
             <CardContent>
-              <Grid item xs={12}>
-                <Typography variant="h6" color="primary">
-                  {t("typography:heading.authorizedPerson")}
-                </Typography>
-              </Grid>
-              <Definition spacing={2} xs={3}>
-                <Definition.List>
-                  <Definition.Item
-                    item
-                    xs={3}
-                    dt={t("form:label.idType")}
-                    dd="HKID"
-                  />
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Typography variant="h6" color="primary">
+                    {t("typography:heading.authorizedPerson")}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Definition spacing={2} xs={3}>
+                    <Definition.List>
+                      <Definition.Item
+                        dt={t("form:label.idType")}
+                        dd={id_type}
+                      />
 
-                  <Definition.Item
-                    item
-                    xs={3}
-                    dt={t("form:label.idNumber")}
-                    dd="Y371385(4)"
-                  />
+                      <Definition.Item
+                        dt={t("form:label.idNumber")}
+                        dd={id_number}
+                      />
 
-                  <Definition.Item
-                    item
-                    xs={3}
-                    dt={t("form:label.birthdate")}
-                    dd=" 1970/04/21"
-                  />
+                      <Definition.Item
+                        dt={t("form:label.birthdate")}
+                        dd={date_of_birth}
+                      />
 
-                  <Definition.Item
-                    item
-                    xs={3}
-                    dt={t("form:label.nationality")}
-                    dd=" Hong Kong"
-                  />
+                      <Definition.Item
+                        dt={t("form:label.nationality")}
+                        dd={nationality}
+                      />
 
-                  <Definition.Item
-                    item
-                    xs={3}
-                    dt={t("form:label.chineseLastName")}
-                    dd=" 听"
-                  />
-                  <Definition.Item
-                    item
-                    xs={3}
-                    dt={t("form:label.chineseFirstName")}
-                    dd="  耐莉"
-                  />
-                  <Definition.Item
-                    item
-                    xs={3}
-                    dt={t("form:label.lastName")}
-                    dd="Aporado"
-                  />
-                  <Definition.Item
-                    item
-                    xs={3}
-                    dt={t("form:label.firstName")}
-                    dd="  Nelly"
-                  />
+                      <Definition.Item
+                        dt={t("form:label.chineseLastName")}
+                        dd={last_name_chinese}
+                      />
+                      <Definition.Item
+                        dt={t("form:label.chineseFirstName")}
+                        dd={first_name_chinese}
+                      />
+                      <Definition.Item
+                        dt={t("form:label.lastName")}
+                        dd={last_name}
+                      />
+                      <Definition.Item
+                        dt={t("form:label.firstName")}
+                        dd={first_name}
+                      />
 
-                  <Definition.Item
-                    item
-                    xs={3}
-                    dt={t("form:label.title")}
-                    dd="Ms."
-                  />
-                  <Definition.Item
-                    item
-                    xs={6}
-                    dt={t("form:label.jobTitle")}
-                    dd="Accountant"
-                  />
-                </Definition.List>
-              </Definition>
-              <Grid item xs={12}>
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  width="80%"
-                >
-                  {data.map(({ value, label, hasAuthPerson }, index) => {
-                    return (
-                      <>
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              checked={hasAuthPerson}
-                              key={index}
-                              name={label}
-                              value={value}
-                            />
-                          }
-                          label={label}
-                        />
-                      </>
-                    );
-                  })}
-                </Box>
+                      <Definition.Item dt={t("form:label.title")} dd={title} />
+                      <Definition.Item
+                        dt={t("form:label.jobTitle")}
+                        dd={job_title}
+                      />
+                    </Definition.List>
+                  </Definition>
+                </Grid>
+                <Grid item xs={12}>
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    width="80%"
+                  >
+                    {data.map(({ value, label, withUserAcct }, index) => {
+                      return (
+                        <>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                checked={withUserAcct}
+                                key={index}
+                                name={label}
+                                value={value}
+                              />
+                            }
+                            label={label}
+                          />
+                        </>
+                      );
+                    })}
+                  </Box>
+                </Grid>
               </Grid>
             </CardContent>
           </Card>
         </Grid>
 
+        {/* Address  */}
         <Grid item xs={12}>
           <Card>
             <CardContent>
               <Grid
                 container
                 component="dl"
-                spacing={1}
+                spacing={2}
                 alignItems="flex-start"
               >
                 <Grid item xs={12}>
@@ -147,39 +155,37 @@ const ViewProfile = () => {
                     {t("form:label.address")}
                   </Typography>
                 </Grid>
-                <Definition spacing={2} xs={6}>
-                  <Definition.List>
-                    <Definition.Item
-                      item
-                      xs={6}
-                      dt={t("form:label.registeredOfcAddress")}
-                      dd=" Rm 307, Man Tai Building, 31 Lok Man Street, Tai Po, NT."
-                    />
-                    <Definition.Item
-                      item
-                      xs={6}
-                      dt={t("form:label.businessAddress")}
-                      dd=" Same as Correspondence Address"
-                    />
-                    <Definition.Item
-                      item
-                      xs={6}
-                      dt={t("form:label.correspondenceAddress")}
-                      dd=" Same as Correspondence Address"
-                    />
-                  </Definition.List>
-                </Definition>
+                <Grid item xs={12}>
+                  <Definition spacing={2} xs={6}>
+                    <Definition.List>
+                      <Definition.Item
+                        dt={t("form:label.registeredOfcAddress")}
+                        dd={regOfcAdd}
+                      />
+                      <Definition.Item
+                        dt={t("form:label.businessAddress")}
+                        dd={address}
+                      />
+                      <Definition.Item
+                        dt={t("form:label.correspondenceAddress")}
+                        dd={correspondence_address}
+                      />
+                    </Definition.List>
+                  </Definition>
+                </Grid>
               </Grid>
             </CardContent>
           </Card>
         </Grid>
+
+        {/* Signature */}
         <Grid item xs={12}>
           <Card>
             <CardContent>
               <Grid
                 container
                 component="dl"
-                spacing={1}
+                spacing={2}
                 alignItems="flex-start"
               >
                 <Grid item xs={12}>
@@ -187,19 +193,25 @@ const ViewProfile = () => {
                     {t("form:label.eSignature")}
                   </Typography>
                 </Grid>
-                <Grid item xs={6}>
-                  <img
-                    src={eSig}
-                    style={{
-                      width: "20em",
-                    }}
-                    alt="caret left icon"
-                  />
+                <Grid item xs={12}>
+                  <Definition spacing={2} xs={6}>
+                    <Definition.List>
+                      <img
+                        src={eSig}
+                        style={{
+                          width: "20em",
+                        }}
+                        alt="caret left icon"
+                      />
+                    </Definition.List>
+                  </Definition>
                 </Grid>
               </Grid>
             </CardContent>
           </Card>
         </Grid>
+
+        {/* Back Button */}
         <Grid item xs={12}>
           <Grid container component="dl" spacing={1} justify="flex-end">
             <Button

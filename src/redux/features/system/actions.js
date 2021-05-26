@@ -1,10 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { systemAdapter } from "@adapters";
-import moment from "moment";
 
 export const getSystemEnv = createAsyncThunk(
   "@@EMPF/SYSTEM/GET_SYSTEM_ENV",
-  async (payload, { rejectWithValue }) => {
+  async (_payload, { rejectWithValue }) => {
     try {
       const { prmtrTyp, prmtrDscrptn } = await systemAdapter.getSystemEnv();
       return {
@@ -21,10 +20,10 @@ export const getSystemEnv = createAsyncThunk(
 
 export const getCycleDate = createAsyncThunk(
   "@@EMPF/SYSTEM/GET_CYCLE_DATE",
-  async (payload, { rejectWithValue }) => {
+  async (_payload, { rejectWithValue }) => {
     try {
-      const { cycleDt } = await systemAdapter.getCycleDate();
-      return { cycleDate: moment(cycleDt).format("DD MMM YYYY") };
+      const { cycleDt: cycleDate } = await systemAdapter.getCycleDate();
+      return { cycleDate };
     } catch (error) {
       return rejectWithValue({ error });
     }

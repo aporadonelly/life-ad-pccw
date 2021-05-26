@@ -11,7 +11,7 @@ import {
 
 const sidebarRoutes = [
   {
-    name: "Task",
+    name: "task",
     path: "/task",
     icon: <HomeOutlinedIcon />,
     component: null,
@@ -20,14 +20,14 @@ const sidebarRoutes = [
     divider: true,
   },
   {
-    name: "Member",
+    name: "member",
     path: "/members",
     redirect: "/members/enquiry",
     icon: <PeopleOutlineOutlinedIcon />,
     component: null,
   },
   {
-    name: "Individual",
+    name: "individual",
     path: "/individual",
     icon: <PersonOutlineOutlinedIcon />,
     component: null,
@@ -36,13 +36,13 @@ const sidebarRoutes = [
     divider: true,
   },
   {
-    name: "Employer",
+    name: "employer",
     path: "/employers",
     icon: <BusinessCenterOutlinedIcon />,
     component: null,
   },
   {
-    name: "Company",
+    name: "company",
     path: "/companies",
     icon: <BusinessOutlinedIcon />,
     component: null,
@@ -51,25 +51,25 @@ const sidebarRoutes = [
     divider: true,
   },
   {
-    name: "Trustee",
+    name: "trustee",
     path: "/trustees",
     icon: <AccountBalanceOutlinedIcon />,
     component: null,
   },
   {
-    name: "Transaction History",
+    name: "transactionHistory",
     path: "/transactions",
     icon: <HistoryIcon />,
     component: null,
   },
   {
-    name: "Instruction",
+    name: "instruction",
     path: "/instructions",
     icon: <InfoOutlinedIcon />,
     component: null,
   },
   {
-    name: "Configuration",
+    name: "configuration",
     path: "/config",
     icon: <BusinessOutlinedIcon />,
     component: null,

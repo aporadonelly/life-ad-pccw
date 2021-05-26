@@ -9,10 +9,11 @@ import {
 import UserMenu from "./UserMenu";
 import SiteMap from "./SiteMap";
 
-const Header = () => {
-  const classes = useStyles();
+const Header = (props) => {
+  const { user, cycleDate, onLogout } = props;
   const { t } = useTranslation(["header"]);
   const { dispatch } = useAppState();
+  const classes = useStyles();
 
   return (
     <AppBar component="header" className={classes.appBar}>
@@ -27,9 +28,11 @@ const Header = () => {
         >
           {t("header:framework")}
         </Typography>
-        <SiteMap />
+        {/* <SiteMap /> */}
         <div className={classes.grow} />
-        <UserMenu />
+        {user && (
+          <UserMenu displayName={user.displayName} onLogout={onLogout} />
+        )}
         <IconButton
           className={classes.translateIcon}
           edge="end"
@@ -42,7 +45,7 @@ const Header = () => {
           variant="body2"
           color="inherit"
         >
-          {t("header:cycleDate", { date: "2021-01-12" })}
+          {t("header:cycleDate", { date: cycleDate })}
         </Typography>
         <IconButton className={classes.settingsIcon} edge="end">
           <SettingsIcon fontSize="small" />
