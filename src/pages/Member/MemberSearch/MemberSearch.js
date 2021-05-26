@@ -102,13 +102,12 @@ const MemberSearch = (props) => {
   }, []);
 
   const handleSubmit = (values) => {
-    // console.log(values, "values");
-    //
     const newValues = { ...values };
     newValues.dateOfBirth =
       newValues.dateOfBirth &&
-      moment(newValues.dateOfBirth).format("YYYY-MM-DD");
+      moment(newValues.dateOfBirth).format("YYYY/MM/DD");
     getAllMembers(newValues);
+    console.log(newValues, "newValues");
   };
 
   return (
@@ -207,7 +206,7 @@ const MemberSearch = (props) => {
                       <Form.DatePicker
                         label={t("form:label.birthdate")}
                         name="dateOfBirth"
-                        format="dd/MM/yyyy"
+                        format="YYYY/MM/DD"
                         placeholder={t("form:placeholder.custom.pleaseInput")}
                         helperText="DDMMYYYY"
                       />
