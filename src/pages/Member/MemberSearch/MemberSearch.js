@@ -1,35 +1,6 @@
 import { useEffect } from "react";
 import { Grid, Card, CardContent, Typography } from "@material-ui/core";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
-
-import {
-  isLoadingSelector,
-  errorSelector,
-  genderSelector,
-  idTypeSelector,
-  nationalitySelector,
-  placeOfBirthSelector,
-  employeeTypeSelector,
-  industryTypeSelector,
-  occupationSelector,
-  schemeTypeSelector,
-  statusSelector,
-  employeesSelector,
-} from "@redux/features/members/selectors";
-import {
-  getGender,
-  getIdType,
-  getNationality,
-  getPlaceOfBirth,
-  getEmployeeType,
-  getIndustryType,
-  getOccupation,
-  getSchemeType,
-  getStatus,
-  getAllMembers,
-} from "@redux/features/members/actions";
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
 import { Formik } from "formik";
@@ -394,38 +365,4 @@ const MemberSearch = (props) => {
     </PageInner>
   );
 };
-
-const mapStateToProps = (state) => ({
-  isLoading: isLoadingSelector(state),
-  error: errorSelector(state),
-  gender: genderSelector(state),
-  idType: idTypeSelector(state),
-  nationality: nationalitySelector(state),
-  placeOfBirth: placeOfBirthSelector(state),
-  employeeType: employeeTypeSelector(state),
-  industryType: industryTypeSelector(state),
-  occupation: occupationSelector(state),
-  schemeType: schemeTypeSelector(state),
-  status: statusSelector(state),
-  employees: employeesSelector(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  ...bindActionCreators(
-    {
-      getGender,
-      getIdType,
-      getNationality,
-      getPlaceOfBirth,
-      getEmployeeType,
-      getIndustryType,
-      getOccupation,
-      getSchemeType,
-      getStatus,
-      getAllMembers,
-    },
-    dispatch
-  ),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(MemberSearch);
+export default MemberSearch;
