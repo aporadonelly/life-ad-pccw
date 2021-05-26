@@ -7,7 +7,7 @@ class EmployerAdapter extends AxiosAdapter {
 
   viewEmployerAuthPerson(id) {
     return this.instance.get("/employees", {
-      params: { id: 1 },
+      params: { id: 2 },
     });
   }
 }

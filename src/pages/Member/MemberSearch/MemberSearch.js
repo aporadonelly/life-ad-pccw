@@ -109,6 +109,8 @@ const MemberSearch = (props) => {
     getAllMembers(newValues);
     console.log(newValues, "newValues");
   };
+  console.log(gender, "gender");
+  // return null;
 
   return (
     <PageInner>
