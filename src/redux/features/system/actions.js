@@ -1,5 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { push } from "connected-react-router";
 import { systemAdapter } from "@adapters";
 
 export const getSystemEnv = createAsyncThunk(
@@ -21,7 +20,7 @@ export const getSystemEnv = createAsyncThunk(
 
 export const getCycleDate = createAsyncThunk(
   "@@EMPF/SYSTEM/GET_CYCLE_DATE",
-  async (_payload, { rejectWithValue, dispatch }) => {
+  async (_payload, { rejectWithValue }) => {
     try {
       const { cycleDt: cycleDate } = await systemAdapter.getCycleDate();
       return { cycleDate };
