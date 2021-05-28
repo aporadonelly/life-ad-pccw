@@ -81,7 +81,7 @@ const MemberSearch = (props) => {
       newValues.dateOfBirth &&
       moment(newValues.dateOfBirth).format("YYYY/MM/DD");
     getAllMembers(newValues);
-    history.push("/member");
+    history.push("/members");
   };
 
   return (
