@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { withField } from "@hocs";
 import moment from "moment";
 import MomentUtils from "@date-io/moment";
-import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
@@ -16,7 +15,7 @@ const DatePickerField = (props) => {
     if (date) {
       setSelectedDate(date);
       try {
-        const fdate = moment(date).format("YYYY/MM/DD");
+        const fdate = moment(date).format(format);
         helpers.setValue(fdate);
       } catch {
         helpers.setValue(date);
@@ -36,9 +35,7 @@ const DatePickerField = (props) => {
   }, [rest.value]);
 
   return (
-    //FIX: conflict date with my validation
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      {/* <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}> */}
+    <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
       <KeyboardDatePicker
         {...rest}
         format={format}
