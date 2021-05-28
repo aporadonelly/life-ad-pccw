@@ -8,7 +8,7 @@ import {
   reasonSelector,
   isLoadingSelector,
   errorSelector,
-  isSavingSelector,
+  valuesActionSelector,
 } from "@redux/features/employees/termination/selectors";
 
 import {
@@ -17,6 +17,8 @@ import {
   saveTermination,
   validTermination,
   loadTermReason,
+  passValuesActions,
+  resetTermination,
 } from "@redux/features/employees/termination/actions";
 import Termination from "./Termination";
 
@@ -28,7 +30,7 @@ const mapStateToProps = (state) => ({
   reason: reasonSelector(state),
   isLoading: isLoadingSelector(state),
   error: errorSelector(state),
-  isSaving: isSavingSelector(state),
+  valuesActions: valuesActionSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -39,6 +41,8 @@ const mapDispatchToProps = (dispatch) => ({
       saveTermination,
       validTermination,
       loadTermReason,
+      passValuesActions,
+      resetTermination,
     },
     dispatch
   ),

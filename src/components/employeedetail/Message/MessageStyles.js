@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
       color: "#fff",
     },
   },
+  errorLabel: {
+    color: "#ef5350",
+  },
 }));
 
 export { useStyles };

@@ -7,20 +7,27 @@ import {
   saveTermination,
   validTermination,
   loadTermReason,
+  passValuesActions,
 } from "./actions";
 
 export const employeeTerminationReducer = createReducer(
   initialState,
   (builder) =>
     builder
-      // .addCase(resetTermination, (state, _action) => {
-      //   return { ...state, employeeTermination: {} };
-      // })
+      .addCase(resetTermination, (state, _action) => {
+        return {
+          ...state,
+          saved: "",
+          validation: null,
+          valuesActions: {},
+        };
+      })
+
       .addCase(loadEmpSchemes.pending, (state, _action) => {
         return { ...state, clientSchemes: [], isLoading: true, error: null };
       })
       .addCase(loadEmpSchemes.fulfilled, (state, action) => {
-        console.log("reducer", action.payload);
+        //console.log("reducer", action.payload);
         const { clientSchemes } = action.payload;
         return { ...state, isLoading: false, clientSchemes };
       })
@@ -50,7 +57,7 @@ export const employeeTerminationReducer = createReducer(
       })
       .addCase(validTermination.rejected, (state, action) => {
         const { error } = action.payload;
-        return { ...state, isValidating: false, error };
+        return { ...state, isValidating: false, validation: error }; /// error changed to validation
       })
 
       .addCase(saveTermination.pending, (state, _action) => {
@@ -62,7 +69,7 @@ export const employeeTerminationReducer = createReducer(
       })
       .addCase(saveTermination.rejected, (state, action) => {
         const { error } = action.payload;
-        return { ...state, isSaving: false, error };
+        return { ...state, isSaving: false, saved: error }; /// error changed to save
       })
 
       .addCase(loadTermReason.pending, (state, _action) => {
@@ -75,5 +82,9 @@ export const employeeTerminationReducer = createReducer(
       .addCase(loadTermReason.rejected, (state, action) => {
         const { error } = action.payload;
         return { ...state, isLoading: false, error };
+      })
+
+      .addCase(passValuesActions, (state, action) => {
+        return { ...state, valuesActions: action.payload };
       })
 );

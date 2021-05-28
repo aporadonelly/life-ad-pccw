@@ -1,31 +1,19 @@
-import { Avatar, Grid, Paper } from "@material-ui/core";
+import { Grid, Paper } from "@material-ui/core";
 import PropTypes from "prop-types";
-import React, { useState, useRef } from "react";
-import { connect } from "react-redux";
-import { add_employee_details } from "../../actions/employeesActions";
+import React, { useState, useEffect } from "react";
 import { labels } from "../../common/labelsList";
-import BottomMenuBar from "../../menu/toolbar/bottomMenuBar";
-import Controls from "../controls/Controls";
 import { Form as FormikForm } from "@components/common";
-import { AuthWrapper } from "@hocs";
 
-import { Form, useForm } from "../UseForm";
+import { Form } from "../UseForm";
 import useStyles from "./EmployeeDetailStyles";
-import EnhancedTable from "./supportingDocumentsTable";
 import * as employeeMockData from "../../pages/employees/mockData/mockData";
-//import MsgDialog from "@components/controls/FormDialog";
 
-import EmpScheme from "./EmployeeScheme";
-import EmpScheme2 from "./EmployeeScheme2";
-import EmpScheme3 from "./EmployeeScheme3";
 import EmpScheme4 from "./EmployeeScheme4";
 
 import moment from "moment";
-import { bindActionCreators } from "redux";
 import * as yup from "yup";
-import { Formik, useFormikContext } from "formik";
+import { Formik } from "formik";
 import { PageInner } from "@components/layout";
-import { DialogBox } from "@components/dialogs";
 import MessageRender from "./Message/MessageRender";
 
 import { Button } from "@material-ui/core";
@@ -34,8 +22,6 @@ import FloatingButton from "@components/controls/floatingButton/floatingButton";
 
 import { Cancel as CancelIcon } from "@material-ui/icons";
 import { validate } from "@material-ui/pickers";
-// import { loadEmpSchemes } from "@redux/features/employees/termination/actions";
-// import { clientSchemesSelector } from "@redux/features/employees/termination/selectors";
 
 const EmployeeDetails = (props) => {
   const {
@@ -44,16 +30,27 @@ const EmployeeDetails = (props) => {
     valid,
     validTermination,
     saveTermination,
+    passValuesActions,
+    valuesActions,
+    save,
+    resetTermination,
   } = props;
-  //console.log(clientSchemes);
-  //let data = replaceNull(clientSchemes);
-  let data = clientSchemes;
-  let filterArrayLSP_SP = ""; // will be used dynamically in LSP/SP option change
-  console.log(reason);
-  //console.log(data);
 
-  console.log(data.schemes);
-  //return null;
+  const classes = useStyles();
+  const [LSP_SP_Disable, setLSP_SP_Disable] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [btnStatus, setBtnStatus] = useState("");
+  const [bottomBar, setBottomBar] = useState(false);
+  const [btnState, setBtnState] = useState();
+  let formRef = React.useRef(false);
+  let filterArrayLSP_SP = ""; // will be used dynamically in LSP/SP option change
+  let data = replaceNull(clientSchemes);
+  //let data = clientSchemes;
+
+  //console.log(clientSchemes);
+  //console.log(reason);
+  //console.log(data);
+  //console.log(data.schemes);
 
   const initialValues = {
     state: "",
@@ -66,10 +63,25 @@ const EmployeeDetails = (props) => {
     orsoOffsetAmount: "",
     effective_date: "", //moment("").format("YYYY/MM/DD"),
     change_date: "", //moment("").format("YYYY/MM/DD"),
-    schemes: data.schemes ?? [], //employeeMockData.getScheme_LSP_SP_offect_sequence(), //
+    schemes: employeeMockData.getScheme_LSP_SP_offect_sequence(), //data.schemes ?? [],
   };
 
-  const validationSchema = yup.object().shape({
+  const validationSave = yup.object().shape({
+    lastDateOfEmployment: yup.date(),
+    terminationReasonId: yup.string(),
+    effective_date_of_termination: yup.date(),
+    entitleToLspsp: yup.string(),
+    lspspTypeId: yup.string(),
+    lspspEntitlementAmount: yup
+      .number()
+      .min(0)
+      .positive(
+        "The inputted amount cannot exceed the current statutory maximum amount HKD $390,000. Please input again."
+      ),
+    orsoOffsetAmount: yup.number().positive("Money input"),
+  });
+
+  const validationSubmit = yup.object().shape({
     lastDateOfEmployment: yup.date().required(), //yup.date(),
     terminationReasonId: yup.string().required("Please pick a reason"), //.required("Please pick a reason"),
     effective_date_of_termination: yup.date(), //.required(),
@@ -77,35 +89,68 @@ const EmployeeDetails = (props) => {
     lspspTypeId: yup.string(), //.required("Please choose yes or no"),
     lspspEntitlementAmount: yup
       .number()
-      .positive("Money must be greater than zero")
+      .min(0)
+      .positive(
+        "The inputted amount cannot exceed the current statutory maximum amount HKD $390,000. Please input again."
+      )
       .required("Money input is required"),
     orsoOffsetAmount: yup
       .number()
-      .positive("Money must be greater than zero")
+      .positive("Money input")
       .required("Money input is required"),
-    //.required("Money input is required"),
-    //effective_date: yup.string(), //yup.date(),
-    //change_date: yup.string(), //yup.date(),
-    //schemes: yup.array(),
-    //.required("Please choose yes or no"),
-    // selectedValueEntitle_ESP_SP: yup
-    //   .string()
-    //   .required("Please choose yes or no"),
-    // total_LSP_SP_entitlement_amount: yup
-    //   .number()
-    //   .when("selectedValueEntitle_ESP_SP", {
-    //     is: (val) => val === "no_entitle_LSP_SP",
-    //     then: yup.string().required("Please choose yes or no"),
-    //     otherwise: yup.string().notRequired(),
-    //   }),
   });
 
-  const classes = useStyles();
-  const [LSP_SP_Disable, setLSP_SP_Disable] = useState(true);
-  const [open, setOpen] = useState(false);
-  const [btnStatus, setBtnStatus] = useState("");
-  const [bottomBar, setBottomBar] = useState(false);
-  //const btnClick = React.useRef(null);
+  useEffect(() => {
+    if (valid) {
+      console.log("validations", valid);
+      if (valid.substring(0, 2).toLowerCase() === "ex") {
+        handleClose();
+        setBtnStatus(valid);
+        return;
+      }
+      //NOTE: "WEB_UNHANDLED_EXCEPTION"
+      if (valid.substring(0, 3).toLowerCase() === "web") {
+        handleClose();
+        setBtnStatus(valid);
+        return;
+      }
+      if (valid === "success") {
+        onValidSubmit(valuesActions, btnState);
+      }
+    }
+  }, [valid]);
+
+  useEffect(() => {
+    if (save) {
+      console.log("save", save);
+      if (save.substring(0, 2).toLowerCase() === "ex") {
+        handleClose();
+        setBtnStatus(save);
+        return;
+      }
+      //NOTE: "WEB_UNHANDLED_EXCEPTION WEB_MESSAGE_NOT_READABLE"
+      if (save.substring(0, 3).toLowerCase() === "web") {
+        handleClose();
+        setBtnStatus("");
+        return;
+      }
+
+      if (save === "success") {
+        handleClose();
+        setBtnStatus("ExMsg_SvdSccss");
+        resetTermination();
+      }
+    }
+  }, [save]);
+
+  useEffect(() => {
+    if (btnState) {
+      console.log("btnState", btnState);
+      if (formRef.current) {
+        formRef.current.handleSubmit();
+      }
+    }
+  }, [btnState]);
 
   const handleClose = (e) => {
     setOpen((open) => !open);
@@ -139,6 +184,7 @@ const EmployeeDetails = (props) => {
   }
 
   const ldoeChange = (values) => {
+    if (values.lastDateOfEmployment === "") return true; // proceed to next validation
     const dateLdoe = Date.parse(values.lastDateOfEmployment);
     if (!dateLdoe) {
       handleClose();
@@ -179,94 +225,86 @@ const EmployeeDetails = (props) => {
 
     const forValidationValues = {
       accountNumber: data.accountNumber, //clientSchemes.accountNumber,
-      lastDateOfEmployment: moment(values.lastDateOfEmployment).format(
-        "YYYY-MM-DD"
-      ),
-      entitleToLspsp: parseBoolean(values.entitleToLspsp),
+      lastDateOfEmployment:
+        values.lastDateOfEmployment &&
+        moment(values.lastDateOfEmployment).format("YYYY-MM-DD"),
+      entitleToLspsp:
+        values.entitleToLspsp && parseBoolean(values.entitleToLspsp),
       lspspTypeId: values.lspspTypeId,
       terminationReasonId: values.terminationReasonId,
       lspspEntitlementAmount: values.lspspEntitlementAmount,
       orsoOffsetAmount: values.orsoOffsetAmount,
       otherOffsetAmount: 0.0,
-      payableAmount: values.lspspEntitlementAmount - values.orsoOffsetAmount,
+      payableAmount:
+        values.lspspEntitlementAmount &&
+        values.lspspEntitlementAmount - values.orsoOffsetAmount,
     };
 
-    console.log(forValidationValues);
-    try {
-      validTermination(forValidationValues);
-    } catch (err) {
-      handleClose();
-      setBtnStatus("");
+    const cloneValues = { ...values, ...forValidationValues };
+
+    [
+      "state",
+      "schemes",
+      "change_date",
+      "effective_date",
+      "effective_date_of_termination",
+    ].forEach((e) => delete cloneValues[e]); // NOTE: not needed as of now
+
+    // forValidationValues === for validation in submit
+    // cloneValues  ==== for saving
+
+    if (values.state === "save") {
+      const removeValues = ["", 0];
+
+      var filter = Object.keys(cloneValues).reduce(function (r, e) {
+        if (removeValues.includes(cloneValues[e])) r[e] = cloneValues[e];
+        return r;
+      }, {});
+
+      console.log(Object.keys(filter));
+
+      Object.keys(filter).forEach((e) => delete cloneValues[e]);
+      if (Object.keys(cloneValues).length === 1) return;
+      // const addedValues = {
+      //   accountNumber: data.accountNumber,
+      //   statusType: "Saved",
+      //   statusTypeId: "ST_SV",
+      // };
+      //const newValues = [{ ...cloneValues, ...addedValues }];
+
+      console.log("svEETermInst", cloneValues);
+      saveTermination([cloneValues]);
+      //actions.resetForm();
       return;
     }
-    areValidated(values, actions, forValidationValues);
+
+    console.log("vldMbrTerm", forValidationValues);
+    validTermination(forValidationValues);
+
+    //const combined = { ...values, ...forValidationValues };
+    passValuesActions(cloneValues); //, actions, forValidationValues);
   };
 
-  function areValidated(values, actions, forValidationValues) {
-    console.log(valid); // will check
-    if (values.state === "save") {
-      const addedValues = { statusType: "Saved", statusTypeId: "ST_SV" };
-      const newValues = { ...forValidationValues, ...addedValues };
-      try {
-        saveTermination(newValues);
-        handleClose();
-        setBtnStatus("ExMsg_SvdSccss");
-      } catch (err) {
-        handleClose();
-        setBtnStatus("");
-        return;
-      }
-    }
-    if (values.state === "submit") {
-      //const entyId = "327D2230-AE4C-43CF-8314-4B3525AE6CA3"
-      //loadMbrTerm(entyId);
+  const onValidSubmit = (valuesActions, btnState) => {
+    if (btnState === "submit") {
+      //IMPORTANT: id not found in /ldMbrActAccntLstForER already asked BE devs
+      //const enttyUuid = "327D2230-AE4C-43CF-8314-4B3525AE6CA3"
+      //loadMbrTerm(enttyUuid); //pending useeffect like valid and save
       const addedValues = {
-        statusType: "Pending for internal review",
-        statusTypeId: "ST_PD_RW",
+        // NOTE: stated in docu
+        //statusType: "Pending for internal review",
+        //statusTypeId: "ST_PD_RW",
+        //NOTE: stated in JSON file valid in /
+        statusType: "Submitted",
+        statusTypeId: "ST_SB",
       };
-      const newValues = { ...forValidationValues, ...addedValues };
-      //onSubmit(values);
-      try {
-        saveTermination(newValues);
-        handleClose();
-        setBtnStatus("ExMsg_SvdSccss");
-      } catch (err) {
-        handleClose();
-        setBtnStatus("");
-        return;
-      }
+      const newValues = [{ ...valuesActions, ...addedValues }];
+      console.log("submit", newValues);
+      saveTermination(newValues);
+      //actions.resetForm();
+      return;
     }
-    actions.resetForm();
-  }
-
-  // console.log(valid);
-  // if (valid !== "") {
-  //   console.log("validation", valid);
-  //   const stateBtn = localStorage.getItem("state"); /// refresh fix
-
-  //   if (stateBtn === "save") {
-  //     const addedValues = { statusType: "Saved", statusTypeId: "ST_SV" };
-  //     const newValues = { ...valid, ...addedValues };
-  //     handleClose();
-  //     setBtnStatus("ExMsg_SvdSccss"); // refresh fix
-  //     saveTermination(newValues);
-  //     return;
-  //   }
-  //   if (stateBtn === "submit") {
-  //     const addedValues = {
-  //       statusType: "Pending for internal review",
-  //       statusTypeId: "ST_PD_RW",
-  //     };
-  //     const newValues = { ...valid, ...addedValues };
-  //     //onSubmit(values);
-  //     handleClose();
-  //     setBtnStatus("ExMsg_SvdSccss"); // refresh fix
-  //     saveTermination(newValues);
-  //   }
-  //   //FIX: reset cannot be used page refreshes when a request sent to ACTIONS
-  //   //actions.resetForm(initialValues);
-  //   localStorage.removeItem("state"); // refresh fix
-  // }
+  };
 
   const onCancel = (resetForm) => {
     handleClose();
@@ -276,8 +314,6 @@ const EmployeeDetails = (props) => {
   return (
     <React.Fragment>
       <PageInner>
-        {/* <DialogBox open={open} onClose={handleClose} msgCode={btnStatus} /> */}
-
         <Paper className={classes.paperContainer} elevation={3}>
           <div className={classes.paperContentContainer}>
             <div className={classes.paperLabelTitle}>
@@ -316,7 +352,7 @@ const EmployeeDetails = (props) => {
                 <div className={classes.labels}>{labels.effectiveDate}</div>
                 <div className={classes.textValue}>
                   {data.effectiveDate &&
-                    moment(data.effectiveDate).format("d MMMM y")}
+                    moment(data.effectiveDate).format("D MMMM y")}
                 </div>
               </div>
             </div>
@@ -356,14 +392,14 @@ const EmployeeDetails = (props) => {
                 <div className={classes.labels}>{labels.dateJoin}</div>
                 <div className={classes.textValue}>
                   {data.joinSchemeDate &&
-                    moment(data.joinSchemeDate).format("d MMMM y")}
+                    moment(data.joinSchemeDate).format("D MMMM y")}
                 </div>
               </div>
               <div>
                 <div className={classes.labels}>{labels.terminationDate}</div>
                 <div className={classes.textValue}>
                   {data.terminationDate &&
-                    moment(data.terminationDate).format("d MMMM y")}
+                    moment(data.terminationDate).format("D MMMM y")}
                 </div>
               </div>
               <div>
@@ -373,19 +409,29 @@ const EmployeeDetails = (props) => {
             </div>
           </div>
         </Paper>
-        {/* </Form> */}
 
         <Formik
+          innerRef={formRef}
           enableReinitialize
           initialValues={initialValues}
-          validationSchema={validationSchema}
+          validationSchema={
+            btnState === "save" ? validationSave : validationSubmit
+          }
           onSubmit={formikHandleSubmit}
-          //onSubmit={(values, actions) => formikHandleSubmit(values, actions)}
-          //onReset={(values, actions) => formikHandleReset(values, actions)}
         >
-          {({ setFieldValue, resetForm, handleSubmit }) => {
+          {({
+            setFieldValue,
+            resetForm,
+            handleSubmit,
+            validateForm,
+            setTouched,
+          }) => {
             const onHandleClick = (e, state) => {
               setFieldValue("state", state);
+              setBtnState(state);
+              // validateForm().then((errors) => {
+              //   return setTouched(errors);
+              // });
               handleSubmit(e);
             };
 
@@ -421,7 +467,7 @@ const EmployeeDetails = (props) => {
                 });
                 //setFieldValue("terminationReasonId", filterArrayLSP_SP);
               } else if (event.target.value === "LS_SP") {
-                notIncluded = ["TR_RD", "TR_LO", "TR_CE"];
+                notIncluded = ["TR_LO", "TR_CE"]; //"TR_RD", removed for TESTING
                 filterArrayLSP_SP = newArray.records.filter(function (obj) {
                   return !(notIncluded.indexOf(obj.cstmTypId) > -1);
                 });
@@ -430,7 +476,7 @@ const EmployeeDetails = (props) => {
             };
 
             return (
-              <Form onChange={() => setBottomBar(true)}>
+              <Form onClick={() => setBottomBar(true)}>
                 <MessageRender
                   open={open}
                   onClose={handleClose}
@@ -444,7 +490,6 @@ const EmployeeDetails = (props) => {
                     <div className={classes.terminationTitle}>
                       {labels.terminationTitle}
                     </div>
-                    {/* // FIX: PENDING FORMIK VALIDATION */}
 
                     <div className={classes.terminationDetailContentContainer}>
                       <Grid item sm={3} xs={12} className={classes.datepickers}>
@@ -453,7 +498,6 @@ const EmployeeDetails = (props) => {
                         </span>
                         <FormikForm.DatePicker
                           name="lastDateOfEmployment"
-                          //value={formValues.lastDateOfEmployment}
                           helperText="YYYYMMDD"
                           format="yyyy/MM/dd"
                         />
@@ -473,9 +517,6 @@ const EmployeeDetails = (props) => {
                             label: (option) => option.cstmTypDtlTxt,
                             value: (option) => option.cstmTypId,
                           }}
-                          //displayEmpty
-                          //onChange={handleInputChange}
-                          //value={formValues.terminationReasonId}
                           //options={reason} //{employeeMockData.getTerminationReasonList()}
                         />
                       </Grid>
@@ -485,8 +526,6 @@ const EmployeeDetails = (props) => {
                         </span>
                         <FormikForm.DatePicker
                           name="effective_date_of_termination"
-                          //onChange={handleInputChange}
-                          //value={formValues.effective_date_of_termination}
                           helperText="YYYYMMDD"
                           format="yyyy/MM/dd"
                         />
@@ -497,7 +536,6 @@ const EmployeeDetails = (props) => {
                       row
                       name="entitleToLspsp"
                       onClick={disableLSP_SP}
-                      //value={formValues.entitleToLspsp}
                       //data={employeeMockData.getEntitle_LSP_SP_items()}
                       data={{
                         options: employeeMockData.getEntitle_LSP_SP_items(),
@@ -524,7 +562,6 @@ const EmployeeDetails = (props) => {
                           <FormikForm.RadioGroupField
                             row
                             name="lspspTypeId"
-                            //value={formValues.lspspTypeId}
                             onClick={onClickLSP_SPReason}
                             data={{
                               options: employeeMockData.getLSP_SP_items(),
@@ -546,10 +583,8 @@ const EmployeeDetails = (props) => {
                           </span>
                           <FormikForm.Input
                             name="lspspEntitlementAmount"
-                            //onChange={handleInputChange}
                             fullWidth
                             type="number"
-                            //value={formValues.lspspEntitlementAmount}
                             placeholder="Input Amount in HKD"
                             //disabled={LSP_SP_Disable ? "disabled" : ""}
                           />
@@ -565,10 +600,8 @@ const EmployeeDetails = (props) => {
                           </span>
                           <FormikForm.Input
                             name="orsoOffsetAmount"
-                            //onChange={handleInputChange}
                             fullWidth
                             type="number"
-                            //value={formValues.orsoOffsetAmount}
                             placeholder="Input Amount in HKD"
                             //disabled={LSP_SP_Disable ? "disabled" : ""}
                           />
@@ -578,13 +611,6 @@ const EmployeeDetails = (props) => {
 
                     <div className={`${classes.mgTop}`}>
                       <div>
-                        {/* <EmpScheme
-                    //handleInputChange={handleInputChange}
-                    //values={formValues.scheme_LSP_SP}
-                    /> */}
-
-                        {/* <EmpScheme2 /> */}
-                        {/* <EmpScheme3 /> */}
                         {data.schemes && (
                           <EmpScheme4
                             name="schemes"
@@ -605,8 +631,6 @@ const EmployeeDetails = (props) => {
                           </span>
                           <FormikForm.DatePicker
                             name="effective_date"
-                            //onChange={handleInputChange}
-                            //value={formValues.effective_date}
                             helperText="YYYYMMDD"
                             format="yyyy/MM/dd"
                           />
@@ -615,9 +639,6 @@ const EmployeeDetails = (props) => {
                           <span className={classes.labels}>Change Date</span>
                           <FormikForm.DatePicker
                             name="change_date"
-                            //onChange={handleInputChange}
-
-                            //value={formValues.change_date}
                             helperText="YYYYMMDD"
                             format="yyyy/MM/dd"
                           />
@@ -633,11 +654,7 @@ const EmployeeDetails = (props) => {
                       text="cancel"
                       onClick={onCancel.bind(null, resetForm)}
                     />
-                    {/* <FormikForm.FloatingButton text="save" /> */}
-                    {/* <FormikForm.FloatingButton text="submit" /> */}
-                    {/* <FormikForm.Submit className={classes.btnReverse} text="save">
-                    SAVE
-                  </FormikForm.Submit>
+                    {/* <FormikForm.FloatingButton text="submit" /> 
                   <FormikForm.Submit text="submit">SUBMIT</FormikForm.Submit> */}
                     <Button
                       type="submit"

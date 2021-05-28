@@ -1,14 +1,13 @@
 {
   "menu": {
-    "dashboard": "Dashboard",
-    "enquires": "Enquires",
-    "trustee": "Trustee",
-    "company": "Company",
-    "individual": "Individual",
+    "task": "Task",
+    "member": "Member",
+    "individual": "Indiviual",
     "employer": "Employer",
-    "employee": "Employee",
-    "agent": "Agent",
-    "generalLegar": "General Legar",
-    "correspondenses": "Correspondenses"
+    "company": "Company",
+    "trustee": "Trustee",
+    "transactionHistory": "Transaction History",
+    "instruction": "Instruction",
+    "configuration": "Configuration"
   }
 }

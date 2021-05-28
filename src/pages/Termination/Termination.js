@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { AuthWrapper } from "@hocs";
-import EmployeeDetails from "../../components/employeedetail/EmployeeDetails";
-// import EmployeeDetails1 from "../../components/employeedetail/EmployeeDetails1";
-// import EmployeeDetails2 from "../../components/employeedetail/EmployeeDetails2";
+import EmployeeDetails from "@components/employeedetail/EmployeeDetails";
 import { useParams } from "react-router-dom";
 import { PageHeader } from "@components/layout";
 import TerminationRoutes from "./TerminationRoutes";
@@ -11,12 +9,11 @@ import { Grid, Box } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 
 const Termination = (props) => {
-  //console.log(props);
   const { loadTermReason, loadEmpSchemes, isLoading, error } = props;
   const { id } = useParams();
   useEffect(() => {
-    loadEmpSchemes({ accountNumber: id });
     loadTermReason();
+    loadEmpSchemes({ accountNumber: id });
   }, []);
   return (
     <>
@@ -29,7 +26,7 @@ const Termination = (props) => {
         <>
           {error && (
             <Grid item xs={12}>
-              {/* <Alert severity="error">{error}</Alert>  */}
+              <Alert severity="error">{error}</Alert>
             </Grid>
           )}
           <EmployeeDetails {...props} />

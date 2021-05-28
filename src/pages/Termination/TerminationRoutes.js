@@ -28,6 +28,7 @@ const routes = [
     path: "/employee/transfers",
     component: null,
   },
+  // NOTE: for future nested tabs
   // {
   //   name: "Investment",
   //   path: "/employer/investment",
@@ -49,7 +50,6 @@ const routes = [
 
 const TerminationRoutes = (props) => {
   const path = props.match.path;
-  //console.log(path);
   return (
     <>
       <PageHeader routes={routes}>

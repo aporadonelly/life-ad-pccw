@@ -12,6 +12,11 @@ export const clientSchemesSelector = createSelector(
   (state) => state.clientSchemes
 );
 
+export const reasonSelector = createSelector(
+  stateSelector,
+  (state) => state.reasonTerm
+);
+
 export const termsSelector = createSelector(
   stateSelector,
   (state) => state.mbrTerm
@@ -27,19 +32,14 @@ export const validateSelector = createSelector(
   (state) => state.validation
 );
 
-export const reasonSelector = createSelector(
+export const valuesActionSelector = createSelector(
   stateSelector,
-  (state) => state.reasonTerm
+  (state) => state.valuesActions
 );
 
 export const isLoadingSelector = createSelector(
   stateSelector,
   (state) => state.isLoading
-);
-
-export const isSavingSelector = createSelector(
-  stateSelector,
-  (state) => state.isSaving
 );
 
 export const errorSelector = createSelector(

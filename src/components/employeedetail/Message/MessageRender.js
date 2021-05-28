@@ -5,7 +5,6 @@ import QMark from "../../../assets/icons/Question.png";
 import ExclamationMark from "../../../assets/icons/Exclamation.png";
 import { DialogBox } from "@components/dialogs";
 import { useStyles } from "./MessageStyles";
-import { Form as FormikForm } from "@components/common";
 import FloatingButton from "@components/controls/floatingButton/floatingButton";
 import { useFormikContext } from "formik";
 
@@ -18,11 +17,11 @@ const MessageRender = ({ open, onClose, msgCode }) => {
     handleReset();
   };
 
-  const renderDialogContent = () => {
-    let msgDialog = "",
-      imgType = "",
-      btnType = "";
+  let msgDialog = "",
+    imgType = "",
+    btnType = "";
 
+  const renderDialogContent = () => {
     switch (msgCode) {
       case "ExMsg_SvdSccss":
         msgDialog = "Record is saved successfully.";
@@ -34,11 +33,15 @@ const MessageRender = ({ open, onClose, msgCode }) => {
             className={classes.imgDialog}
           />
         );
-        btnType = <FloatingButton text="ok" onClick={onClose} />;
+        btnType = <FloatingButton text="ok" onClick={handleClose} />;
         break;
       case "ExMsg_ExcdLspspAmt":
-        msgDialog =
-          "The inputted amount cannot exceed the current statutory maximum amount HKD $390,000. Please input again.";
+        msgDialog = (
+          <div className={classes.errorLabel}>
+            The inputted amount cannot exceed the current statutory maximum
+            amount HKD $390,000. Please input again.
+          </div>
+        );
         imgType = (
           <img
             src={ExclamationMark}

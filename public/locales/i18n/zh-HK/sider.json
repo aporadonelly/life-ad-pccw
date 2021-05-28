@@ -1,14 +1,13 @@
 {
   "menu": {
-    "dashboard": "儀錶盤",
-    "enquires": "詢問",
-    "trustee": "受託人",
-    "company": "公司",
+    "task": "任務",
+    "member": "成員",
     "individual": "個人",
     "employer": "雇主",
-    "employee": "員工",
-    "agent": "代理人",
-    "generalLegar": "總帳",
-    "correspondenses": "對應關係"
+    "company": "公司",
+    "trustee": "受託人",
+    "transactionHistory": "交易記錄",
+    "instruction": "操作說明",
+    "configuration": "配置"
   }
 }

@@ -1,19 +1,36 @@
 import PropTypes from "prop-types";
 import { defaultsDeep } from "lodash";
+import { withField } from "@hocs";
 import { useStyles } from "./styles";
-import { Box, MenuItem } from "@material-ui/core";
-import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
-import InputField from "../InputField";
+import {
+  TextField,
+  Box,
+  MenuItem,
+  InputAdornment,
+  IconButton,
+} from "@material-ui/core";
+import {
+  ExpandMore as ExpandMoreIcon,
+  Cancel as CancelIcon,
+} from "@material-ui/icons";
 
 const SelectField = (props) => {
-  const { helpers, data, placeholder, ...rest } = defaultsDeep(
-    props,
-    SelectField.defaultProps
-  );
+  const {
+    helpers,
+    initialValue,
+    data,
+    placeholder,
+    clearButton,
+    ...rest
+  } = defaultsDeep(props, SelectField.defaultProps);
   const classes = useStyles();
 
+  const handleClear = () => {
+    helpers.setValue(initialValue);
+  };
+
   return (
-    <InputField
+    <TextField
       select
       SelectProps={{
         MenuProps: {
@@ -46,6 +63,15 @@ const SelectField = (props) => {
         },
         displayEmpty: true,
       }}
+      InputProps={{
+        endAdornment: rest.value && clearButton && (
+          <InputAdornment className={classes.adornment}>
+            <IconButton size="small" onClick={handleClear}>
+              <CancelIcon />
+            </IconButton>
+          </InputAdornment>
+        ),
+      }}
       {...rest}
     >
       {data.options.map((option) => (
@@ -53,11 +79,12 @@ const SelectField = (props) => {
           {data.label(option)}
         </MenuItem>
       ))}
-    </InputField>
+    </TextField>
   );
 };
 
 SelectField.defaultProps = {
+  clearButton: false,
   placeholder: "Please Select",
   data: {
     options: [],
@@ -67,6 +94,7 @@ SelectField.defaultProps = {
 };
 
 SelectField.propTypes = {
+  clearButton: PropTypes.bool,
   data: PropTypes.shape({
     options: PropTypes.array,
     value: PropTypes.func,
@@ -74,4 +102,4 @@ SelectField.propTypes = {
   }),
 };
 
-export default SelectField;
+export default withField(SelectField);

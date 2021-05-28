@@ -6,12 +6,12 @@ export const initialState = adapter.getInitialState({
   employeeTermination: {},
   clientSchemes: [],
   mbrTerm: {},
-  saved: "",
-  //validation: "",
-  validation: {},
+  saved: null,
+  //validation: {}, NOTE: parameters previously
+  validation: null,
+  valuesActions: {},
   isLoading: false,
   isValidating: true,
-  isSaving: true,
   isSubmitting: true,
   error: null,
 });

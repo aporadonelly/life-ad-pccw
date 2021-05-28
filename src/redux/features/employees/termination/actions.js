@@ -45,7 +45,7 @@ export const saveTermination = createAsyncThunk(
     try {
       await terminationAdapter.save(payload);
       //console.log("actions-termination");
-      return { message: "success" };
+      return { saved: "success" };
     } catch (error) {
       return rejectWithValue({ error });
     }
@@ -57,8 +57,8 @@ export const validTermination = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       await terminationAdapter.postValidate(payload);
-      console.log("actions-termination", payload);
-      return { validation: payload };
+      //return { validation: payload }; //NOTE: payload before was parameters
+      return { validation: "success" };
     } catch (error) {
       return rejectWithValue({ error });
     }
@@ -78,3 +78,5 @@ export const loadTermReason = createAsyncThunk(
     }
   }
 );
+
+export const passValuesActions = createAction("@@EMPF/TERMINATION/PASS");

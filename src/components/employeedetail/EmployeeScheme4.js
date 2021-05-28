@@ -1,11 +1,10 @@
 import React from "react";
-import { Formik, FieldArray } from "formik";
-import { Container, Grid, Avatar } from "@material-ui/core";
+import { FieldArray } from "formik";
+import { Grid, Avatar } from "@material-ui/core";
 import { Form } from "@components/common";
 //import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { makeStyles } from "@material-ui/styles";
 import { labels } from "../../common/labelsList";
-import { Form as FormikForm } from "@components/common";
 
 const useStyles = makeStyles((theme) => ({
   schemeUl: {
@@ -61,17 +60,13 @@ const initialValues = {
 const EmployeeScheme4 = (props) => {
   const classes = useStyles();
   let circleId = 0;
-  //console.log("schemes", props.schemes);
-  //console.log("schemes1", initialValues);
+
   return (
     <>
-      {/* <Formik initialValues={props.schemes} onSubmit={() => {}}>
-        <Form> */}
       <FieldArray
         name={props.name}
         render={({ swap, form }) => (
-          <Grid spacing={2}>
-            {/* {console.log(form.values.schemes)} */}
+          <Grid>
             <div className={classes.labels}>{labels.schemeTitle}</div>
             {form.values.schemes.map((scheme, index) => (
               // console.log(
@@ -80,11 +75,12 @@ const EmployeeScheme4 = (props) => {
               //   `schemes.${index}.id`,
               //   form.values.schemes
               // )
-              // <Grid key={scheme.id} item xs={12}>
 
               <Grid item sm={7} xs={12} className={classes.schemeGrid}>
-                {console.log((circleId = index + 1))}
-                <Avatar className={classes.schemeAvatar}>{circleId}</Avatar>
+                {/* {console.log((circleId = index + 1))} */}
+                <Avatar className={classes.schemeAvatar}>
+                  {(circleId = index + 1)}
+                </Avatar>
                 <Form.Select
                   size="small"
                   name={`schemes.${index}.schemeId`}
@@ -107,8 +103,6 @@ const EmployeeScheme4 = (props) => {
           </Grid>
         )}
       />
-      {/* </Form>
-      </Formik> */}
     </>
   );
 };

@@ -14,6 +14,4 @@ export const login = createAsyncThunk(
   }
 );
 
-export const logout = createAction("@@EMPF/USER/LOGOUT", () => ({
-  payload: {},
-}));
+export const logout = createAction("@@EMPF/USER/LOGOUT");
