@@ -15,19 +15,18 @@ import {
 } from "@material-ui/core";
 import { PageInner } from "@components/layout";
 import { useTranslation } from "react-i18next";
-import eSig from "../../../assets/icons/signature.svg";
 import { useHistory } from "react-router-dom";
 
-const Members = ({ employees, isLoading }) => {
-  const person = get(employees, "employees") ?? [];
-  console.log(employees, "employees");
+const Members = ({ employees, isLoading, getAllMembers }) => {
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button"]);
 
   useEffect(() => {
     getAllMembers();
-  }, [employees]);
+  }, [getAllMembers]);
 
+  console.log(employees, "employees");
+  employees.map((e) => console.log(e, "e"));
   return (
     <PageInner>
       <Grid container spacing={3}>
@@ -64,12 +63,7 @@ const Members = ({ employees, isLoading }) => {
                     </Typography>
                   </Grid>
                   <Grid item xs={6}>
-                    {employees.content.map((x) => (
-                      <>
-                        <p>{x.fullname}</p>
-                        <p>{x.idNoTxt}</p>
-                      </>
-                    ))}
+                    Table
                   </Grid>
                 </Grid>
               </CardContent>

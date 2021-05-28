@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { systemAdapter, employeesAdapter } from "@adapters";
+import { push } from "connected-react-router";
 
 export const getGender = createAsyncThunk(
   "@@EMPF/MEMBERS/GET_GENDER",
@@ -129,10 +130,11 @@ export const getStatus = createAsyncThunk(
 
 export const getAllMembers = createAsyncThunk(
   "@@EMPF/MEMBERS/SEARCH_MEMBERS",
-  async (payload, { rejectWithValue }) => {
+  async (payload, { rejectWithValue, dispatch }) => {
     try {
       const employees = await employeesAdapter.searchMembers(payload);
-      return { employees };
+      dispatch(push("/member"));
+      return { employees: employees.content };
     } catch (error) {
       return rejectWithValue({ error });
     }
