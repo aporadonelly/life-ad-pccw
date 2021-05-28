@@ -499,7 +499,7 @@ const EmployeeDetails = (props) => {
                         <FormikForm.DatePicker
                           name="lastDateOfEmployment"
                           helperText="YYYYMMDD"
-                          format="yyyy/MM/dd"
+                          format="YYYY/MM/DD"
                         />
                       </Grid>
 
@@ -527,7 +527,7 @@ const EmployeeDetails = (props) => {
                         <FormikForm.DatePicker
                           name="effective_date_of_termination"
                           helperText="YYYYMMDD"
-                          format="yyyy/MM/dd"
+                          format="YYYY/MM/DD"
                         />
                       </Grid>
                     </div>
@@ -632,7 +632,7 @@ const EmployeeDetails = (props) => {
                           <FormikForm.DatePicker
                             name="effective_date"
                             helperText="YYYYMMDD"
-                            format="yyyy/MM/dd"
+                            format="YYYY/MM/DD"
                           />
                         </Grid>
                         <Grid item sm={3} xs={12} className={classes.mgTop}>
@@ -640,7 +640,7 @@ const EmployeeDetails = (props) => {
                           <FormikForm.DatePicker
                             name="change_date"
                             helperText="YYYYMMDD"
-                            format="yyyy/MM/dd"
+                            format="YYYY/MM/DD"
                           />
                         </Grid>
                       </div>
