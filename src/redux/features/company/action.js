@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { companyAdapter } from "@adapters";
+import { companyAdapter, } from "@adapters";
 
 export const LdRegCmpnyInfoforAdmnPrtl = createAsyncThunk(
   "@@EMPF/COMPANY/GET_COMPANY_REG_INFO",
@@ -11,4 +11,5 @@ export const LdRegCmpnyInfoforAdmnPrtl = createAsyncThunk(
       return rejectWithValue({ error });
     }
   }
-)
+);
+

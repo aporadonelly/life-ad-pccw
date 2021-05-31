@@ -16,7 +16,10 @@ const useStyles = makeStyles((theme) => ({
     opacity: 1,
   },
   supportingDocsValue: {
+    display: "flex",
+    alignItems: "center",
     textAlign: "left",
+    height: 32,
     font: "normal normal medium 14px/31px Roboto",
     letterSpacing: "0px",
     color: "#42526E",

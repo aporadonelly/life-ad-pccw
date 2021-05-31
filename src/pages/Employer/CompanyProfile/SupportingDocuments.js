@@ -8,13 +8,13 @@ const CompanySupportingDocs = ({ item, classes }) => {
       <Grid container justify="space-between" alignItems="center" >
         <Grid item key={item.id} className={classes.supportingDocsValue}>{item.fileName}</Grid>
 
-        <Grid item style={{ paddingTop: 10 }}>
+        {/* <Grid item style={{ paddingTop: 10 }}>
           <Tooltip title="View" placement="top" arrow>
             <Icon style={{ cursor: "pointer" }}>
               <img src={ViewButton} width={32} />
             </Icon>
           </Tooltip>
-        </Grid>
+        </Grid> */}
 
       </Grid>
       <Divider />

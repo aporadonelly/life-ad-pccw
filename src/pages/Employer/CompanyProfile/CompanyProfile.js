@@ -14,7 +14,8 @@ const CompanyProfile = (props) => {
   const classes = useStyles();
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button"]);
-  const { LdRegCmpnyInfoforAdmnPrtl, companyRegInfo, isLoading } = props;
+  const { LdRegCmpnyInfoforAdmnPrtl, getAuthorizedPersonList, companyRegInfo, authPersonList, isLoading } = props;
+
   const {
     companyNameEng,
     branchName,
@@ -55,7 +56,8 @@ const CompanyProfile = (props) => {
 
   useEffect(() => {
     LdRegCmpnyInfoforAdmnPrtl();
-  }, [LdRegCmpnyInfoforAdmnPrtl])
+    getAuthorizedPersonList();
+  }, [LdRegCmpnyInfoforAdmnPrtl, getAuthorizedPersonList])
 
   return (
     <>
@@ -255,7 +257,7 @@ const CompanyProfile = (props) => {
                       <Grid item xs={12}>
                         <Grid container justify="space-between" >
                           <Grid className={classes.supportingDocsLabel}>{t("form:label.fileName")}</Grid>
-                          <Grid className={classes.supportingDocsLabel}>{t("form:label.viewAction")}</Grid>
+                          {/* <Grid className={classes.supportingDocsLabel}>{t("form:label.viewAction")}</Grid> */}
                         </Grid>
                         <Grid item xs={12} style={{ paddingTop: 5 }}>
                           <Divider />

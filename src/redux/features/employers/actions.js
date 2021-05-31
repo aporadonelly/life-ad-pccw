@@ -28,3 +28,15 @@ export const viewAuthPerson = createAsyncThunk(
     }
   }
 );
+
+export const getAuthorizedPersonList = createAsyncThunk(
+  "@@EMPF/EMPLOYER/GET_AUTH_PERSON_INFO",
+  async (_payload, { rejectWithValue }) => {
+    try {
+      const authPersonInfo = await employerAdapter.LdAuthPrsnInfo();
+      return { authPersonInfo };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
