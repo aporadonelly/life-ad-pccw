@@ -133,9 +133,6 @@ export const getAllMembers = createAsyncThunk(
   async (payload, { rejectWithValue, dispatch }) => {
     try {
       const employees = await employeesAdapter.searchMembers(payload);
-      if (Object.keys(payload).length === 0) {
-        return rejectWithValue({ error: "Hye" });
-      }
       dispatch(push("/members"));
       return { employees: employees.content };
     } catch (error) {

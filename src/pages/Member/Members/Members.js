@@ -17,19 +17,11 @@ import viewEnrollActive from "../../../assets/icons/enroll-active.PNG";
 import viewEnrollInActive from "../../../assets/icons/enroll-inactive.PNG";
 import viewRegistration from "../../../assets/icons/view_reg.PNG";
 
-const Members = ({
-  employees,
-  employee,
-  isLoading,
-  getAllMembers,
-  getSpecificMember,
-}) => {
+const Members = ({ employees, isLoading, getSpecificMember }) => {
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button", "table"]);
 
-  useEffect(() => {
-    getAllMembers();
-  }, [getAllMembers]);
+  useEffect(() => {}, [employees]);
 
   const columns = [
     { label: t("table:thead.mpfId"), name: "pnsnIdTxt" },
@@ -59,74 +51,64 @@ const Members = ({
             </CardContent>
           </Card>
         </Grid>
-
         <Grid item xs={12}>
-          {isLoading ? (
-            <Box display="flex" justifyContent="center" mt={5}>
-              <CircularProgress />
-            </Box>
-          ) : (
-            <Card>
-              <CardContent>
-                <Grid
-                  container
-                  component="dl"
-                  spacing={1}
-                  alignItems="flex-start"
-                >
-                  <Grid item xs={12}>
-                    <TableCustomized
-                      rowsPerPage={2}
-                      title={t("typography:heading.searchResult")}
-                      rows={employees}
-                      columns={columns}
-                      stickyLabel={t("table:thead.custom.action")}
-                      renderStickyCell={(row) => {
-                        return (
-                          <>
-                            <Tooltip title="View Registration">
-                              <img
-                                src={viewRegistration}
-                                alt="View Registration"
-                                onClick={() =>
-                                  viewMembersDetails(row.pnsnIdTxt)
-                                }
-                                variant="contained"
-                                style={{
-                                  margin: "0 5px",
-                                  background: "#EF841F",
-                                  color: "#fff",
-                                  cursor: "pointer",
-                                }}
-                              />
-                            </Tooltip>
-                            <Tooltip title="View Enrollment">
-                              <img
-                                src={
-                                  row.vwEnrFlg
-                                    ? viewEnrollActive
-                                    : viewEnrollInActive
-                                }
-                                alt="View Enrollment"
-                                variant="contained"
-                                style={{
-                                  margin: "0 5px",
-                                  background: "#EF841F",
-                                  color: "#fff",
-                                }}
-                              />
-                            </Tooltip>
-                          </>
-                        );
-                      }}
-                    />
-                  </Grid>
+          <Card>
+            <CardContent>
+              <Grid
+                container
+                component="dl"
+                spacing={1}
+                alignItems="flex-start"
+              >
+                <Grid item xs={12}>
+                  <TableCustomized
+                    rowsPerPage={2}
+                    title={t("typography:heading.searchResult")}
+                    rows={employees}
+                    columns={columns}
+                    stickyLabel={t("table:thead.custom.action")}
+                    renderStickyCell={(row) => {
+                      return (
+                        <>
+                          <Tooltip title="View Registration">
+                            <img
+                              src={viewRegistration}
+                              alt="View Registration"
+                              onClick={() => viewMembersDetails(row.pnsnIdTxt)}
+                              variant="contained"
+                              style={{
+                                margin: "0 5px",
+                                background: "#EF841F",
+                                color: "#fff",
+                                cursor: "pointer",
+                              }}
+                            />
+                          </Tooltip>
+                          <Tooltip title="View Enrollment">
+                            <img
+                              src={
+                                row.vwEnrFlg
+                                  ? viewEnrollActive
+                                  : viewEnrollInActive
+                              }
+                              alt="View Enrollment"
+                              variant="contained"
+                              style={{
+                                margin: "0 5px",
+                                background: "#EF841F",
+                                color: "#fff",
+                              }}
+                            />
+                          </Tooltip>
+                        </>
+                      );
+                    }}
+                  />
                 </Grid>
-              </CardContent>
-            </Card>
-          )}
+              </Grid>
+            </CardContent>
+          </Card>
         </Grid>
-
         <Grid item xs={12}>
           <Grid container component="dl" spacing={1} justify="flex-end">
             <Button
