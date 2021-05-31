@@ -39,87 +39,97 @@ const Members = ({ employees, isLoading, getSpecificMember }) => {
 
   return (
     <PageInner>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <Card>
-            <CardContent>
-              <Grid item xs={12}>
-                <Typography variant="h6" color="primary">
-                  {t("typography:heading.memberEnquiry")}
-                </Typography>
-              </Grid>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12}>
-          <Card>
-            <CardContent>
-              <Grid
-                container
-                component="dl"
-                spacing={1}
-                alignItems="flex-start"
-              >
+      {isLoading ? (
+        <Box display="flex" justifyContent="center">
+          <CircularProgress alignItems="center" />
+        </Box>
+      ) : (
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Card>
+              <CardContent>
                 <Grid item xs={12}>
-                  <TableCustomized
-                    rowsPerPage={2}
-                    title={t("typography:heading.searchResult")}
-                    rows={employees}
-                    columns={columns}
-                    stickyLabel={t("table:thead.custom.action")}
-                    renderStickyCell={(row) => {
-                      return (
-                        <>
-                          <Tooltip title="View Registration">
-                            <img
-                              src={viewRegistration}
-                              alt="View Registration"
-                              onClick={() => viewMembersDetails(row.pnsnIdTxt)}
-                              variant="contained"
-                              style={{
-                                margin: "0 5px",
-                                background: "#EF841F",
-                                color: "#fff",
-                                cursor: "pointer",
-                              }}
-                            />
-                          </Tooltip>
-                          <Tooltip title="View Enrollment">
-                            <img
-                              src={
-                                row.vwEnrFlg
-                                  ? viewEnrollActive
-                                  : viewEnrollInActive
-                              }
-                              alt="View Enrollment"
-                              variant="contained"
-                              style={{
-                                margin: "0 5px",
-                                background: "#EF841F",
-                                color: "#fff",
-                              }}
-                            />
-                          </Tooltip>
-                        </>
-                      );
-                    }}
-                  />
+                  <Typography variant="h6" color="primary">
+                    {t("typography:heading.memberEnquiry")}
+                  </Typography>
                 </Grid>
-              </Grid>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12}>
-          <Grid container component="dl" spacing={1} justify="flex-end">
-            <Button
-              data-testid="back-btn"
-              onClick={() => history.push("/members/enquiry")}
-            >
-              {t("button:backToCompanyProfile")}
-            </Button>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          <Grid item xs={12}>
+            <Card>
+              <CardContent>
+                <Grid
+                  container
+                  component="dl"
+                  spacing={1}
+                  alignItems="flex-start"
+                >
+                  <Grid item xs={12}>
+                    <TableCustomized
+                      rowsPerPage={50}
+                      title={t("typography:heading.searchResult")}
+                      rows={employees}
+                      columns={columns}
+                      stickyLabel={t("table:thead.custom.action")}
+                      renderStickyCell={(row) => {
+                        return (
+                          <>
+                            <Tooltip title="View Registration">
+                              <img
+                                src={viewRegistration}
+                                alt="View Registration"
+                                onClick={() =>
+                                  viewMembersDetails(row.pnsnIdTxt)
+                                }
+                                variant="contained"
+                                style={{
+                                  margin: "0 5px",
+                                  background: "#EF841F",
+                                  color: "#fff",
+                                  cursor: "pointer",
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip title="View Enrollment">
+                              <img
+                                src={
+                                  row.vwEnrFlg
+                                    ? viewEnrollActive
+                                    : viewEnrollInActive
+                                }
+                                alt="View Enrollment"
+                                variant="contained"
+                                style={{
+                                  margin: "0 5px",
+                                  background: "#EF841F",
+                                  color: "#fff",
+                                }}
+                              />
+                            </Tooltip>
+                          </>
+                        );
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          <Grid item xs={12}>
+            <Grid container component="dl" spacing={1} justify="flex-end">
+              <Button
+                data-testid="back-btn"
+                onClick={() => history.push("/members/enquiry")}
+              >
+                {t("button:backToCompanyProfile")}
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      )}
     </PageInner>
   );
 };
