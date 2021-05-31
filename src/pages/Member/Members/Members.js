@@ -60,12 +60,12 @@ const Members = ({
           </Card>
         </Grid>
 
-        {isLoading ? (
-          <Box display="flex" justifyContent="center" mt={5}>
-            <CircularProgress />
-          </Box>
-        ) : (
-          <Grid item xs={12}>
+        <Grid item xs={12}>
+          {isLoading ? (
+            <Box display="flex" justifyContent="center" mt={5}>
+              <CircularProgress />
+            </Box>
+          ) : (
             <Card>
               <CardContent>
                 <Grid
@@ -124,8 +124,8 @@ const Members = ({
                 </Grid>
               </CardContent>
             </Card>
-          </Grid>
-        )}
+          )}
+        </Grid>
 
         <Grid item xs={12}>
           <Grid container component="dl" spacing={1} justify="flex-end">
