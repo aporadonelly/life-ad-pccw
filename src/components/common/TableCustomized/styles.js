@@ -89,7 +89,23 @@ export const useToolbarStyles = makeStyles((theme) => ({
 }));
 
 export const useScrollbarStyles = makeStyles((theme) => ({
-  root: {},
+  root: {
+    position: "relative",
+    height: "100%",
+    overflow: "hidden",
+    paddingBottom: theme.spacing(3),
+    "& .ps__rail-x": {
+      bottom: 0,
+      position: "absolute",
+    },
+    "& .ps__thumb-x": {
+      backgroundColor: "#E6E6E6",
+      borderRadius: 14,
+      height: 23,
+      bottom: 0,
+      position: "absolute",
+    },
+  },
 }));
 
 export const useTableStyles = makeStyles((theme) => ({

@@ -139,7 +139,10 @@ const TableCustomized = (props) => {
           ActionsComponent={TablePaginationActions}
         />
       </Toolbar>
-      <PerfectScrollbar className={scrollbarClasses.root}>
+      <PerfectScrollbar
+        className={scrollbarClasses.root}
+        options={{ minScrollbarLength: 75, maxScrollbarLength: 75 }}
+      >
         <Table classes={tableClasses}>
           <EnhancedTableHead columns={columns} stickyLabel={stickyLabel} />
           <EnhancedTableBody
