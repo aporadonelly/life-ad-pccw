@@ -101,6 +101,8 @@ export const useScrollbarStyles = makeStyles((theme) => ({
     "& .ps__thumb-x": {
       backgroundColor: "#E6E6E6",
       borderRadius: 14,
+      minWidth: 75,
+      maxWidth: 75,
       height: 23,
       bottom: 0,
       position: "absolute",
