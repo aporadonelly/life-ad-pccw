@@ -15,6 +15,7 @@ const CompanyProfile = (props) => {
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button"]);
   const { LdRegCmpnyInfoforAdmnPrtl, getAuthorizedPersonList, companyRegInfo, authPersonList, isLoading } = props;
+  const { content } = authPersonList;
 
   const {
     companyNameEng,
@@ -29,7 +30,7 @@ const CompanyProfile = (props) => {
     typeOfCompany } = get(companyRegInfo, "[0].companyRegistrationInfo") ?? {};
 
   const { registeredOfficeAddress, businessAddress, correspondenceAddress } = get(companyRegInfo, "[1].address") ?? {};
-  const authorizedPerson = get(companyRegInfo, "[2].authorizedPerson") ?? [];
+  // const authorizedPerson = get(companyRegInfo, "[2].authorizedPerson") ?? [];
   const {
     lastName,
     firstName,
@@ -153,7 +154,7 @@ const CompanyProfile = (props) => {
             </Grid>
 
             <Grid item xs={12}>
-              {authorizedPerson.length > 0 && (
+              {content && (
                 <Card>
                   <CardContent>
                     <Grid container spacing={2}>
@@ -167,7 +168,7 @@ const CompanyProfile = (props) => {
                         </Grid>
                       </Grid>
                       <Grid item xs={12}>
-                        <AuthorizedPerson authPerson={authorizedPerson} />
+                        <AuthorizedPerson authPerson={content} />
                       </Grid>
                     </Grid>
                   </CardContent>

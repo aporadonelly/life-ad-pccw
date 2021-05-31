@@ -15,51 +15,51 @@ const EnhancedTableHead = (props) => {
     <TableHead >
       <TableRow>
         <TableCell
-          key="lastNameEng"
+          key="lastName"
           classes={{ sizeSmall: classes.tableHeadAlign }}
         >
           <TableSortLabel
             classes={{
-              icon: ((orderBy === "lastNameEng") ? classes.activeSortIcon : classes.inActiveSortIcon)
+              icon: ((orderBy === "lastName") ? classes.activeSortIcon : classes.inActiveSortIcon)
             }}
-            active={orderBy === "lastNameEng"}
-            direction={orderBy === "lastNameEng" ? orderDirection : 'desc'}
-            onClick={createSortHandler('lastNameEng')}
-          >{t("table:thead.lastNameEng")}</TableSortLabel>
+            active={orderBy === "lastName"}
+            direction={orderBy === "lastName" ? orderDirection : 'desc'}
+            onClick={createSortHandler('lastName')}
+          >{t("table:thead.lastName")}</TableSortLabel>
         </TableCell>
-        <TableCell key="firstNameEng">
+        <TableCell key="firstName">
           <TableSortLabel
             classes={{
-              icon: ((orderBy === "firstNameEng") ? classes.activeSortIcon : classes.inActiveSortIcon)
+              icon: ((orderBy === "firstName") ? classes.activeSortIcon : classes.inActiveSortIcon)
             }}
-            active={orderBy === "firstNameEng"}
-            direction={orderBy === "firstNameEng" ? orderDirection : 'desc'}
-            onClick={createSortHandler('firstNameEng')}
-          >{t("table:thead.firstNameEng")}</TableSortLabel>
+            active={orderBy === "firstName"}
+            direction={orderBy === "firstName" ? orderDirection : 'desc'}
+            onClick={createSortHandler('firstName')}
+          >{t("table:thead.firstName")}</TableSortLabel>
         </TableCell>
         <TableCell
-          key="lastNameChi"
+          key="chineseLastName"
         >
           <TableSortLabel
             classes={{
-              icon: ((orderBy === "lastNameChi") ? classes.activeSortIcon : classes.inActiveSortIcon)
+              icon: ((orderBy === "chineseLastName") ? classes.activeSortIcon : classes.inActiveSortIcon)
             }}
-            active={orderBy === "lastNameChi"}
-            direction={orderBy === "lastNameChi" ? orderDirection : 'desc'}
-            onClick={createSortHandler('lastNameChi')}
-          >{t("table:thead.lastNameChi")}</TableSortLabel>
+            active={orderBy === "chineseLastName"}
+            direction={orderBy === "chineseLastName" ? orderDirection : 'desc'}
+            onClick={createSortHandler('chineseLastName')}
+          >{t("table:thead.chineseLastName")}</TableSortLabel>
         </TableCell>
         <TableCell
-          key="firstNameChi"
+          key="chineseFirstName"
         >
           <TableSortLabel
             classes={{
-              icon: ((orderBy === "firstNameChi") ? classes.activeSortIcon : classes.inActiveSortIcon)
+              icon: ((orderBy === "chineseFirstName") ? classes.activeSortIcon : classes.inActiveSortIcon)
             }}
-            active={orderBy === "firstNameChi"}
-            direction={orderBy === "firstNameChi" ? orderDirection : 'desc'}
-            onClick={createSortHandler('firstNameChi')}
-          >{t("table:thead.firstNameChi")}</TableSortLabel>
+            active={orderBy === "chineseFirstName"}
+            direction={orderBy === "chineseFirstName" ? orderDirection : 'desc'}
+            onClick={createSortHandler('chineseFirstName')}
+          >{t("table:thead.chineseFirstName")}</TableSortLabel>
         </TableCell>
         <TableCell key="view" align="right" >{t("table:thead.viewAction")}</TableCell>
       </TableRow>

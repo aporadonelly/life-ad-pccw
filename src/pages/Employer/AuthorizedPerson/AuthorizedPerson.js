@@ -67,14 +67,14 @@ export default function AuthorizedPerson({ authPerson }) {
                     key={index}
                   >
                     <TableCell component="th" id={index} scope="row" padding="none">
-                      {row.lastNameEng}
+                      {row.lastName}
                     </TableCell>
-                    <TableCell>{row.firstNameEng}</TableCell>
-                    <TableCell>{row.lastNameChi}</TableCell>
-                    <TableCell>{row.firstNameChi}</TableCell>
+                    <TableCell>{row.firstName}</TableCell>
+                    <TableCell>{row.chineseLastName}</TableCell>
+                    <TableCell>{row.chineseFirstName}</TableCell>
                     <TableCell align="right">
                       <Tooltip title="View" placement="top" arrow>
-                        <Icon style={{ cursor: "pointer" }}>
+                        <Icon style={{ cursor: "pointer" }} onClick={() => { console.log('rowto', row.clntUuid) }}>
                           <img src={ViewButton} width="32px" />
                         </Icon>
                       </Tooltip>
