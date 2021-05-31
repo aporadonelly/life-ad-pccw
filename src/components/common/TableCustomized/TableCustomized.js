@@ -2,6 +2,7 @@ import { useState } from "react";
 import {
   useContainerStyles,
   useToolbarStyles,
+  useScrollbarStyles,
   useTableStyles,
   useHeadStyles,
   useCellStyles,
@@ -23,6 +24,7 @@ import {
   Typography,
   ButtonBase,
 } from "@material-ui/core";
+import PerfectScrollbar from "react-perfect-scrollbar";
 import { isFunction, get } from "lodash";
 
 const TablePaginationActions = (props) => {
@@ -109,6 +111,7 @@ const TableCustomized = (props) => {
   const [page, setPage] = useState(0);
   const containerClasses = useContainerStyles();
   const toolbarClasses = useToolbarStyles();
+  const scrollbarClasses = useScrollbarStyles();
   const tableClasses = useTableStyles();
   const paginationClasses = usePaginationStyles();
 
@@ -136,16 +139,18 @@ const TableCustomized = (props) => {
           ActionsComponent={TablePaginationActions}
         />
       </Toolbar>
-      <Table classes={tableClasses}>
-        <EnhancedTableHead columns={columns} stickyLabel={stickyLabel} />
-        <EnhancedTableBody
-          page={page}
-          rowsPerPage={process.env.REACT_APP_TABLE_ROWS_PER_PAGE}
-          rows={rows}
-          columns={columns}
-          renderStickyCell={renderStickyCell}
-        />
-      </Table>
+      <PerfectScrollbar className={scrollbarClasses.root}>
+        <Table classes={tableClasses}>
+          <EnhancedTableHead columns={columns} stickyLabel={stickyLabel} />
+          <EnhancedTableBody
+            page={page}
+            rowsPerPage={process.env.REACT_APP_TABLE_ROWS_PER_PAGE}
+            rows={rows}
+            columns={columns}
+            renderStickyCell={renderStickyCell}
+          />
+        </Table>
+      </PerfectScrollbar>
     </TableContainer>
   );
 };
