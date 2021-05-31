@@ -4,6 +4,7 @@ import {
   employeesSelector,
   isLoadingSelector,
   errorSelector,
+  employeeSelector,
 } from "@redux/features/members/selectors";
 import {
   getAllMembers,
@@ -15,6 +16,7 @@ const mapStateToProps = (state) => ({
   isLoading: isLoadingSelector(state),
   error: errorSelector(state),
   employees: employeesSelector(state),
+  employee: employeeSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -7,16 +7,11 @@ import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { Definition } from "@components/misc";
 
-const ViewMember = ({ getSpecificMember, employee }) => {
-  useEffect(() => {
-    getSpecificMember();
-  }, [getSpecificMember]);
-
-  console.log(employee, "emp");
+const ViewMember = ({ employee }) => {
+  useEffect(() => {}, [employee]);
 
   const {
     pnsnIdTxt,
-    ttlTypId,
     frstNm,
     lstNm,
     chnsFrstNm,
@@ -27,15 +22,8 @@ const ViewMember = ({ getSpecificMember, employee }) => {
     brthDt,
     ntnltyCntryTypCd,
     regClntPhones,
-    phnNmbr,
-    scndryCntctNo,
     regCntcts,
     regAddrs,
-    correspondence_address,
-    emlAddrTxt,
-    preferred_communication_channel,
-    preferred_communication_language,
-    receive_paper_form_notifications_and_document,
     sttsTypId,
   } = employee;
   const history = useHistory();

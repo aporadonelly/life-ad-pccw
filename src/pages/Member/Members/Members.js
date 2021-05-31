@@ -15,9 +15,11 @@ import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import viewEnrollActive from "../../../assets/icons/enroll-active.PNG";
 import viewReg from "../../../assets/icons/view_reg.PNG";
+import ViewMembers from "../ViewMember";
 
 const Members = ({
   employees,
+  employee,
   isLoading,
   getAllMembers,
   getSpecificMember,
@@ -42,6 +44,7 @@ const Members = ({
   const viewMembersDetails = (id) => {
     getSpecificMember(id);
   };
+
   return (
     <PageInner>
       <Grid container spacing={3}>
@@ -59,7 +62,6 @@ const Members = ({
 
         {isLoading ? (
           <Box display="flex" justifyContent="center" mt={5}>
-            {" "}
             <CircularProgress />
           </Box>
         ) : (
@@ -74,6 +76,7 @@ const Members = ({
                 >
                   <Grid item xs={12}>
                     <TableCustomized
+                      rowsPerPage={2}
                       title={t("typography:heading.searchResult")}
                       rows={employees}
                       columns={columns}
@@ -124,6 +127,8 @@ const Members = ({
             </Card>
           </Grid>
         )}
+
+        {/* <ViewMembers employee={employee} /> */}
 
         <Grid item xs={12}>
           <Grid container component="dl" spacing={1} justify="flex-end">
