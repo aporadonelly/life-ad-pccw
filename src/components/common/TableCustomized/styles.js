@@ -88,11 +88,16 @@ export const useToolbarStyles = makeStyles((theme) => ({
   },
 }));
 
+export const useScrollbarStyles = makeStyles((theme) => ({
+  root: {
+    paddingBottom: theme.spacing(2),
+  },
+}));
+
 export const useTableStyles = makeStyles((theme) => ({
   root: {
-    display: "block",
     width: "100%",
-    overflowX: "scroll",
+    overflow: "hidden",
   },
 }));
 
@@ -125,5 +130,6 @@ export const useStickyStyles = makeStyles((theme) => ({
     position: "sticky",
     right: 0,
     backgroundColor: theme.palette.common.white,
+    whiteSpace: "nowrap",
   },
 }));
