@@ -26,7 +26,7 @@ import {
   ButtonBase,
 } from "@material-ui/core";
 import PerfectScrollbar from "react-perfect-scrollbar";
-import { isFunction, get } from "lodash";
+import { isFunction, get, orderBy } from "lodash";
 
 const TablePaginationActions = (props) => {
   const { count, page, rowsPerPage, onChangePage } = props;
@@ -60,15 +60,26 @@ const TablePaginationActions = (props) => {
 };
 
 const EnhancedTableHead = (props) => {
-  const { columns, stickyLabel } = props;
+  const { order, sortBy, columns, stickyLabel, onChangeSort } = props;
   const headClasses = useHeadStyles();
   const stickyClasses = useStickyStyles();
+
+  const createSortHandler = (property) => (event) => {
+    onChangeSort(event, property);
+  };
+
   return (
     <TableHead>
       <TableRow>
         {columns.map((column) => (
           <TableCell key={column.label} classes={headClasses}>
-            <TableSortLabel onClick={() => {}}>{column.label}</TableSortLabel>
+            <TableSortLabel
+              active={sortBy === column.name}
+              direction={sortBy === column.name ? order : "asc"}
+              onClick={createSortHandler(column.name)}
+            >
+              {column.label}
+            </TableSortLabel>
           </TableCell>
         ))}
         {stickyLabel && (
@@ -117,14 +128,22 @@ const TableCustomized = (props) => {
     renderStickyCell,
   } = props;
   const [page, setPage] = useState(0);
+  const [order, setOrder] = useState("asc");
+  const [sortBy, setSortBy] = useState();
   const containerClasses = useContainerStyles();
   const toolbarClasses = useToolbarStyles();
   const scrollbarClasses = useScrollbarStyles();
   const tableClasses = useTableStyles();
   const paginationClasses = usePaginationStyles();
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (_event, newPage) => {
     setPage(newPage);
+  };
+
+  const handleChangeSort = (_event, property) => {
+    const newOrder = sortBy === property && order === "asc" ? "desc" : "asc";
+    setOrder(newOrder);
+    setSortBy(property);
   };
 
   return (
@@ -152,11 +171,17 @@ const TableCustomized = (props) => {
         options={{ maxScrollbarLength: 75 }}
       >
         <Table classes={tableClasses}>
-          <EnhancedTableHead columns={columns} stickyLabel={stickyLabel} />
+          <EnhancedTableHead
+            order={order}
+            sortBy={sortBy}
+            columns={columns}
+            stickyLabel={stickyLabel}
+            onChangeSort={handleChangeSort}
+          />
           <EnhancedTableBody
             page={page}
             rowsPerPage={rowsPerPage}
-            rows={rows}
+            rows={orderBy(rows, sortBy, order)}
             columns={columns}
             renderStickyCell={renderStickyCell}
           />
