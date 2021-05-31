@@ -21,7 +21,6 @@ export const usePaginationActionsStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "space-between",
     margin: theme.spacing(0, 1),
-    width: 100,
   },
   page: {
     fontSize: "0.75rem",
@@ -30,6 +29,7 @@ export const usePaginationActionsStyles = makeStyles((theme) => ({
     borderStyle: "solid",
     borderColor: theme.palette.grey[400],
     padding: theme.spacing(0.35, 1.5),
+    margin: theme.spacing(0, 0.75),
     lineHeight: 1,
   },
   buttonBase: {
@@ -109,10 +109,7 @@ export const useScrollbarStyles = makeStyles((theme) => ({
 }));
 
 export const useTableStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-    display: "block",
-  },
+  root: {},
 }));
 
 export const useHeadStyles = makeStyles((theme) => ({
