@@ -18,12 +18,13 @@ import { PageInner } from "@components/layout";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import viewEnrollActive from "../../../assets/icons/enroll-active.PNG";
-import viewEnrollInActive from "../../../assets/icons/enroll-inactive.PNG";
+// import viewEnrollInActive from "../../../assets/icons/enroll-inactive.PNG";
 import viewReg from "../../../assets/icons/view_reg.PNG";
 
 const Members = ({ employees, isLoading, getAllMembers }) => {
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button", "table"]);
+  console.log(employees, "employees");
 
   useEffect(() => {
     getAllMembers();
@@ -34,8 +35,8 @@ const Members = ({ employees, isLoading, getAllMembers }) => {
     { label: t("table:thead.displayName"), name: "fullname" },
     { label: t("table:thead.idType"), name: "idTypeId" },
     { label: t("table:thead.idNumber"), name: "idNoTxt" },
-    { label: t("table:thead.mobileNumber"), name: "phoneNumber" },
-    { label: t("table:thead.email"), name: "emailAddrTxt" },
+    { label: t("table:thead.mobileNumber"), name: "clntPhones[0].phoneNumber" },
+    { label: t("table:thead.email"), name: "cntcts[0].emailAddrTxt" },
     { label: t("table:thead.status"), name: "statusTypId" },
     {
       label: t("table:thead.custom.action"),
@@ -44,6 +45,9 @@ const Members = ({ employees, isLoading, getAllMembers }) => {
     },
   ];
 
+  const viewMembersDetails = () => {
+    console.log("object");
+  };
   return (
     <PageInner>
       <Grid container spacing={3}>
@@ -87,7 +91,9 @@ const Members = ({ employees, isLoading, getAllMembers }) => {
                               <img
                                 src={viewReg}
                                 alt="View Registration"
-                                // onClick={() => employeeView(emp.pnsnIdTxt)}
+                                onClick={() =>
+                                  viewMembersDetails(row.pnsnIdTxt)
+                                }
                                 variant="contained"
                                 style={{
                                   margin: "0 5px",
