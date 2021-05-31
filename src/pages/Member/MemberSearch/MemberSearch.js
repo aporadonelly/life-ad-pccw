@@ -76,14 +76,11 @@ const MemberSearch = (props) => {
   }, []);
 
   const handleSubmit = (values) => {
-    if (!values) return;
-
     const newValues = { ...values };
     newValues.dateOfBirth =
       newValues.dateOfBirth &&
       moment(newValues.dateOfBirth).format("YYYY/MM/DD");
     getAllMembers(newValues);
-    history.push("/members");
   };
 
   return (

@@ -134,8 +134,7 @@ export const getAllMembers = createAsyncThunk(
     try {
       const employees = await employeesAdapter.searchMembers(payload);
       if (Object.keys(payload).length === 0) {
-        console.log("eerr");
-        return rejectWithValue({ error: "Dispaly Error Message" });
+        return rejectWithValue({ error: "Hye" });
       }
       dispatch(push("/members"));
       return { employees: employees.content };
@@ -147,9 +146,10 @@ export const getAllMembers = createAsyncThunk(
 
 export const getSpecificMember = createAsyncThunk(
   "@@EMPF/MEMBERS/VIEW_MEMBER",
-  async (payload, { rejectWithValue }) => {
+  async (payload, { rejectWithValue, dispatch }) => {
     try {
       const employee = await employeesAdapter.viewMember(payload);
+      dispatch(push("/members/details"));
       return { employee };
     } catch (error) {
       return rejectWithValue({ error });

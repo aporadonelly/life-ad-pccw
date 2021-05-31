@@ -8,7 +8,12 @@ import { useHistory } from "react-router-dom";
 import { Definition } from "@components/misc";
 
 const ViewMember = ({ getSpecificMember, employee }) => {
-  console.log(employee, "employee");
+  useEffect(() => {
+    getSpecificMember();
+  }, [getSpecificMember]);
+
+  console.log(employee, "emp");
+
   const {
     pnsnIdTxt,
     ttlTypId,
@@ -35,10 +40,6 @@ const ViewMember = ({ getSpecificMember, employee }) => {
   } = employee;
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button"]);
-
-  useEffect(() => {
-    getSpecificMember();
-  }, []);
 
   return (
     <PageInner>
@@ -242,7 +243,7 @@ const ViewMember = ({ getSpecificMember, employee }) => {
           <Grid container component="dl" spacing={1} justify="flex-end">
             <Button
               data-testid="back-btn"
-              onClick={() => history.push("/member")}
+              onClick={() => history.push("/members")}
             >
               {t("button:backToCompanyProfile")}
             </Button>

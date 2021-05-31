@@ -1,9 +1,5 @@
-import { useEffect, useState } from "react";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import { getAllMembers } from "@redux/features/members/actions";
+import { useEffect } from "react";
 import TableCustomized from "../../../components/common/TableCustomized";
-import { employeesSelector } from "@redux/features/members/selectors";
 import {
   Grid,
   Card,
@@ -18,13 +14,16 @@ import { PageInner } from "@components/layout";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import viewEnrollActive from "../../../assets/icons/enroll-active.PNG";
-// import viewEnrollInActive from "../../../assets/icons/enroll-inactive.PNG";
 import viewReg from "../../../assets/icons/view_reg.PNG";
 
-const Members = ({ employees, isLoading, getAllMembers }) => {
+const Members = ({
+  employees,
+  isLoading,
+  getAllMembers,
+  getSpecificMember,
+}) => {
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button", "table"]);
-  console.log(employees, "employees");
 
   useEffect(() => {
     getAllMembers();
@@ -38,15 +37,10 @@ const Members = ({ employees, isLoading, getAllMembers }) => {
     { label: t("table:thead.mobileNumber"), name: "clntPhones[0].phoneNumber" },
     { label: t("table:thead.email"), name: "cntcts[0].emailAddrTxt" },
     { label: t("table:thead.status"), name: "statusTypId" },
-    {
-      label: t("table:thead.custom.action"),
-      name: "action",
-      disableSorting: true,
-    },
   ];
 
-  const viewMembersDetails = () => {
-    console.log("object");
+  const viewMembersDetails = (id) => {
+    getSpecificMember(id);
   };
   return (
     <PageInner>
@@ -145,18 +139,4 @@ const Members = ({ employees, isLoading, getAllMembers }) => {
     </PageInner>
   );
 };
-
-const mapStateToProps = (state) => ({
-  employees: employeesSelector(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  ...bindActionCreators(
-    {
-      getAllMembers,
-    },
-    dispatch
-  ),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Members);
+export default Members;
