@@ -109,7 +109,10 @@ export const useScrollbarStyles = makeStyles((theme) => ({
 }));
 
 export const useTableStyles = makeStyles((theme) => ({
-  root: {},
+  root: {
+    position: "relative",
+    zIndex: 1,
+  },
 }));
 
 export const useHeadStyles = makeStyles((theme) => ({
