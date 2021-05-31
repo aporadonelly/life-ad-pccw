@@ -10,6 +10,9 @@ export const usePaginationStyles = makeStyles((theme) => ({
   selectRoot: {
     display: "none",
   },
+  spacer: {
+    display: "none",
+  },
 }));
 
 export const usePaginationActionsStyles = makeStyles((theme) => ({
@@ -18,7 +21,7 @@ export const usePaginationActionsStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "space-between",
     margin: theme.spacing(0, 1),
-    width: 250,
+    width: 100,
   },
   page: {
     fontSize: "0.75rem",
@@ -76,6 +79,12 @@ export const usePaginationActionsStyles = makeStyles((theme) => ({
 export const useContainerStyles = makeStyles((theme) => ({
   root: {
     border: 0,
+  },
+}));
+
+export const useToolbarStyles = makeStyles((theme) => ({
+  root: {
+    justifyContent: "space-between",
   },
 }));
 

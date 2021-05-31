@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   useContainerStyles,
+  useToolbarStyles,
   useTableStyles,
   useHeadStyles,
   useCellStyles,
@@ -107,6 +108,7 @@ const TableCustomized = (props) => {
   const { title, rows, columns, stickyLabel, renderStickyCell } = props;
   const [page, setPage] = useState(0);
   const containerClasses = useContainerStyles();
+  const toolbarClasses = useToolbarStyles();
   const tableClasses = useTableStyles();
   const paginationClasses = usePaginationStyles();
 
@@ -116,7 +118,7 @@ const TableCustomized = (props) => {
 
   return (
     <TableContainer classes={containerClasses} component={Paper} elevation={0}>
-      <Toolbar disableGutters>
+      <Toolbar classes={toolbarClasses} disableGutters>
         {title && (
           <Typography variant="h6" color="primary">
             Member Search
