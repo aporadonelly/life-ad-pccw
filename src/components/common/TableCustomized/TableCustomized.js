@@ -1,6 +1,8 @@
 import { useState } from "react";
 import {
   useContainerStyles,
+  useToolbarStyles,
+  useScrollbarStyles,
   useTableStyles,
   useHeadStyles,
   useCellStyles,
@@ -22,6 +24,7 @@ import {
   Typography,
   ButtonBase,
 } from "@material-ui/core";
+import PerfectScrollbar from "react-perfect-scrollbar";
 import { isFunction, get } from "lodash";
 
 const TablePaginationActions = (props) => {
@@ -107,6 +110,8 @@ const TableCustomized = (props) => {
   const { title, rows, columns, stickyLabel, renderStickyCell } = props;
   const [page, setPage] = useState(0);
   const containerClasses = useContainerStyles();
+  const toolbarClasses = useToolbarStyles();
+  const scrollbarClasses = useScrollbarStyles();
   const tableClasses = useTableStyles();
   const paginationClasses = usePaginationStyles();
 
@@ -116,7 +121,7 @@ const TableCustomized = (props) => {
 
   return (
     <TableContainer classes={containerClasses} component={Paper} elevation={0}>
-      <Toolbar disableGutters>
+      <Toolbar classes={toolbarClasses} disableGutters>
         {title && (
           <Typography variant="h6" color="primary">
             Member Search
@@ -134,16 +139,21 @@ const TableCustomized = (props) => {
           ActionsComponent={TablePaginationActions}
         />
       </Toolbar>
-      <Table classes={tableClasses}>
-        <EnhancedTableHead columns={columns} stickyLabel={stickyLabel} />
-        <EnhancedTableBody
-          page={page}
-          rowsPerPage={process.env.REACT_APP_TABLE_ROWS_PER_PAGE}
-          rows={rows}
-          columns={columns}
-          renderStickyCell={renderStickyCell}
-        />
-      </Table>
+      <PerfectScrollbar
+        className={scrollbarClasses.root}
+        options={{ minScrollbarLength: 75, maxScrollbarLength: 75 }}
+      >
+        <Table classes={tableClasses}>
+          <EnhancedTableHead columns={columns} stickyLabel={stickyLabel} />
+          <EnhancedTableBody
+            page={page}
+            rowsPerPage={process.env.REACT_APP_TABLE_ROWS_PER_PAGE}
+            rows={rows}
+            columns={columns}
+            renderStickyCell={renderStickyCell}
+          />
+        </Table>
+      </PerfectScrollbar>
     </TableContainer>
   );
 };

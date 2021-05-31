@@ -10,6 +10,9 @@ export const usePaginationStyles = makeStyles((theme) => ({
   selectRoot: {
     display: "none",
   },
+  spacer: {
+    display: "none",
+  },
 }));
 
 export const usePaginationActionsStyles = makeStyles((theme) => ({
@@ -18,7 +21,7 @@ export const usePaginationActionsStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "space-between",
     margin: theme.spacing(0, 1),
-    width: 250,
+    width: 100,
   },
   page: {
     fontSize: "0.75rem",
@@ -79,11 +82,36 @@ export const useContainerStyles = makeStyles((theme) => ({
   },
 }));
 
+export const useToolbarStyles = makeStyles((theme) => ({
+  root: {
+    justifyContent: "space-between",
+  },
+}));
+
+export const useScrollbarStyles = makeStyles((theme) => ({
+  root: {
+    position: "relative",
+    height: "100%",
+    overflow: "hidden",
+    paddingBottom: theme.spacing(3),
+    "& .ps__rail-x": {
+      bottom: 0,
+      position: "absolute",
+    },
+    "& .ps__thumb-x": {
+      backgroundColor: "#E6E6E6",
+      borderRadius: 14,
+      height: 23,
+      bottom: 0,
+      position: "absolute",
+    },
+  },
+}));
+
 export const useTableStyles = makeStyles((theme) => ({
   root: {
-    display: "block",
     width: "100%",
-    overflowX: "scroll",
+    display: "block",
   },
 }));
 
@@ -116,5 +144,6 @@ export const useStickyStyles = makeStyles((theme) => ({
     position: "sticky",
     right: 0,
     backgroundColor: theme.palette.common.white,
+    whiteSpace: "nowrap",
   },
 }));
