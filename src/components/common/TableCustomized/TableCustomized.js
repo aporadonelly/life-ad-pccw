@@ -78,25 +78,27 @@ const EnhancedTableHead = (props) => {
 };
 
 const EnhancedTableBody = (props) => {
-  const { rows, columns, renderStickyCell } = props;
+  const { page, rowsPerPage, rows, columns, renderStickyCell } = props;
   const cellClasses = useCellStyles();
   const stickyClasses = useStickyStyles();
   return (
     <TableBody>
-      {rows.map((row) => (
-        <TableRow key={row.id}>
-          {columns.map((column) => (
-            <TableCell key={column.name} classes={cellClasses}>
-              {get(row, column.name)}
-            </TableCell>
-          ))}
-          {isFunction(renderStickyCell) && (
-            <TableCell className={stickyClasses.root}>
-              {renderStickyCell(row)}
-            </TableCell>
-          )}
-        </TableRow>
-      ))}
+      {rows
+        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+        .map((row) => (
+          <TableRow key={row.id}>
+            {columns.map((column) => (
+              <TableCell key={column.name} classes={cellClasses}>
+                {get(row, column.name)}
+              </TableCell>
+            ))}
+            {isFunction(renderStickyCell) && (
+              <TableCell className={stickyClasses.root}>
+                {renderStickyCell(row)}
+              </TableCell>
+            )}
+          </TableRow>
+        ))}
     </TableBody>
   );
 };
@@ -104,7 +106,6 @@ const EnhancedTableBody = (props) => {
 const TableCustomized = (props) => {
   const { title, rows, columns, stickyLabel, renderStickyCell } = props;
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
   const containerClasses = useContainerStyles();
   const tableClasses = useTableStyles();
   const paginationClasses = usePaginationStyles();
@@ -127,7 +128,7 @@ const TableCustomized = (props) => {
           colSpan={3}
           count={rows.length}
           labelRowsPerPage=""
-          rowsPerPage={rowsPerPage}
+          rowsPerPage={process.env.REACT_APP_TABLE_ROWS_PER_PAGE}
           page={page}
           onChangePage={handleChangePage}
           ActionsComponent={TablePaginationActions}
@@ -136,6 +137,8 @@ const TableCustomized = (props) => {
       <Table classes={tableClasses}>
         <EnhancedTableHead columns={columns} stickyLabel={stickyLabel} />
         <EnhancedTableBody
+          page={page}
+          rowsPerPage={process.env.REACT_APP_TABLE_ROWS_PER_PAGE}
           rows={rows}
           columns={columns}
           renderStickyCell={renderStickyCell}
