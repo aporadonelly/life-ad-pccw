@@ -119,6 +119,13 @@ theme.overrides = {
       width: "100%",
     },
   },
+  MuiTableRow: {
+    root: {
+      "&:last-child td": {
+        borderBottom: 0,
+      },
+    },
+  },
 };
 
 theme.props = {
