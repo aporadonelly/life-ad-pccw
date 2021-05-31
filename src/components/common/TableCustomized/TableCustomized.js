@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import {
   useContainerStyles,
@@ -107,7 +108,14 @@ const EnhancedTableBody = (props) => {
 };
 
 const TableCustomized = (props) => {
-  const { title, rows, columns, stickyLabel, renderStickyCell } = props;
+  const {
+    title,
+    rows,
+    columns,
+    rowsPerPage,
+    stickyLabel,
+    renderStickyCell,
+  } = props;
   const [page, setPage] = useState(0);
   const containerClasses = useContainerStyles();
   const toolbarClasses = useToolbarStyles();
@@ -133,7 +141,7 @@ const TableCustomized = (props) => {
           colSpan={3}
           count={rows.length}
           labelRowsPerPage=""
-          rowsPerPage={process.env.REACT_APP_TABLE_ROWS_PER_PAGE}
+          rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}
           ActionsComponent={TablePaginationActions}
@@ -141,13 +149,13 @@ const TableCustomized = (props) => {
       </Toolbar>
       <PerfectScrollbar
         className={scrollbarClasses.root}
-        options={{ minScrollbarLength: 75, maxScrollbarLength: 75 }}
+        options={{ maxScrollbarLength: 75 }}
       >
         <Table classes={tableClasses}>
           <EnhancedTableHead columns={columns} stickyLabel={stickyLabel} />
           <EnhancedTableBody
             page={page}
-            rowsPerPage={process.env.REACT_APP_TABLE_ROWS_PER_PAGE}
+            rowsPerPage={rowsPerPage}
             rows={rows}
             columns={columns}
             renderStickyCell={renderStickyCell}
@@ -156,6 +164,21 @@ const TableCustomized = (props) => {
       </PerfectScrollbar>
     </TableContainer>
   );
+};
+
+TableCustomized.defaultProps = {
+  rowsPerPage: 50,
+  rows: [],
+  columns: [],
+};
+
+TableCustomized.propTypes = {
+  title: PropTypes.string,
+  rowsPerPage: PropTypes.number.isRequired,
+  rows: PropTypes.array.isRequired,
+  columns: PropTypes.array.isRequired,
+  stickyLabel: PropTypes.string,
+  renderStickyCell: PropTypes.func,
 };
 
 export default TableCustomized;
