@@ -89,15 +89,13 @@ export const useToolbarStyles = makeStyles((theme) => ({
 }));
 
 export const useScrollbarStyles = makeStyles((theme) => ({
-  root: {
-    paddingBottom: theme.spacing(2),
-  },
+  root: {},
 }));
 
 export const useTableStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    overflow: "hidden",
+    display: "block",
   },
 }));
 
