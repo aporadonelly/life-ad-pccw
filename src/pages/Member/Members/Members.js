@@ -14,8 +14,8 @@ import { PageInner } from "@components/layout";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import viewEnrollActive from "../../../assets/icons/enroll-active.PNG";
-import viewReg from "../../../assets/icons/view_reg.PNG";
-import ViewMembers from "../ViewMember";
+import viewEnrollInActive from "../../../assets/icons/enroll-inactive.PNG";
+import viewRegistration from "../../../assets/icons/view_reg.PNG";
 
 const Members = ({
   employees,
@@ -86,7 +86,7 @@ const Members = ({
                           <>
                             <Tooltip title="View Registration">
                               <img
-                                src={viewReg}
+                                src={viewRegistration}
                                 alt="View Registration"
                                 onClick={() =>
                                   viewMembersDetails(row.pnsnIdTxt)
@@ -102,12 +102,11 @@ const Members = ({
                             </Tooltip>
                             <Tooltip title="View Enrollment">
                               <img
-                                src={viewEnrollActive}
-                                // src={
-                                //   emp.vwEnrFlg
-                                //     ? viewEnrollActive
-                                //     : viewEnrollInActive
-                                // }
+                                src={
+                                  row.vwEnrFlg
+                                    ? viewEnrollActive
+                                    : viewEnrollInActive
+                                }
                                 alt="View Enrollment"
                                 variant="contained"
                                 style={{
@@ -127,8 +126,6 @@ const Members = ({
             </Card>
           </Grid>
         )}
-
-        {/* <ViewMembers employee={employee} /> */}
 
         <Grid item xs={12}>
           <Grid container component="dl" spacing={1} justify="flex-end">

@@ -10,7 +10,7 @@ import EmployeeStyles from "./styles/EmployeeStyles";
 import { useHistory } from "react-router-dom";
 import { get } from "lodash";
 
-import * as intl from "../../common/labels";
+// import * as intl from "../../common/labels";
 import Controls from "../controls/Controls";
 
 const useStyles = makeStyles((theme) => ({
