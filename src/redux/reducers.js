@@ -10,12 +10,12 @@ import employeeDetailsReducer from "@reducers/employeeDetailsReducer";
 const createRootReducer = (history) =>
   combineReducers({
     router: connectRouter(history),
-    employeeTermination: employeeTerminationReducer,
-    employeeDetails: employeeDetailsReducer,
     employees: employeesReducer,
     system,
     user,
     employers: employerReducer,
+    employeeTermination: employeeTerminationReducer,
+    employeeDetails: employeeDetailsReducer,
   });
 
 export default createRootReducer;

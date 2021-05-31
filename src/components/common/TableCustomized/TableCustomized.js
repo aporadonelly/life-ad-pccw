@@ -1,6 +1,9 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import {
   useContainerStyles,
+  useToolbarStyles,
+  useScrollbarStyles,
   useTableStyles,
   useHeadStyles,
   useCellStyles,
@@ -22,7 +25,8 @@ import {
   Typography,
   ButtonBase,
 } from "@material-ui/core";
-import { isFunction, get } from "lodash";
+import PerfectScrollbar from "react-perfect-scrollbar";
+import { isFunction, get, orderBy } from "lodash";
 
 const TablePaginationActions = (props) => {
   const { count, page, rowsPerPage, onChangePage } = props;
@@ -56,15 +60,26 @@ const TablePaginationActions = (props) => {
 };
 
 const EnhancedTableHead = (props) => {
-  const { columns, stickyLabel } = props;
+  const { order, sortBy, columns, stickyLabel, onChangeSort } = props;
   const headClasses = useHeadStyles();
   const stickyClasses = useStickyStyles();
+
+  const createSortHandler = (property) => (event) => {
+    onChangeSort(event, property);
+  };
+
   return (
     <TableHead>
       <TableRow>
         {columns.map((column) => (
           <TableCell key={column.label} classes={headClasses}>
-            <TableSortLabel onClick={() => {}}>{column.label}</TableSortLabel>
+            <TableSortLabel
+              active={sortBy === column.name}
+              direction={sortBy === column.name ? order : "asc"}
+              onClick={createSortHandler(column.name)}
+            >
+              {column.label}
+            </TableSortLabel>
           </TableCell>
         ))}
         {stickyLabel && (
@@ -78,44 +93,62 @@ const EnhancedTableHead = (props) => {
 };
 
 const EnhancedTableBody = (props) => {
-  const { rows, columns, renderStickyCell } = props;
+  const { page, rowsPerPage, rows, columns, renderStickyCell } = props;
   const cellClasses = useCellStyles();
   const stickyClasses = useStickyStyles();
   return (
     <TableBody>
-      {rows.map((row) => (
-        <TableRow key={row.id}>
-          {columns.map((column) => (
-            <TableCell key={column.name} classes={cellClasses}>
-              {get(row, column.name)}
-            </TableCell>
-          ))}
-          {isFunction(renderStickyCell) && (
-            <TableCell className={stickyClasses.root}>
-              {renderStickyCell(row)}
-            </TableCell>
-          )}
-        </TableRow>
-      ))}
+      {rows
+        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+        .map((row) => (
+          <TableRow key={row.id}>
+            {columns.map((column) => (
+              <TableCell key={column.name} classes={cellClasses}>
+                {get(row, column.name)}
+              </TableCell>
+            ))}
+            {isFunction(renderStickyCell) && (
+              <TableCell className={stickyClasses.root}>
+                {renderStickyCell(row)}
+              </TableCell>
+            )}
+          </TableRow>
+        ))}
     </TableBody>
   );
 };
 
 const TableCustomized = (props) => {
-  const { title, rows, columns, stickyLabel, renderStickyCell } = props;
+  const {
+    title,
+    rows,
+    columns,
+    rowsPerPage,
+    stickyLabel,
+    renderStickyCell,
+  } = props;
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [order, setOrder] = useState("asc");
+  const [sortBy, setSortBy] = useState();
   const containerClasses = useContainerStyles();
+  const toolbarClasses = useToolbarStyles();
+  const scrollbarClasses = useScrollbarStyles();
   const tableClasses = useTableStyles();
   const paginationClasses = usePaginationStyles();
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (_event, newPage) => {
     setPage(newPage);
+  };
+
+  const handleChangeSort = (_event, property) => {
+    const newOrder = sortBy === property && order === "asc" ? "desc" : "asc";
+    setOrder(newOrder);
+    setSortBy(property);
   };
 
   return (
     <TableContainer classes={containerClasses} component={Paper} elevation={0}>
-      <Toolbar disableGutters>
+      <Toolbar classes={toolbarClasses} disableGutters>
         {title && (
           <Typography variant="h6" color="primary">
             Member Search
@@ -133,16 +166,44 @@ const TableCustomized = (props) => {
           ActionsComponent={TablePaginationActions}
         />
       </Toolbar>
-      <Table classes={tableClasses}>
-        <EnhancedTableHead columns={columns} stickyLabel={stickyLabel} />
-        <EnhancedTableBody
-          rows={rows}
-          columns={columns}
-          renderStickyCell={renderStickyCell}
-        />
-      </Table>
+      <PerfectScrollbar
+        className={scrollbarClasses.root}
+        options={{ maxScrollbarLength: 75 }}
+      >
+        <Table classes={tableClasses}>
+          <EnhancedTableHead
+            order={order}
+            sortBy={sortBy}
+            columns={columns}
+            stickyLabel={stickyLabel}
+            onChangeSort={handleChangeSort}
+          />
+          <EnhancedTableBody
+            page={page}
+            rowsPerPage={rowsPerPage}
+            rows={orderBy(rows, sortBy, order)}
+            columns={columns}
+            renderStickyCell={renderStickyCell}
+          />
+        </Table>
+      </PerfectScrollbar>
     </TableContainer>
   );
+};
+
+TableCustomized.defaultProps = {
+  rowsPerPage: 50,
+  rows: [],
+  columns: [],
+};
+
+TableCustomized.propTypes = {
+  title: PropTypes.string,
+  rowsPerPage: PropTypes.number.isRequired,
+  rows: PropTypes.array.isRequired,
+  columns: PropTypes.array.isRequired,
+  stickyLabel: PropTypes.string,
+  renderStickyCell: PropTypes.func,
 };
 
 export default TableCustomized;
