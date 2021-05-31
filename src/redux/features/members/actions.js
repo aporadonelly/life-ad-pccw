@@ -136,6 +136,7 @@ export const getAllMembers = createAsyncThunk(
       dispatch(push("/members"));
       return { employees: employees.content };
     } catch (error) {
+      console.log(error, "error");
       return rejectWithValue({ error });
     }
   }

@@ -76,6 +76,8 @@ const MemberSearch = (props) => {
   }, []);
 
   const handleSubmit = (values) => {
+    if (!values) return;
+
     const newValues = { ...values };
     newValues.dateOfBirth =
       newValues.dateOfBirth &&

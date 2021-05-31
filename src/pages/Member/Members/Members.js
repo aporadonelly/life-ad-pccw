@@ -29,41 +29,21 @@ const Members = ({ employees, isLoading, getAllMembers }) => {
     getAllMembers();
   }, [getAllMembers]);
 
-  employees.map((employee) => console.log(employee, "employee"));
-  // const rows = employees.map((index, employee) => ({
-  //   id: index,
-  //   key: employee.name.pnsnIdTxt,
-  //   mpfId: employee.name.pnsnIdTxt,
-  //   displayName: employee.name.pnsnIdTxt,
-  //   // lastName: faker.name.lastName(),
-  //   // email: faker.internet.email(),
-  //   // mobileNumber: faker.phone.phoneNumber("916#######"),
-  //   // address:
-  //   //   faker.fake(
-  //   //     "{{address.streetAddress}}, {{address.city}} {{address.state}} {{address.zipCode}}"
-  //   //   ) +
-  //   //   faker.fake(
-  //   //     "{{address.streetAddress}}, {{address.city}} {{address.state}} {{address.zipCode}}"
-  //   //   ) +
-  //   //   faker.fake(
-  //   //     "{{address.streetAddress}}, {{address.city}} {{address.state}} {{address.zipCode}}"
-  //   //   ),
-  // }));
-
   const columns = [
-    { id: "pnsnIdTxt", label: t("table:thead.mpfId") },
-    { id: "fullname", label: t("table:thead.displayName") },
-    { id: "idTypeId", label: t("table:thead.idType") },
-    { id: "idNoTxt", label: t("table:thead.idNumber") },
-    { id: "phoneNumber", label: t("table:thead.mobileNumber") },
-    { id: "emailAddrTxt", label: t("table:thead.email") },
-    { id: "statusTypId", label: t("table:thead.status") },
+    { label: t("table:thead.mpfId"), name: "pnsnIdTxt" },
+    { label: t("table:thead.displayName"), name: "fullname" },
+    { label: t("table:thead.idType"), name: "idTypeId" },
+    { label: t("table:thead.idNumber"), name: "idNoTxt" },
+    { label: t("table:thead.mobileNumber"), name: "phoneNumber" },
+    { label: t("table:thead.email"), name: "emailAddrTxt" },
+    { label: t("table:thead.status"), name: "statusTypId" },
     {
-      id: "action",
       label: t("table:thead.custom.action"),
+      name: "action",
       disableSorting: true,
     },
   ];
+
   return (
     <PageInner>
       <Grid container spacing={3}>
