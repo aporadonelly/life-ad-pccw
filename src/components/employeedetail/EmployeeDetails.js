@@ -230,7 +230,7 @@ const EmployeeDetails = (props) => {
         moment(values.lastDateOfEmployment).format("YYYY-MM-DD"),
       entitleToLspsp:
         values.entitleToLspsp && parseBoolean(values.entitleToLspsp),
-      lspspTypeId: values.lspspTypeId,
+        lspspTypeId: values.lspspTypeId ?? null,
       terminationReasonId: values.terminationReasonId,
       lspspEntitlementAmount: values.lspspEntitlementAmount,
       orsoOffsetAmount: values.orsoOffsetAmount,
