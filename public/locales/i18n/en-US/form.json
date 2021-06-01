@@ -36,7 +36,9 @@
     "jobTitle": "Job Title",
     "registeredOfcAddress": "Registered Office Address",
     "businessAddress":"Business Address",
-    "eSignature": "E - Signature"
+    "eSignature": "E - Signature",
+    "female": "Ms.",
+    "male": "Mr."
   },
   "placeholder": {
     "custom": {

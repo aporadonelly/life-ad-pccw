@@ -36,7 +36,9 @@
     "jobTitle": "職稱",
     "registeredOfcAddress": "註冊辦事處地址",
     "businessAddress":"營業地址",
-    "eSignature": "電子簽名"
+    "eSignature": "電子簽名",
+    "female": "小姐。",
+    "male": "先生。"
   },
   "placeholder": {
     "custom": {

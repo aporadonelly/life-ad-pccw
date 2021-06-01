@@ -62,7 +62,11 @@ const ViewMember = ({ employee, isLoading }) => {
                     <Definition.List>
                       <Definition.Item
                         dt={t("form:label.title")}
-                        dd={get(regCntcts, "[0].ttlTypId")}
+                        dd={
+                          gndrTypId === "GT_M"
+                            ? t("form:label.male")
+                            : t("form:label.female")
+                        }
                       />
 
                       <Definition.Item
@@ -228,12 +232,18 @@ const ViewMember = ({ employee, isLoading }) => {
 
         {/* Back Button */}
         <Grid item xs={12}>
-          <Grid container component="dl" spacing={1} justify="flex-end">
+          <Grid
+            container
+            component="dl"
+            spacing={1}
+            justify="flex-end"
+            style={{ marginTop: "6px" }}
+          >
             <Button
               data-testid="back-btn"
               onClick={() => history.push("/members")}
             >
-              {t("button:backToCompanyProfile")}
+              {t("button:backToSearch")}
             </Button>
           </Grid>
         </Grid>

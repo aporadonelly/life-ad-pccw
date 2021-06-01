@@ -16,6 +16,7 @@ import { useHistory } from "react-router-dom";
 import viewEnrollActive from "../../../assets/icons/enroll-active.PNG";
 import viewEnrollInActive from "../../../assets/icons/enroll-inactive.PNG";
 import viewRegistration from "../../../assets/icons/view_reg.PNG";
+import { Form } from "@components/common";
 
 const Members = ({ employees, isLoading, getSpecificMember }) => {
   const history = useHistory();
@@ -37,6 +38,10 @@ const Members = ({ employees, isLoading, getSpecificMember }) => {
     getSpecificMember(id);
   };
 
+  const handleEditSearch = () => {
+    history.push("/members/enquiry");
+  };
+
   return (
     <PageInner>
       {isLoading ? (
@@ -53,6 +58,24 @@ const Members = ({ employees, isLoading, getSpecificMember }) => {
                     {t("typography:heading.memberEnquiry")}
                   </Typography>
                 </Grid>
+                <Grid item xs={12}>
+                  <Grid container component="dl" spacing={1} justify="flex-end">
+                    <Button
+                      data-testid="back-btn"
+                      variant="outlined"
+                      onClick={handleEditSearch}
+                    >
+                      {t("button:editSearch")}
+                    </Button>
+                    &emsp;
+                    <Button
+                      data-testid="back-btn"
+                      onClick={() => history.push("/members/enquiry")}
+                    >
+                      {t("button:newSearch")}
+                    </Button>
+                  </Grid>
+                </Grid>
               </CardContent>
             </Card>
           </Grid>
@@ -68,7 +91,6 @@ const Members = ({ employees, isLoading, getSpecificMember }) => {
                 >
                   <Grid item xs={12}>
                     <TableCustomized
-                      rowsPerPage={2}
                       title={t("typography:heading.searchResult")}
                       rows={employees}
                       columns={columns}
@@ -116,17 +138,6 @@ const Members = ({ employees, isLoading, getSpecificMember }) => {
                 </Grid>
               </CardContent>
             </Card>
-          </Grid>
-
-          <Grid item xs={12}>
-            <Grid container component="dl" spacing={1} justify="flex-end">
-              <Button
-                data-testid="back-btn"
-                onClick={() => history.push("/members/enquiry")}
-              >
-                {t("button:backToCompanyProfile")}
-              </Button>
-            </Grid>
           </Grid>
         </Grid>
       )}
