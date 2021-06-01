@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbar: {
     justifyContent: "flex-end",
-    minHeight: 76,
+    minHeight: 60,
   },
 }));
 

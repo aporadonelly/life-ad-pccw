@@ -1,4 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import moment from "moment";
+import { isEqual } from "lodash";
+import * as yup from "yup";
+import { Formik } from "formik";
 import {
   Grid,
   Card,
@@ -6,15 +10,13 @@ import {
   Typography,
   Box,
   CircularProgress,
+  Toolbar,
 } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import * as yup from "yup";
-import { Formik } from "formik";
 import { PageInner } from "@components/layout";
 import { Form } from "@components/common";
+import { BottomAppBar } from "@components/misc";
 import EmployeeStyles from "../../../components/employees/styles/EmployeeStyles";
-import moment from "moment";
-import { isEqual } from "lodash";
 
 const initialValues = {
   mpfID: "",
@@ -67,7 +69,6 @@ const MemberSearch = ({
 }) => {
   const classes = EmployeeStyles();
   const { t } = useTranslation(["typography", "form", "button"]);
-
   useEffect(() => {
     getGender();
     getIdType();
@@ -101,7 +102,6 @@ const MemberSearch = ({
                 onSubmit={handleSubmit}
               >
                 {(formik) => {
-                  console.log(formik.values, "formik");
                   return (
                     <Form>
                       <Grid container spacing={2}>
@@ -393,21 +393,23 @@ const MemberSearch = ({
                         className={classes.fieldSpacing}
                       >
                         <div className={classes.formBtnContainer}>
-                          <Form.Reset variant="outlined">
-                            {t("button:clear")}
-                          </Form.Reset>
-                          &nbsp;
-                          <Form.Submit
-                            disabled={isEqual(formik.values, initialValues)}
-                          >
-                            {isLoading ? (
-                              <Box display="flex" justifyContent="center">
-                                <CircularProgress size={25} />
-                              </Box>
-                            ) : (
-                              t("button:search")
-                            )}
-                          </Form.Submit>
+                          <BottomAppBar>
+                            <Form.Reset variant="outlined" color="default">
+                              {t("button:clear")}
+                            </Form.Reset>
+                            &emsp;
+                            <Form.Submit
+                              disabled={isEqual(formik.values, initialValues)}
+                            >
+                              {isLoading ? (
+                                <Box display="flex" justifyContent="center">
+                                  <CircularProgress size={25} color="inherit" />
+                                </Box>
+                              ) : (
+                                t("button:search")
+                              )}
+                            </Form.Submit>
+                          </BottomAppBar>
                         </div>
                       </Grid>
                     </Form>
@@ -418,6 +420,8 @@ const MemberSearch = ({
           </Card>
         </Grid>
       </Grid>
+
+      <Toolbar variant="regular" />
     </PageInner>
   );
 };

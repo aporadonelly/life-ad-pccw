@@ -68,7 +68,7 @@ const Members = ({ employees, isLoading, getSpecificMember }) => {
                 >
                   <Grid item xs={12}>
                     <TableCustomized
-                      rowsPerPage={50}
+                      rowsPerPage={2}
                       title={t("typography:heading.searchResult")}
                       rows={employees}
                       columns={columns}
