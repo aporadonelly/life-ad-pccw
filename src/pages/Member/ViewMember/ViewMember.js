@@ -1,15 +1,7 @@
 import { useEffect } from "react";
 import moment from "moment";
 import { get } from "lodash";
-import {
-  Grid,
-  Card,
-  CardContent,
-  Typography,
-  Button,
-  Box,
-  CircularProgress,
-} from "@material-ui/core";
+import { Grid, Card, CardContent, Typography, Button } from "@material-ui/core";
 import { PageInner } from "@components/layout";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";

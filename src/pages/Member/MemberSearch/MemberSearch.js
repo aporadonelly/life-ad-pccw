@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   Grid,
   Card,
@@ -14,6 +14,7 @@ import { PageInner } from "@components/layout";
 import { Form } from "@components/common";
 import EmployeeStyles from "../../../components/employees/styles/EmployeeStyles";
 import moment from "moment";
+import { isEqual } from "lodash";
 
 const initialValues = {
   mpfID: "",
@@ -397,7 +398,7 @@ const MemberSearch = ({
                           </Form.Reset>
                           &nbsp;
                           <Form.Submit
-                            disabled={formik.values === initialValues}
+                            disabled={isEqual(formik.values, initialValues)}
                           >
                             {isLoading ? (
                               <Box display="flex" justifyContent="center">
