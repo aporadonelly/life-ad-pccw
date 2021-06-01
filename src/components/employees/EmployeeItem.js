@@ -10,7 +10,7 @@ import EmployeeStyles from "./styles/EmployeeStyles";
 import { useHistory } from "react-router-dom";
 import { get } from "lodash";
 
-import * as intl from "../../common/labels";
+// import * as intl from "../../common/labels";
 import Controls from "../controls/Controls";
 
 const useStyles = makeStyles((theme) => ({
@@ -392,7 +392,9 @@ const EmployeeView = ({ employees: { employee, id } }) => {
           className={classes.cancelBtn}
           style={{
             float: "right",
+
             bottom: "13px",
+
             width: "auto",
             color: "#fff",
             left: "20px",

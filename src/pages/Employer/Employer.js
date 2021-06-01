@@ -25,7 +25,7 @@ const Employer = (props) => {
       <Switch>
         <Route exact path={`${path}`} component={CompanyProfile} />
         <Route path={`${path}/profile`} component={ViewProfile} />
-        <Route path={`${path}//employer/enrollment-scheme`} component={null} />
+        {/* <Route path={`${path}/employer/enrollment-scheme`} component={null} /> */}
       </Switch>
     </>
   );
