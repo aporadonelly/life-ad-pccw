@@ -41,3 +41,5 @@ export const GET_USER = "GET_USER";
 
 /// added
 export const GET_USER_DETAILS = "GET_USER_DETAILS";
+export const GET_EMPLOYEE_DETAILS = "GET_EMPLOYEE_DETAILS";
+export const ADD_EMPLOYEE_DETAILS = "GET_USER_DETAILS";
