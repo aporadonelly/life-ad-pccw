@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { get } from "lodash";
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from "@material-ui/core/Tooltip";
 
 import {
   Box,
@@ -25,7 +25,7 @@ import viewEnrollInActive from "../../assets/icons/enroll-inactive.PNG";
 import EmployeeStyles from "./styles/EmployeeStyles";
 import viewReg from "../../assets/icons/view_reg.PNG";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "#fdfdff",
     display: "flex",
@@ -46,7 +46,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
-  console.log(employees[0].clntPhones[0].phoneNumber);
   const history = useHistory();
   const classes = { ...useStyles(), ...EmployeeStyles() };
   const { t } = useTranslation(["typography", "table"]);
@@ -55,7 +54,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
   const [tableView, setTableView] = useState(true);
 
   const [filterFn, setfilterFn] = useState({
-    fn: items => {
+    fn: (items) => {
       return items;
     },
   });
@@ -83,15 +82,15 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
     employeesAfterPagingAndSorting,
   } = useTable(employees, headCells, filterFn);
 
-  const handleSearch = e => {
+  const handleSearch = (e) => {
     setSearch(e.target.value);
   };
 
-  const handleClear = e => {
+  const handleClear = (e) => {
     setSearch("");
   };
 
-  const employeeView = id => {
+  const employeeView = (id) => {
     viewMember(id);
     setViewMemberState(true);
     setTableView(false);
@@ -131,22 +130,18 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
       <TblContainer>
         <TblHead />
         <TableBody>
-          {employeesAfterPagingAndSorting().map(emp => (
+          {employeesAfterPagingAndSorting().map((emp) => (
             <TableRow key={emp.pnsnIdTxt}>
-              <TableCell style={{ color: "#2D9FC3"}}>
+              <TableCell style={{ color: "#2D9FC3" }}>
                 {highligtedText(emp.pnsnIdTxt, search)}
               </TableCell>
               <TableCell>{highligtedText(emp.fullname, search)}</TableCell>
-              <TableCell>
-                {highligtedText(emp.idTypeId,
-                  search
-                )}
-              </TableCell>
+              <TableCell>{highligtedText(emp.idTypeId, search)}</TableCell>
               <TableCell>{highligtedText(emp.idNoTxt, search)}</TableCell>
               <TableCell>
                 {highligtedText(
                   get(
-                    emp.clntPhones.filter(v => v.phnTypId === "TP_MB"),
+                    emp.clntPhones.filter((v) => v.phnTypId === "TP_MB"),
                     "[0].phoneNumber"
                   ),
                   search
@@ -160,40 +155,35 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
                   textTransform: "capitalize",
                 }}
               >
-                {highligtedText(emp.statusTypId,
-                  search
-                )}
+                {highligtedText(emp.statusTypId, search)}
               </TableCell>
-              <TableCell style={{ padding: "0 1px"}}>
-              <Tooltip title="View Registration">
-                <img
-                  src={viewReg}
-                  alt="View Registration"
-                  onClick={() => employeeView(emp.pnsnIdTxt)}
-                  variant="contained"
-                  style={{
-                    margin: "0 5px",
-                    background: "#EF841F",
-                    color: "#fff",
-                    cursor: 'pointer',
-                  }}
-                /></Tooltip>
+              <TableCell style={{ padding: "0 1px" }}>
+                <Tooltip title="View Registration">
+                  <img
+                    src={viewReg}
+                    alt="View Registration"
+                    onClick={() => employeeView(emp.pnsnIdTxt)}
+                    variant="contained"
+                    style={{
+                      margin: "0 5px",
+                      background: "#EF841F",
+                      color: "#fff",
+                      cursor: "pointer",
+                    }}
+                  />
+                </Tooltip>
                 <Tooltip title="View Enrollment">
-                <img
-                  src={
-                    emp.vwEnrFlg
-                      ? viewEnrollActive
-                      : viewEnrollInActive
-                  }
-                  alt="View Enrollment"
-                  variant="contained"
-                  style={{
-                    margin: "0 5px",                    
-                    background: "#EF841F",
-                    color: "#fff",
-                    
-                  }}
-                /></Tooltip>
+                  <img
+                    src={emp.vwEnrFlg ? viewEnrollActive : viewEnrollInActive}
+                    alt="View Enrollment"
+                    variant="contained"
+                    style={{
+                      margin: "0 5px",
+                      background: "#EF841F",
+                      color: "#fff",
+                    }}
+                  />
+                </Tooltip>
               </TableCell>
             </TableRow>
           ))}
@@ -210,7 +200,7 @@ EmployeesTable.propTypes = {
   viewMember: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   employees: state.employees,
 });
 
