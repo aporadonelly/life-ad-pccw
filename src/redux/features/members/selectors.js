@@ -75,3 +75,9 @@ export const errorSelector = createSelector(
   stateSelector,
   (state) => state.error
 );
+
+//Member Enquiry
+export const enquirySelector = createSelector(
+  stateSelector,
+  (state) => state.enquiry
+);

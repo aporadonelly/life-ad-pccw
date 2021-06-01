@@ -11,6 +11,7 @@ import {
   getStatus,
   getAllMembers,
   getSpecificMember,
+  saveEnquiry,
 } from "./actions";
 import { initialState } from "./state";
 
@@ -154,5 +155,11 @@ export const membersReducer = createReducer(initialState, (builder) =>
     .addCase(getSpecificMember.rejected, (state, action) => {
       const { error } = action.payload;
       return { ...state, isLoading: false, error };
+    })
+
+    //Saving enquiry passed on the form
+    .addCase(saveEnquiry.fulfilled, (state, action) => {
+      const { enquiry } = action.payload;
+      return { ...state, isLoading: true, enquiry, error: null };
     })
 );

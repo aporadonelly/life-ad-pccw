@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import { systemAdapter, employeesAdapter } from "@adapters";
 import { push } from "connected-react-router";
 
@@ -151,5 +151,12 @@ export const getSpecificMember = createAsyncThunk(
     } catch (error) {
       return rejectWithValue({ error });
     }
+  }
+);
+
+export const saveEnquiry = createAsyncThunk(
+  "@@EMPF/MEMBERS/SAVE_ENQUIRY",
+  async (payload) => {
+    return { payload };
   }
 );

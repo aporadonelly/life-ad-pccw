@@ -27,6 +27,7 @@ import {
   getSchemeType,
   getStatus,
   getAllMembers,
+  saveEnquiry,
 } from "@redux/features/members/actions";
 
 const mapStateToProps = (state) => ({
@@ -57,6 +58,7 @@ const mapDispatchToProps = (dispatch) => ({
       getSchemeType,
       getStatus,
       getAllMembers,
+      saveEnquiry,
     },
     dispatch
   ),

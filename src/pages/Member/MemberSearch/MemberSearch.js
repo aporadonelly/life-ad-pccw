@@ -66,6 +66,7 @@ const MemberSearch = ({
   getStatus,
   status,
   getAllMembers,
+  saveEnquiry,
 }) => {
   const classes = EmployeeStyles();
   const { t } = useTranslation(["typography", "form", "button"]);
@@ -88,6 +89,7 @@ const MemberSearch = ({
       newValues.dateOfBirth &&
       moment(newValues.dateOfBirth).format("YYYY/MM/DD");
     getAllMembers(newValues);
+    saveEnquiry(newValues);
   };
 
   return (
