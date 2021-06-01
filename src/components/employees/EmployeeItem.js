@@ -136,7 +136,7 @@ const EmployeeView = ({ employees: { employee, id } }) => {
                     {t("form:label.title")}
                   </div>
                   <div className={classes.labelValue}>
-                    {get(regCntcts, "[0].ttlTypId")}
+                    {gndrTypId === "GT_M" ? "Mr." : "Ms."}
                   </div>
                 </div>
               </Grid>
