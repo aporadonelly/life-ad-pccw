@@ -6,6 +6,8 @@ import Employee from "./components/employees/EmployeeItem";
 import EmployeesList from "./components/employees/EmployeesList";
 import Employer from "./pages/Employer";
 import { Page } from "./containers";
+import TerminationRoutes from "./pages/Termination/TerminationRoutes";
+import Termination from "./pages/Termination";
 
 const App = () => (
   <Page>
@@ -15,7 +17,11 @@ const App = () => (
       <Route path="/employee-view" component={Employee} />
       <Route path="/employer" render={(props) => <Employer {...props} />} />
       <Route path="/members" render={(props) => <Member {...props} />} />
-
+      <Route
+        path="/employee"
+        render={(props) => <TerminationRoutes {...props} />}
+      />
+      <Route path="/employee-termination/:id" component={Termination} />
       {process.env.NODE_ENV === "development" && (
         <Route path={process.env.REACT_APP_REDIRECT_URL} component={SignIn} />
       )}

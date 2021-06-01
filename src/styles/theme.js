@@ -8,6 +8,9 @@ const theme = createMuiTheme({
     secondary: {
       main: "#EF841F",
     },
+    common: {
+      highlighted: "#FFD748",
+    },
   },
   typography: {
     fontFamily: "'Roboto', sans-serif",
