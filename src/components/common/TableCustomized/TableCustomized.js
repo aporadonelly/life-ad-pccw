@@ -12,6 +12,7 @@ import {
   useStickyStyles,
 } from "./styles";
 import {
+  Box,
   Paper,
   TableContainer,
   Table,
@@ -26,7 +27,9 @@ import {
   ButtonBase,
 } from "@material-ui/core";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import SearchBar from "./SearchBar";
 import { isFunction, get, orderBy } from "lodash";
+import { reactStringReplace } from "@utils";
 
 const TablePaginationActions = (props) => {
   const { count, page, rowsPerPage, onChangePage } = props;
@@ -93,9 +96,10 @@ const EnhancedTableHead = (props) => {
 };
 
 const EnhancedTableBody = (props) => {
-  const { page, rowsPerPage, rows, columns, renderStickyCell } = props;
+  const { page, rowsPerPage, rows, columns, renderStickyCell, search } = props;
   const cellClasses = useCellStyles();
   const stickyClasses = useStickyStyles();
+
   return (
     <TableBody>
       {rows
@@ -104,7 +108,19 @@ const EnhancedTableBody = (props) => {
           <TableRow key={row.id}>
             {columns.map((column) => (
               <TableCell key={column.name} classes={cellClasses}>
-                {get(row, column.name)}
+                {reactStringReplace(
+                  get(row, column.name),
+                  search,
+                  (match, index) => (
+                    <Box
+                      key={index}
+                      display="inline"
+                      bgcolor="common.highlighted"
+                    >
+                      {match}
+                    </Box>
+                  )
+                )}
               </TableCell>
             ))}
             {isFunction(renderStickyCell) && (
@@ -130,6 +146,7 @@ const TableCustomized = (props) => {
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState("asc");
   const [sortBy, setSortBy] = useState();
+  const [search, setSearch] = useState();
   const containerClasses = useContainerStyles();
   const toolbarClasses = useToolbarStyles();
   const scrollbarClasses = useScrollbarStyles();
@@ -146,6 +163,10 @@ const TableCustomized = (props) => {
     setSortBy(property);
   };
 
+  const handleChangeSearch = (newSearch) => {
+    setSearch(newSearch);
+  };
+
   return (
     <TableContainer classes={containerClasses} component={Paper} elevation={0}>
       <Toolbar classes={toolbarClasses} disableGutters>
@@ -154,6 +175,7 @@ const TableCustomized = (props) => {
             Member Search
           </Typography>
         )}
+        <SearchBar onChange={handleChangeSearch} />
         <TablePagination
           component="div"
           classes={paginationClasses}
@@ -184,6 +206,7 @@ const TableCustomized = (props) => {
             rows={orderBy(rows, sortBy, order)}
             columns={columns}
             renderStickyCell={renderStickyCell}
+            search={search}
           />
         </Table>
       </PerfectScrollbar>
