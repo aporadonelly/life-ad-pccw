@@ -4,7 +4,7 @@ import { Grid, Avatar } from "@material-ui/core";
 import { Form } from "@components/common";
 //import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { makeStyles } from "@material-ui/styles";
-import { labels } from "../../common/labelsList";
+import { labels } from "@common/labelsList";
 
 const useStyles = makeStyles((theme) => ({
   schemeUl: {

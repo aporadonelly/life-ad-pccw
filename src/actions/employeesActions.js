@@ -29,7 +29,7 @@ import {
   GET_USER_DETAILS,
 } from "./types";
 import axios from "axios";
-import api from "../components/employeedetail/employeeMockApi";
+import api from "@pages/Termination/terminationdetails/employeeMockApi";
 
 axios.interceptors.request.use(
   (config) => {

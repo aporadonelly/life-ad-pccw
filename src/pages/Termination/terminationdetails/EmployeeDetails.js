@@ -1,12 +1,11 @@
 import { Grid, Paper } from "@material-ui/core";
-import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
-import { labels } from "../../common/labelsList";
+import { labels } from "@common/labelsList";
 import { Form as FormikForm } from "@components/common";
 
-import { Form } from "../UseForm";
+import { Form } from "@components/UseForm";
 import useStyles from "./EmployeeDetailStyles";
-import * as employeeMockData from "../../pages/employees/mockData/mockData";
+import * as employeeMockData from "@pages/employees/mockData/mockData";
 
 import EmpScheme4 from "./EmployeeScheme4";
 
@@ -17,7 +16,7 @@ import { PageInner } from "@components/layout";
 import MessageRender from "./Message/MessageRender";
 
 import { Button } from "@material-ui/core";
-import BottomAppBar from "../../components/misc/BottomAppBar/BottomAppBar";
+import BottomAppBar from "@components/misc/BottomAppBar/BottomAppBar";
 import FloatingButton from "@components/controls/floatingButton/floatingButton";
 
 import { Cancel as CancelIcon } from "@material-ui/icons";
@@ -63,7 +62,7 @@ const EmployeeDetails = (props) => {
     orsoOffsetAmount: "",
     effective_date: "", //moment("").format("YYYY/MM/DD"),
     change_date: "", //moment("").format("YYYY/MM/DD"),
-    schemes: employeeMockData.getScheme_LSP_SP_offect_sequence(), //data.schemes ?? [],
+    schemes: data.schemes ?? [], //employeeMockData.getScheme_LSP_SP_offect_sequence(),
   };
 
   const validationSave = yup.object().shape({
@@ -118,6 +117,7 @@ const EmployeeDetails = (props) => {
         onValidSubmit(valuesActions, btnState);
       }
     }
+    // eslint-disable-next-line
   }, [valid]);
 
   useEffect(() => {
@@ -138,9 +138,11 @@ const EmployeeDetails = (props) => {
       if (save === "success") {
         handleClose();
         setBtnStatus("ExMsg_SvdSccss");
+        setLSP_SP_Disable(true);
         resetTermination();
       }
     }
+    // eslint-disable-next-line
   }, [save]);
 
   useEffect(() => {
@@ -230,7 +232,7 @@ const EmployeeDetails = (props) => {
         moment(values.lastDateOfEmployment).format("YYYY-MM-DD"),
       entitleToLspsp:
         values.entitleToLspsp && parseBoolean(values.entitleToLspsp),
-        lspspTypeId: values.lspspTypeId ?? null,
+      lspspTypeId: values.lspspTypeId ?? null,
       terminationReasonId: values.terminationReasonId,
       lspspEntitlementAmount: values.lspspEntitlementAmount,
       orsoOffsetAmount: values.orsoOffsetAmount,

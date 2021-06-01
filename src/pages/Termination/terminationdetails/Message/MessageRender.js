@@ -1,8 +1,7 @@
 import React from "react";
-import CheckMark from "../../../assets/icons/Checkmark.png";
-import XMark from "../../../assets/icons/x-mark-1.png";
-import QMark from "../../../assets/icons/Question.png";
-import ExclamationMark from "../../../assets/icons/Exclamation.png";
+import CheckMark from "@assets/icons/Checkmark.png";
+import QMark from "@assets/icons/Question.png";
+import ExclamationMark from "@assets/icons/Exclamation.png";
 import { DialogBox } from "@components/dialogs";
 import { useStyles } from "./MessageStyles";
 import FloatingButton from "@components/controls/floatingButton/floatingButton";

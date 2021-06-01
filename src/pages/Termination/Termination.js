@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { AuthWrapper } from "@hocs";
-import EmployeeDetails from "@components/employeedetail/EmployeeDetails";
+import EmployeeDetails from "./terminationdetails/EmployeeDetails";
 import { useParams } from "react-router-dom";
-import { PageHeader } from "@components/layout";
 import TerminationRoutes from "./TerminationRoutes";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Grid, Box } from "@material-ui/core";
