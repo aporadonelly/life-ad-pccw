@@ -16,5 +16,5 @@ export const initialState = adapter.getInitialState({
   status: [],
   isLoading: false,
   error: null,
-  enquiry: [],
+  enquiry: {},
 });

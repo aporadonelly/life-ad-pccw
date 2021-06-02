@@ -197,7 +197,6 @@ const MembersEnquiryChip = ({ enquiry }) => {
 
   const renderObject = () => {
     return Object.entries(enquiry).map(([key, value], i) => {
-      console.log(key, "key");
       getChipDropDownValue(value);
       let label = ` ${valueLabel}`;
 

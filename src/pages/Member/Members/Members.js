@@ -34,6 +34,7 @@ const Members = ({ employees, isLoading, getSpecificMember }) => {
   ];
 
   useEffect(() => {}, [employees]);
+
   const viewMembersDetails = (id) => {
     getSpecificMember(id);
   };
