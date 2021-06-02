@@ -8,7 +8,6 @@ import {
   TableRow,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Pagination from "@material-ui/lab/Pagination";
 
 const useStyles = makeStyles((theme) => ({
   activeSortIcon: {
@@ -39,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 export default function useTable(employees, headCells, filterFn) {
   const classes = { ...useStyles() };
 
-  const pages = [50];
+  const pages = [5];
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(pages[page]);
   const [order, setOrder] = useState();
@@ -98,6 +97,20 @@ export default function useTable(employees, headCells, filterFn) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  const TblPagination = () => (
+    <TablePagination
+      style={{ overflow: "hidden" }}
+      component="div"
+      page={page}
+      labelRowsPerPage=""
+      rowsPerPageOptions={pages}
+      rowsPerPage={rowsPerPage}
+      count={employees.length}
+      onChangePage={handleChangePage}
+      onChangeRowsPerPage={handleChangeRowsPerPage}
+    />
+  );
 
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {

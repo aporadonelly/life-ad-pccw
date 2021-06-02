@@ -12,11 +12,6 @@ export const clientSchemesSelector = createSelector(
   (state) => state.clientSchemes
 );
 
-export const reasonSelector = createSelector(
-  stateSelector,
-  (state) => state.reasonTerm
-);
-
 export const termsSelector = createSelector(
   stateSelector,
   (state) => state.mbrTerm

@@ -50,23 +50,38 @@ const routes = [
 
 const TerminationRoutes = (props) => {
   const path = props.match.path;
+  const empSubject = props.clientSchemes;
+  let subjInfoName = "Chan, Tai Man",
+    subjAccountID = "3746474",
+    subjAccountNo = "273 637 338",
+    subjCompanyName = "Great Company Limited",
+    subjEmployerNumber = "223344433",
+    subjSchemeName = "AIA MPF - Prime Value Choice";
+  if (empSubject) {
+    subjInfoName = empSubject.firstName + " " + empSubject.lastName;
+    subjAccountID = empSubject.accountId;
+    subjAccountNo = empSubject.accountNumber;
+    subjCompanyName = empSubject.companyName;
+    subjEmployerNumber = empSubject.employerNumber;
+    if (empSubject.length === undefined) {
+      subjSchemeName = empSubject.schemes[0].schemeName;
+    }
+  }
   return (
     <>
       <PageHeader routes={routes}>
         <PageHeader.SubjectInfo
-          subject="Chan, Tai Man"
+          subject={subjInfoName}
           info={{
-            "eMDF ID:": "3746474",
-            "Member No.": "273 637 338",
+            "eMDF ID:": subjAccountID,
+            "Member No.": subjAccountNo,
           }}
         />
         <PageHeader.SubjectInfo
-          subject="Great Company Limited"
-          info={{
-            "Employer NO.": "223344433",
-          }}
+          subject={subjCompanyName}
+          info={subjEmployerNumber}
         />
-        <PageHeader.SubjectInfo subject="AIA MPF - Prime Value Choice" />
+        <PageHeader.SubjectInfo subject={subjSchemeName} />
       </PageHeader>
 
       <Switch>

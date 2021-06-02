@@ -7,4 +7,5 @@ export const initialState = adapter.getInitialState({
   cycleDate: null,
   isLoading: false,
   error: null,
+  reasonTerm: [],
 });
