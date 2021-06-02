@@ -12,7 +12,6 @@ import {
   useStickyStyles,
 } from "./styles";
 import {
-  Box,
   Paper,
   TableContainer,
   Table,
@@ -28,8 +27,8 @@ import {
 } from "@material-ui/core";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import QuickSearch from "./QuickSearch";
-import { isFunction, get, orderBy } from "lodash";
-import { reactStringReplace } from "@utils";
+import HighlightedText from "./HighlightedText";
+import { isFunction, get, orderBy, toString } from "lodash";
 
 const TablePaginationActions = (props) => {
   const { count, page, rowsPerPage, onChangePage } = props;
@@ -108,19 +107,10 @@ const EnhancedTableBody = (props) => {
           <TableRow key={row.id}>
             {columns.map((column) => (
               <TableCell key={column.name} classes={cellClasses}>
-                {reactStringReplace(
-                  get(row, column.name),
-                  search,
-                  (match, index) => (
-                    <Box
-                      key={index}
-                      display="inline"
-                      bgcolor="common.highlighted"
-                    >
-                      {match}
-                    </Box>
-                  )
-                )}
+                <HighlightedText
+                  text={toString(get(row, column.name))}
+                  match={search}
+                />
               </TableCell>
             ))}
             {isFunction(renderStickyCell) && (
