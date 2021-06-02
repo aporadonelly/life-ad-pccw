@@ -60,29 +60,25 @@ const Members = ({ employees, isLoading, getSpecificMember }) => {
                 </Grid>
                 <Grid item xs={12}>
                   <Grid container>
-                    <Grid item xs={9}>
+                    <Grid item xs={8}>
                       <MembersEnquiry />
                     </Grid>
-                    <Grid item xs={3} align="right">
-                      <Grid container>
-                        <Grid item xs={6}>
-                          <Button
-                            data-testid="back-btn"
-                            variant="outlined"
-                            onClick={handleEditSearch}
-                          >
-                            {t("button:editSearch")}
-                          </Button>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Button
-                            data-testid="back-btn"
-                            onClick={() => history.push("/members/enquiry")}
-                          >
-                            {t("button:newSearch")}
-                          </Button>
-                        </Grid>
-                      </Grid>
+                    <Grid item xs={4} align="right" display="flex">
+                      <Button
+                        data-testid="back-btn"
+                        variant="outlined"
+                        onClick={handleEditSearch}
+                      >
+                        {t("button:editSearch")}
+                      </Button>
+                      &emsp;
+                      <Button
+                        style={{ width: "auto" }}
+                        data-testid="back-btn"
+                        onClick={() => history.push("/members/enquiry")}
+                      >
+                        {t("button:newSearch")}
+                      </Button>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -100,50 +96,60 @@ const Members = ({ employees, isLoading, getSpecificMember }) => {
                   alignItems="flex-start"
                 >
                   <Grid item xs={12}>
-                    <TableCustomized
-                      title={t("typography:heading.searchResult")}
-                      rows={employees}
-                      columns={columns}
-                      stickyLabel={t("table:thead.custom.action")}
-                      renderStickyCell={(row) => {
-                        return (
-                          <>
-                            <Tooltip title="View Registration">
-                              <img
-                                src={viewRegistration}
-                                alt="View Registration"
-                                onClick={() =>
-                                  viewMembersDetails(row.pnsnIdTxt)
-                                }
-                                variant="contained"
-                                style={{
-                                  margin: "0 5px",
-                                  background: "#EF841F",
-                                  color: "#fff",
-                                  cursor: "pointer",
-                                }}
-                              />
-                            </Tooltip>
-                            <Tooltip title="View Enrollment">
-                              <img
-                                src={
-                                  row.vwEnrFlg
-                                    ? viewEnrollActive
-                                    : viewEnrollInActive
-                                }
-                                alt="View Enrollment"
-                                variant="contained"
-                                style={{
-                                  margin: "0 5px",
-                                  background: "#EF841F",
-                                  color: "#fff",
-                                }}
-                              />
-                            </Tooltip>
-                          </>
-                        );
-                      }}
-                    />
+                    {employees.length > 0 ? (
+                      <TableCustomized
+                        title={t("typography:heading.searchResult")}
+                        rows={employees}
+                        columns={columns}
+                        stickyLabel={t("table:thead.custom.action")}
+                        renderStickyCell={(row) => {
+                          return (
+                            <>
+                              <Tooltip title="View Registration">
+                                <img
+                                  src={viewRegistration}
+                                  alt="View Registration"
+                                  onClick={() =>
+                                    viewMembersDetails(row.pnsnIdTxt)
+                                  }
+                                  variant="contained"
+                                  style={{
+                                    margin: "0 5px",
+                                    background: "#EF841F",
+                                    color: "#fff",
+                                    cursor: "pointer",
+                                  }}
+                                />
+                              </Tooltip>
+                              <Tooltip title="View Enrollment">
+                                <img
+                                  src={
+                                    row.vwEnrFlg
+                                      ? viewEnrollActive
+                                      : viewEnrollInActive
+                                  }
+                                  alt="View Enrollment"
+                                  variant="contained"
+                                  style={{
+                                    margin: "0 5px",
+                                    background: "#EF841F",
+                                    color: "#fff",
+                                  }}
+                                />
+                              </Tooltip>
+                            </>
+                          );
+                        }}
+                      />
+                    ) : (
+                      <Box display="flex">
+                        <Grid item xs={12} align="center">
+                          <Typography variant="h6" color="primary">
+                            {t("table:tbody.custom.noDataFound")}
+                          </Typography>
+                        </Grid>
+                      </Box>
+                    )}
                   </Grid>
                 </Grid>
               </CardContent>

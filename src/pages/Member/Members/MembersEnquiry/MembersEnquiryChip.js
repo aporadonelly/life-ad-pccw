@@ -32,8 +32,23 @@ const MembersEnquiryChip = ({ enquiry }) => {
       case "ID_PP":
         valueLabel = "Passport";
         break;
-      case "Phil":
+      case "PH":
         valueLabel = "Philippines";
+        break;
+      case "100":
+        valueLabel = "Hong Kong";
+        break;
+      case "1":
+        valueLabel = "Test";
+        break;
+      case "CH":
+        valueLabel = "China";
+        break;
+      case "ID_SO":
+        valueLabel = "ID SO";
+        break;
+      case "ID_BR":
+        valueLabel = "ID BR";
         break;
       case "MB_SVC":
         valueLabel = "SVC";
@@ -182,6 +197,7 @@ const MembersEnquiryChip = ({ enquiry }) => {
 
   const renderObject = () => {
     return Object.entries(enquiry).map(([key, value], i) => {
+      console.log(key, "key");
       getChipDropDownValue(value);
       let label = ` ${valueLabel}`;
 
@@ -193,7 +209,7 @@ const MembersEnquiryChip = ({ enquiry }) => {
               color: "white",
               margin: "1px",
             }}
-            onDelete={handleDelete(key)}
+            // onDelete={handleDelete(key)}
             label={`${t(`form:label.${key}`)} : ${label}`}
             key={key}
           />
