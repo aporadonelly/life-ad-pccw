@@ -6,6 +6,7 @@ export const usePaginationStyles = makeStyles((theme) => ({
   },
   toolbar: {
     flexDirection: "row-reverse",
+    padding: 0,
   },
   selectRoot: {
     display: "none",
@@ -85,6 +86,15 @@ export const useContainerStyles = makeStyles((theme) => ({
 export const useToolbarStyles = makeStyles((theme) => ({
   root: {
     justifyContent: "space-between",
+    "& > *": {
+      margin: theme.spacing(0, 1.5),
+      "&:first-child": {
+        marginLeft: 0,
+      },
+      "&:last-child": {
+        marginRight: 0,
+      },
+    },
   },
 }));
 
