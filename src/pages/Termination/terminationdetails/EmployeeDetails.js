@@ -33,6 +33,7 @@ const EmployeeDetails = (props) => {
     valuesActions,
     save,
     resetTermination,
+    cycleDate,
   } = props;
 
   const classes = useStyles();
@@ -42,7 +43,9 @@ const EmployeeDetails = (props) => {
   const [bottomBar, setBottomBar] = useState(false);
   const [btnState, setBtnState] = useState();
   let formRef = React.useRef(false);
-  let filterArrayLSP_SP = ""; // will be used dynamically in LSP/SP option change
+  //let filterArrayLSP_SP = ""; // will be used dynamically in LSP/SP option change
+  let [filterArrayLSP_SP, setfilterArrayLSP_SP] = useState("");
+
   let data = replaceNull(clientSchemes);
   //let data = clientSchemes;
 
@@ -62,7 +65,7 @@ const EmployeeDetails = (props) => {
     orsoOffsetAmount: "",
     effective_date: "", //moment("").format("YYYY/MM/DD"),
     change_date: "", //moment("").format("YYYY/MM/DD"),
-    schemes: data.schemes ?? [], //employeeMockData.getScheme_LSP_SP_offect_sequence(),
+    schemes: data.clientSchemes ?? [], //employeeMockData.getScheme_LSP_SP_offect_sequence(),
   };
 
   const validationSave = yup.object().shape({
@@ -140,6 +143,7 @@ const EmployeeDetails = (props) => {
         setBtnStatus("ExMsg_SvdSccss");
         setLSP_SP_Disable(true);
         resetTermination();
+        formRef.current.resetForm();
       }
     }
     // eslint-disable-next-line
@@ -196,12 +200,12 @@ const EmployeeDetails = (props) => {
 
     const dateJoin = Date.parse(clientSchemes.joinSchemeDate);
     const dateEffect = Date.parse(clientSchemes.effectiveDate);
-    //const dateEmp_dt = "No idea where this is";
     if (dateLdoe < dateJoin || dateLdoe < dateEffect) {
       handleClose();
       setBtnStatus("ExMsg_incrrtLDOE");
       return false;
     }
+
     return true;
   };
 
@@ -213,6 +217,11 @@ const EmployeeDetails = (props) => {
     }
     return true;
   };
+
+  // FIX: pending based on employmendate data known 06/01/2021
+  // const chkEmployDate = (values) => {
+  //   return true;
+  // }
 
   const formikHandleSubmit = (values, actions) => {
     console.log(values);
@@ -447,7 +456,8 @@ const EmployeeDetails = (props) => {
                 if (filterArrayLSP_SP !== "") {
                   setFieldValue("terminationReasonId", reason);
                 }
-                filterArrayLSP_SP = "";
+                setfilterArrayLSP_SP("");
+                //filterArrayLSP_SP = "";
               }
             };
 
@@ -464,15 +474,22 @@ const EmployeeDetails = (props) => {
                   "TR_LO",
                   "LR_CE",
                 ];
-                filterArrayLSP_SP = newArray.records.filter(function (obj) {
-                  return !(notIncluded.indexOf(obj.cstmTypId) > -1);
-                });
+                //filterArrayLSP_SP =
+                setfilterArrayLSP_SP(
+                  newArray.records.filter(function (obj) {
+                    return !(notIncluded.indexOf(obj.cstmTypId) > -1);
+                  })
+                );
                 //setFieldValue("terminationReasonId", filterArrayLSP_SP);
               } else if (event.target.value === "LS_SP") {
                 notIncluded = ["TR_LO", "TR_CE"]; //"TR_RD", removed for TESTING
-                filterArrayLSP_SP = newArray.records.filter(function (obj) {
-                  return !(notIncluded.indexOf(obj.cstmTypId) > -1);
-                });
+                //filterArrayLSP_SP =
+                setfilterArrayLSP_SP(
+                  newArray.records.filter(function (obj) {
+                    return !(notIncluded.indexOf(obj.cstmTypId) > -1);
+                  })
+                );
+
                 //setFieldValue("terminationReasonId", filterArrayLSP_SP);
               }
             };
@@ -643,6 +660,9 @@ const EmployeeDetails = (props) => {
                             name="change_date"
                             helperText="YYYYMMDD"
                             format="YYYY/MM/DD"
+                            readOnly
+                            disabled
+                            value={cycleDate ?? moment().format("YYYY/MM/DD")} // NOTE: if cycldate is not available
                           />
                         </Grid>
                       </div>

@@ -17,6 +17,12 @@ export const isLoadingSelector = createSelector(
   (state) => state.isLoading
 );
 
+// previously from termination
+export const reasonSelector = createSelector(
+  stateSelector,
+  (state) => state.reasonTerm
+);
+
 export const errorSelector = createSelector(
   stateSelector,
   (state) => state.error

@@ -32,7 +32,7 @@ const MessageRender = ({ open, onClose, msgCode }) => {
             className={classes.imgDialog}
           />
         );
-        btnType = <FloatingButton text="ok" onClick={handleClose} />;
+        btnType = <FloatingButton text="okay" onClick={handleClose} />;
         break;
       case "ExMsg_ExcdLspspAmt":
         msgDialog = (
@@ -49,7 +49,7 @@ const MessageRender = ({ open, onClose, msgCode }) => {
             className={classes.imgDialog}
           />
         );
-        btnType = <FloatingButton text="ok" onClick={onClose} />;
+        btnType = <FloatingButton text="okay" onClick={onClose} />;
         break;
       case "ExMsg_CnclPrcss":
         msgDialog = "Are you sure to cancel the process?";
@@ -77,13 +77,26 @@ const MessageRender = ({ open, onClose, msgCode }) => {
         imgType = (
           <img
             src={ExclamationMark}
-            alt="Checked"
+            alt="Exclamation"
             variant="contained"
             className={classes.imgDialog}
           />
         );
-        btnType = <FloatingButton text="ok" onClick={onClose} />;
+        btnType = <FloatingButton text="okay" onClick={onClose} />;
         break;
+      case "ExMsg_incrrtTermRsn":
+        msgDialog = "Incorrect termination reason.";
+        imgType = (
+          <img
+            src={ExclamationMark}
+            alt="Exclamation"
+            variant="contained"
+            className={classes.imgDialog}
+          />
+        );
+        btnType = <FloatingButton text="okay" onClick={onClose} />;
+        break;
+
       default:
         imgType = (
           <img

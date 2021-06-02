@@ -55,6 +55,11 @@ class SystemAdapter extends AxiosAdapter {
   fetchStatus() {
     return this.instance.get("/getCustomTypList?groupId=ST");
   }
+
+  // previously from termination
+  getReason() {
+    return this.instance.get("/getTermRsnLst");
+  }
 }
 
 export default new SystemAdapter({

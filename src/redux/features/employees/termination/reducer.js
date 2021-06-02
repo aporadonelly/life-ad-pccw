@@ -6,7 +6,6 @@ import {
   loadMbrTerm,
   saveTermination,
   validTermination,
-  loadTermReason,
   passValuesActions,
 } from "./actions";
 
@@ -70,18 +69,6 @@ export const employeeTerminationReducer = createReducer(
       .addCase(saveTermination.rejected, (state, action) => {
         const { error } = action.payload;
         return { ...state, isSaving: false, saved: error }; /// error changed to save
-      })
-
-      .addCase(loadTermReason.pending, (state, _action) => {
-        return { ...state, isLoading: true, error: null };
-      })
-      .addCase(loadTermReason.fulfilled, (state, action) => {
-        const { reasonTerm } = action.payload;
-        return { ...state, isLoading: false, reasonTerm };
-      })
-      .addCase(loadTermReason.rejected, (state, action) => {
-        const { error } = action.payload;
-        return { ...state, isLoading: false, error };
       })
 
       .addCase(passValuesActions, (state, action) => {

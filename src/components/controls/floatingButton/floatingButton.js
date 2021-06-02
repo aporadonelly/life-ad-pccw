@@ -15,7 +15,7 @@ const FloatingButton = (props) => {
   const classes = { ...floatingButtonStyles(), ...useStyles() };
   const { text, size, color, variant, onClick, ...other } = props;
   let orangeBtn = false;
-  if (text === "ok" || text === "submit") {
+  if (text === "okay" || text === "submit") {
     orangeBtn = true;
   }
 
