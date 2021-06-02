@@ -58,37 +58,32 @@ const Members = ({ employees, isLoading, getSpecificMember }) => {
                     {t("typography:heading.memberEnquiry")}
                   </Typography>
                 </Grid>
-                <Grid
-                  container
-                  component="dl"
-                  xs={12}
-                  style={{ marginTop: "5px" }}
-                >
-                  <Grid item xs={8}>
-                    <MembersEnquiry />
-                  </Grid>
-                  <Grid
-                    container
-                    component="dl"
-                    spacing={1}
-                    display="flex"
-                    justify="flex-end"
-                    xs={4}
-                  >
-                    <Button
-                      data-testid="back-btn"
-                      variant="outlined"
-                      onClick={handleEditSearch}
-                    >
-                      {t("button:editSearch")}
-                    </Button>
-                    &emsp;
-                    <Button
-                      data-testid="back-btn"
-                      onClick={() => history.push("/members/enquiry")}
-                    >
-                      {t("button:newSearch")}
-                    </Button>
+                <Grid item xs={12}>
+                  <Grid container>
+                    <Grid item xs={9}>
+                      <MembersEnquiry />
+                    </Grid>
+                    <Grid item xs={3} align="right">
+                      <Grid container>
+                        <Grid item xs={6}>
+                          <Button
+                            data-testid="back-btn"
+                            variant="outlined"
+                            onClick={handleEditSearch}
+                          >
+                            {t("button:editSearch")}
+                          </Button>
+                        </Grid>
+                        <Grid item xs={6}>
+                          <Button
+                            data-testid="back-btn"
+                            onClick={() => history.push("/members/enquiry")}
+                          >
+                            {t("button:newSearch")}
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </Grid>
                   </Grid>
                 </Grid>
               </CardContent>
