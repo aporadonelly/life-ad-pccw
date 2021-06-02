@@ -28,6 +28,7 @@ import {
 } from "@material-ui/core";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import QuickSearch from "./QuickSearch";
+import { useTranslation } from "react-i18next";
 import { isFunction, get, orderBy } from "lodash";
 import { reactStringReplace } from "@utils";
 
@@ -143,6 +144,7 @@ const TableCustomized = (props) => {
     stickyLabel,
     renderStickyCell,
   } = props;
+  const { t } = useTranslation(["typography"]);
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState("asc");
   const [sortBy, setSortBy] = useState();
@@ -172,7 +174,7 @@ const TableCustomized = (props) => {
       <Toolbar classes={toolbarClasses} disableGutters>
         {title && (
           <Typography variant="h6" color="primary">
-            Member Search
+            {t("typography:heading.memberSearch")}
           </Typography>
         )}
         <QuickSearch onChange={handleChangeSearch} />
