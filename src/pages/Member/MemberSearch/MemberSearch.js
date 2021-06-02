@@ -3,6 +3,7 @@ import moment from "moment";
 import { isEqual } from "lodash";
 import * as yup from "yup";
 import { Formik } from "formik";
+
 import {
   Grid,
   Card,
@@ -42,8 +43,8 @@ const initialValues = {
 };
 
 const validationSchema = yup.object().shape({
-  email: yup.string().email("Please input valid email."),
-  mobileNumber: yup.number().typeError("Please input number."),
+  email: yup.string().email("Please input valid email address."),
+  mobileNumber: yup.number().typeError("Please enter numbers."),
 });
 
 const MemberSearch = ({
@@ -71,6 +72,7 @@ const MemberSearch = ({
 }) => {
   const classes = EmployeeStyles();
   const { t } = useTranslation(["typography", "form", "button"]);
+
   useEffect(() => {
     getGender();
     getIdType();
