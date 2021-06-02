@@ -232,13 +232,7 @@ const ViewMember = ({ employee, isLoading }) => {
 
         {/* Back Button */}
         <Grid item xs={12}>
-          <Grid
-            container
-            component="dl"
-            spacing={1}
-            justify="flex-end"
-            style={{ marginTop: "6px" }}
-          >
+          <Grid container component="dl" spacing={1} justify="flex-end">
             <Button
               data-testid="back-btn"
               onClick={() => history.push("/members")}

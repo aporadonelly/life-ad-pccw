@@ -1,4 +1,7 @@
 import { createReducer } from "@reduxjs/toolkit";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+
 import {
   getGender,
   getIdType,
@@ -15,7 +18,13 @@ import {
 } from "./actions";
 import { initialState } from "./state";
 
-export const membersReducer = createReducer(initialState, (builder) =>
+const persistConfig = {
+  key: "members",
+  storage: storage,
+  blacklist: ["isLoading", "error"],
+};
+
+const membersReducer = createReducer(initialState, (builder) =>
   //Gender
   builder
     .addCase(getGender.pending, (state, _action) => {
@@ -163,3 +172,5 @@ export const membersReducer = createReducer(initialState, (builder) =>
       return { ...state, isLoading: true, enquiry, error: null };
     })
 );
+
+export default persistReducer(persistConfig, membersReducer);

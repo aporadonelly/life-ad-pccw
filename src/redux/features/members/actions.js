@@ -1,6 +1,7 @@
 import { createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import { systemAdapter, employeesAdapter } from "@adapters";
 import { push } from "connected-react-router";
+import { pickBy } from "lodash";
 
 export const getGender = createAsyncThunk(
   "@@EMPF/MEMBERS/GET_GENDER",
@@ -157,6 +158,9 @@ export const getSpecificMember = createAsyncThunk(
 export const saveEnquiry = createAsyncThunk(
   "@@EMPF/MEMBERS/SAVE_ENQUIRY",
   async (payload) => {
-    return { payload };
+    const enquiry = pickBy(payload, (value) => {
+      return value !== "";
+    });
+    return { enquiry };
   }
 );

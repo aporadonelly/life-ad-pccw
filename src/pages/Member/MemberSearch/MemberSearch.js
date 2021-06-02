@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import moment from "moment";
 import { isEqual } from "lodash";
 import * as yup from "yup";
@@ -42,7 +42,8 @@ const initialValues = {
 };
 
 const validationSchema = yup.object().shape({
-  email: yup.string().email(),
+  email: yup.string().email("Please input valid email."),
+  mobileNumber: yup.number().typeError("Please input number."),
 });
 
 const MemberSearch = ({
@@ -280,6 +281,7 @@ const MemberSearch = ({
                           <Form.DatePicker
                             label={t("form:label.dateOfEmployment")}
                             name="dateOfEmployment"
+                            format="YYYY/MM/DD"
                             type="text"
                             placeholder={t(
                               "form:placeholder.custom.pleaseInput"
