@@ -27,7 +27,7 @@ import {
   ButtonBase,
 } from "@material-ui/core";
 import PerfectScrollbar from "react-perfect-scrollbar";
-import SearchBar from "./SearchBar";
+import QuickSearch from "./QuickSearch";
 import { isFunction, get, orderBy } from "lodash";
 import { reactStringReplace } from "@utils";
 
@@ -175,7 +175,7 @@ const TableCustomized = (props) => {
             Member Search
           </Typography>
         )}
-        <SearchBar onChange={handleChangeSearch} />
+        <QuickSearch onChange={handleChangeSearch} />
         <TablePagination
           component="div"
           classes={paginationClasses}
