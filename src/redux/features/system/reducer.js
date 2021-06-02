@@ -1,13 +1,13 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { initialState } from "./state";
-import { getSystemEnv, getCycleDate } from "./actions";
+import { getSystemEnv, getCycleDate, loadTermReason } from "./actions";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 const persistConfig = {
   key: "system",
   storage: storage,
-  blacklist: ["isLoading", "error"],
+  blacklist: ["isLoading", "error", "reasonTerm"],
 };
 
 const systemReducer = createReducer(initialState, (builder) =>
@@ -31,6 +31,19 @@ const systemReducer = createReducer(initialState, (builder) =>
       return { ...state, isLoading: false, cycleDate };
     })
     .addCase(getCycleDate.rejected, (state, action) => {
+      const { error } = action.payload;
+      return { ...state, isLoading: false, error };
+    })
+
+    /// previously from termination
+    .addCase(loadTermReason.pending, (state, _action) => {
+      return { ...state, isLoading: true, error: null };
+    })
+    .addCase(loadTermReason.fulfilled, (state, action) => {
+      const { reasonTerm } = action.payload;
+      return { ...state, isLoading: false, reasonTerm };
+    })
+    .addCase(loadTermReason.rejected, (state, action) => {
       const { error } = action.payload;
       return { ...state, isLoading: false, error };
     })

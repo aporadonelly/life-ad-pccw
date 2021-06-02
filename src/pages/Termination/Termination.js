@@ -13,10 +13,10 @@ const Termination = (props) => {
   useEffect(() => {
     loadTermReason();
     loadEmpSchemes({ accountNumber: id });
+    // eslint-disable-next-line
   }, []);
   return (
     <>
-      <TerminationRoutes {...props} />
       {isLoading ? (
         <Box display="flex" justifyContent="center" mt={5}>
           <CircularProgress />
@@ -28,6 +28,7 @@ const Termination = (props) => {
               <Alert severity="error">{error}</Alert>
             </Grid>
           )}
+          <TerminationRoutes {...props} />
           <EmployeeDetails {...props} />
         </>
       )}

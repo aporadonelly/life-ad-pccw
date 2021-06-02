@@ -65,18 +65,4 @@ export const validTermination = createAsyncThunk(
   }
 );
 
-export const loadTermReason = createAsyncThunk(
-  "@@EMPF/TERMINATION/getTermRsnLst",
-  async (_payload, { rejectWithValue }) => {
-    try {
-      const reasonTerm = await terminationAdapter.getReason();
-      //console.log("actions-termination", reasonTerm);
-      return { reasonTerm };
-    } catch (error) {
-      console.error(error);
-      return rejectWithValue({ error });
-    }
-  }
-);
-
 export const passValuesActions = createAction("@@EMPF/TERMINATION/PASS");

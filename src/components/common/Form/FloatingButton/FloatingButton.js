@@ -18,7 +18,7 @@ const FloatingButton = (props) => {
   // FIX: PROBLEM ON OVERRIDING STYLES BELOW
   const classes = { ...floatingButtonStyles(), ...useStyles() };
   let orangeBtn = false;
-  if (text === "ok" || text === "submit") {
+  if (text === "okay" || text === "submit") {
     orangeBtn = true;
   }
   return (

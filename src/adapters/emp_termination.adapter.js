@@ -36,10 +36,6 @@ class TerminationAdapter extends AxiosAdapter {
   //     }
   //   });
   // }
-
-  getReason() {
-    return this.instance.get("/getTermRsnLst");
-  }
 }
 
 export default new TerminationAdapter({

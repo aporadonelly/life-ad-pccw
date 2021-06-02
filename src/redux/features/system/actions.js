@@ -29,3 +29,18 @@ export const getCycleDate = createAsyncThunk(
     }
   }
 );
+
+// previously from termination
+export const loadTermReason = createAsyncThunk(
+  "@@EMPF/TERMINATION/getTermRsnLst",
+  async (_payload, { rejectWithValue }) => {
+    try {
+      const reasonTerm = await systemAdapter.getReason();
+      //console.log("actions-termination", reasonTerm);
+      return { reasonTerm };
+    } catch (error) {
+      console.error(error);
+      return rejectWithValue({ error });
+    }
+  }
+);
