@@ -22,7 +22,7 @@ const QuickSearch = (props) => {
     () => {
       onChange(value);
     },
-    500,
+    700,
     [value]
   );
 
