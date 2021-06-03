@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import moment from "moment";
-import { isEqual } from "lodash";
+import { isEqual, isDate } from "lodash";
 import * as yup from "yup";
 import { Formik } from "formik";
 
@@ -69,6 +69,7 @@ const MemberSearch = ({
   status,
   getAllMembers,
   saveEnquiry,
+  enquiry,
 }) => {
   const classes = EmployeeStyles();
   const { t } = useTranslation(["typography", "form", "button"]);
@@ -88,11 +89,18 @@ const MemberSearch = ({
 
   const handleSubmit = (values) => {
     const newValues = { ...values };
-    newValues.dateOfBirth =
-      newValues.dateOfBirth &&
-      moment(newValues.dateOfBirth).format("YYYY/MM/DD");
+
+    Object.keys(newValues).forEach((key) => {
+      if (isDate(newValues[key])) {
+        newValues[key] = moment(newValues[key]).format("YYYY/MM/DD");
+      }
+    });
+
     getAllMembers(newValues);
-    saveEnquiry(newValues);
+  };
+
+  const handleReset = () => {
+    saveEnquiry({});
   };
 
   return (
@@ -102,9 +110,11 @@ const MemberSearch = ({
           <Card>
             <CardContent>
               <Formik
-                initialValues={initialValues}
+                initialValues={{ ...initialValues, ...enquiry }}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
+                onReset={handleReset}
+                enableReinitialize
               >
                 {(formik) => {
                   return (

@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { systemAdapter, employeesAdapter } from "@adapters";
 import { push } from "connected-react-router";
 import { pickBy } from "lodash";
@@ -135,6 +135,7 @@ export const getAllMembers = createAsyncThunk(
     try {
       const employees = await employeesAdapter.searchMembers(payload);
       dispatch(push("/members"));
+      dispatch(saveEnquiry(payload));
       return { employees: employees.content };
     } catch (error) {
       return rejectWithValue({ error });
@@ -155,14 +156,12 @@ export const getSpecificMember = createAsyncThunk(
   }
 );
 
-export const saveEnquiry = createAsyncThunk(
+export const saveEnquiry = createAction(
   "@@EMPF/MEMBERS/SAVE_ENQUIRY",
-  async (payload) => {
+  (payload) => {
     const enquiry = pickBy(payload, (value) => {
       return value !== "";
     });
-    return { enquiry };
+    return { payload: { enquiry } };
   }
 );
-
-

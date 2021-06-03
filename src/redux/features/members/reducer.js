@@ -167,9 +167,9 @@ const membersReducer = createReducer(initialState, (builder) =>
     })
 
     //Saving enquiry passed on the form
-    .addCase(saveEnquiry.fulfilled, (state, action) => {
+    .addCase(saveEnquiry, (state, action) => {
       const { enquiry } = action.payload;
-      return { ...state, isLoading: true, enquiry, error: null };
+      return { ...state, enquiry, error: null };
     })
 );
 

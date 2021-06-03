@@ -19,7 +19,7 @@ import viewEnrollInActive from "../../../assets/icons/enroll-inactive.PNG";
 import viewRegistration from "../../../assets/icons/view_reg.PNG";
 import MembersEnquiry from "../Members/MembersEnquiry";
 
-const Members = ({ employees, isLoading, getSpecificMember }) => {
+const Members = ({ employees, isLoading, getSpecificMember, saveEnquiry }) => {
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button", "table"]);
 
@@ -40,6 +40,11 @@ const Members = ({ employees, isLoading, getSpecificMember }) => {
   };
 
   const handleEditSearch = () => {
+    history.push("/members/enquiry");
+  };
+
+  const handleNewSearch = () => {
+    saveEnquiry({});
     history.push("/members/enquiry");
   };
 
@@ -76,7 +81,7 @@ const Members = ({ employees, isLoading, getSpecificMember }) => {
                       <Button
                         style={{ width: "auto" }}
                         data-testid="back-btn"
-                        onClick={() => history.push("/members/enquiry")}
+                        onClick={handleNewSearch}
                       >
                         {t("button:newSearch")}
                       </Button>

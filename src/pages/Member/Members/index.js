@@ -10,6 +10,7 @@ import {
 import {
   getAllMembers,
   getSpecificMember,
+  saveEnquiry,
 } from "@redux/features/members/actions";
 import Members from "./Members";
 
@@ -26,6 +27,7 @@ const mapDispatchToProps = (dispatch) => ({
     {
       getAllMembers,
       getSpecificMember,
+      saveEnquiry,
     },
     dispatch
   ),

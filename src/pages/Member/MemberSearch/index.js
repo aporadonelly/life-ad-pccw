@@ -15,6 +15,7 @@ import {
   schemeTypeSelector,
   statusSelector,
   employeesSelector,
+  enquirySelector,
 } from "@redux/features/members/selectors";
 import {
   getGender,
@@ -43,6 +44,7 @@ const mapStateToProps = (state) => ({
   schemeType: schemeTypeSelector(state),
   status: statusSelector(state),
   employees: employeesSelector(state),
+  enquiry: enquirySelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
