@@ -7,6 +7,7 @@
     "lastName": "Last Name (English)",
     "chineseFirstName": "First Name (Chinese)",
     "chineseLastName": "Last Name (Chinese)",
+    "fullName": "Member Name (English)",   
     "mpfId": "MPF ID",
     "mpfSchemeName": "MPF Scheme Name",
     "displayName": "Member Name",
@@ -36,7 +37,10 @@
     "jobTitle": "Job Title",
     "registeredOfcAddress": "Registered Office Address",
     "businessAddress":"Business Address",
-    "eSignature": "E - Signature"
+    "eSignature": "E - Signature",
+    "female": "Ms.",
+    "male": "Mr.",
+    "mpfID": "MPF ID"
   },
   "placeholder": {
     "custom": {

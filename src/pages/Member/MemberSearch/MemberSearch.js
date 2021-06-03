@@ -1,4 +1,9 @@
 import { useEffect } from "react";
+import moment from "moment";
+import { isEqual } from "lodash";
+import * as yup from "yup";
+import { Formik } from "formik";
+
 import {
   Grid,
   Card,
@@ -6,15 +11,13 @@ import {
   Typography,
   Box,
   CircularProgress,
+  Toolbar,
 } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import * as yup from "yup";
-import { Formik } from "formik";
 import { PageInner } from "@components/layout";
 import { Form } from "@components/common";
+import { BottomAppBar } from "@components/misc";
 import EmployeeStyles from "../../../components/employees/styles/EmployeeStyles";
-import moment from "moment";
-import { isEqual } from "lodash";
 
 const initialValues = {
   mpfID: "",
@@ -40,7 +43,8 @@ const initialValues = {
 };
 
 const validationSchema = yup.object().shape({
-  email: yup.string().email(),
+  email: yup.string().email("Please input valid email address."),
+  mobileNumber: yup.number().typeError("Please enter numbers."),
 });
 
 const MemberSearch = ({
@@ -64,6 +68,7 @@ const MemberSearch = ({
   getStatus,
   status,
   getAllMembers,
+  saveEnquiry,
 }) => {
   const classes = EmployeeStyles();
   const { t } = useTranslation(["typography", "form", "button"]);
@@ -87,6 +92,7 @@ const MemberSearch = ({
       newValues.dateOfBirth &&
       moment(newValues.dateOfBirth).format("YYYY/MM/DD");
     getAllMembers(newValues);
+    saveEnquiry(newValues);
   };
 
   return (
@@ -101,7 +107,6 @@ const MemberSearch = ({
                 onSubmit={handleSubmit}
               >
                 {(formik) => {
-                  console.log(formik.values, "formik");
                   return (
                     <Form>
                       <Grid container spacing={2}>
@@ -278,6 +283,7 @@ const MemberSearch = ({
                           <Form.DatePicker
                             label={t("form:label.dateOfEmployment")}
                             name="dateOfEmployment"
+                            format="YYYY/MM/DD"
                             type="text"
                             placeholder={t(
                               "form:placeholder.custom.pleaseInput"
@@ -393,21 +399,23 @@ const MemberSearch = ({
                         className={classes.fieldSpacing}
                       >
                         <div className={classes.formBtnContainer}>
-                          <Form.Reset variant="outlined">
-                            {t("button:clear")}
-                          </Form.Reset>
-                          &nbsp;
-                          <Form.Submit
-                            disabled={isEqual(formik.values, initialValues)}
-                          >
-                            {isLoading ? (
-                              <Box display="flex" justifyContent="center">
-                                <CircularProgress size={25} />
-                              </Box>
-                            ) : (
-                              t("button:search")
-                            )}
-                          </Form.Submit>
+                          <BottomAppBar>
+                            <Form.Reset variant="outlined" color="default">
+                              {t("button:clear")}
+                            </Form.Reset>
+                            &emsp;
+                            <Form.Submit
+                              disabled={isEqual(formik.values, initialValues)}
+                            >
+                              {isLoading ? (
+                                <Box display="flex" justifyContent="center">
+                                  <CircularProgress size={25} color="inherit" />
+                                </Box>
+                              ) : (
+                                t("button:search")
+                              )}
+                            </Form.Submit>
+                          </BottomAppBar>
                         </div>
                       </Grid>
                     </Form>
@@ -418,6 +426,8 @@ const MemberSearch = ({
           </Card>
         </Grid>
       </Grid>
+
+      <Toolbar variant="regular" />
     </PageInner>
   );
 };

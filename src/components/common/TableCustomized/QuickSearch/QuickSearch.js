@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDebounce } from "react-use";
 import { useStyles } from "./styles";
 import { InputBase, InputAdornment } from "@material-ui/core";
-import { Search as SearchIcon } from "@material-ui/icons";
+import { Search as SearchIcon, Close as CloseIcon } from "@material-ui/icons";
 
 const QuickSearch = (props) => {
   const { onChange } = props;
@@ -12,6 +12,10 @@ const QuickSearch = (props) => {
 
   const handleChange = (e) => {
     setValue(e.target.value);
+  };
+
+  const onClear = (e) => {
+    setValue("");
   };
 
   useDebounce(
@@ -29,7 +33,7 @@ const QuickSearch = (props) => {
           root: classes.inputBase,
         }}
         value={value}
-        placeholder="QuickSearch"
+        placeholder="Quick Search"
         startAdornment={
           <InputAdornment position="start">
             <SearchIcon fontSize="small" color="inherit" />
@@ -37,6 +41,9 @@ const QuickSearch = (props) => {
         }
         onChange={handleChange}
       />
+      <div className={classes.closeIcon}>
+        <CloseIcon fontSize="small" onClick={onClear} />
+      </div>
     </div>
   );
 };

@@ -148,7 +148,7 @@ export default function useTable(employees, headCells, filterFn) {
   return {
     TblContainer,
     TblHead,
-    TblPagination,
+    // TblPagination,
     employeesAfterPagingAndSorting,
   };
 }

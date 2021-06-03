@@ -7,7 +7,8 @@
     "personalInformation": "个人信息",
     "employmentInformation": "就业信息",
     "otherInformation": "其他资讯",
-    "authorizedPerson": "授权人"    
+    "authorizedPerson": "授权人" ,
+    "memberSearch": "会员搜索"   
   },
   "paragraph": {}
 }

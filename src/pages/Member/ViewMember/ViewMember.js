@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { Definition } from "@components/misc";
 
-const ViewMember = ({ employee, isLoading }) => {
+const ViewMember = ({ employee }) => {
   useEffect(() => {}, [employee]);
 
   const {
@@ -62,7 +62,11 @@ const ViewMember = ({ employee, isLoading }) => {
                     <Definition.List>
                       <Definition.Item
                         dt={t("form:label.title")}
-                        dd={get(regCntcts, "[0].ttlTypId")}
+                        dd={
+                          gndrTypId === "GT_M"
+                            ? t("form:label.male")
+                            : t("form:label.female")
+                        }
                       />
 
                       <Definition.Item
@@ -233,7 +237,7 @@ const ViewMember = ({ employee, isLoading }) => {
               data-testid="back-btn"
               onClick={() => history.push("/members")}
             >
-              {t("button:backToCompanyProfile")}
+              {t("button:backToSearch")}
             </Button>
           </Grid>
         </Grid>

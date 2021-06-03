@@ -36,7 +36,9 @@
     "jobTitle": "职称",
     "registeredOfcAddress": "注册办事处地址",
     "businessAddress":"营业地址",
-    "eSignature": "电子签名"
+    "eSignature": "电子签名",
+    "female": "小姐",
+    "male": "先生。"
   },
   "placeholder": {
     "custom": {
