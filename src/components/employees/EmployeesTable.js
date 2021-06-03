@@ -53,7 +53,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
   const [viewMemberState, setViewMemberState] = useState(false);
   const [tableView, setTableView] = useState(true);
 
-  const [filterFn] = useState({
+  const [filterFn, setfilterFn] = useState({
     fn: (items) => {
       return items;
     },
