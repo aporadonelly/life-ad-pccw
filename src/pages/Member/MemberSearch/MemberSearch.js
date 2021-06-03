@@ -71,7 +71,6 @@ const MemberSearch = ({
   saveEnquiry,
   enquiry,
 }) => {
-  console.log(enquiry, "enquiry");
   const classes = EmployeeStyles();
   const { t } = useTranslation(["typography", "form", "button"]);
 
