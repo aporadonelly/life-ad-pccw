@@ -157,10 +157,10 @@ export const getSpecificMember = createAsyncThunk(
 
 export const saveEnquiry = createAction(
   "@@EMPF/MEMBERS/SAVE_ENQUIRY",
-  async (payload) => {
+  (payload) => {
     const enquiry = pickBy(payload, (value) => {
       return value !== "";
     });
-    return { enquiry };
+    return { payload: { enquiry } };
   }
 );
