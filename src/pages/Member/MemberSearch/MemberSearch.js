@@ -69,7 +69,9 @@ const MemberSearch = ({
   status,
   getAllMembers,
   saveEnquiry,
+  enquiry,
 }) => {
+  console.log(enquiry, "enquiry");
   const classes = EmployeeStyles();
   const { t } = useTranslation(["typography", "form", "button"]);
 
@@ -95,6 +97,10 @@ const MemberSearch = ({
     saveEnquiry(newValues);
   };
 
+  const handleReset = () => {
+    saveEnquiry({});
+  };
+
   return (
     <PageInner>
       <Grid container spacing={3}>
@@ -102,9 +108,11 @@ const MemberSearch = ({
           <Card>
             <CardContent>
               <Formik
-                initialValues={initialValues}
+                initialValues={{ ...initialValues, ...enquiry }}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
+                onReset={handleReset}
+                enableReinitialize
               >
                 {(formik) => {
                   return (
