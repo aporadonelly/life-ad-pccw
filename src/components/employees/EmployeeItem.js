@@ -10,7 +10,7 @@ import EmployeeStyles from "./styles/EmployeeStyles";
 import { useHistory } from "react-router-dom";
 import { get } from "lodash";
 
-import * as intl from "../../common/labels";
+// import * as intl from "../../common/labels";
 import Controls from "../controls/Controls";
 
 const useStyles = makeStyles((theme) => ({
@@ -59,7 +59,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const EmployeeView = ({ employees: { employee, id } }) => {
-  console.log(employee, "employee");
   const classes = { ...EmployeeStyles(), ...useStyles() };
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button"]);
@@ -393,10 +392,11 @@ const EmployeeView = ({ employees: { employee, id } }) => {
           className={classes.cancelBtn}
           style={{
             float: "right",
-            bottom: "35px",
-            width: "163px",
+
+            bottom: "13px",
+
+            width: "auto",
             color: "#fff",
-            top: "12px",
             left: "20px",
           }}
           onClick={() => goToSearch(id)}

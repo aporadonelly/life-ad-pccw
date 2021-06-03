@@ -4,6 +4,10 @@ import InputField from "./InputField";
 import SelectField from "./SelectField";
 import DatePickerField from "./DatePickerField";
 import SubmitButton from "./SubmitButton";
+import RadioGroupField from "./RadioGroupField";
+import SelectOption from "./SelectOption/SelectOption";
+import FloatingButton from "./FloatingButton";
+import ResetButton from "./ResetButton";
 
 const Form = ({ children, ...props }) => {
   const { handleSubmit, handleReset } = useFormikContext();
@@ -31,5 +35,9 @@ Form.Input = InputField;
 Form.Select = SelectField;
 Form.DatePicker = DatePickerField;
 Form.Submit = SubmitButton;
+Form.RadioGroupField = RadioGroupField;
+Form.SelectOption = SelectOption;
+Form.FloatingButton = FloatingButton;
+Form.Reset = ResetButton;
 
 export default Form;

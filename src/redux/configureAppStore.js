@@ -1,7 +1,8 @@
+import { createBrowserHistory } from "history";
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { routerMiddleware } from "connected-react-router";
 import {
   persistStore,
-  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -9,17 +10,16 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import rootReducer from "./reducers";
+import createRootReducer from "./reducers";
+import { getSystemEnv, getCycleDate } from "./features/system/actions";
+
+export const history = createBrowserHistory({
+  basename: process.env.PUBLIC_URL,
+});
 
 export default function configureAppStore(preloadedState) {
   const debug = false;
-  const middlewares = [];
-  const persistConfig = {
-    key: "root",
-    version: 1,
-    storage,
-  };
+  const middlewares = [routerMiddleware(history)];
 
   if (debug) {
     const { logger } = require("redux-logger");
@@ -27,7 +27,7 @@ export default function configureAppStore(preloadedState) {
   }
 
   const store = configureStore({
-    reducer: persistReducer(persistConfig, rootReducer),
+    reducer: createRootReducer(history),
     middleware: [
       ...getDefaultMiddleware({
         serializableCheck: {
@@ -41,6 +41,9 @@ export default function configureAppStore(preloadedState) {
   });
 
   const persistor = persistStore(store);
+
+  store.dispatch(getSystemEnv());
+  store.dispatch(getCycleDate());
 
   return { store, persistor };
 }

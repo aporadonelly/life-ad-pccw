@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
 import { connect } from "react-redux";
@@ -6,7 +6,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Grid, MenuItem, Paper, Select, TextField } from "@material-ui/core";
+import { Grid, MenuItem, Paper, Select } from "@material-ui/core";
 import {
   searchMembers,
   saveQuery,
@@ -23,10 +23,8 @@ import {
 import EmployeeStyles from "./styles/EmployeeStyles";
 import { useForm, Form } from "../UseForm";
 import Controls from "../controls/Controls";
-import * as intl from "../../common/labels";
 import "./styles/index.css";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
-import { isNull } from "lodash";
 
 const initialValues = {
   mpf_id: "",
@@ -65,13 +63,12 @@ const EmployeeForm = ({
     placeOfBirth,
   },
 }) => {
-  console.log(schemeType, "schemeType");
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = EmployeeStyles();
   const { t } = useTranslation(["typography", "form", "button"]);
 
-  const { values, setValues, errors, setError, resetForm } = useForm(
+  const { values, setValues } = useForm(
     { ...initialValues, ...enquiry },
     true
     // validate
@@ -99,8 +96,6 @@ const EmployeeForm = ({
     tin,
     status,
   } = values;
-
-  console.log(mpf_id);
 
   useEffect(() => {
     dispatch(fetchSchemeType());
@@ -313,8 +308,6 @@ const EmployeeForm = ({
                           }}
                           helperText="YYYYMMDD"
                         ></Controls.DatePicker>
-
-                       
                       </Grid>
                     </MuiPickersUtilsProvider>
                   </div>

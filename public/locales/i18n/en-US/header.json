@@ -1,4 +1,5 @@
 {
-  "title": "eMPF",
-  "subtitle": "Admin Portal"
+  "project": "eMPF",
+  "framework": "ADMINISTRATION PORTAL",
+  "cycleDate": "{{date, DD MMM YYYY}}"
 }

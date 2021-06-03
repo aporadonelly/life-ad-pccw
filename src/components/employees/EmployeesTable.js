@@ -107,13 +107,18 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
 
   return (
     <>
-      <Grid container alignItems="center" style={{ marginBottom: "-10px" }}>
+      <Grid
+        container
+        alignItems="center"
+        style={{ marginBottom: "-10px" }}
+        m={2}
+      >
         <Grid className={classes.pageTitle} item lg={2} sm={3} xs={12}>
           <Typography variant="h6" component="div">
             {t("typography:heading.searchResult")}
           </Typography>
         </Grid>
-        <Grid className={classes.pageTitle} item lg={8} sm={6} xs={12}>
+        <Grid className={classes.pageTitle} item lg={7} sm={6} xs={12}>
           <Box display="flex" justifyContent="flex-end">
             <AnimatedSearchBar
               placeholder="Quick Search"
@@ -123,7 +128,7 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
             />
           </Box>
         </Grid>
-        <Grid className={classes.pageTitle} item lg={2} sm={3} xs={12}>
+        <Grid className={classes.pageTitle} item lg={3} sm={3} xs={12}>
           <TblPagination />
         </Grid>
       </Grid>
@@ -189,7 +194,12 @@ const EmployeesTable = ({ employees: { employees, employee }, viewMember }) => {
           ))}
         </TableBody>
       </TblContainer>
-      <TblPagination />
+      <Grid container justify="flex-end" style={{ marginTop: "11px" }} m={2}>
+        <Grid className={classes.pageTitle} item lg={3} sm={3} xs={12}>
+          <TblPagination />
+        </Grid>
+      </Grid>
+
       {viewMemberState && <EmployeeItem employee={employee} />}
     </>
   );

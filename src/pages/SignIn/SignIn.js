@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { compose, bindActionCreators } from "redux";
+import {  bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import {
   isLoadingSelector,

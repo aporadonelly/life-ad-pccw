@@ -3,10 +3,11 @@
     "username": "Username",
     "password": "Password",
     "title": "Title",
-    "firstName": "First Name",
-    "lastName": "Last Name",
+    "firstName": "First Name (English)",
+    "lastName": "Last Name (English)",
     "chineseFirstName": "First Name (Chinese)",
     "chineseLastName": "Last Name (Chinese)",
+    "fullName": "Member Name (English)",   
     "mpfId": "MPF ID",
     "mpfSchemeName": "MPF Scheme Name",
     "displayName": "Member Name",
@@ -32,12 +33,19 @@
     "status": "Status",
     "preferredCommunicationChannel": "Preferred Communication Channel",
     "preferredCommunicationLanguage": "Preferred Communication Language",
-    "receivedPaperFormNotificationAndDocument": "Received Paper Form Notification and Document"
+    "receivedPaperFormNotificationAndDocument": "Received Paper Form Notification and Document",
+    "jobTitle": "Job Title",
+    "registeredOfcAddress": "Registered Office Address",
+    "businessAddress":"Business Address",
+    "eSignature": "E - Signature",
+    "female": "Ms.",
+    "male": "Mr.",
+    "mpfID": "MPF ID"
   },
   "placeholder": {
     "custom": {
       "inputEnglishName": "Input English Name",
-      "inputChineseName": "Input English Name",
+      "inputChineseName": "Input Chinese Name",
       "pleaseInput": "Please Input",
       "pleaseSelect": "Please Select"
     }

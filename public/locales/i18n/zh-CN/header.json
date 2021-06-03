@@ -1,4 +1,5 @@
 {
-  "title": "强积金",
-  "subtitle": "管理员门户"
+  "project": "强积金",
+  "framework": "行政门户",
+  "cycleDate": "{{date, DD MMM YYYY}}"
 }

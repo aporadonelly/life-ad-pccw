@@ -1,5 +1,4 @@
 import {
-  EMPLOYEE_API_URL,
   FETCH_EMPLOYEES_SUCCESS,
   FETCH_EMPLOYEES_FAIL,
   VIEW_EMPLOYEE_SUCCESS,
@@ -25,8 +24,12 @@ import {
   FETCH_STATUS_SUCCESS,
   FETCH_POB_SUCCESS,
   FETCH_POB_FAIL,
+  GET_EMPLOYEE_DETAILS,
+  ADD_EMPLOYEE_DETAILS,
+  GET_USER_DETAILS,
 } from "./types";
 import axios from "axios";
+import api from "@pages/Termination/terminationdetails/employeeMockApi";
 
 axios.interceptors.request.use(
   (config) => {
@@ -352,5 +355,33 @@ export const fetchPlaceOfBirth = () => async (dispatch) => {
       type: FETCH_POB_FAIL,
       payload: e,
     });
+  }
+};
+
+export const getEmployeeDetails = () => async (dispatch) => {
+  try {
+    const res = await api.get("employeeDetail");
+    console.log(res);
+    dispatch({
+      type: GET_EMPLOYEE_DETAILS,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log("Oopz", error);
+  }
+};
+
+//add employee details
+export const add_employee_details = (employeeDetails) => async (dispatch) => {
+  console.log("rese:", employeeDetails);
+
+  try {
+    const res = await api.post(`employee-details/${employeeDetails}`);
+    dispatch({
+      type: ADD_EMPLOYEE_DETAILS,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err, "error");
   }
 };

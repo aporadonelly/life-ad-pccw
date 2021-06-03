@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   activeSortIcon: {
     opacity: 1,
   },
@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
       fontWeight: "300",
     },
     "& tbody tr:hover": {
-      backgroundColor: '#fff',
+      backgroundColor: "#fff",
     },
     center: {
       background: "red",
@@ -44,12 +44,12 @@ export default function useTable(employees, headCells, filterFn) {
   const [order, setOrder] = useState();
   const [orderBy, setOrderBy] = useState();
 
-  const TblContainer = props => (
+  const TblContainer = (props) => (
     <Table className={classes.table}>{props.children}</Table>
   );
 
-  const TblHead = props => {
-    const handleSortRequest = cellId => {
+  const TblHead = (props) => {
+    const handleSortRequest = (cellId) => {
       const isAsc = orderBy === cellId && order === "asc";
       setOrder(isAsc ? "desc" : "asc");
       setOrderBy(cellId);
@@ -58,7 +58,7 @@ export default function useTable(employees, headCells, filterFn) {
     return (
       <TableHead>
         <TableRow>
-          {headCells.map(headCell => (
+          {headCells.map((headCell) => (
             <TableCell
               key={headCell.id}
               sortDirection={orderBy === headCell.id ? order : false}
@@ -93,7 +93,7 @@ export default function useTable(employees, headCells, filterFn) {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = event => {
+  const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
@@ -135,7 +135,7 @@ export default function useTable(employees, headCells, filterFn) {
       if (order !== 0) return order;
       return a[1] - b[1];
     });
-    return stabilizedThis.map(el => el[0]);
+    return stabilizedThis.map((el) => el[0]);
   }
 
   const employeesAfterPagingAndSorting = () => {
@@ -148,7 +148,7 @@ export default function useTable(employees, headCells, filterFn) {
   return {
     TblContainer,
     TblHead,
-    TblPagination,
+    // TblPagination,
     employeesAfterPagingAndSorting,
   };
 }

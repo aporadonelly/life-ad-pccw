@@ -1,64 +1,32 @@
-import { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import {
-  systemEnvSelector,
-  cycleDateSelector,
-} from "./redux/features/system/selectors";
-import { userSelector } from "./redux/features/user/selectors";
-import { logout } from "./redux/features/user/actions";
-import { getSystemEnv, getCycleDate } from "./redux/features/system/actions";
-import { Page } from "./components";
 import { SignIn, Page404 } from "./pages";
-import Employees from "./pages/employees/EmployeesPage";
+// import Employees from "./pages/employees/EmployeesPage";
+import Member from "./pages/Member";
 import Employee from "./components/employees/EmployeeItem";
 import EmployeesList from "./components/employees/EmployeesList";
+import Employer from "./pages/Employer";
+import { Page } from "./containers";
+import TerminationRoutes from "./pages/Termination/TerminationRoutes";
+import Termination from "./pages/Termination";
 
-const App = ({
-  systemEnv,
-  cycleDate,
-  user,
-  getSystemEnv,
-  getCycleDate,
-  logout,
-}) => {
-  useEffect(() => {
-    if (user) {
-      setTimeout(() => {
-        getSystemEnv();
-        getCycleDate();
-      }, 1500);
-    }
-  }, [getCycleDate, getSystemEnv, user]);
-  return (
-    <Page
-      systemEnv={systemEnv}
-      cycleDate={cycleDate}
-      user={user}
-      onLogout={logout}
-    >
-      <Switch>
-        <Route path="/employee-search" component={Employees} />
-        <Route path="/employee-search-results" component={EmployeesList} />
-        <Route path="/employee-view" component={Employee} />
-        {process.env.NODE_ENV === "development" && (
-          <Route path={process.env.REACT_APP_REDIRECT_URL} component={SignIn} />
-        )}
-        <Route path="" component={Page404} />
-      </Switch>
-    </Page>
-  );
-};
-
-const mapStateToProps = (state) => ({
-  systemEnv: systemEnvSelector(state),
-  cycleDate: cycleDateSelector(state),
-  user: userSelector(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  ...bindActionCreators({ getSystemEnv, getCycleDate, logout }, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+const App = () => (
+  <Page>
+    <Switch>
+      {/* <Route path="/employee-search" component={Employees} /> */}
+      <Route path="/employee-search-results" component={EmployeesList} />
+      <Route path="/employee-view" component={Employee} />
+      <Route path="/employer" render={(props) => <Employer {...props} />} />
+      <Route path="/members" render={(props) => <Member {...props} />} />
+      <Route
+        path="/employee"
+        render={(props) => <TerminationRoutes {...props} />}
+      />
+      <Route path="/employee-termination/:id" component={Termination} />
+      {process.env.NODE_ENV === "development" && (
+        <Route path={process.env.REACT_APP_REDIRECT_URL} component={SignIn} />
+      )}
+      <Route path="" component={Page404} />
+    </Switch>
+  </Page>
+);
+export default App;
