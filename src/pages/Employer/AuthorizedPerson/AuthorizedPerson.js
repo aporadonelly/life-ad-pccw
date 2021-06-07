@@ -74,7 +74,7 @@ export default function AuthorizedPerson({ authPerson }) {
                     <TableCell>{row.chineseFirstName}</TableCell>
                     <TableCell align="right">
                       <Tooltip title="View" placement="top" arrow>
-                        <Icon style={{ cursor: "pointer" }} onClick={() => { console.log('rowto', row.clntUuid) }}>
+                        <Icon style={{ cursor: "pointer" }} onClick={() => { console.log('Client Uuid', row.clntUuid) }}>
                           <img src={ViewButton} width="32px" />
                         </Icon>
                       </Tooltip>

@@ -64,7 +64,7 @@ const EnhancedTableHead = (props) => {
       <TableRow>
         {columns.map((column) => (
           <TableCell key={column.label} classes={headClasses}>
-            <TableSortLabel onClick={() => {}}>{column.label}</TableSortLabel>
+            <TableSortLabel onClick={() => { }}>{column.label}</TableSortLabel>
           </TableCell>
         ))}
         {stickyLabel && (
@@ -115,24 +115,28 @@ const TableCustomized = (props) => {
 
   return (
     <TableContainer classes={containerClasses} component={Paper} elevation={0}>
-      <Toolbar disableGutters>
-        {title && (
-          <Typography variant="h6" color="primary">
-            Member Search
-          </Typography>
-        )}
-        <TablePagination
-          component="div"
-          classes={paginationClasses}
-          colSpan={3}
-          count={rows.length}
-          labelRowsPerPage=""
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          ActionsComponent={TablePaginationActions}
-        />
-      </Toolbar>
+      {
+        // get(stickyLabel) != undefined ? (
+        <Toolbar disableGutters>
+          {title && (
+            <Typography variant="h6" color="primary">
+              Member Search
+            </Typography>
+          )}
+          <TablePagination
+            component="div"
+            classes={paginationClasses}
+            colSpan={3}
+            count={rows.length}
+            labelRowsPerPage=""
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            ActionsComponent={TablePaginationActions}
+          />
+        </Toolbar>
+        // ) : null
+      }
       <Table classes={tableClasses}>
         <EnhancedTableHead columns={columns} stickyLabel={stickyLabel} />
         <EnhancedTableBody

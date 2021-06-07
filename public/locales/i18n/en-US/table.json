@@ -10,10 +10,10 @@
     "custom": {
       "action": "Action"
     },
-    "lastNameEng": "Last Name in English",
-    "lastNameChi": "Last Name in Chinese",
-    "firstNameEng": "First Name in English",
-    "firstNameChi": "First Name in Chinese",
+    "lastName": "Last Name in English",
+    "chineseLastName": "Last Name in Chinese",
+    "firstName": "First Name in English",
+    "chineseFirstName": "First Name in Chinese",
     "viewAction": "View"
   },
   "tbody": {

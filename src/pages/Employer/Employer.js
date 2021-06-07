@@ -6,6 +6,11 @@ import { PageHeader } from "@components/layout";
 const routes = [
   {
     name: "Company Registration Information",
+    path: "/employer",
+    component: null,
+  },
+  {
+    name: "Company Registration Informations",
     path: "/employer/profile",
     component: null,
   },
@@ -21,11 +26,19 @@ const Employer = (props) => {
 
   return (
     <>
-      <PageHeader routes={routes} />
+      <PageHeader routes={routes}>
+        <PageHeader.SubjectInfo
+          subject="ABC Company Limited"
+          info={{
+            "Employer NO.": 123132,
+          }}
+        />
+        <PageHeader.SubjectInfo subject="Branch 002" />
+      </PageHeader>
       <Switch>
         <Route exact path={`${path}`} component={CompanyProfile} />
         <Route path={`${path}/profile`} component={ViewProfile} />
-        <Route path={`${path}//employer/enrollment-scheme`} component={null} />
+        <Route path={`${path}/employer/enrollment-scheme`} component={null} />
       </Switch>
     </>
   );

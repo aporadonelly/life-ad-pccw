@@ -10,10 +10,10 @@
     "custom": {
       "action": "行动"
     },
-    "lastNameEng": "英文姓氏",
-    "lastNameChi": "中文姓氏",
-    "firstNameEng": "英文名字",
-    "firstNameChi": "中文名字",
+    "lastName": "英文姓氏",
+    "chineseLastName": "中文姓氏",
+    "firstName": "英文名字",
+    "chineseFirstName": "中文名字",
     "viewAction": "看法"
   },
   "tbody": {
