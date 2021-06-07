@@ -38,7 +38,22 @@
     "businessAddress":"營業地址",
     "eSignature": "電子簽名",
     "female": "小姐。",
-    "male": "先生。"
+    "male": "先生。",
+
+    "employerAcctNo": "雇主帳號",
+    "companyNameEnglish": "公司名稱（英文）",
+    "companyNameChinese": "公司名稱（中文）",
+    "registrationType": "註冊類型",
+    "registrationNumber": "註冊號碼",
+    "branchNumber": "分行號碼",
+    "typesOfCompany": "公司類型",
+    "dateOfIncorporation": "註冊成立日期",
+    "natureOfBusiness": "業務性質",
+    "referenceNoOfMpfOrServiceAgent": "強積金中介人/服務代理人參考編號",
+    "registrationStatus": "註冊狀態",
+    "trustee": "受託人",
+    "scheme": "方案",
+    "enrolmentStatus": "註冊狀態"
   },
   "placeholder": {
     "custom": {

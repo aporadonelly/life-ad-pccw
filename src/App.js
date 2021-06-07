@@ -15,7 +15,7 @@ const App = () => (
       {/* <Route path="/employee-search" component={Employees} /> */}
       <Route path="/employee-search-results" component={EmployeesList} />
       <Route path="/employee-view" component={Employee} />
-      <Route path="/employer" render={(props) => <Employer {...props} />} />
+      <Route path="/employers" render={(props) => <Employer {...props} />} />
       <Route path="/members" render={(props) => <Member {...props} />} />
       <Route
         path="/employee"

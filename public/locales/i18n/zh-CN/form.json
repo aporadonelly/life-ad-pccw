@@ -38,7 +38,22 @@
     "businessAddress":"营业地址",
     "eSignature": "电子签名",
     "female": "小姐",
-    "male": "先生。"
+    "male": "先生。",
+
+    "employerAcctNo": "雇主帐号",
+    "companyNameEnglish": "公司名称（英文）",
+    "companyNameChinese": "公司名称（中文）",
+    "registrationType": "注册类型",
+    "registrationNumber": "注册号码",
+    "branchNumber": "分行号码",
+    "typesOfCompany": "公司类型",
+    "dateOfIncorporation": "注册成立日期",
+    "natureOfBusiness": "业务性质",
+    "referenceNoOfMpfOrServiceAgent": "强积金中介人/服务代理人参考编号",
+    "registrationStatus": "注册状态",
+    "trustee": "受托人",
+    "scheme": "方案",
+    "enrolmentStatus": "注册状态"
   },
   "placeholder": {
     "custom": {

@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 import { PageInner } from "@components/layout";
 import { Form } from "@components/common";
 import { BottomAppBar } from "@components/misc";
-import EmployeeStyles from "../../../components/employees/styles/EmployeeStyles";
+import EmployeeStyles from "@components/employees/styles/EmployeeStyles";
 
 const initialValues = {
   mpfID: "",

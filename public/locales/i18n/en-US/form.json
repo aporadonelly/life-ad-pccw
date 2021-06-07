@@ -40,7 +40,23 @@
     "eSignature": "E - Signature",
     "female": "Ms.",
     "male": "Mr.",
-    "mpfID": "MPF ID"
+    "mpfID": "MPF ID",
+    
+    "employerAcctNo": "Employer Account No.",
+    "companyNameEnglish": "Company Name (English)",
+    "companyNameChinese": "Company Name (Chinese)",
+    "registrationType": "Registration Type",
+    "registrationNumber": "Registration No.",
+    "branchNumber": "Branch No.",
+    "typesOfCompany": "Types of Company",
+    "dateOfIncorporation": "Date of Incorporation",
+    "natureOfBusiness": "Nature of Business",
+    "referenceNoOfMpfOrServiceAgent": "Reference No. Of MPF Intermediary / Service Agent",
+    "registrationStatus": "Registration Status",
+    "trustee": "Trustee",
+    "scheme": "Scheme",
+    "enrolmentStatus": "Enrollment Status"
+
   },
   "placeholder": {
     "custom": {
