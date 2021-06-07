@@ -1,11 +1,10 @@
 import { Switch, Route } from "react-router-dom";
 import { AuthWrapper } from "@hocs";
-import { Box } from "@material-ui/core";
 
 const createRoutes = (routes) => {
   const renderRoutes = (routes) =>
     routes.map((route) => {
-      const wrappedComponent = AuthWrapper(route.component ?? Box);
+      const wrappedComponent = AuthWrapper(route.component);
 
       if (route.children) {
         return <Switch>{renderRoutes(route.children)}</Switch>;
