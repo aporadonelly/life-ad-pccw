@@ -38,7 +38,7 @@ const NavTabs = (props) => {
               tabs: children,
             });
           }
-          result["lvl1"].push(route);
+          route.tab && result["lvl1"].push(route);
           return result;
         },
         { lvl1: [], lvl2: [] }

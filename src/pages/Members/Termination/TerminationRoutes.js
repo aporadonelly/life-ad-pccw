@@ -1,55 +1,7 @@
-import { Switch, Route } from "react-router-dom";
-import Termination from "./index";
 import { PageHeader } from "@components/layout";
-
-const routes = [
-  {
-    name: "Enrollment",
-    path: "/employee/enrollment",
-    component: null,
-  },
-  {
-    name: "Investment",
-    path: "/employee/investment",
-    component: null,
-  },
-  {
-    name: "Termination",
-    path: "/employee-termination",
-    component: Termination,
-  },
-  {
-    name: "Claims",
-    path: "/employee/claims",
-    component: null,
-  },
-  {
-    name: "Transfers",
-    path: "/employee/transfers",
-    component: null,
-  },
-  // NOTE: for future nested tabs
-  // {
-  //   name: "Investment",
-  //   path: "/employer/investment",
-  //   component: null,
-  //   children: [
-  //     {
-  //       name: "Future Investment Instruction",
-  //       path: "/employer/investment/future-investment",
-  //       component: null,
-  //     },
-  //     {
-  //       name: "Fund Switching / Re-balancing",
-  //       path: "/employer/investment/fund-switching",
-  //       component: null,
-  //     },
-  //   ],
-  // },
-];
+import { membersRoutes } from "@routes";
 
 const TerminationRoutes = (props) => {
-  const path = props.match.path;
   const empSubject = props.clientSchemes;
   let subjInfoName = "Chan, Tai Man",
     subjAccountID = "3746474",
@@ -69,7 +21,7 @@ const TerminationRoutes = (props) => {
   }
   return (
     <>
-      <PageHeader routes={routes}>
+      <PageHeader routes={membersRoutes}>
         <PageHeader.SubjectInfo
           subject={subjInfoName}
           info={{
@@ -83,10 +35,6 @@ const TerminationRoutes = (props) => {
         />
         <PageHeader.SubjectInfo subject={subjSchemeName} />
       </PageHeader>
-
-      <Switch>
-        <Route exact path={`${path}`} />
-      </Switch>
     </>
   );
 };

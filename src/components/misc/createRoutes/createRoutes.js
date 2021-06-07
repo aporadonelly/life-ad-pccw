@@ -1,24 +1,30 @@
 import { Switch, Route } from "react-router-dom";
-import { nanoid } from "@reduxjs/toolkit";
+import { AuthWrapper } from "@hocs";
+import { Box } from "@material-ui/core";
 
-const createRoutes = (routes) => (
-  <Switch key={nanoid()}>
-    {routes.map((route) => {
-      const hasChildren = route.children ? true : false;
-      if (!hasChildren) {
-        return (
-          <Route
-            key={route.name}
-            exact={route.exact}
-            name={route.name}
-            path={route.path}
-            component={route.component}
-          />
-        );
+const Component = () => <Box />;
+
+const createRoutes = (routes) => {
+  const renderRoutes = (routes) =>
+    routes.map((route) => {
+      const wrappedComponent = AuthWrapper(route.component ?? Component);
+
+      if (route.children) {
+        return <Switch>{renderRoutes(route.children)}</Switch>;
       }
-      return createRoutes(route.children);
-    })}
-  </Switch>
-);
+
+      return (
+        <Route
+          key={route.name}
+          exact={route.exact}
+          name={route.name}
+          path={route.path}
+          component={wrappedComponent}
+        />
+      );
+    });
+
+  return <Switch>{renderRoutes(routes)}</Switch>;
+};
 
 export default createRoutes;

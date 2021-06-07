@@ -2,7 +2,7 @@ import { createReducer } from "@reduxjs/toolkit";
 import { initialState } from "./state";
 import { getSystemEnv, getCycleDate, loadTermReason } from "./actions";
 import { persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import storage from "redux-persist/lib/storage/session";
 
 const persistConfig = {
   key: "system",

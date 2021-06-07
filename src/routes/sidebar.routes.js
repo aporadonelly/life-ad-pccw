@@ -22,7 +22,7 @@ const sidebarRoutes = [
   {
     name: "member",
     path: "/members",
-    redirect: "/members/enquiry",
+    redirect: "/members/termination",
     icon: <PeopleOutlineOutlinedIcon />,
     component: null,
   },
