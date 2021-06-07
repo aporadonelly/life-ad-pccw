@@ -41,12 +41,12 @@ const Members = ({ employees, isLoading, getSpecificMember, saveEnquiry }) => {
   };
 
   const handleEditSearch = () => {
-    history.push("/members/enquiry");
+    history.push("/members/enquiry/search");
   };
 
   const handleNewSearch = () => {
     saveEnquiry({});
-    history.push("/members/enquiry");
+    history.push("/members/enquiry/search");
   };
 
   return (

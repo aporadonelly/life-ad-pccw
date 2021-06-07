@@ -241,7 +241,7 @@ const ViewMember = ({ employee }) => {
             <Grid container component="dl" spacing={1} justify="flex-end">
               <Button
                 data-testid="back-btn"
-                onClick={() => history.push("/members")}
+                onClick={() => history.push("/members/enquiry/result")}
               >
                 {t("button:backToSearch")}
               </Button>

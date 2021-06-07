@@ -134,7 +134,7 @@ export const getAllMembers = createAsyncThunk(
   async (payload, { rejectWithValue, dispatch }) => {
     try {
       const employees = await employeesAdapter.searchMembers(payload);
-      dispatch(push("/members"));
+      dispatch(push("/members/enquiry/result"));
       dispatch(saveEnquiry(payload));
       return { employees: employees.content };
     } catch (error) {
@@ -148,7 +148,7 @@ export const getSpecificMember = createAsyncThunk(
   async (payload, { rejectWithValue, dispatch }) => {
     try {
       const employee = await employeesAdapter.viewMember(payload);
-      dispatch(push("/members/details"));
+      dispatch(push("/members/enquiry/information"));
       return { employee };
     } catch (error) {
       return rejectWithValue({ error });
