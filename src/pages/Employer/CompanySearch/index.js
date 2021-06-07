@@ -1,23 +1,21 @@
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import {
+  employersSelector,
   isLoadingSelector,
   errorSelector,
-  employersSelector,
-  authPersonSelector,
 } from "@redux/features/employers/selectors";
 import { getEmployers } from "@redux/features/employers/actions";
-import ViewProfile from "./ViewProfile";
+import Companies from "./CompanySearch";
 
 const mapStateToProps = (state) => ({
+  employers: employersSelector(state),
   isLoading: isLoadingSelector(state),
   error: errorSelector(state),
-  employers: employersSelector(state),
-  authPerson: authPersonSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({ getEmployers }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ViewProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(Companies);

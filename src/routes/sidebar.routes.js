@@ -38,6 +38,7 @@ const sidebarRoutes = [
   {
     name: "employer",
     path: "/employers",
+    redirect: "/employers/enquiry",
     icon: <BusinessCenterOutlinedIcon />,
     component: null,
   },

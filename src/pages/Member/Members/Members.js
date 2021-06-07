@@ -10,6 +10,7 @@ import {
   CircularProgress,
   Box,
   Tooltip,
+  Toolbar,
 } from "@material-ui/core";
 import { PageInner } from "@components/layout";
 import { useTranslation } from "react-i18next";
@@ -163,6 +164,7 @@ const Members = ({ employees, isLoading, getSpecificMember, saveEnquiry }) => {
           </Grid>
         </Grid>
       )}
+      <Toolbar variant="regular" />
     </PageInner>
   );
 };
