@@ -5,7 +5,7 @@ import { Form as FormikForm } from "@components/common";
 
 import { Form } from "@components/UseForm";
 import useStyles from "./EmployeeDetailStyles";
-import * as employeeMockData from "@pages/employees/mockData/mockData";
+import * as employeeMockData from "@mockData";
 
 import EmpScheme4 from "./EmployeeScheme4";
 

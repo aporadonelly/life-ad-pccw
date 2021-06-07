@@ -1,21 +1,21 @@
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import { useLocation } from "react-router-dom";
 import { userSelector } from "@redux/features/user/selectors";
+import { isObject } from "lodash";
 
 const AuthWrapper = (WrappedComponent) => {
   const Wrapper = ({ user, ...props }) => {
-    const { pathname } = useLocation();
-
     useEffect(() => {
-      if (!user && pathname !== process.env.REACT_APP_REDIRECT_URL) {
-        window.location.href = process.env.REACT_APP_REDIRECT_URL;
+      if (!isObject(user)) {
+        window.location.href = `${window.location.origin}${process.env.REACT_APP_REDIRECT_URL}`;
       }
-    }, [user, pathname]);
+    }, [user]);
 
-    if (!user) return null;
+    if (isObject(user)) {
+      return <WrappedComponent {...props} />;
+    }
 
-    return <WrappedComponent {...props} />;
+    return null;
   };
 
   const mapStateToProps = (state) => ({

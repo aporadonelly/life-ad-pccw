@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { AuthWrapper } from "@hocs";
+import { Page } from "@containers";
 import EmployeeDetails from "./terminationdetails/EmployeeDetails";
 import { useParams } from "react-router-dom";
 import TerminationRoutes from "./TerminationRoutes";
@@ -16,7 +16,7 @@ const Termination = (props) => {
     // eslint-disable-next-line
   }, []);
   return (
-    <>
+    <Page>
       {isLoading ? (
         <Box display="flex" justifyContent="center" mt={5}>
           <CircularProgress />
@@ -32,7 +32,7 @@ const Termination = (props) => {
           <EmployeeDetails {...props} />
         </>
       )}
-    </>
+    </Page>
   );
 };
 
