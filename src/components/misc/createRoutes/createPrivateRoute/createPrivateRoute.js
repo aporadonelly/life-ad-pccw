@@ -1,8 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
 import { userSelector } from "@redux/features/user/selectors";
-import { Box } from "@material-ui/icons";
+import { Box } from "@material-ui/core";
 
 const createPrivateRoute = ({ component }) => {
   const PrivateRoute = (props) => {
@@ -12,9 +11,9 @@ const createPrivateRoute = ({ component }) => {
       return React.createElement(component ?? Box, rest);
     }
 
-    return (
-      <Redirect to={{ pathname: "/signin", state: { from: rest.location } }} />
-    );
+    window.location.href = `${window.location.origin}${process.env.REACT_APP_REDIRECT_URL}`;
+
+    return null;
   };
 
   const mapStateToProps = (state) => ({
