@@ -18,7 +18,6 @@ import {
 import { useTranslation } from "react-i18next";
 import { Form } from "@components/common";
 import { BottomAppBar } from "@components/misc";
-import EmployeeStyles from "../../../components/employees/styles/EmployeeStyles";
 
 const initialValues = {
   mpfID: "",
@@ -72,7 +71,6 @@ const MemberSearch = ({
   saveEnquiry,
   enquiry,
 }) => {
-  const classes = EmployeeStyles();
   const { t } = useTranslation(["typography", "form", "button"]);
 
   useEffect(() => {
@@ -403,14 +401,8 @@ const MemberSearch = ({
                             />
                           </Grid>
                         </Grid>
-                        <Grid
-                          container
-                          item
-                          xs={12}
-                          justify="flex-end"
-                          className={classes.fieldSpacing}
-                        >
-                          <div className={classes.formBtnContainer}>
+                        <Grid container item xs={12} justify="flex-end">
+                          <div>
                             <BottomAppBar>
                               <Form.Reset variant="outlined" color="default">
                                 {t("button:clear")}

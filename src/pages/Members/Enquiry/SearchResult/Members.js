@@ -15,10 +15,10 @@ import { Page } from "@containers";
 import { PageInner } from "@components/layout";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import viewEnrollActive from "../../../assets/icons/enroll-active.PNG";
-import viewEnrollInActive from "../../../assets/icons/enroll-inactive.PNG";
-import viewRegistration from "../../../assets/icons/view_reg.PNG";
-import MembersEnquiry from "../Members/MembersEnquiry";
+import viewEnrollActive from "@assets/icons/enroll-active.PNG";
+import viewEnrollInActive from "@assets/icons/enroll-inactive.PNG";
+import viewRegistration from "@assets/icons/view_reg.PNG";
+import MembersEnquiry from "./MembersEnquiry";
 
 const Members = ({ employees, isLoading, getSpecificMember, saveEnquiry }) => {
   const history = useHistory();
