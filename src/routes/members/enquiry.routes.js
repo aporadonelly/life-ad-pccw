@@ -1,24 +1,24 @@
-import Search from "@pages/Members/Enquiry/Search";
-import Result from "@pages/Members/Enquiry/Result";
-import Information from "@pages/Members/Enquiry/Information";
+import EnquirySearch from "@pages/Members/Enquiry/EnquirySearch";
+import SearchResult from "@pages/Members/Enquiry/SearchResult";
+import ViewInformation from "@pages/Members/Enquiry/ViewInformation";
 
 const enquiryRoutes = [
   {
-    name: "Search",
+    name: "EnquirySearch",
     path: "/members/enquiry/search",
-    component: Search,
+    component: EnquirySearch,
     tab: false,
   },
   {
-    name: "Result",
+    name: "SearchResult",
     path: "/members/enquiry/result",
-    component: Result,
+    component: SearchResult,
     tab: false,
   },
   {
-    name: "Information",
+    name: "ViewInformation",
     path: "/members/enquiry/information",
-    component: Information,
+    component: ViewInformation,
     tab: false,
   },
 ];

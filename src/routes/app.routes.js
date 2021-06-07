@@ -1,3 +1,5 @@
+import Members from "@pages/Members";
+
 const appRoutes = [
   {
     name: "Task",
@@ -8,7 +10,7 @@ const appRoutes = [
   {
     name: "Member",
     path: "/members",
-    component: null,
+    component: Members,
     tab: false,
   },
   {
