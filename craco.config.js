@@ -15,6 +15,7 @@ module.exports = {
       "@hocs": path.resolve(__dirname, "src/hocs"),
       "@utils": path.resolve(__dirname, "src/utils"),
       "@menu": path.resolve(__dirname, "src/menu"),
+      "@mockData": path.resolve(__dirname, "src/mockData"),
       "@pages": path.resolve(__dirname, "src/pages"),
       "@reducers": path.resolve(__dirname, "src/reducers"),
       "@redux": path.resolve(__dirname, "src/redux"),
