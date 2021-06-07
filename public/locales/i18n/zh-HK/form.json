@@ -35,8 +35,6 @@
     "receivedPaperFormNotificationAndDocument": "收到紙質表格通知和文件",
     "jobTitle": "職稱",
     "registeredOfcAddress": "註冊辦事處地址",
-    "businessAddress": "營業地址",
-    "eSignature": "電子簽名",
     "companyNameEnglish": "公司名稱（英文）",
     "companyNameChinese": "公司名稱（中文",
     "typeOfCompany": "公司類型",
@@ -51,7 +49,11 @@
     "telNo": "電話號碼。",
     "mobileNo": "手機號碼",
     "fileName": "文件名",
-    "viewAction": "看法"
+    "viewAction": "看法",
+    "businessAddress":"營業地址",
+    "eSignature": "電子簽名",
+    "female": "小姐。",
+    "male": "先生。"
   },
   "placeholder": {
     "custom": {

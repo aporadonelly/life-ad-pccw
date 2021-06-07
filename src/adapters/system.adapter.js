@@ -10,6 +10,56 @@ class SystemAdapter extends AxiosAdapter {
   getSystemEnv() {
     return this.instance.get("/getSystemEnv");
   }
+
+  //fetch gender data
+  fetchGender() {
+    return this.instance.get("/getCustomTypList?groupId=GD");
+  }
+
+  //fetch ID Type
+  fetchIdType() {
+    return this.instance.get("/getCustomTypList?groupId=ID");
+  }
+
+  //Fetch Nationality
+  fetchNationality() {
+    return this.instance.get("/getCustomTypList?groupId=NTN");
+  }
+
+  //Fetch Place of Birth
+  fetchPlaceOfBirth() {
+    return this.instance.get("/getCountryLst");
+  }
+
+  //Fetch Employee Type
+  fetchEmployeeType() {
+    return this.instance.get("/getCustomTypList?groupId=EP");
+  }
+
+  //Fetch Industry Type
+  fetchIndustryType() {
+    return this.instance.get("/getCustomTypList?groupId=NT");
+  }
+
+  //Fetch Occupation
+  fetchOccupation() {
+    return this.instance.get("/getCustomTypList?groupId=MB");
+  }
+
+  //Fetch Scheme Type
+  fetchSchemeType() {
+    return this.instance.get("/getCustomTypList?groupId=SC");
+  }
+
+  //Fetch Status
+  fetchStatus() {
+    return this.instance.get("/getCustomTypList?groupId=ST");
+  }
+
+  // previously from termination
+  getReason() {
+    return this.instance.get("/getTermRsnLst");
+  }
 }
 
 export default new SystemAdapter({

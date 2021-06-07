@@ -1,10 +1,8 @@
 import { connect } from "react-redux";
 import CompanyProfile from "./CompanyProfile";
 import { bindActionCreators } from "redux";
-import { companyRegInfoSelector, errorSelector, isLoadingSelector } from "../../../redux/features/company/selector";
-import { LdRegCmpnyInfoforAdmnPrtl } from "@redux/features/company/action";
-import { getAuthorizedPersonList } from "@redux/features/employers/actions";
-import { authPersonInfoListSelector } from "../../../redux/features/employers/selectors";
+import { getAuthorizedPersonList, LdRegCmpnyInfoforAdmnPrtl } from "@redux/features/employers/actions";
+import { authPersonInfoListSelector, companyRegInfoSelector, isLoadingSelector, errorSelector } from "../../../redux/features/employers/selectors";
 
 const mapStateToProps = state => ({
   isLoading: isLoadingSelector(state),

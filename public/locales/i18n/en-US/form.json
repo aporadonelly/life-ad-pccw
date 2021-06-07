@@ -7,6 +7,7 @@
     "lastName": "Last Name (English)",
     "chineseFirstName": "First Name (Chinese)",
     "chineseLastName": "Last Name (Chinese)",
+    "fullName": "Member Name (English)",   
     "mpfId": "MPF ID",
     "mpfSchemeName": "MPF Scheme Name",
     "displayName": "Member Name",
@@ -35,8 +36,11 @@
     "receivedPaperFormNotificationAndDocument": "Received Paper Form Notification and Document",
     "jobTitle": "Job Title",
     "registeredOfcAddress": "Registered Office Address",
-    "businessAddress": "Business Address",
+    "businessAddress":"Business Address",
     "eSignature": "E - Signature",
+    "female": "Ms.",
+    "male": "Mr.",
+    "mpfID": "MPF ID",
     "companyNameEnglish": "Company Name (English)",
     "companyNameChinese": "Company Name (Chinese)",
     "typeOfCompany": "Type of Company",
@@ -56,7 +60,7 @@
   "placeholder": {
     "custom": {
       "inputEnglishName": "Input English Name",
-      "inputChineseName": "Input English Name",
+      "inputChineseName": "Input Chinese Name",
       "pleaseInput": "Please Input",
       "pleaseSelect": "Please Select"
     }

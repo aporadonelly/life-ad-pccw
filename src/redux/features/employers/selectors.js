@@ -11,6 +11,11 @@ export const authPersonSelector = createSelector(
   (state) => state.authPerson
 );
 
+export const companyRegInfoSelector = createSelector(
+  stateSelector,
+  (state) => state.companyRegInfo
+);
+
 export const authPersonInfoListSelector = createSelector(
   stateSelector, (state) => state.authPersonList
 );

@@ -10,6 +10,13 @@ class EmployerAdapter extends AxiosAdapter {
       params: { id: 2 },
     });
   }
+
+  LdRegCmpnyInfoforAdmnPrtl(clientId) {
+    return this.instance.get("/companyReg", {
+      // params: { client_uuid: 149 },
+    });
+  }
+
   LdAuthPrsnInfo() {
     const cmpnyUuid = "7732B905-E9C1-4895-959E-FDCE74C856B3";
     return this.instance.get("/ldAuthPrsnInfo", {
@@ -20,5 +27,6 @@ class EmployerAdapter extends AxiosAdapter {
 }
 
 export default new EmployerAdapter({
-  baseURL: process.env.REACT_APP_REGISTRATION_ER_BASE_URL,
+  // baseURL: process.env.REACT_APP_REGISTRATION_ER_BASE_URL
+  baseURL: "http://localhost:4000"
 });

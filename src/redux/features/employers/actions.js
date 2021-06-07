@@ -29,6 +29,18 @@ export const viewAuthPerson = createAsyncThunk(
   }
 );
 
+export const LdRegCmpnyInfoforAdmnPrtl = createAsyncThunk(
+  "@@EMPF/COMPANY/GET_COMPANY_REG_INFO",
+  async (_payload, { rejectWithValue }) => {
+    try {
+      const companyRegInfo = await employerAdapter.LdRegCmpnyInfoforAdmnPrtl();
+      return { companyRegInfo };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
 export const getAuthorizedPersonList = createAsyncThunk(
   "@@EMPF/EMPLOYER/GET_AUTH_PERSON_INFO",
   async (_payload, { rejectWithValue }) => {

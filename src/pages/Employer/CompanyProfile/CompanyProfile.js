@@ -27,7 +27,6 @@ const CompanyProfile = (props) => {
   const { t } = useTranslation(["typography", "form", "table", "button"]);
 
   const { LdRegCmpnyInfoforAdmnPrtl, getAuthorizedPersonList, companyRegInfo, authPersonList, isLoading } = props;
-
   const columns = [
     { label: t("table:thead.lastName"), name: "lastName" },
     { label: t("table:thead.firstName"), name: "firstName" },
@@ -291,7 +290,7 @@ CompanyProfile.propTypes = {
     secondaryContactPerson: PropTypes.object,
     supportingDocuments: PropTypes.arrayOf(PropTypes.object)
   })),
-  LdRegCmpnyInfoforAdmnPrtl: PropTypes.func.isRequired
+  LdRegCmpnyInfoforAdmnPrtl: PropTypes.func.isRequired,
 }
 
 CompanyProfile.defaultProps = {

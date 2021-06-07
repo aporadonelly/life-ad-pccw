@@ -6,8 +6,12 @@ export const usePaginationStyles = makeStyles((theme) => ({
   },
   toolbar: {
     flexDirection: "row-reverse",
+    padding: 0,
   },
   selectRoot: {
+    display: "none",
+  },
+  spacer: {
     display: "none",
   },
 }));
@@ -18,7 +22,6 @@ export const usePaginationActionsStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "space-between",
     margin: theme.spacing(0, 1),
-    width: 250,
   },
   page: {
     fontSize: "0.75rem",
@@ -27,6 +30,7 @@ export const usePaginationActionsStyles = makeStyles((theme) => ({
     borderStyle: "solid",
     borderColor: theme.palette.grey[400],
     padding: theme.spacing(0.35, 1.5),
+    margin: theme.spacing(0, 0.75),
     lineHeight: 1,
   },
   buttonBase: {
@@ -79,11 +83,45 @@ export const useContainerStyles = makeStyles((theme) => ({
   },
 }));
 
+export const useToolbarStyles = makeStyles((theme) => ({
+  root: {
+    justifyContent: "space-between",
+    "& > *": {
+      margin: theme.spacing(0, 1.5),
+      "&:first-child": {
+        marginLeft: 0,
+      },
+      "&:last-child": {
+        marginRight: 0,
+      },
+    },
+  },
+}));
+
+export const useScrollbarStyles = makeStyles((theme) => ({
+  root: {
+    position: "relative",
+    height: "100%",
+    overflow: "hidden",
+    paddingBottom: theme.spacing(3),
+    "& .ps__rail-x": {
+      bottom: 0,
+      position: "absolute",
+    },
+    "& .ps__thumb-x": {
+      backgroundColor: "#E6E6E6",
+      borderRadius: 14,
+      height: 23,
+      bottom: 0,
+      position: "absolute",
+    },
+  },
+}));
+
 export const useTableStyles = makeStyles((theme) => ({
   root: {
-    display: "block",
-    width: "100%",
-    overflowX: "scroll",
+    position: "relative",
+    zIndex: 1,
   },
 }));
 
@@ -116,5 +154,6 @@ export const useStickyStyles = makeStyles((theme) => ({
     position: "sticky",
     right: 0,
     backgroundColor: theme.palette.common.white,
+    whiteSpace: "nowrap",
   },
 }));

@@ -15,18 +15,14 @@ import {
 } from "@material-ui/icons";
 
 const SelectField = (props) => {
-  const {
-    helpers,
-    initialValue,
-    data,
-    placeholder,
-    clearButton,
-    ...rest
-  } = defaultsDeep(props, SelectField.defaultProps);
+  const { helpers, data, placeholder, clearButton, ...rest } = defaultsDeep(
+    props,
+    SelectField.defaultProps
+  );
   const classes = useStyles();
 
   const handleClear = () => {
-    helpers.setValue(initialValue);
+    helpers.setValue("");
   };
 
   return (

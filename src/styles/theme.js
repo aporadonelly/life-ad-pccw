@@ -8,6 +8,9 @@ const theme = createMuiTheme({
     secondary: {
       main: "#EF841F",
     },
+    common: {
+      highlighted: "#FFD748",
+    },
   },
   typography: {
     fontFamily: "'Roboto', sans-serif",
@@ -117,6 +120,13 @@ theme.overrides = {
     root: {
       padding: 0,
       width: "100%",
+    },
+  },
+  MuiTableRow: {
+    root: {
+      "&:last-child td": {
+        borderBottom: 0,
+      },
     },
   },
 };

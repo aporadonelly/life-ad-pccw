@@ -13,7 +13,8 @@
     "primaryContactPerson": "主要联系人",
     "secondaryContactPerson": "次要联系人",
     "supportingDocs": "商业登记证明/合伙契约/非法人团体的证明",
-    "authorizedPerson": "授权人"
+    "authorizedPerson": "授权人" ,
+    "memberSearch": "会员搜索"   
   },
   "paragraph": {}
 }
