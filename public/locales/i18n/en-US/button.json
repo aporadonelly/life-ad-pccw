@@ -5,5 +5,7 @@
   "newSearch": "New Search",
   "editSearch": "Edit Search",
   "backToSearch": "Back to Search",
-  "backToCompanyProfile": "Back"
+  "edit": "edit",
+  "backToCompanyProfile": "Back",
+  "back": "Back"
 }

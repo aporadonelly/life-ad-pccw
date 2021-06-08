@@ -40,7 +40,22 @@
     "eSignature": "E - Signature",
     "female": "Ms.",
     "male": "Mr.",
-    "mpfID": "MPF ID"
+    "mpfID": "MPF ID",
+    "companyNameEnglish": "Company Name (English)",
+    "companyNameChinese": "Company Name (Chinese)",
+    "typeOfCompany": "Type of Company",
+    "dateOfIncorporation": "Date of Incorporation",
+    "placeOfIncorporation": "Place of Incorporation",
+    "registrationType": "Registration Type",
+    "registrationNumber": "Registration Number",
+    "branchNumber": "Branch Number",
+    "natureOfBusiness": "Nature of Business",
+    "lastNameContactPerson": "Last Name",
+    "firstNameContactPerson": "First Name",
+    "telNo": "Telephone No.",
+    "mobileNo": "Mobile Phone No.",
+    "fileName": "File Name",
+    "viewAction": "View"
   },
   "placeholder": {
     "custom": {
