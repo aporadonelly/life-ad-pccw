@@ -1,8 +1,19 @@
+import Contribution from "@pages/Employers/Contribution";
+import { enrollmentEnquiriesRoutes } from "./employers";
+
 const employersRoutes = [
   {
-    name: "Enquiry",
-    path: "/employers/enquiry",
-    component: null,
+    name: "Enrollment Enquiries",
+    path: "/employers/enquiries",
+    redirect: "/employers/enquiries/search",
+    children: enrollmentEnquiriesRoutes,
+    tab: true,
+  },
+  {
+    name: "Contribution",
+    path: "/employers/contribution",
+    component: Contribution,
+    tab: true,
   },
 ];
 
