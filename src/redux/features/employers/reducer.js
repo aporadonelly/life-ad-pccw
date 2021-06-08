@@ -15,8 +15,6 @@ export const employerReducer = createReducer(initialState, (builder) =>
       const { error } = action.payload;
       return { ...state, isLoading: false, error };
     })
-<<<<<<< HEAD
-=======
 
     //viewing of authorized person
     .addCase(viewAuthPerson.pending, (state, _action) => {
@@ -56,5 +54,5 @@ export const employerReducer = createReducer(initialState, (builder) =>
       const { error } = action.payload;
       return { ...state, isLoading: false, error };
     })
->>>>>>> 2a427065b1ebb1d9bc8984e27efbc258c823e8cb
 );
+
