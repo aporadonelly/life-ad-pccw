@@ -9,11 +9,6 @@ class EmployerAdapter extends AxiosAdapter {
           pageNo,
           pageSize,
           mpfID: p.mpfID,
-          fullName: p.companyNameEnglish,
-          chineseName: p.companyNameChinese,
-          idType: p.registrationType,
-          idNumber: p.registrationNumber,
-          dateOfBirth: p.dateOfBirth,
         },
         (value) => {
           return value !== "";

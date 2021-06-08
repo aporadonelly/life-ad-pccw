@@ -1,13 +1,37 @@
 import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Button, Card, CardContent, Grid, Typography } from "@material-ui/core";
+import {
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  Tooltip,
+  Typography,
+} from "@material-ui/core";
 import { Page } from "@containers";
-import { PageHeader, PageInner } from "@components/layout";
 import { employersRoutes } from "@routes";
+import { PageHeader, PageInner } from "@components/layout";
+import TableCustomized from "@components/common/TableCustomized";
+import viewEnrollActive from "@assets/icons/enroll-active.PNG";
+import viewEnrollInActive from "@assets/icons/enroll-inactive.PNG";
+import viewRegistration from "@assets/icons/view_reg.PNG";
 
 const SearchResult = ({ employers }) => {
+  const history = useHistory();
+  console.log(employers, "employers");
   const { t } = useTranslation(["typography", "form", "button", "table"]);
   useEffect(() => {}, [employers]);
+
+  const columns = [
+    { label: t("table:thead.mpfId"), name: "pnsnIdTxt" },
+    { label: t("table:thead.displayName"), name: "fullname" },
+    { label: t("table:thead.idType"), name: "idTypeId" },
+    { label: t("table:thead.idNumber"), name: "idNoTxt" },
+    { label: t("table:thead.mobileNumber"), name: "clntPhones[0].phoneNumber" },
+    { label: t("table:thead.email"), name: "cntcts[0].emailAddrTxt" },
+    { label: t("table:thead.status"), name: "statusTypId" },
+  ];
 
   return (
     <Page>
@@ -19,7 +43,7 @@ const SearchResult = ({ employers }) => {
               <CardContent>
                 <Grid item xs={12}>
                   <Typography variant="h6" color="primary">
-                    Employer Registration or Enrollment Enquiries
+                    {t("typography:heading.employerRegOrEnrEnq")}
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
@@ -30,11 +54,23 @@ const SearchResult = ({ employers }) => {
                       </Typography>
                     </Grid>
                     <Grid item xs={4} align="right" display="flex">
-                      <Button data-testid="back-btn" variant="outlined">
+                      <Button
+                        data-testid="back-btn"
+                        variant="outlined"
+                        onClick={() =>
+                          history.push("/employers/enquiries/search")
+                        }
+                      >
                         {t("button:editSearch")}
                       </Button>
                       &emsp;
-                      <Button style={{ width: "auto" }} data-testid="back-btn">
+                      <Button
+                        style={{ width: "auto" }}
+                        data-testid="back-btn"
+                        onClick={() =>
+                          history.push("/employers/enquiries/search")
+                        }
+                      >
                         {t("button:newSearch")}
                       </Button>
                     </Grid>
@@ -47,7 +83,61 @@ const SearchResult = ({ employers }) => {
           {/* Table */}
           <Grid item xs={12}>
             <Card>
-              <CardContent></CardContent>
+              <CardContent>
+                <Grid
+                  container
+                  component="dl"
+                  spacing={1}
+                  alignItems="flex-start"
+                >
+                  <Grid item xs={12}>
+                    <TableCustomized
+                      title={t("typography:heading.employerRegOrEnrEnq")}
+                      rows={employers}
+                      columns={columns}
+                      stickyLabel={t("table:thead.custom.action")}
+                      renderStickyCell={(row) => {
+                        return (
+                          <>
+                            <Tooltip title="View Registration">
+                              <img
+                                src={viewRegistration}
+                                alt="View Registration"
+                                // onClick={() =>
+                                //   viewMembersDetails(row.pnsnIdTxt)
+                                // }
+                                variant="contained"
+                                style={{
+                                  margin: "0 5px",
+                                  background: "#EF841F",
+                                  color: "#fff",
+                                  cursor: "pointer",
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip title="View Enrollment">
+                              <img
+                                src={
+                                  row.vwEnrFlg
+                                    ? viewEnrollActive
+                                    : viewEnrollInActive
+                                }
+                                alt="View Enrollment"
+                                variant="contained"
+                                style={{
+                                  margin: "0 5px",
+                                  background: "#EF841F",
+                                  color: "#fff",
+                                }}
+                              />
+                            </Tooltip>
+                          </>
+                        );
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+              </CardContent>
             </Card>
           </Grid>
         </Grid>

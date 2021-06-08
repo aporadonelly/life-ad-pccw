@@ -1,7 +1,19 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { getAuthorizedPersonList, getEmployers, viewAuthPerson, LdRegCmpnyInfoforAdmnPrtl } from "./actions";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage/session";
+import {
+  getAuthorizedPersonList,
+  getEmployers,
+  viewAuthPerson,
+  LdRegCmpnyInfoforAdmnPrtl,
+} from "./actions";
 import { initialState } from "./state";
 
+const persistConfig = {
+  key: "employers",
+  storage: storage,
+  blacklist: ["isLoading", "error"],
+};
 export const employerReducer = createReducer(initialState, (builder) =>
   builder
     .addCase(getEmployers.pending, (state, _action) => {
@@ -55,4 +67,4 @@ export const employerReducer = createReducer(initialState, (builder) =>
       return { ...state, isLoading: false, error };
     })
 );
-
+export default persistReducer(persistConfig, employerReducer);
