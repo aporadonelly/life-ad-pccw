@@ -133,6 +133,8 @@ const TableCustomized = (props) => {
     rowsPerPage,
     stickyLabel,
     renderStickyCell,
+    renderToolbar,
+    TableContainerProps,
   } = props;
   const { t } = useTranslation(["typography"]);
   const [page, setPage] = useState(0);
@@ -159,26 +161,33 @@ const TableCustomized = (props) => {
     setSearch(newSearch);
   };
 
+  const toolbar = () => [
+    <Typography variant="h6" color="primary">
+      {title}
+    </Typography>,
+    <QuickSearch onChange={handleChangeSearch} />,
+    <TablePagination
+      component="div"
+      classes={paginationClasses}
+      colSpan={3}
+      count={rows.length}
+      labelRowsPerPage=""
+      rowsPerPage={rowsPerPage}
+      page={page}
+      onChangePage={handleChangePage}
+      ActionsComponent={TablePaginationActions}
+    />,
+  ];
+
   return (
-    <TableContainer classes={containerClasses} component={Paper} elevation={0}>
+    <TableContainer
+      classes={containerClasses}
+      component={Paper}
+      elevation={0}
+      {...TableContainerProps}
+    >
       <Toolbar classes={toolbarClasses} disableGutters>
-        {title && (
-          <Typography variant="h6" color="primary">
-            {t("typography:heading.memberSearch")}
-          </Typography>
-        )}
-        <QuickSearch onChange={handleChangeSearch} />
-        <TablePagination
-          component="div"
-          classes={paginationClasses}
-          colSpan={3}
-          count={rows.length}
-          labelRowsPerPage=""
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          ActionsComponent={TablePaginationActions}
-        />
+        {isFunction(renderToolbar) ? renderToolbar(...toolbar()) : toolbar()}
       </Toolbar>
       <PerfectScrollbar
         className={scrollbarClasses.root}
