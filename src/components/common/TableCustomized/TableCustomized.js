@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import {
   useContainerStyles,
@@ -133,8 +132,9 @@ const TableCustomized = (props) => {
     rowsPerPage,
     stickyLabel,
     renderStickyCell,
+    renderToolbar,
+    TableContainerProps,
   } = props;
-  const { t } = useTranslation(["typography"]);
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState("asc");
   const [sortBy, setSortBy] = useState();
@@ -159,15 +159,15 @@ const TableCustomized = (props) => {
     setSearch(newSearch);
   };
 
-  return (
-    <TableContainer classes={containerClasses} component={Paper} elevation={0}>
-      <Toolbar classes={toolbarClasses} disableGutters>
-        {title && (
-          <Typography variant="h6" color="primary">
-            {t("typography:heading.memberSearch")}
-          </Typography>
-        )}
-        <QuickSearch onChange={handleChangeSearch} />
+  const toolbar = () =>
+    Object.freeze({
+      title: (
+        <Typography variant="h6" color="primary">
+          {title}
+        </Typography>
+      ),
+      quickSearch: <QuickSearch onChange={handleChangeSearch} />,
+      pagination: (
         <TablePagination
           component="div"
           classes={paginationClasses}
@@ -179,6 +179,20 @@ const TableCustomized = (props) => {
           onChangePage={handleChangePage}
           ActionsComponent={TablePaginationActions}
         />
+      ),
+    });
+
+  return (
+    <TableContainer
+      classes={containerClasses}
+      component={Paper}
+      elevation={0}
+      {...TableContainerProps}
+    >
+      <Toolbar classes={toolbarClasses} disableGutters>
+        {isFunction(renderToolbar)
+          ? renderToolbar(toolbar())
+          : Object.values(toolbar())}
       </Toolbar>
       <PerfectScrollbar
         className={scrollbarClasses.root}
