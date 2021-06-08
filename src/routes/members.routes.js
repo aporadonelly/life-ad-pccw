@@ -1,9 +1,9 @@
-import Enquiry from "@pages/Members/Enquiry";
 import Enrollment from "@pages/Members/Enrollment";
 import Investment from "@pages/Members/Investment";
 import Termination from "@pages/Members/Termination";
 import Claims from "@pages/Members/Claims";
 import Transfers from "@pages/Members/Transfers";
+import { enquiryRoutes } from "./members";
 
 const membersRoutes = [
   {
@@ -40,7 +40,7 @@ const membersRoutes = [
   {
     name: "Enquiry",
     path: "/members/enquiry",
-    component: Enquiry,
+    children: enquiryRoutes,
     tab: false,
   },
 ];
