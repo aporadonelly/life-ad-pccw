@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import {
   useContainerStyles,
@@ -136,7 +135,6 @@ const TableCustomized = (props) => {
     renderToolbar,
     TableContainerProps,
   } = props;
-  const { t } = useTranslation(["typography"]);
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState("asc");
   const [sortBy, setSortBy] = useState();
@@ -161,23 +159,28 @@ const TableCustomized = (props) => {
     setSearch(newSearch);
   };
 
-  const toolbar = () => [
-    <Typography variant="h6" color="primary">
-      {title}
-    </Typography>,
-    <QuickSearch onChange={handleChangeSearch} />,
-    <TablePagination
-      component="div"
-      classes={paginationClasses}
-      colSpan={3}
-      count={rows.length}
-      labelRowsPerPage=""
-      rowsPerPage={rowsPerPage}
-      page={page}
-      onChangePage={handleChangePage}
-      ActionsComponent={TablePaginationActions}
-    />,
-  ];
+  const toolbar = () =>
+    Object.freeze({
+      title: (
+        <Typography variant="h6" color="primary">
+          {title}
+        </Typography>
+      ),
+      quickSearch: <QuickSearch onChange={handleChangeSearch} />,
+      pagination: (
+        <TablePagination
+          component="div"
+          classes={paginationClasses}
+          colSpan={3}
+          count={rows.length}
+          labelRowsPerPage=""
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          ActionsComponent={TablePaginationActions}
+        />
+      ),
+    });
 
   return (
     <TableContainer
@@ -187,7 +190,9 @@ const TableCustomized = (props) => {
       {...TableContainerProps}
     >
       <Toolbar classes={toolbarClasses} disableGutters>
-        {isFunction(renderToolbar) ? renderToolbar(...toolbar()) : toolbar()}
+        {isFunction(renderToolbar)
+          ? renderToolbar(toolbar())
+          : Object.values(toolbar())}
       </Toolbar>
       <PerfectScrollbar
         className={scrollbarClasses.root}
