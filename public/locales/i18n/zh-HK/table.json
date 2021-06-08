@@ -9,7 +9,12 @@
     "status": "地位",
     "custom": {
       "action": "行動"
-    }
+    },
+    "lastName": "英文姓氏",
+    "chineseLastName": "中文姓氏",
+    "firstName": "英文名字",
+    "chineseFirstName": "中文名字",
+    "viewAction": "看法"
   },
   "tbody": {
     "custom": {

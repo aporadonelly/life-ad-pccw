@@ -22,6 +22,19 @@ class EmployerAdapter extends AxiosAdapter {
     };
     return this.instance.get("/ldSrchRegInd", config);
   }
+
+  LdRegCmpnyInfoforAdmnPrtl(clientId) {
+    return this.instance.get("/companyReg", {
+      // params: { client_uuid: 149 },
+    });
+  }
+
+  LdAuthPrsnInfo() {
+    const cmpnyUuid = "7732B905-E9C1-4895-959E-FDCE74C856B3";
+    return this.instance.get("/ldAuthPrsnInfo", {
+      params: { cmpnyUuid },
+    });
+  }
 }
 
 export default new EmployerAdapter({

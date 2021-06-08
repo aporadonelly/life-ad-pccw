@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { getEmployers } from "./actions";
+import { getAuthorizedPersonList, getEmployers, viewAuthPerson, LdRegCmpnyInfoforAdmnPrtl } from "./actions";
 import { initialState } from "./state";
 
 export const employerReducer = createReducer(initialState, (builder) =>
@@ -15,4 +15,46 @@ export const employerReducer = createReducer(initialState, (builder) =>
       const { error } = action.payload;
       return { ...state, isLoading: false, error };
     })
+<<<<<<< HEAD
+=======
+
+    //viewing of authorized person
+    .addCase(viewAuthPerson.pending, (state, _action) => {
+      return { ...state, isLoading: true, error: null };
+    })
+    .addCase(viewAuthPerson.fulfilled, (state, action) => {
+      const { authPerson } = action.payload;
+      return { ...state, isLoading: false, authPerson };
+    })
+    .addCase(viewAuthPerson.rejected, (state, action) => {
+      const { error } = action.payload;
+      return { ...state, isLoading: false, error };
+    })
+
+    // LdRegCmpnyInfoForAdmnPrtl
+    .addCase(LdRegCmpnyInfoforAdmnPrtl.pending, (state, _action) => {
+      return { ...state, isLoading: true, error: null };
+    })
+    .addCase(LdRegCmpnyInfoforAdmnPrtl.fulfilled, (state, action) => {
+      const { companyRegInfo } = action.payload;
+      return { ...state, isLoading: false, companyRegInfo };
+    })
+    .addCase(LdRegCmpnyInfoforAdmnPrtl.rejected, (state, action) => {
+      const { error } = action.payload;
+      return { ...state, isLoading: false, error };
+    })
+
+    // get the authorized person List from LdAuthPrsnInfo function
+    .addCase(getAuthorizedPersonList.pending, (state, _action) => {
+      return { ...state, isLoading: true, error: null };
+    })
+    .addCase(getAuthorizedPersonList.fulfilled, (state, action) => {
+      const { authPersonInfo } = action.payload;
+      return { ...state, isLoading: false, authPersonList: authPersonInfo };
+    })
+    .addCase(getAuthorizedPersonList.rejected, (state, action) => {
+      const { error } = action.payload;
+      return { ...state, isLoading: false, error };
+    })
+>>>>>>> 2a427065b1ebb1d9bc8984e27efbc258c823e8cb
 );
