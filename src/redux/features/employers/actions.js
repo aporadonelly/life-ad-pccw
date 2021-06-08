@@ -1,28 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { employerAdapter } from "@adapters";
+import { push } from "connected-react-router";
 
 export const getEmployers = createAsyncThunk(
   "@@EMPF/EMPLOYER/GET_EMPLOYERS",
-  async (_payload, { rejectWithValue }) => {
+  async (payload, { rejectWithValue, dispatch }) => {
     try {
-      const employers = await employerAdapter.getAll();
-      return {
-        employers,
-      };
-    } catch (error) {
-      return rejectWithValue({ error });
-    }
-  }
-);
-
-export const viewAuthPerson = createAsyncThunk(
-  "@@EMPF/EMPLOYER/VIEW_AUTH_PERSON",
-  async (_payload, { rejectWithValue }) => {
-    try {
-      const authPerson = await employerAdapter.viewEmployerAuthPerson();
-      return {
-        authPerson,
-      };
+      const employers = await employerAdapter.searchEmployers(payload);
+      dispatch(push("/employers"));
+      return { employers: employers.content };
     } catch (error) {
       return rejectWithValue({ error });
     }

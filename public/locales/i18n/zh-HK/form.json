@@ -50,10 +50,17 @@
     "mobileNo": "手機號碼",
     "fileName": "文件名",
     "viewAction": "看法",
-    "businessAddress":"營業地址",
+    "businessAddress": "營業地址",
     "eSignature": "電子簽名",
     "female": "小姐。",
-    "male": "先生。"
+    "male": "先生。",
+    "employerAcctNo": "雇主帳號",
+    "typesOfCompany": "公司類型",
+    "referenceNoOfMpfOrServiceAgent": "強積金中介人/服務代理人參考編號",
+    "registrationStatus": "註冊狀態",
+    "trustee": "受託人",
+    "scheme": "方案",
+    "enrolmentStatus": "註冊狀態"
   },
   "placeholder": {
     "custom": {
