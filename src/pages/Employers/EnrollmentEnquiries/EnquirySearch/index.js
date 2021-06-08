@@ -6,7 +6,7 @@ import {
   errorSelector,
 } from "@redux/features/employers/selectors";
 import { getEmployers } from "@redux/features/employers/actions";
-import Companies from "./CompanySearch";
+import EnquirySearch from "./EnquirySearch";
 
 const mapStateToProps = (state) => ({
   employers: employersSelector(state),
@@ -18,4 +18,4 @@ const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({ getEmployers }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Companies);
+export default connect(mapStateToProps, mapDispatchToProps)(EnquirySearch);
