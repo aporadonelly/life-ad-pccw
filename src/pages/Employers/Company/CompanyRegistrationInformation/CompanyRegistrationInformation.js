@@ -1,10 +1,10 @@
 import { Page } from "@containers";
 import { PageHeader, PageInner } from "@components/layout";
-import { viewInformationRoutes } from "@routes/employers";
+import { companyRoutes } from "@routes/employers";
 
 const CompanyRegistrationInformation = () => (
   <Page>
-    <PageHeader routes={viewInformationRoutes} />
+    <PageHeader routes={companyRoutes} />
     <PageInner></PageInner>
   </Page>
 );
