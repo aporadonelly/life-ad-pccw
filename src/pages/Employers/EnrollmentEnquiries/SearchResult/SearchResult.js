@@ -92,7 +92,7 @@ const SearchResult = ({ employers }) => {
                 >
                   <Grid item xs={12}>
                     <TableCustomized
-                      title={t("typography:heading.employerRegOrEnrEnq")}
+                      title={t("typography:heading.enquiryResult")}
                       rows={employers}
                       columns={columns}
                       stickyLabel={t("table:thead.custom.action")}
