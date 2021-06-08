@@ -1,5 +1,5 @@
 import Contribution from "@pages/Employers/Contribution";
-import { enrollmentEnquiriesRoutes } from "./employers";
+import { companyRoutes, enrollmentEnquiriesRoutes } from "./employers";
 
 const employersRoutes = [
   {
@@ -14,6 +14,12 @@ const employersRoutes = [
     path: "/employers/contribution",
     component: Contribution,
     tab: true,
+  },
+  {
+    name: "Company",
+    path: "/employers/company",
+    children: companyRoutes,
+    tab: false,
   },
 ];
 
