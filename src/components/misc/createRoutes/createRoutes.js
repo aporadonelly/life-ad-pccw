@@ -1,16 +1,22 @@
+import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { AuthWrapper } from "@hocs";
-import { Box } from "@material-ui/core";
+import { isArray } from "lodash";
 
-const Component = () => <Box />;
-
-const createRoutes = (routes) => {
-  const renderRoutes = (routes) =>
-    routes.map((route) => {
-      const wrappedComponent = AuthWrapper(route.component ?? Component);
-
-      if (route.children) {
-        return <Switch>{renderRoutes(route.children)}</Switch>;
+const createRoutes = (routes) => (
+  <Switch>
+    {routes.map((route) => {
+      if (!isArray(route.children)) {
+        const wrappedComponent = AuthWrapper(route.component);
+        return (
+          <Route
+            key={route.name}
+            exact={route.exact}
+            name={route.name}
+            path={route.path}
+            component={wrappedComponent}
+          />
+        );
       }
 
       return (
@@ -19,12 +25,11 @@ const createRoutes = (routes) => {
           exact={route.exact}
           name={route.name}
           path={route.path}
-          component={wrappedComponent}
+          component={() => createRoutes(route.children)}
         />
       );
-    });
-
-  return <Switch>{renderRoutes(routes)}</Switch>;
-};
+    })}
+  </Switch>
+);
 
 export default createRoutes;
