@@ -1,24 +1,15 @@
 import Axios from "axios";
-import { isNull } from "lodash";
 
 class AxiosAdapter {
   constructor(config) {
-    this.instance = Axios.create(config);
+    this.instance = Axios.create({
+      ...config,
+      withCredentials: true,
+    });
 
     this.instance.interceptors.request.use(
       (config) => {
-        try {
-          const user = window.localStorage.getItem("persist:user");
-          const token = JSON.parse(user).token;
-
-          if (token && token !== "null") {
-            config.headers.Authorization = `Bearer ${token}`;
-          }
-
-          return config;
-        } catch {
-          return config;
-        }
+        return config;
       },
       (error) => {
         return Promise.reject(error);
