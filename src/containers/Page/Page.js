@@ -5,10 +5,21 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import MenuToggler from "./MenuToggler";
 import Settings from "./Settings";
+import React, { useEffect } from "react";
 
 const Page = (props) => {
-  const { user, cycleDate, logout, children } = props;
+  const { user, cycleDate, logout, children, reissue } = props;
   const classes = useStyles();
+  const MinuteMilisecs = 1000 * 6 * 1; /// per minute
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      reissue();
+    }, MinuteMilisecs);
+
+    return () => clearInterval(interval);
+    //eslint-disable-next-line
+  }, []);
 
   return (
     <AppProvider>
