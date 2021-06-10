@@ -35,6 +35,8 @@ const userReducer = createReducer(initialState, (builder) =>
     })
     .addCase(reissue.rejected, (state, action) => {
       state.isAuthenticating = false;
+      state.user = null;
+      state.expires = null;
       state.error = action.payload.error;
     })
     .addCase(userinfo.pending, (state, _action) => {
