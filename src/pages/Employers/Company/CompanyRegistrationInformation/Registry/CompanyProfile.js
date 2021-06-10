@@ -44,6 +44,10 @@ const CompanyProfile = (props) => {
     authPersonList,
     isLoading,
   } = props;
+
+  console.log("comReg:", companyRegInfo)
+  console.log("auth:", authPersonList)
+
   const columns = [
     { label: t("table:thead.lastName"), name: "lastName" },
     { label: t("table:thead.firstName"), name: "firstName" },
@@ -60,10 +64,13 @@ const CompanyProfile = (props) => {
     registrationNumber,
     registrationType,
     cmpnyTypId,
+    ldRegCmpnyInfoforAdmnPrtlProjection
   } = get(companyRegInfo, "[0]") ?? {};
-  const address1 = get(companyRegInfo, "[0].addresses[0]") ?? {};
-  const address2 = get(companyRegInfo, "[0].addresses[1]") ?? {};
-  const address3 = get(companyRegInfo, "[0].addresses[2]") ?? {};
+  console.log("com:", ldRegCmpnyInfoforAdmnPrtlProjection)
+
+  const address1 = get(ldRegCmpnyInfoforAdmnPrtlProjection, "addresses[0]") ?? {};
+  const address2 = get(ldRegCmpnyInfoforAdmnPrtlProjection, "addresses[1]") ?? {};
+  const address3 = get(ldRegCmpnyInfoforAdmnPrtlProjection, "addresses[2]") ?? {};
   const registeredOfficeAddress = concat(
     address1.addrRmTxt + ",",
     address1.addrFlrTxt,
@@ -72,7 +79,7 @@ const CompanyProfile = (props) => {
     address1.addrStrtTxt,
     address1.addrCtyTxt,
     address1.addrDstrctTxt
-  ).join(" ");
+  ).join("");
   const businessAddress = concat(
     address2.addrRmTxt + ",",
     address2.addrFlrTxt,
@@ -81,7 +88,7 @@ const CompanyProfile = (props) => {
     address2.addrStrtTxt,
     address2.addrCtyTxt,
     address2.addrDstrctTxt
-  ).join(" ");
+  ).join("");
   const correspondenceAddress = concat(
     address3.addrRmTxt + ",",
     address3.addrFlrTxt,
@@ -90,7 +97,7 @@ const CompanyProfile = (props) => {
     address3.addrStrtTxt,
     address3.addrCtyTxt,
     address3.addrDstrctTxt
-  ).join(" ");
+  ).join("");
 
   const { cntctPrsnNm, firstName, ttlTypCd, telNo, emlAddrTxt } =
     get(companyRegInfo, "[0].contacts[0") ?? {};

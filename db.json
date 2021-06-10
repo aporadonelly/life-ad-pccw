@@ -1,112 +1,85 @@
 {
   "companyReg": [
     {
-      "incrprtnDt": "2021-04-08T02:13:32.000+00:00",
-      "pnsnIdTxt": "PRSNIDTXT1",
-      "branches": [
-        {
-          "lnggTypId": "LG_EN",
-          "efctvDt": "2021-05-19T16:00:00.000+00:00",
-          "changeDt": "2021-01-14T16:00:00.000+00:00",
-          "incrprtnDt": "2020-03-01T16:00:00.000+00:00",
-          "sttsTypId": "STS_1",
-          "cmmTypId": "CC_EM",
-          "brnchNm": "ER970000 Branch 001",
-          "brnchNoTxt": "ER970000001",
-          "brnchDscrptnTxt": "BRNCHDESC1",
-          "pnsnIdTxt": "RG202105191558200535B88173408",
-          "brnchCd": 1174922400
-        }
-      ],
-      "clntPhones": [
-        {
-          "phnTypId": "TP_MB",
-          "efctvDt": "2021-05-19T16:00:00.000+00:00",
-          "chgDt": "2021-01-14T16:00:00.000+00:00",
-          "phnCntryTypCd": "HK",
-          "phnNmbr": 9991455274
-        }
-      ],
-      "addresses": [
-        {
-          "pstlCdNmbr": 1,
-          "invldAddrFlg": 1,
-          "addrStrtTxt": "St#2",
-          "addrBlckTxt": "B#2",
-          "addrRmTxt": "R#2",
-          "addrFlrTxt": "F#2",
-          "addrDstrctTxt": "Ds#2",
-          "addrCtyTxt": "City#2",
-          "addrBldngNmTxt": "Bldg#2",
-          "addrTypId": "AD_R",
-          "efctvDt": "2021-01-04T16:00:00.000+00:00",
-          "chgDt": "2021-01-14T16:00:00.000+00:00",
-          "cntryTypCd": "HK"
-        },
-        {
-          "pstlCdNmbr": 2,
-          "invldAddrFlg": 1,
-          "addrStrtTxt": "St#3",
-          "addrBlckTxt": "B#3",
-          "addrRmTxt": "R#3",
-          "addrFlrTxt": "F#3",
-          "addrDstrctTxt": "Ds#3",
-          "addrCtyTxt": "City#3",
-          "addrBldngNmTxt": "Bldg#3",
-          "addrTypId": "AD_R",
-          "efctvDt": "2021-01-04T16:00:00.000+00:00",
-          "chgDt": "2021-01-14T16:00:00.000+00:00",
-          "cntryTypCd": "HK"
-        },
-        {
-          "pstlCdNmbr": 3,
-          "invldAddrFlg": 1,
-          "addrStrtTxt": "St#4",
-          "addrBlckTxt": "B#4",
-          "addrRmTxt": "R#4",
-          "addrFlrTxt": "F#4",
-          "addrDstrctTxt": "Ds#4",
-          "addrCtyTxt": "City#4",
-          "addrBldngNmTxt": "Bldg#4",
-          "addrTypId": "AD_R",
-          "efctvDt": "2021-01-04T16:00:00.000+00:00",
-          "chgDt": "2021-01-14T16:00:00.000+00:00",
-          "cntryTypCd": "HK"
-        }
-      ],
-    "contacts": [
-        {
-          "cntctPrsnTypId": "CT_PCP",
-          "emlAddrTxt": "Nelsares.L.Paguntalan@pccw.com",
-          "lnggTypId": "LG_EN",
-          "cntctPrsnNm": "Nel Paguntalan",
-          "efctvDt": "2021-01-04T16:00:00.000+00:00",
-          "chgDt":   "2021-01-14T16:00:00.000+00:00",
-          "cmmTypId": "CC_EM",
-          "ttlTypCd": "TT_MR"
-        }
-      ],
-      "createdBy": "a8b6d844-8383-4a2a-8675-d73955d21e71",
-      "updatedEdition": 1,
-      "cmpnyTypId": "CP_PB",
-      "updatedLogin": "a8b6d844-8383-4a2a-8675-d73955d21e71",
-      "cmpnyNm": "COMPANY1",
-      "cmpnyChnsNm": "公司1",
-      "cmpnyRltdPrsns": [
-        {
-          "cmpnyPrsnTypCd": "CS_AP",
-          "kyRlCd": 4,
-          "efctvDt": "2021-05-19T16:00:00.000+00:00",
-          "chgDt": "2021-01-14T16:00:00.000+00:00",
-          "jbPstnTxt": "3",
-          "ownrshpPrcntgCnt": 5
-        }
-      ],
-      "trstCmpnyCd": "TRSTCMPCD1",
-      "updatedBy": "a8b6d844-8383-4a2a-8675-d73955d21e71",
-      "updatedDate": "2021-04-08T02:13:32.207+00:00",
-      "creationDate": "2021-04-08T02:13:32.207+00:00"
-    }
+      "ldRegCmpnyInfoforAdmnPrtlProjection": {
+          "pnsnIdTxt": "PRSNIDTXT1",
+          "clntPhones": [
+              {
+                  "phnNmbr": 9991455274,
+                  "phnCntryTypCd": "HK",
+                  "phnTypId": "TP_MB",
+                  "chgDt": "2021-01-14T16:00:00.000+00:00",
+                  "efctvDt": "2021-05-19T16:00:00.000+00:00"
+              }
+          ],
+          "incrprtnDt": "2021-04-07T16:00:00.000+00:00",
+          "cmpnyNm": "COMPANY1",
+          "cmpnyTypId": "CP_PB",
+          "cmpnyChnsNm": "公司1",
+          "cntryTypCd": "PH",
+          "addresses": [
+              {
+                  "invldAddrFlg": 1,
+                  "pstlCdTxt": "01",
+                  "cntryTypCd": "HK",
+                  "chgDt": "2021-01-14T16:00:00.000+00:00",
+                  "efctvDt": "2021-01-04T16:00:00.000+00:00",
+                  "addrRmTxt": "R#2",
+                  "addrStrtTxt": "St#2",
+                  "addrBlckTxt": "B#2",
+                  "addrBldngNmTxt": "Bldg#2",
+                  "addrTypId": "AD_R",
+                  "addrDstrctTxt": "Ds#2",
+                  "addrFlrTxt": "F#2",
+                  "addrCtyTxt": "City#2"
+              }
+          ],
+          "branches": [
+              {
+                  "brnchCd": 1174922400,
+                  "brnchDscrptnTxt": "BRNCHDESC1",
+                  "changeDt": "2021-01-14T16:00:00.000+00:00",
+                  "sttsTypId": "STS_1",
+                  "pnsnIdTxt": "1",
+                  "incrprtnDt": "2020-03-01T16:00:00.000+00:00",
+                  "cmmTypId": "CC_EM",
+                  "efctvDt": "2021-05-19T16:00:00.000+00:00",
+                  "brnchNoTxt": "ER970000001",
+                  "brnchNm": "ER970000 Branch 001",
+                  "lnggTypId": "LG_EN"
+              }
+          ],
+          "contacts": [
+              {
+                  "chgDt": "2021-01-14T16:00:00.000+00:00",
+                  "cmmTypId": "CC_EM",
+                  "efctvDt": "2021-01-04T16:00:00.000+00:00",
+                  "ttlTypCd": "1",
+                  "lnggTypId": "LG_EN",
+                  "cntctPrsnNm": "Nel Paguntalan",
+                  "emlAddrTxt": "Nelsares.L.Paguntalan@pccw.com",
+                  "cntctPrsnTypId": "CT_PCP"
+              }
+          ],
+          "cmpnyRltdPrsns": [
+              {
+                  "chgDt": "2021-06-07T01:38:32.000+00:00",
+                  "ownrshpPrcntgCnt": 5,
+                  "jbPstnTxt": "3",
+                  "cmpnyPrsnTypId": "CS_AP",
+                  "kyRlCd": 4
+              }
+          ],
+          "trstCmpnyCd": "TRSTCMPCD1"
+      },
+      "countryTyp": {
+          "version": "2021-06-06T18:04:32Z",
+          "id": "48281824-99da-4e34-b536-be6481c9dc9d",
+          "cntryTypCd": "PH",
+          "cntryTypNm": "Phil",
+          "telCntryCdNmbr": 63
+      }
+  }
   ],
   "companyprofile": [
     {

@@ -38,5 +38,6 @@ class EmployerAdapter extends AxiosAdapter {
 }
 
 export default new EmployerAdapter({
-  baseURL: process.env.REACT_APP_REGISTRATION_EE_BASE_URL,
+  // baseURL: process.env.REACT_APP_REGISTRATION_ER_BASE_URL,
+  baseURL: "http://localhost:4000"
 });
