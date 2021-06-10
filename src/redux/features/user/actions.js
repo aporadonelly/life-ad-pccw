@@ -1,17 +1,38 @@
-import { createAsyncThunk, createAction } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { userAdapter } from "@adapters";
 
-export const login = createAsyncThunk(
-  "@@EMPF/USER/LOGIN",
-  async (payload, { rejectWithValue }) => {
+export const logout = createAsyncThunk(
+  "@@empdf/auth/logout",
+  async (_payload, { rejectWithValue }) => {
     try {
-      const { sessionToken: token } = await userAdapter.login(payload);
-      const user = await userAdapter.getByToken(token);
-      return { token, user };
+      await userAdapter.logout();
+      return {};
     } catch (error) {
       return rejectWithValue({ error });
     }
   }
 );
 
-export const logout = createAction("@@EMPF/USER/LOGOUT");
+export const reissue = createAsyncThunk(
+  "@@empdf/auth/reissue",
+  async (_payload, { rejectWithValue }) => {
+    try {
+      await userAdapter.reissue();
+      return {};
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const userinfo = createAsyncThunk(
+  "@@empdf/auth/userinfo",
+  async (_payload, { rejectWithValue }) => {
+    try {
+      await userAdapter.userinfo();
+      return {};
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
