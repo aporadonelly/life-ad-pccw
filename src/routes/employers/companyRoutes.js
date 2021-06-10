@@ -1,11 +1,12 @@
-import CompanyRegistrationInformation from "@pages/Employers/Company/CompanyRegistrationInformation";
 import EnrollmentScheme from "@pages/Employers/Company/EnrollmentScheme";
+import { companyRegInfoRoutes } from "./company";
 
 const enrollmentEnquiriesRoutes = [
   {
     name: "Company Registration Information",
     path: "/employers/company/reg-info",
-    component: CompanyRegistrationInformation,
+    redirect: "/employers/company/reg-info/registry",
+    children: companyRegInfoRoutes,
     tab: true,
   },
   {
