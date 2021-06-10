@@ -1,5 +1,6 @@
 import { useFormikContext } from "formik";
 import FormikErrorFocus from "formik-error-focus";
+import CheckboxGroupField from "./CheckboxGroupField";
 import InputField from "./InputField";
 import SelectField from "./SelectField";
 import DatePickerField from "./DatePickerField";
@@ -31,6 +32,7 @@ const Form = ({ children, ...props }) => {
   );
 };
 
+Form.CheckboxGroupField = CheckboxGroupField;
 Form.Input = InputField;
 Form.Select = SelectField;
 Form.DatePicker = DatePickerField;
