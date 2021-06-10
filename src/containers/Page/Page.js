@@ -10,7 +10,7 @@ import React, { useEffect } from "react";
 const Page = (props) => {
   const { user, cycleDate, logout, children, reissue } = props;
   const classes = useStyles();
-  const MinuteMilisecs = 1000 * 6 * 1; /// per minute
+  const MinuteMilisecs = 1000 * 6 * 8; /// per minute
 
   useEffect(() => {
     const interval = setInterval(() => {

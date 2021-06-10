@@ -12,6 +12,7 @@ import {
 } from "redux-persist";
 import createRootReducer from "./reducers";
 import { getSystemEnv, getCycleDate } from "./features/system/actions";
+import { reissue } from "./features/user/actions";
 
 export const history = createBrowserHistory({
   basename: process.env.PUBLIC_URL,
@@ -44,6 +45,7 @@ export default function configureAppStore(preloadedState) {
 
   store.dispatch(getSystemEnv());
   store.dispatch(getCycleDate());
+  store.dispatch(reissue());
 
   return { store, persistor };
 }

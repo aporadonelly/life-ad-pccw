@@ -11,7 +11,7 @@ const TerminationRoutes = (props) => {
     subjSchemeName = "AIA MPF - Prime Value Choice";
   if (empSubject) {
     subjInfoName = empSubject.firstName + " " + empSubject.lastName;
-    subjAccountID = empSubject.accountId;
+    subjAccountID = empSubject.empfNumber;
     subjAccountNo = empSubject.accountNumber;
     subjCompanyName = empSubject.companyName;
     subjEmployerNumber = empSubject.employerNumber;
