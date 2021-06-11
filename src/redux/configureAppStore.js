@@ -1,5 +1,9 @@
 import { createBrowserHistory } from "history";
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import {
+  configureStore,
+  getDefaultMiddleware,
+  unwrapResult,
+} from "@reduxjs/toolkit";
 import { routerMiddleware } from "connected-react-router";
 import {
   persistStore,
@@ -18,6 +22,7 @@ import {
   getTermReasons,
   getCustomTypeList,
 } from "./features/system/actions";
+import { reissue } from "./features/user/actions";
 
 export const history = createBrowserHistory({
   basename: process.env.PUBLIC_URL,
@@ -48,18 +53,26 @@ export default function configureAppStore(preloadedState) {
 
   const persistor = persistStore(store);
 
-  store.dispatch(getSystemEnv());
-  store.dispatch(getCycleDate());
-  store.dispatch(getCountryList());
-  store.dispatch(getTermReasons());
-  store.dispatch(getCustomTypeList({ groupId: "GD" }));
-  store.dispatch(getCustomTypeList({ groupId: "ID" }));
-  store.dispatch(getCustomTypeList({ groupId: "NTN" }));
-  store.dispatch(getCustomTypeList({ groupId: "EP" }));
-  store.dispatch(getCustomTypeList({ groupId: "NT" }));
-  store.dispatch(getCustomTypeList({ groupId: "MB" }));
-  store.dispatch(getCustomTypeList({ groupId: "SC" }));
-  store.dispatch(getCustomTypeList({ groupId: "ST" }));
+  store
+    .dispatch(reissue())
+    .then(unwrapResult)
+    .then(() => {
+      store.dispatch(getSystemEnv());
+      store.dispatch(getCycleDate());
+      store.dispatch(getCountryList());
+      store.dispatch(getTermReasons());
+      store.dispatch(getCustomTypeList({ groupId: "GD" }));
+      store.dispatch(getCustomTypeList({ groupId: "ID" }));
+      store.dispatch(getCustomTypeList({ groupId: "NTN" }));
+      store.dispatch(getCustomTypeList({ groupId: "EP" }));
+      store.dispatch(getCustomTypeList({ groupId: "NT" }));
+      store.dispatch(getCustomTypeList({ groupId: "MB" }));
+      store.dispatch(getCustomTypeList({ groupId: "SC" }));
+      store.dispatch(getCustomTypeList({ groupId: "ST" }));
+    })
+    .catch(() => {
+      window.location.href = `${window.location.origin}${process.env.REACT_APP_REDIRECT_URL}`;
+    });
 
   return { store, persistor };
 }

@@ -1,16 +1,16 @@
 import AxiosAdapter from "./axios.adapter";
-import { pick } from "lodash";
 
 class UserAdapter extends AxiosAdapter {
-  login(payload) {
-    const pickedPayload = pick(payload, ["username", "password"]);
-    return this.instance.post("/login", pickedPayload);
+  logout() {
+    return this.instance.post("/logout", {});
   }
 
-  getByToken(token) {
-    return this.instance.get("/userinfo", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  reissue() {
+    return this.instance.post("/reissue", {});
+  }
+
+  userinfo() {
+    return this.instance.get("/userinfo");
   }
 }
 

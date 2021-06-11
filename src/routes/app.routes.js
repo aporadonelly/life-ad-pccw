@@ -1,13 +1,15 @@
+import Task from "@pages/Task";
 import membersRoutes from "./members.routes";
 import employersRoutes from "./employers.routes";
 
 const appRoutes = [
-  // {
-  //   name: "Task",
-  //   path: "/task",
-  //   component: null,
-  //   tab: false,
-  // },
+  {
+    name: "Task",
+    path: "/",
+    exact: true,
+    component: Task,
+    tab: false,
+  },
   {
     name: "Member",
     path: "/members",
