@@ -8,10 +8,9 @@ import { Grid, Box } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 
 const Termination = (props) => {
-  const { loadTermReason, loadEmpSchemes, isLoading, error } = props;
+  const { loadEmpSchemes, isLoading, error } = props;
   const { id } = useParams();
   useEffect(() => {
-    loadTermReason();
     loadEmpSchemes({ accountNumber: id });
     // eslint-disable-next-line
   }, []);
