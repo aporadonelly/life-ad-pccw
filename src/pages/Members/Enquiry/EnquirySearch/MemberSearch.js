@@ -50,41 +50,19 @@ const validationSchema = yup.object().shape({
 const MemberSearch = ({
   isLoading,
   gender,
-  getGender,
   idType,
-  getIdType,
-  getNationality,
   nationality,
   placeOfBirth,
-  getPlaceOfBirth,
-  getEmployeeType,
   employeeType,
   industryType,
-  getIndustryType,
-  getOccupation,
   occupation,
-  getSchemeType,
   schemeType,
-  getStatus,
   status,
   getAllMembers,
   saveEnquiry,
   enquiry,
 }) => {
   const { t } = useTranslation(["typography", "form", "button"]);
-
-  useEffect(() => {
-    getGender();
-    getIdType();
-    getNationality();
-    getPlaceOfBirth();
-    getEmployeeType();
-    getIndustryType();
-    getOccupation();
-    getSchemeType();
-    getStatus();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handleSubmit = (values) => {
     const newValues = { ...values };
