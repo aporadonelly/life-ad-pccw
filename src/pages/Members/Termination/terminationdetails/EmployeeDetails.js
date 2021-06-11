@@ -62,10 +62,13 @@ const EmployeeDetails = (props) => {
     entitleToLspsp: "",
     lspspTypeId: "",
     lspspEntitlementAmount: "",
-    orsoOffsetAmount: "",
+    paymentAmount: "",
     effectiveDate: "",
     changeDate: "",
     schemes: data.clientSchemes ?? [], //employeeMockData.getScheme_LSP_SP_offect_sequence(),
+    bankName: "",
+    acctNumber: "",
+    paymentMethod: "",
   };
 
   const validationSave = yup.object().shape({
@@ -80,7 +83,7 @@ const EmployeeDetails = (props) => {
       .positive(
         "The inputted amount cannot exceed the current statutory maximum amount HKD $390,000. Please input again."
       ),
-    orsoOffsetAmount: yup.number().positive("Money input"),
+    paymentAmount: yup.number().positive("Money input"),
   });
 
   const validationSubmit = yup.object().shape({
@@ -95,7 +98,7 @@ const EmployeeDetails = (props) => {
       .positive(
         "The inputted amount cannot exceed the current statutory maximum amount HKD $390,000. Please input again."
       ),
-    orsoOffsetAmount: yup.number().positive("Money input"),
+    paymentAmount: yup.number().positive("Money input"),
   });
 
   useEffect(() => {
@@ -248,11 +251,11 @@ const EmployeeDetails = (props) => {
       terminationReasonId: values.terminationReasonId,
       terminationReason: termReason,
       lspspEntitlementAmount: values.lspspEntitlementAmount,
-      orsoOffsetAmount: values.orsoOffsetAmount,
+      paymentAmount: values.paymentAmount,
       otherOffsetAmount: 0.0,
       payableAmount:
         values.lspspEntitlementAmount &&
-        values.lspspEntitlementAmount - values.orsoOffsetAmount,
+        values.lspspEntitlementAmount - values.paymentAmount,
     };
 
     const cloneValues = { ...values, ...forValidationValues };
@@ -507,7 +510,7 @@ const EmployeeDetails = (props) => {
                 );
                 //setFieldValue("terminationReasonId", filterArrayLSP_SP);
               } else if (event.target.value === "LS_SP") {
-                notIncluded = ["TR_LO", "TR_CE"]; //"TR_RD", removed for TESTING
+                notIncluded = ["TR_RD", "TR_LO", "TR_CE"]; //"TR_RD", removed for TESTING
                 //filterArrayLSP_SP =
                 setfilterArrayLSP_SP(
                   newArray.records.filter(function (obj) {
@@ -645,7 +648,7 @@ const EmployeeDetails = (props) => {
                             {t("form:label.payAmountEr")}
                           </span>
                           <FormikForm.Input
-                            name="orsoOffsetAmount"
+                            name="paymentAmount"
                             fullWidth
                             type="number"
                             placeholder="Input Amount in HKD"
@@ -726,7 +729,10 @@ const EmployeeDetails = (props) => {
                               name="acctNumber"
                               fullWidth
                               placeholder="Please Input"
-                              value={clnBnkInfo && clnBnkInfo[0].bnkAccntNmbr}
+                              value={
+                                Object.keys(clnBnkInfo).length &&
+                                clnBnkInfo[0].bnkAccntNmbr
+                              }
                             />
                           </Grid>
                           <Grid item xs={3}>

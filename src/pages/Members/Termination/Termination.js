@@ -20,10 +20,10 @@ const Termination = (props) => {
   } = props;
 
   useEffect(() => {
+    loadEmpSchemes({ accountNumber: id });
     loadBankList();
     loadPayMethod();
     loadClntBnkInfo({ clntUuid: "5B41559B-A087-4279-8E2A-2C041E308B47" });
-    loadEmpSchemes({ accountNumber: id });
     loadTermReason();
 
     // eslint-disable-next-line
