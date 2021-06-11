@@ -18,9 +18,15 @@ import { useHistory } from "react-router-dom";
 import viewEnrollActive from "@assets/icons/enroll-active.PNG";
 import viewEnrollInActive from "@assets/icons/enroll-inactive.PNG";
 import viewRegistration from "@assets/icons/view_reg.PNG";
-import MembersEnquiry from "./MembersEnquiry";
+import Chip from "./Chip";
 
-const Members = ({ employees, isLoading, getSpecificMember, saveEnquiry }) => {
+const SearchResult = ({
+  employees,
+  isLoading,
+  getSpecificMember,
+  saveEnquiry,
+  enquiry,
+}) => {
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button", "table"]);
 
@@ -69,7 +75,9 @@ const Members = ({ employees, isLoading, getSpecificMember, saveEnquiry }) => {
                   <Grid item xs={12}>
                     <Grid container>
                       <Grid item xs={8}>
-                        <MembersEnquiry />
+                        {Object.keys(enquiry).map((key) => (
+                          <Chip key={key} label={key} value={enquiry[key]} />
+                        ))}
                       </Grid>
                       <Grid item xs={4} align="right" display="flex">
                         <Button
@@ -169,4 +177,4 @@ const Members = ({ employees, isLoading, getSpecificMember, saveEnquiry }) => {
     </Page>
   );
 };
-export default Members;
+export default SearchResult;

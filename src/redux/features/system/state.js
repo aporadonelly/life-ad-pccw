@@ -1,11 +1,25 @@
 import { createEntityAdapter } from "@reduxjs/toolkit";
 
-export const adapter = createEntityAdapter({});
+export const customTypesAdapter = createEntityAdapter({
+  selectId: (customType) => customType.cstmTypId,
+});
 
-export const initialState = adapter.getInitialState({
-  systemEnv: null,
-  cycleDate: null,
+export const countriesAdapter = createEntityAdapter({
+  selectId: (country) => country.cntryTypCd,
+});
+
+export const termReasonsAdapter = createEntityAdapter({
+  selectId: (termReason) => termReason.cstmTypId,
+});
+
+export const systemAdapter = createEntityAdapter({});
+
+export const initialState = systemAdapter.getInitialState({
   isLoading: false,
   error: null,
-  reasonTerm: [],
+  systemEnv: null,
+  cycleDate: null,
+  customTypes: customTypesAdapter.getInitialState(),
+  countries: countriesAdapter.getInitialState(),
+  termReasons: termReasonsAdapter.getInitialState(),
 });
