@@ -32,6 +32,31 @@ export const valuesActionSelector = createSelector(
   (state) => state.valuesActions
 );
 
+export const entitleLspSpSelector = createSelector(
+  stateSelector,
+  (state) => state.entitleLspSp
+);
+
+export const detailsLspSpSelector = createSelector(
+  stateSelector,
+  (state) => state.lspSp
+);
+
+export const payMethodSelector = createSelector(
+  stateSelector,
+  (state) => state.paymethod
+);
+
+export const bankListSelector = createSelector(
+  stateSelector,
+  (state) => state.bankList
+);
+
+export const clntBnkInfoSelector = createSelector(
+  stateSelector,
+  (state) => state.clntBnkInfo
+);
+
 export const isLoadingSelector = createSelector(
   stateSelector,
   (state) => state.isLoading

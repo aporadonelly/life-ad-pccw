@@ -66,3 +66,42 @@ export const validTermination = createAsyncThunk(
 );
 
 export const passValuesActions = createAction("@@EMPF/TERMINATION/PASS");
+
+export const loadPayMethod = createAsyncThunk(
+  "@@EMPF/TERMINATION/paymentMthdList",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const paymethod = await terminationAdapter.getPayMethod(payload);
+      return { paymethod };
+    } catch (error) {
+      console.error(error);
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const loadBankList = createAsyncThunk(
+  "@@EMPF/TERMINATION/bankList",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const bankList = await terminationAdapter.getBankList(payload);
+      return { bankList };
+    } catch (error) {
+      console.error(error);
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const loadClntBnkInfo = createAsyncThunk(
+  "@@EMPF/TERMINATION/ldClntBnkInfo",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const clntBnkInfo = await terminationAdapter.getClntBnkInfo(payload);
+      return { clntBnkInfo };
+    } catch (error) {
+      console.error(error);
+      return rejectWithValue({ error });
+    }
+  }
+);

@@ -14,4 +14,15 @@ export const initialState = adapter.getInitialState({
   isValidating: true,
   isSubmitting: true,
   error: null,
+  entitleLspSp: [
+    { value: true, label: "Yes" },
+    { value: false, label: "No" },
+  ],
+  lspSp: [
+    { value: "LS_LSP", label: "LSP" },
+    { value: "LS_SP", label: "SP" },
+  ],
+  paymethod: [],
+  bankList: [],
+  clntBnkInfo: {},
 });
