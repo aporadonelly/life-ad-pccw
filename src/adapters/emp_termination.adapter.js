@@ -51,10 +51,10 @@ class TerminationAdapter extends AxiosAdapter {
     });
   }
 
-  getClntBnkInfo(payload) {
+  ldClntBnkInfo(payload, { pageNo = 0, pageSize = 50 }) {
     //const pickedPayload = pick(payload, ["pageNo", "pageSize"]);
     return this.instance.post("/ldClntBnkInfo", payload, {
-      params: { pageNo: 0, pageSize: 50 },
+      params: { pageNo, pageSize },
     });
   }
 }

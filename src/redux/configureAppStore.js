@@ -19,7 +19,7 @@ export const history = createBrowserHistory({
 });
 
 export default function configureAppStore(preloadedState) {
-  const debug = false;
+  const debug = true;
   const middlewares = [routerMiddleware(history)];
 
   if (debug) {

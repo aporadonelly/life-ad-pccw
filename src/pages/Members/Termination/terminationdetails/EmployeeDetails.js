@@ -18,6 +18,7 @@ import MessageRender from "./Message/MessageRender";
 import { Button } from "@material-ui/core";
 import BottomAppBar from "@components/misc/BottomAppBar/BottomAppBar";
 import FloatingButton from "@components/controls/floatingButton/floatingButton";
+import { useTranslation } from "react-i18next";
 
 import { Cancel as CancelIcon } from "@material-ui/icons";
 import { validate } from "@material-ui/pickers";
@@ -34,8 +35,14 @@ const EmployeeDetails = (props) => {
     save,
     resetTermination,
     cycleDate,
+    entitleLspSp,
+    detailsLspSp,
+    payMethod,
+    bankList,
+    clnBnkInfo,
   } = props;
 
+  const { t } = useTranslation(["typography", "form", "button"]);
   const classes = useStyles();
   const [LSP_SP_Disable, setLSP_SP_Disable] = useState(true);
   const [open, setOpen] = useState(false);
@@ -43,35 +50,28 @@ const EmployeeDetails = (props) => {
   const [bottomBar, setBottomBar] = useState(false);
   const [btnState, setBtnState] = useState();
   let formRef = React.useRef(false);
-  //let filterArrayLSP_SP = ""; // will be used dynamically in LSP/SP option change
   let [filterArrayLSP_SP, setfilterArrayLSP_SP] = useState("");
 
   let data = replaceNull(clientSchemes);
-  //let data = clientSchemes;
-
-  //console.log(clientSchemes);
-  //console.log(reason);
-  //console.log(data);
-  //console.log(data.schemes);
 
   const initialValues = {
     state: "",
-    lastDateOfEmployment: "", //moment("").format("YYYY/MM/DD"),
+    lastDateOfEmployment: "",
     terminationReasonId: "",
-    effective_date_of_termination: "", //moment("").format("YYYY/MM/DD"),
+    effectiveDateOfTermination: "",
     entitleToLspsp: "",
     lspspTypeId: "",
     lspspEntitlementAmount: "",
     orsoOffsetAmount: "",
-    effective_date: "", //moment("").format("YYYY/MM/DD"),
-    change_date: "", //moment("").format("YYYY/MM/DD"),
+    effectiveDate: "",
+    changeDate: "",
     schemes: data.clientSchemes ?? [], //employeeMockData.getScheme_LSP_SP_offect_sequence(),
   };
 
   const validationSave = yup.object().shape({
     lastDateOfEmployment: yup.date(),
     terminationReasonId: yup.string(),
-    effective_date_of_termination: yup.date(),
+    effectiveDateOfTermination: yup.date(),
     entitleToLspsp: yup.string(),
     lspspTypeId: yup.string(),
     lspspEntitlementAmount: yup
@@ -84,22 +84,18 @@ const EmployeeDetails = (props) => {
   });
 
   const validationSubmit = yup.object().shape({
-    lastDateOfEmployment: yup.date().required(), //yup.date(),
-    terminationReasonId: yup.string().required("Please pick a reason"), //.required("Please pick a reason"),
-    effective_date_of_termination: yup.date(), //.required(),
+    lastDateOfEmployment: yup.date().required(),
+    terminationReasonId: yup.string().required("Please pick a reason"),
+    effectiveDateOfTermination: yup.date(),
     entitleToLspsp: yup.string().required("Please choose yes or no"),
-    lspspTypeId: yup.string(), //.required("Please choose yes or no"),
+    lspspTypeId: yup.string(), // requied in validation null if not selected
     lspspEntitlementAmount: yup
       .number()
       .min(0)
       .positive(
         "The inputted amount cannot exceed the current statutory maximum amount HKD $390,000. Please input again."
-      )
-      .required("Money input is required"),
-    orsoOffsetAmount: yup
-      .number()
-      .positive("Money input")
-      .required("Money input is required"),
+      ),
+    orsoOffsetAmount: yup.number().positive("Money input"),
   });
 
   useEffect(() => {
@@ -218,21 +214,26 @@ const EmployeeDetails = (props) => {
     return true;
   };
 
+  const filterByTermReason = (termid) => {
+    let selected = "";
+    if (termid === "") {
+      return selected;
+    }
+    if (reason) {
+      return (selected = reason.find((term) => term.cstmTypId === termid)
+        .cstmTypDtlTxt);
+    }
+    return selected;
+  };
+
   // FIX: pending based on employmendate data known 06/01/2021
   // const chkEmployDate = (values) => {
   //   return true;
   // }
 
   const formikHandleSubmit = (values, actions) => {
-    console.log(values);
-    //actions.validateForm();
-    //const chkValid = await validationSchema.isValid(initialValues);
-    //console.log(chkValid);
-    const chkLdoe = ldoeChange(values);
-    if (!chkLdoe) return;
-
-    const chkLsp_SpAmt = chkLsp_Sp_Amount(values);
-    if (!chkLsp_SpAmt) return;
+    console.log("action - " + values.state, values);
+    const termReason = filterByTermReason(values.terminationReasonId);
 
     const forValidationValues = {
       accountNumber: data.accountNumber, //clientSchemes.accountNumber,
@@ -241,8 +242,11 @@ const EmployeeDetails = (props) => {
         moment(values.lastDateOfEmployment).format("YYYY-MM-DD"),
       entitleToLspsp:
         values.entitleToLspsp && parseBoolean(values.entitleToLspsp),
-      lspspTypeId: values.lspspTypeId ?? null,
+      lspspTypeId: values.lspspTypeId === "" ? null : values.lspspTypeId,
+      lspspType:
+        values.lspspTypeId && (values.lspspTypeId === "LS_SP" ? "SP" : "LSP"),
       terminationReasonId: values.terminationReasonId,
+      terminationReason: termReason,
       lspspEntitlementAmount: values.lspspEntitlementAmount,
       orsoOffsetAmount: values.orsoOffsetAmount,
       otherOffsetAmount: 0.0,
@@ -256,9 +260,9 @@ const EmployeeDetails = (props) => {
     [
       "state",
       "schemes",
-      "change_date",
-      "effective_date",
-      "effective_date_of_termination",
+      "changeDate",
+      "effectiveDate",
+      "effectiveDateOfTermination",
     ].forEach((e) => delete cloneValues[e]); // NOTE: not needed as of now
 
     // forValidationValues === for validation in submit
@@ -272,22 +276,28 @@ const EmployeeDetails = (props) => {
         return r;
       }, {});
 
-      console.log(Object.keys(filter));
+      //console.log(Object.keys(filter));
 
       Object.keys(filter).forEach((e) => delete cloneValues[e]);
       if (Object.keys(cloneValues).length === 1) return;
-      // const addedValues = {
-      //   accountNumber: data.accountNumber,
-      //   statusType: "Saved",
-      //   statusTypeId: "ST_SV",
-      // };
-      //const newValues = [{ ...cloneValues, ...addedValues }];
 
-      console.log("svEETermInst", cloneValues);
-      saveTermination([cloneValues]);
-      //actions.resetForm();
+      const addedValues = {
+        statusType: "Saved",
+        statusTypeId: "ST_SV",
+      };
+      const newValues = [{ ...cloneValues, ...addedValues }];
+
+      console.log("Saving", newValues);
+      saveTermination(newValues);
+      //saveTermination([cloneValues]);
       return;
     }
+
+    const chkLdoe = ldoeChange(values);
+    if (!chkLdoe) return;
+
+    const chkLsp_SpAmt = chkLsp_Sp_Amount(values);
+    if (!chkLsp_SpAmt) return;
 
     console.log("vldMbrTerm", forValidationValues);
     validTermination(forValidationValues);
@@ -298,7 +308,7 @@ const EmployeeDetails = (props) => {
 
   const onValidSubmit = (valuesActions, btnState) => {
     if (btnState === "submit") {
-      //IMPORTANT: id not found in /ldMbrActAccntLstForER already asked BE devs
+      //IMPORTANT: id not found in already asked BE devs
       //const enttyUuid = "327D2230-AE4C-43CF-8314-4B3525AE6CA3"
       //loadMbrTerm(enttyUuid); //pending useeffect like valid and save
       const addedValues = {
@@ -310,7 +320,7 @@ const EmployeeDetails = (props) => {
         statusTypeId: "ST_SB",
       };
       const newValues = [{ ...valuesActions, ...addedValues }];
-      console.log("submit", newValues);
+      console.log("Submitting", newValues);
       saveTermination(newValues);
       //actions.resetForm();
       return;
@@ -321,46 +331,53 @@ const EmployeeDetails = (props) => {
     handleClose();
     setBtnStatus("ExMsg_CnclPrcss");
   };
-
   return (
     <React.Fragment>
       <PageInner>
         <Paper className={classes.paperContainer} elevation={3}>
           <div className={classes.paperContentContainer}>
             <div className={classes.paperLabelTitle}>
-              {labels.employmentDetail}
+              {t("form:label.employmentDetail")}
             </div>
             <div className={classes.labelAndValueContainer}>
               <div>
-                <div className={classes.labels}>{labels.schemeName}</div>
+                <div className={classes.labels}>
+                  {t("form:label.schemeName")}
+                </div>
                 <div className={classes.textValueWithColor}>
                   {data.schemes && data.schemes[0].schemeName}
                 </div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.employerName}</div>
+                <div className={classes.labels}>
+                  {t("form:label.employerName")}{" "}
+                </div>
                 <div className={classes.textValueWithColor}>
                   {data.firstName}
                 </div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.er_id}</div>
+                <div className={classes.labels}>{t("form:label.erId")}</div>
                 <div className={classes.textValue}>{data.employerId}</div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.branch}</div>
+                <div className={classes.labels}>{t("form:label.branch")}</div>
                 <div className={classes.textValue}>{data.branchName}</div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.branchId}</div>
+                <div className={classes.labels}>{t("form:label.branchId")}</div>
                 <div className={classes.textValue}>{data.branchNumber}</div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.status}</div>
+                <div className={classes.labels}>
+                  {t("form:label.termStatus")}
+                </div>
                 <div className={classes.textValue}>{data.branchStatus}</div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.effectiveDate}</div>
+                <div className={classes.labels}>
+                  {t("form:label.effectiveDate")}
+                </div>
                 <div className={classes.textValue}>
                   {data.effectiveDate &&
                     moment(data.effectiveDate).format("D MMMM y")}
@@ -371,50 +388,58 @@ const EmployeeDetails = (props) => {
         </Paper>
         <Paper className={classes.paperContainer} elevation={3}>
           <div className={classes.paperContentContainer}>
-            <div className={classes.paperLabelTitle}>{labels.memberDetail}</div>
+            <div className={classes.paperLabelTitle}>
+              {t("form:label.memberDetail")}
+            </div>
             <div className={classes.labelAndValueContainer}>
               <div>
-                <div className={classes.labels}>{labels.memberName}</div>
+                <div className={classes.labels}>
+                  {t("form:label.memberName")}
+                </div>
                 <div className={classes.textValue}>
                   {data.lastName && data.firstName + " " + data.lastName}
                 </div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.memberNo}</div>
+                <div className={classes.labels}>{t("form:label.memberNo")}</div>
                 <div className={classes.textValue}>{data.employerNumber}</div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.acctType}</div>
+                <div className={classes.labels}>{t("form:label.acctType")}</div>
                 <div className={classes.textValue}>{data.accountType}</div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.eMPF_No}</div>
+                <div className={classes.labels}>{t("form:label.empfNo")}</div>
                 <div className={classes.textValue}>{data.empfNumber}</div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.acctId}</div>
+                <div className={classes.labels}>{t("form:label.acctId")}</div>
                 <div className={classes.textValue}>{data.accountId}</div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.staffNo}</div>
+                <div className={classes.labels}>{t("form:label.staffNo")}</div>
                 <div className={classes.textValue}>{data.staffNumber}</div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.dateJoin}</div>
+                <div className={classes.labels}>{t("form:label.dateJoin")}</div>
                 <div className={classes.textValue}>
                   {data.joinSchemeDate &&
                     moment(data.joinSchemeDate).format("D MMMM y")}
                 </div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.terminationDate}</div>
+                <div className={classes.labels}>
+                  {t("form:label.terminationDate")}
+                </div>
                 <div className={classes.textValue}>
                   {data.terminationDate &&
                     moment(data.terminationDate).format("D MMMM y")}
                 </div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.status}</div>
+                <div className={classes.labels}>
+                  {t("form:label.termStatus")}
+                </div>
                 <div className={classes.textValue}>{data.status}</div>
               </div>
             </div>
@@ -507,13 +532,13 @@ const EmployeeDetails = (props) => {
                 >
                   <div className={classes.terminationInnerContainer}>
                     <div className={classes.terminationTitle}>
-                      {labels.terminationTitle}
+                      {t("form:label.terminationTitle")}
                     </div>
 
                     <div className={classes.terminationDetailContentContainer}>
                       <Grid item sm={3} xs={12} className={classes.datepickers}>
                         <span className={classes.labels}>
-                          {labels.last_date}
+                          {t("form:label.lastDate")}
                         </span>
                         <FormikForm.DatePicker
                           name="lastDateOfEmployment"
@@ -524,7 +549,7 @@ const EmployeeDetails = (props) => {
 
                       <Grid item sm={3} xs={12} className={classes.datepickers}>
                         <span className={classes.labels}>
-                          {labels.termination_reason}
+                          {t("form:label.terminationReason")}
                         </span>
                         <FormikForm.Select
                           name="terminationReasonId"
@@ -541,23 +566,25 @@ const EmployeeDetails = (props) => {
                       </Grid>
                       <Grid item sm={3} xs={12} className={classes.datepickers}>
                         <span className={classes.labels}>
-                          {labels.effectiveDate}
+                          {t("form:label.effectiveDate")}
                         </span>
                         <FormikForm.DatePicker
-                          name="effective_date_of_termination"
+                          name="effectiveDateOfTermination"
                           helperText="YYYYMMDD"
                           format="YYYY/MM/DD"
                         />
                       </Grid>
                     </div>
-                    <div className={classes.labels}>{labels.entitle_to}</div>
+                    <div className={classes.labels}>
+                      {t("form:label.entitleTo")}
+                    </div>
                     <FormikForm.RadioGroupField
                       row
                       name="entitleToLspsp"
                       onClick={disableLSP_SP}
                       //data={employeeMockData.getEntitle_LSP_SP_items()}
                       data={{
-                        options: employeeMockData.getEntitle_LSP_SP_items(),
+                        options: entitleLspSp, //employeeMockData.getEntitle_LSP_SP_items(),
                         label: (option) => option.label,
                         value: (option) => option.value,
                       }}
@@ -566,7 +593,7 @@ const EmployeeDetails = (props) => {
 
                     <div className={classes.mgTop}>
                       <div className={classes.terminationTitle}>
-                        {labels.lsp_details}
+                        {t("form:label.lspDetails")}
                       </div>
                       <div className={classes.lspRow}>
                         <Grid
@@ -576,14 +603,14 @@ const EmployeeDetails = (props) => {
                           className={`${classes.mgTop} ${classes.mgRight}`}
                         >
                           <div className={classes.labels}>
-                            {labels.entitle_lsp}
+                            {t("form:label.entitleLsp")}
                           </div>
                           <FormikForm.RadioGroupField
                             row
                             name="lspspTypeId"
                             onClick={onClickLSP_SPReason}
                             data={{
-                              options: employeeMockData.getLSP_SP_items(),
+                              options: detailsLspSp, //employeeMockData.getLSP_SP_items(),
                               label: (option) => option.label,
                               value: (option) => option.value,
                             }}
@@ -598,7 +625,7 @@ const EmployeeDetails = (props) => {
                           className={`${classes.mgTop} ${classes.mgRight}`}
                         >
                           <span className={classes.labels}>
-                            {labels.total_entitle_amount}
+                            {t("form:label.totalEntitleAmount")}
                           </span>
                           <FormikForm.Input
                             name="lspspEntitlementAmount"
@@ -615,7 +642,7 @@ const EmployeeDetails = (props) => {
                           className={`${classes.mgTop} ${classes.mgRight}`}
                         >
                           <span className={classes.labels}>
-                            {labels.pay_amount_er}
+                            {t("form:label.payAmountEr")}
                           </span>
                           <FormikForm.Input
                             name="orsoOffsetAmount"
@@ -637,7 +664,6 @@ const EmployeeDetails = (props) => {
                           />
                         )}
                       </div>
-
                       <div className={classes.effDateTop}>
                         <Grid
                           item
@@ -646,10 +672,10 @@ const EmployeeDetails = (props) => {
                           className={classes.effDateInside}
                         >
                           <span className={classes.labels}>
-                            {labels.effectiveDate}
+                            {t("form:label.effectiveDate")}
                           </span>
                           <FormikForm.DatePicker
-                            name="effective_date"
+                            name="effectiveDate"
                             helperText="YYYYMMDD"
                             format="YYYY/MM/DD"
                           />
@@ -666,6 +692,61 @@ const EmployeeDetails = (props) => {
                           />
                         </Grid>
                       </div>
+                      {/*comment */}
+                      <div className={classes.mgTop}>
+                        <div className={classes.terminationTitle}>
+                          {/* {t("form:label.supportDocuments")} */}
+                        </div>
+                        {/* <EmployeeDocuments /> */}
+                      </div>
+                      <div className={classes.mgTop}>
+                        <div className={classes.terminationTitle}>
+                          {t("form:label.bankInfo")}
+                        </div>
+                        <Grid container spacing={3}>
+                          <Grid item xs={3}>
+                            <span className={classes.labels}>
+                              {t("form:label.bankName")}
+                            </span>
+                            <FormikForm.Select
+                              name="bankName"
+                              data={{
+                                options:
+                                  Object.keys(bankList).length && bankList,
+                                label: (option) => option.bnkNm,
+                                value: (option) => option.id,
+                              }}
+                            />
+                          </Grid>
+                          <Grid item xs={3}>
+                            <span className={classes.labels}>
+                              {t("form:label.acctNum")}
+                            </span>
+                            <FormikForm.Input
+                              name="acctNumber"
+                              fullWidth
+                              placeholder="Please Input"
+                              value={clnBnkInfo && clnBnkInfo[0].bnkAccntNmbr}
+                            />
+                          </Grid>
+                          <Grid item xs={3}>
+                            <span className={classes.labels}>
+                              {t("form:label.payMethod")}
+                            </span>
+                            <FormikForm.Select
+                              name="paymentMethod"
+                              data={{
+                                options:
+                                  Object.keys(payMethod).length && payMethod,
+                                label: (option) => option.cstmTypDtlTxt,
+                                value: (option) => option.cstmTypId,
+                              }}
+                            />
+                          </Grid>
+                          <Grid item xs={3}></Grid>
+                        </Grid>
+                      </div>{" "}
+                      {/*comment */}
                     </div>
                   </div>
                 </Paper>

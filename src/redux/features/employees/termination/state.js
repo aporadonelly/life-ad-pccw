@@ -24,5 +24,5 @@ export const initialState = adapter.getInitialState({
   ],
   paymethod: [],
   bankList: [],
-  clntBnkInfo: {},
+  clntBnkInfo: [],
 });

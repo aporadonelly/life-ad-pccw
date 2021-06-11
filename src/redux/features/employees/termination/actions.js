@@ -67,6 +67,10 @@ export const validTermination = createAsyncThunk(
 
 export const passValuesActions = createAction("@@EMPF/TERMINATION/PASS");
 
+export const getEntitleLSPSP = createAction("@@EMPF/TERMINATION/ENTITLE");
+
+export const getLspspDetails = createAction("@@EMPF/TERMINATION/LSPSP");
+
 export const loadPayMethod = createAsyncThunk(
   "@@EMPF/TERMINATION/paymentMthdList",
   async (payload, { rejectWithValue }) => {
@@ -95,11 +99,16 @@ export const loadBankList = createAsyncThunk(
 
 export const loadClntBnkInfo = createAsyncThunk(
   "@@EMPF/TERMINATION/ldClntBnkInfo",
-  async (payload, { rejectWithValue }) => {
+  async ({ pageNo, pageSize, ...payload }, { rejectWithValue }) => {
     try {
-      const clntBnkInfo = await terminationAdapter.getClntBnkInfo(payload);
+      const clntBnkInfo = await terminationAdapter.ldClntBnkInfo(payload, {
+        pageNo,
+        pageSize,
+      });
+      console.log("clntBnkInfo", clntBnkInfo);
       return { clntBnkInfo };
     } catch (error) {
+      alert(error);
       console.error(error);
       return rejectWithValue({ error });
     }

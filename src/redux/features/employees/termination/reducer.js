@@ -7,8 +7,6 @@ import {
   saveTermination,
   validTermination,
   passValuesActions,
-  getEntitleLSPSP,
-  getLspspDetails,
   loadPayMethod,
   loadBankList,
   loadClntBnkInfo,
@@ -89,31 +87,31 @@ export const employeeTerminationReducer = createReducer(
       })
 
       .addCase(loadPayMethod.pending, (state, _action) => {
-        return { ...state, paymethod: [], isLoading: true, error: null };
+        return { ...state, isLoading: true, error: null };
       })
       .addCase(loadPayMethod.fulfilled, (state, action) => {
         const { paymethod } = action.payload;
-        return { ...state, isLoading: false, paymethod: paymethod.content };
+        return { ...state, isLoading: false, paymethod };
       })
       .addCase(loadPayMethod.rejected, (state, action) => {
         const { error } = action.payload;
-        return { ...state, isLoading: false, paymethod: error };
+        return { ...state, isLoading: false, error };
       })
 
       .addCase(loadBankList.pending, (state, _action) => {
-        return { ...state, bankList: [], isLoading: true, error: null };
+        return { ...state, isLoading: true, error: null };
       })
       .addCase(loadBankList.fulfilled, (state, action) => {
         const { bankList } = action.payload;
-        return { ...state, isLoading: false, bankList: bankList.content };
+        return { ...state, isLoading: false, bankList };
       })
       .addCase(loadBankList.rejected, (state, action) => {
         const { error } = action.payload;
-        return { ...state, isLoading: false, bankList: error };
+        return { ...state, isLoading: false, error };
       })
 
       .addCase(loadClntBnkInfo.pending, (state, _action) => {
-        return { ...state, clntBnkInfo: [], isLoading: true, error: null };
+        return { ...state, isLoading: true, error: null };
       })
       .addCase(loadClntBnkInfo.fulfilled, (state, action) => {
         const { clntBnkInfo } = action.payload;
@@ -121,7 +119,7 @@ export const employeeTerminationReducer = createReducer(
       })
       .addCase(loadClntBnkInfo.rejected, (state, action) => {
         const { error } = action.payload;
-        return { ...state, isLoading: false, clntBnkInfo: error };
+        return { ...state, isLoading: false, error };
       })
 );
 

@@ -7,7 +7,7 @@ import storage from "redux-persist/lib/storage/session";
 const persistConfig = {
   key: "system",
   storage: storage,
-  blacklist: ["isLoading", "error", "reasonTerm"],
+  blacklist: ["isLoading", "error"],
 };
 
 const systemReducer = createReducer(initialState, (builder) =>

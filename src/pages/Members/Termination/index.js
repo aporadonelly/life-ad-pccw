@@ -8,6 +8,11 @@ import {
   errorSelector,
   valuesActionSelector,
   termsSelector,
+  entitleLspSpSelector,
+  detailsLspSpSelector,
+  payMethodSelector,
+  bankListSelector,
+  clntBnkInfoSelector,
 } from "@redux/features/employees/termination/selectors";
 
 import {
@@ -24,6 +29,11 @@ import {
   validTermination,
   passValuesActions,
   resetTermination,
+  getEntitleLSPSP,
+  getLspspDetails,
+  loadPayMethod,
+  loadBankList,
+  loadClntBnkInfo,
 } from "@redux/features/employees/termination/actions";
 import Termination from "./Termination";
 
@@ -37,6 +47,11 @@ const mapStateToProps = (state) => ({
   error: errorSelector(state),
   valuesActions: valuesActionSelector(state),
   cycleDate: cycleDateSelector(state),
+  entitleLspSp: entitleLspSpSelector(state),
+  detailsLspSp: detailsLspSpSelector(state),
+  payMethod: payMethodSelector(state),
+  bankList: bankListSelector(state),
+  clnBnkInfo: clntBnkInfoSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -49,6 +64,11 @@ const mapDispatchToProps = (dispatch) => ({
       loadTermReason,
       passValuesActions,
       resetTermination,
+      getEntitleLSPSP,
+      getLspspDetails,
+      loadPayMethod,
+      loadBankList,
+      loadClntBnkInfo,
     },
     dispatch
   ),

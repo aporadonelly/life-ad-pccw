@@ -8,11 +8,24 @@ import { Grid, Box } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 
 const Termination = (props) => {
-  const { loadTermReason, loadEmpSchemes, isLoading, error } = props;
   const { id } = useParams();
+  const {
+    loadTermReason,
+    loadEmpSchemes,
+    isLoading,
+    error,
+    loadPayMethod,
+    loadBankList,
+    loadClntBnkInfo,
+  } = props;
+
   useEffect(() => {
-    loadTermReason();
+    loadBankList();
+    loadPayMethod();
+    loadClntBnkInfo({ clntUuid: "5B41559B-A087-4279-8E2A-2C041E308B47" });
     loadEmpSchemes({ accountNumber: id });
+    loadTermReason();
+
     // eslint-disable-next-line
   }, []);
   return (
