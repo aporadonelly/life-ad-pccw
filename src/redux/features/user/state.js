@@ -1,10 +1,11 @@
 import { createEntityAdapter } from "@reduxjs/toolkit";
 
-export const adapter = createEntityAdapter({});
+export const authAdapter = createEntityAdapter({});
 
-export const initialState = adapter.getInitialState({
-  token: null,
-  user: null,
+export const initialState = authAdapter.getInitialState({
+  isAuthenticating: true,
   isLoading: false,
   error: null,
+  user: null,
+  expires: null,
 });
