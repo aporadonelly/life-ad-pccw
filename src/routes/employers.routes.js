@@ -4,8 +4,8 @@ import { companyRoutes, enrollmentEnquiriesRoutes } from "./employers";
 const employersRoutes = [
   {
     name: "Enrollment Enquiries",
-    path: "/employers/enquiries",
-    redirect: "/employers/enquiries/search",
+    path: "/employers/enquiry",
+    redirect: "/employers/enquiry/search",
     children: enrollmentEnquiriesRoutes,
     tab: true,
   },

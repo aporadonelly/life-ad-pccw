@@ -70,7 +70,11 @@ const CompanyProfile = ({ isLoading, getEmployers }) => {
                     return (
                       <Form>
                         <Grid item xs={12}>
-                          <Typography variant="h6" color="primary">
+                          <Typography
+                            variant="h6"
+                            color="primary"
+                            style={{ marginBottom: "13px" }}
+                          >
                             {t("typography:heading.employerRegOrEnr")}
                           </Typography>
                         </Grid>
@@ -147,28 +151,28 @@ const CompanyProfile = ({ isLoading, getEmployers }) => {
                             />
                           </Grid>
                           <Grid item xs={3}>
-                            <Form.Input
+                            <Form.Select
                               label={t("form:label.typesOfCompany")}
                               name="typesOfCompany"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseInput"
                               )}
+                              // data={{
+                              //   options: placeOfBirth,
+                              //   label: (option) => option.cntryTypNm,
+                              //   value: (option) => option.cntryTypCd,
+                              // }}
                             />
                           </Grid>
                           <Grid item xs={3}>
-                            <Form.Select
+                            <Form.Input
                               label={t("form:label.branchNumber")}
                               name="branchNumber"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseSelect"
                               )}
-                              // data={{
-                              //   options: idType,
-                              //   label: (option) => option.cstmTypDtlTxt,
-                              //   value: (option) => option.cstmTypId,
-                              // }}
                               clearButton
                             />
                           </Grid>
@@ -177,16 +181,18 @@ const CompanyProfile = ({ isLoading, getEmployers }) => {
                         {/* Third line */}
                         <Grid container spacing={3}>
                           <Grid item xs={3}>
-                            <Form.Input
+                            <Form.DatePicker
                               label={t("form:label.dateOfIncorporation")}
                               name="dateOfIncorporation"
+                              format="YYYY/MM/DD"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseInput"
                               )}
+                              helperText="DDMMYYYY"
                             />
                           </Grid>
-                          <Grid item xs={4}>
+                          <Grid item xs={3}>
                             <Form.Input
                               label={t("form:label.registeredOfcAddress")}
                               name="registeredOfcAddress"

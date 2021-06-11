@@ -4,13 +4,13 @@ import SearchResult from "@pages/Employers/EnrollmentEnquiries/SearchResult";
 const enrollmentEnquiriesRoutes = [
   {
     name: "Enquiry Search",
-    path: "/employers/enquiries/search",
+    path: "/employers/enquiry/search",
     component: EnquirySearch,
     tab: false,
   },
   {
     name: "Search Result",
-    path: "/employers/enquiries/result",
+    path: "/employers/enquiry/result",
     component: SearchResult,
     tab: false,
   },

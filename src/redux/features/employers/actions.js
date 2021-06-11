@@ -7,8 +7,9 @@ export const getEmployers = createAsyncThunk(
   async (payload, { rejectWithValue, dispatch }) => {
     try {
       const employers = await employerAdapter.searchEmployers(payload);
-      dispatch(push("/employers/enquiries/result"));
-      return { employers: employers.content };
+      dispatch(push("/employers/enquiry/result"));
+      console.log(employers);
+      return { employers };
     } catch (error) {
       return rejectWithValue({ error });
     }

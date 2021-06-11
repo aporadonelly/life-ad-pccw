@@ -17,11 +17,13 @@ import viewEnrollActive from "@assets/icons/enroll-active.PNG";
 import viewEnrollInActive from "@assets/icons/enroll-inactive.PNG";
 import viewRegistration from "@assets/icons/view_reg.PNG";
 
-const SearchResult = ({ employers }) => {
+const SearchResult = ({ getEmployers, employers }) => {
   const history = useHistory();
   console.log(employers, "employers");
   const { t } = useTranslation(["typography", "form", "button", "table"]);
-  useEffect(() => {}, [employers]);
+  useEffect(() => {
+    getEmployers();
+  }, []);
 
   const columns = [
     { label: t("table:thead.mpfId"), name: "pnsnIdTxt" },
@@ -58,7 +60,7 @@ const SearchResult = ({ employers }) => {
                         data-testid="back-btn"
                         variant="outlined"
                         onClick={() =>
-                          history.push("/employers/enquiries/search")
+                          history.push("/employers/enquiry/search")
                         }
                       >
                         {t("button:editSearch")}
@@ -68,7 +70,7 @@ const SearchResult = ({ employers }) => {
                         style={{ width: "auto" }}
                         data-testid="back-btn"
                         onClick={() =>
-                          history.push("/employers/enquiries/search")
+                          history.push("/employers/enquiry/search")
                         }
                       >
                         {t("button:newSearch")}

@@ -14,7 +14,8 @@ const persistConfig = {
   storage: storage,
   blacklist: ["isLoading", "error"],
 };
-export const employerReducer = createReducer(initialState, (builder) =>
+
+const employerReducer = createReducer(initialState, (builder) =>
   builder
     .addCase(getEmployers.pending, (state, _action) => {
       return { ...state, isLoading: true, error: null };

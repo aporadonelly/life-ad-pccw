@@ -3,7 +3,7 @@ import { connectRouter } from "connected-react-router";
 import system from "./features/system/reducer";
 import user from "./features/user/reducer";
 // import { companyReducer } from "./features/company/reducer";
-import { employerReducer } from "./features/employers/reducer";
+import employerReducer from "./features/employers/reducer";
 import membersReducer from "./features/members/reducer";
 import { employeeTerminationReducer } from "./features/employees/termination/reducer";
 import employeeDetailsReducer from "@reducers/employeeDetailsReducer";

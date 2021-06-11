@@ -17,7 +17,8 @@ export const companyRegInfoSelector = createSelector(
 );
 
 export const authPersonInfoListSelector = createSelector(
-  stateSelector, (state) => state.authPersonList
+  stateSelector,
+  (state) => state.authPersonList
 );
 
 export const isLoadingSelector = createSelector(
