@@ -8,6 +8,14 @@ import {
   validTermination,
   passValuesActions,
 } from "./actions";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage/session";
+
+const persistConfig = {
+  key: "employeeTermination",
+  storage: storage,
+  blacklist: ["isLoading", "error"],
+};
 
 export const employeeTerminationReducer = createReducer(
   initialState,
@@ -75,3 +83,5 @@ export const employeeTerminationReducer = createReducer(
         return { ...state, valuesActions: action.payload };
       })
 );
+
+export default persistReducer(persistConfig, employeeTerminationReducer);
