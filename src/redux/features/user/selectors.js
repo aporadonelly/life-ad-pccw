@@ -1,18 +1,28 @@
 import { createSelector } from "@reduxjs/toolkit";
 
-const stateSelector = (state) => state.user;
+export const featureStateSelector = (state) => state.user;
 
-export const userSelector = createSelector(
-  stateSelector,
-  (state) => state.user
+export const isAuthenticatingSelector = createSelector(
+  featureStateSelector,
+  (state) => state.isAuthenticating
 );
 
 export const isLoadingSelector = createSelector(
-  stateSelector,
+  featureStateSelector,
   (state) => state.isLoading
 );
 
 export const errorSelector = createSelector(
-  stateSelector,
+  featureStateSelector,
   (state) => state.error
+);
+
+export const userSelector = createSelector(
+  featureStateSelector,
+  (state) => state.user
+);
+
+export const expiresSelector = createSelector(
+  featureStateSelector,
+  (state) => state.expires
 );

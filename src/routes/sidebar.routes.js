@@ -12,7 +12,7 @@ import {
 const sidebarRoutes = [
   {
     name: "task",
-    path: "/task",
+    path: "/",
     icon: <HomeOutlinedIcon />,
     component: null,
   },
@@ -22,7 +22,7 @@ const sidebarRoutes = [
   {
     name: "member",
     path: "/members",
-    redirect: "/members/enquiry",
+    redirect: "/members/enquiry/search",
     icon: <PeopleOutlineOutlinedIcon />,
     component: null,
   },
@@ -38,6 +38,7 @@ const sidebarRoutes = [
   {
     name: "employer",
     path: "/employers",
+    redirect: "/employers/enquiry",
     icon: <BusinessCenterOutlinedIcon />,
     component: null,
   },

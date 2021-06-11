@@ -1,22 +1,33 @@
+import React from "react";
 import { Switch, Route } from "react-router-dom";
-import { nanoid } from "@reduxjs/toolkit";
+import { AuthWrapper } from "@hocs";
+import { isArray } from "lodash";
 
 const createRoutes = (routes) => (
-  <Switch key={nanoid()}>
+  <Switch>
     {routes.map((route) => {
-      const hasChildren = route.children ? true : false;
-      if (!hasChildren) {
+      if (!isArray(route.children)) {
+        const wrappedComponent = AuthWrapper(route.component);
         return (
           <Route
             key={route.name}
             exact={route.exact}
             name={route.name}
             path={route.path}
-            component={route.component}
+            component={wrappedComponent}
           />
         );
       }
-      return createRoutes(route.children);
+
+      return (
+        <Route
+          key={route.name}
+          exact={route.exact}
+          name={route.name}
+          path={route.path}
+          component={() => createRoutes(route.children)}
+        />
+      );
     })}
   </Switch>
 );

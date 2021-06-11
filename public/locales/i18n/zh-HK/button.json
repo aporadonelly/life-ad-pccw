@@ -5,6 +5,8 @@
   "newSearch": "新搜尋",
   "editSearch": "編輯搜尋",
   "backToSearch": "返回搜尋",
-  "backToCompanyProfile": "後退"
-  
+  "edit": "編輯",
+  "backToCompanyProfile": "後退",
+  "back": "後退",
+  "addErEnrollment": "添加新的 ER 註冊"
 }

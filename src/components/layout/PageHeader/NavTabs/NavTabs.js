@@ -35,10 +35,10 @@ const NavTabs = (props) => {
           if (children && children.length) {
             result["lvl2"].push({
               path: route.path,
-              tabs: children,
+              tabs: children.filter((tab) => tab.tab),
             });
           }
-          result["lvl1"].push(route);
+          route.tab && result["lvl1"].push(route);
           return result;
         },
         { lvl1: [], lvl2: [] }
@@ -75,28 +75,31 @@ const NavTabs = (props) => {
             />
           ))}
         </TabList>
-        {tabs.lvl2.map((tab) => (
-          <TabPanel key={tab.path} value={tab.path}>
-            <TabContext tabs={tab.tabs}>
-              <TabList
-                classes={lvl2TabsClasses}
-                TabIndicatorProps={{ children: <span /> }}
-              >
-                {tab.tabs.map((tab) => (
-                  <Tab
-                    key={tab.name}
-                    classes={lvl2TabClasses}
-                    component={Link}
-                    to={tab.redirect ?? tab.path}
-                    label={tab.name}
-                    value={tab.path}
-                    disableRipple
-                  />
-                ))}
-              </TabList>
-            </TabContext>
-          </TabPanel>
-        ))}
+        {tabs.lvl2.map(
+          (tab) =>
+            tab.tabs.length > 0 && (
+              <TabPanel key={tab.path} value={tab.path}>
+                <TabContext tabs={tab.tabs}>
+                  <TabList
+                    classes={lvl2TabsClasses}
+                    TabIndicatorProps={{ children: <span /> }}
+                  >
+                    {tab.tabs.map((tab) => (
+                      <Tab
+                        key={tab.name}
+                        classes={lvl2TabClasses}
+                        component={Link}
+                        to={tab.redirect ?? tab.path}
+                        label={tab.name}
+                        value={tab.path}
+                        disableRipple
+                      />
+                    ))}
+                  </TabList>
+                </TabContext>
+              </TabPanel>
+            )
+        )}
       </TabContext>
     </Box>
   );

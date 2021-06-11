@@ -5,5 +5,8 @@
   "newSearch": "新搜寻",
   "editSearch": "编辑搜寻",
   "backToSearch": "返回搜寻",
-  "backToCompanyProfile": "后退"
+  "edit": "编辑",
+  "backToCompanyProfile": "后退",
+  "back": "后退",
+  "addErEnrollment": "添加新的 ER 注册"
 }
