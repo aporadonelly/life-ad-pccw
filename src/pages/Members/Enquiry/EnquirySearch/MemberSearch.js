@@ -1,6 +1,5 @@
-import { useEffect } from "react";
 import moment from "moment";
-import { isEqual, isDate } from "lodash";
+import { isEqual } from "lodash";
 import * as yup from "yup";
 import { Formik } from "formik";
 import { Page } from "@containers";

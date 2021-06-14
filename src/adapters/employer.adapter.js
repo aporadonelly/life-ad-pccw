@@ -15,7 +15,7 @@ class EmployerAdapter extends AxiosAdapter {
         }
       ),
     };
-    return this.instance.get("/ldSrchRegInd", config);
+    return this.instance.get("/ldSrchRegInd", config); //change api here once avail
   }
 
   LdRegCmpnyInfoforAdmnPrtl(clientId) {

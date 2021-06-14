@@ -32,14 +32,23 @@ const initialValues = {
   referenceNoOfMpfOrServiceAgent: "",
   registrationStatus: "",
   scheme: "",
+  trustee: "",
   enrolmentStatus: "",
 };
 
-const CompanyProfile = ({ isLoading, getEmployers }) => {
+const CompanyProfile = ({
+  isLoading,
+  getEmployers,
+  industryType,
+  registrationType,
+  typesOfCompany,
+  enrolmentStatus,
+}) => {
   const { t } = useTranslation(["typography", "form", "button"]);
   const classes = EmployeeStyles();
 
   const handleSubmit = (values) => {
+    console.log(values);
     getEmployers(values);
   };
 
@@ -132,11 +141,11 @@ const CompanyProfile = ({ isLoading, getEmployers }) => {
                               placeholder={t(
                                 "form:placeholder.custom.pleaseSelect"
                               )}
-                              // data={{
-                              //   options: idType,
-                              //   label: (option) => option.cstmTypDtlTxt,
-                              //   value: (option) => option.cstmTypId,
-                              // }}
+                              data={{
+                                options: registrationType,
+                                label: (option) => option.cstmTypDtlTxt,
+                                value: (option) => option.cstmTypId,
+                              }}
                               clearButton
                             />
                           </Grid>
@@ -158,11 +167,12 @@ const CompanyProfile = ({ isLoading, getEmployers }) => {
                               placeholder={t(
                                 "form:placeholder.custom.pleaseInput"
                               )}
-                              // data={{
-                              //   options: placeOfBirth,
-                              //   label: (option) => option.cntryTypNm,
-                              //   value: (option) => option.cntryTypCd,
-                              // }}
+                              data={{
+                                options: typesOfCompany,
+                                label: (option) => option.cstmTypDtlTxt,
+                                value: (option) => option.cstmGrpId,
+                              }}
+                              clearButton
                             />
                           </Grid>
                           <Grid item xs={3}>
@@ -232,11 +242,11 @@ const CompanyProfile = ({ isLoading, getEmployers }) => {
                         <Grid container spacing={3}>
                           <Grid item xs={4}>
                             <Form.Select
-                              // data={{
-                              //   options: placeOfBirth,
-                              //   label: (option) => option.cntryTypNm,
-                              //   value: (option) => option.cntryTypCd,
-                              // }}
+                              data={{
+                                options: industryType,
+                                label: (option) => option.cstmTypDtlTxt,
+                                value: (option) => option.cstmTypId,
+                              }}
                               label={t("form:label.natureOfBusiness")}
                               name="natureOfBusiness"
                               type="text"
@@ -311,11 +321,11 @@ const CompanyProfile = ({ isLoading, getEmployers }) => {
                           </Grid>
                           <Grid item xs={2}>
                             <Form.Select
-                              // data={{
-                              //   options: placeOfBirth,
-                              //   label: (option) => option.cntryTypNm,
-                              //   value: (option) => option.cntryTypCd,
-                              // }}
+                              data={{
+                                options: enrolmentStatus,
+                                label: (option) => option.cstmTypDtlTxt,
+                                value: (option) => option.cstmTypId,
+                              }}
                               label={t("form:label.enrolmentStatus")}
                               name="enrolmentStatus"
                               type="text"

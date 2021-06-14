@@ -1,21 +1,35 @@
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { customTypeByGroupIdSelector } from "@redux/features/system/selectors";
 import {
-  employersSelector,
   isLoadingSelector,
   errorSelector,
-} from "@redux/features/employers/selectors";
-import { getEmployers } from "@redux/features/employers/actions";
+  employeesSelector,
+  enquirySelector,
+} from "@redux/features/members/selectors";
+import { getAllMembers, saveEnquiry } from "@redux/features/members/actions";
+
 import EnquirySearch from "./EnquirySearch";
 
 const mapStateToProps = (state) => ({
-  employers: employersSelector(state),
   isLoading: isLoadingSelector(state),
   error: errorSelector(state),
+  industryType: customTypeByGroupIdSelector(state, "NT"),
+  registrationType: customTypeByGroupIdSelector(state, "CI"),
+  typesOfCompany: customTypeByGroupIdSelector(state, "CP"),
+  enrolmentStatus: customTypeByGroupIdSelector(state, "ST"),
+  employees: employeesSelector(state),
+  enquiry: enquirySelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  ...bindActionCreators({ getEmployers }, dispatch),
+  ...bindActionCreators(
+    {
+      getAllMembers,
+      saveEnquiry,
+    },
+    dispatch
+  ),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EnquirySearch);
