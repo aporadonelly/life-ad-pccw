@@ -1,0 +1,9 @@
+{
+  "siteMap": {
+    "/employers/company/reg-info": "Company / Company Registration Information",
+    "/employers/enquiries": "Employer / ER Registration or Enrollment Enquiries",
+    "/members/enquiry": "Member / Member Enquiry",
+    "/members/termination": "Member / Termination",
+    "/": "Task"
+  }
+}
