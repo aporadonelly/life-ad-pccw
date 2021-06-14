@@ -7,6 +7,7 @@ export const initialState = adapter.getInitialState({
   authPerson: {},
   companyRegInfo: [],
   authPersonList: [],
+  contactPerson: [],
   isLoading: false,
   error: null,
 });

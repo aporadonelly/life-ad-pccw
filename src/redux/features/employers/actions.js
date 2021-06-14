@@ -52,3 +52,15 @@ export const getAuthorizedPersonList = createAsyncThunk(
     }
   }
 );
+
+export const getContactPerson = createAsyncThunk(
+"@@EMPF/EMPLOYER/GET_CONTACT_PERSON",
+async (_payload, { rejectWithValue }) => {
+  try {
+    const contactPerson = await employerAdapter.LdRegCntctPrsn();
+    return { contactPerson };
+  } catch (error) {
+    return rejectWithValue({ error });
+  }
+}
+);

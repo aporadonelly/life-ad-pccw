@@ -13,8 +13,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { Definition } from "@components/misc";
 import CompanySupportingDocs from "./SupportingDocuments";
-// import AuthorizedPerson from "../AuthorizedPerson/AuthorizedPerson";
-import { get, concat } from "lodash";
+import { get, concat, compact, isEmpty } from "lodash";
 import { useHistory } from "react-router-dom";
 import useStyles from "./styles";
 import { TableCustomized } from "@components/common";
@@ -40,13 +39,21 @@ const CompanyProfile = (props) => {
   const {
     LdRegCmpnyInfoforAdmnPrtl,
     getAuthorizedPersonList,
+    getContactPerson,
     companyRegInfo,
+    contactPerson,
     authPersonList,
     isLoading,
   } = props;
 
-  console.log("comReg:", companyRegInfo)
-  console.log("auth:", authPersonList)
+  // console.log("comReg:", companyRegInfo)
+  // console.log("auth:", authPersonList)
+  // console.log("contacts:", contactPerson) //this is working and fetching
+
+  // const { ldRegCntctPrsnProjection } = contactPerson;
+  // const contactPrsn = ldRegCntctPrsnProjection ? ldRegCntctPrsnProjection.regCntcts : '';
+  // const contactP = get(contactPrsn, "[0]") ?? {};
+  // console.log("reg contact:", contactP)
 
   const columns = [
     { label: t("table:thead.lastName"), name: "lastName" },
@@ -55,74 +62,64 @@ const CompanyProfile = (props) => {
     { label: t("table:thead.chineseFirstName"), name: "chineseFirstName" },
   ];
 
-  const {
+  const { ldRegCmpnyInfoforAdmnPrtlProjection, countryTyp } = companyRegInfo ?? {};
+   console.log("projection:", ldRegCmpnyInfoforAdmnPrtlProjection)
+  const { 
     cmpnyNm,
     cmpnyChnsNm,
     incrprtnDt,
-    natureOfBusiness,
+    ntrTypId,
     placeOfIncorporation,
     registrationNumber,
     registrationType,
+    cntryTypCd,
     cmpnyTypId,
-    ldRegCmpnyInfoforAdmnPrtlProjection
-  } = get(companyRegInfo, "[0]") ?? {};
-  console.log("com:", ldRegCmpnyInfoforAdmnPrtlProjection)
+   } = ldRegCmpnyInfoforAdmnPrtlProjection ?? {};
+  
+  const reOfficeAddress = get(ldRegCmpnyInfoforAdmnPrtlProjection, "addresses[0]") ?? {};
+  const regBusinessAddress = get(ldRegCmpnyInfoforAdmnPrtlProjection, "addresses[1]") ?? {};
+  const regCorresAddress = get(ldRegCmpnyInfoforAdmnPrtlProjection, "addresses[2]") ?? {};
+  // const registeredOfficeAddress = compact([
+  //   // reOfficeAddress.addrRmTxt,
+  //   reOfficeAddress.addrFlrTxt,
+  //   reOfficeAddress.addrBldngNmTxt,
+  //   reOfficeAddress.addrBlckTxt,
+  //   reOfficeAddress.addrStrtTxt,
+  //   reOfficeAddress.addrCtyTxt,
+  //   reOfficeAddress.addrDstrctTxt
+  // ]).join(" ");
+  // const businessAddress = compact([
+  //   regBusinessAddress.addrRmTxt,
+  //   regBusinessAddress.addrFlrTxt,
+  //   regBusinessAddress.addrBldngNmTxt,
+  //   regBusinessAddress.addrBlckTxt,
+  //   regBusinessAddress.addrStrtTxt,
+  //   regBusinessAddress.addrCtyTxt,
+  //   regBusinessAddress.addrDstrctTxt
+  // ]).join(" ");
+  // const correspondenceAddress = compact([
+  //   regCorresAddress.addrRmTxt,
+  //   regCorresAddress.addrFlrTxt,
+  //   regCorresAddress.addrBldngNmTxt,
+  //   regCorresAddress.addrBlckTxt,
+  //   regCorresAddress.addrStrtTxt,
+  //   regCorresAddress.addrCtyTxt,
+  //   regCorresAddress.addrDstrctTxt
+  // ]).join(" ");
 
-  const address1 = get(ldRegCmpnyInfoforAdmnPrtlProjection, "addresses[0]") ?? {};
-  const address2 = get(ldRegCmpnyInfoforAdmnPrtlProjection, "addresses[1]") ?? {};
-  const address3 = get(ldRegCmpnyInfoforAdmnPrtlProjection, "addresses[2]") ?? {};
-  const registeredOfficeAddress = concat(
-    address1.addrRmTxt + ",",
-    address1.addrFlrTxt,
-    address1.addrBldngNmTxt,
-    address1.addrBlckTxt,
-    address1.addrStrtTxt,
-    address1.addrCtyTxt,
-    address1.addrDstrctTxt
-  ).join("");
-  const businessAddress = concat(
-    address2.addrRmTxt + ",",
-    address2.addrFlrTxt,
-    address2.addrBldngNmTxt,
-    address2.addrBlckTxt,
-    address2.addrStrtTxt,
-    address2.addrCtyTxt,
-    address2.addrDstrctTxt
-  ).join("");
-  const correspondenceAddress = concat(
-    address3.addrRmTxt + ",",
-    address3.addrFlrTxt,
-    address3.addrBldngNmTxt,
-    address3.addrBlckTxt,
-    address3.addrStrtTxt,
-    address3.addrCtyTxt,
-    address3.addrDstrctTxt
-  ).join("");
+  const primaryContactPrsn = get(ldRegCmpnyInfoforAdmnPrtlProjection, "contacts[1]") ?? {};
+  const secondaryContactPrsn = get(ldRegCmpnyInfoforAdmnPrtlProjection, "contacts[0]") ?? {};
+  const { phnNmbr } = get(ldRegCmpnyInfoforAdmnPrtlProjection, "clntPhones[0]") ?? {};
+  const { brnchNm, lnggTypId } = get(ldRegCmpnyInfoforAdmnPrtlProjection, "branches[0]") ?? {};
+  const jobTitle1 = get(ldRegCmpnyInfoforAdmnPrtlProjection, "cmpnyRltdPrsns[0]") ?? {};
+  const jobTitle2 = get(ldRegCmpnyInfoforAdmnPrtlProjection, "cmpnyRltdPrsns[1]") ?? {};
 
-  const { cntctPrsnNm, firstName, ttlTypCd, telNo, emlAddrTxt } =
-    get(companyRegInfo, "[0].contacts[0") ?? {};
-  const { phnNmbr } = get(companyRegInfo, "[0].clntPhones[0") ?? {};
-
-  const { brnchNm, lnggTypId } = get(companyRegInfo, "[0].branches[0") ?? {};
-  const { jbPstnTxt } = get(companyRegInfo, "[0].cmpnyRltdPrsns[0") ?? {};
-
-  const {
-    lastName2,
-    firstName2,
-    nameTitle2,
-    jobTitle2,
-    telNo2,
-    mobileNo2,
-    emailAddress2,
-    preferredLanguageContact2,
-  } = get(companyRegInfo, "[4].secondaryContactPerson") ?? {};
-
-  const supportingDocuments =
-    get(companyRegInfo, "[5].supportingDocuments") ?? [];
+  const supportingDocuments = get(companyRegInfo, "[5].supportingDocuments") ?? [];
 
   useEffect(() => {
     LdRegCmpnyInfoforAdmnPrtl();
     getAuthorizedPersonList();
+    // getContactPerson();
   }, [LdRegCmpnyInfoforAdmnPrtl, getAuthorizedPersonList]);
 
   return (
@@ -180,7 +177,7 @@ const CompanyProfile = (props) => {
                               item
                               xs={3}
                               dt={t("form:label.placeOfIncorporation")}
-                              dd={placeOfIncorporation}
+                              dd={countryTyp.cntryTypNm}
                             />
                             <Definition.Item
                               item
@@ -204,7 +201,7 @@ const CompanyProfile = (props) => {
                               item
                               xs={3}
                               dt={t("form:label.natureOfBusiness")}
-                              dd={natureOfBusiness}
+                              dd={ntrTypId}
                             />
                             <Definition.Item
                               item
@@ -241,15 +238,36 @@ const CompanyProfile = (props) => {
                         <Definition.List>
                           <Definition.Item
                             dt={t("form:label.registeredOfcAddress")}
-                            dd={registeredOfficeAddress}
+                            dd={reOfficeAddress.addrTypId === "AD_R" ?
+                                `${reOfficeAddress.addrRmTxt}, 
+                                 ${reOfficeAddress.addrFlrTxt}
+                                 ${reOfficeAddress.addrBldngNmTxt},
+                                 ${reOfficeAddress.addrBlckTxt}
+                                 ${reOfficeAddress.addrStrtTxt},
+                                 ${reOfficeAddress.addrCtyTxt},
+                                 ${reOfficeAddress.addrDstrctTxt}` : null}
                           />
                           <Definition.Item
                             dt={t("form:label.businessAddress")}
-                            dd={businessAddress}
+                            dd={regBusinessAddress.addrTypId === "AD_B" ? 
+                              `${regBusinessAddress.addrRmTxt}, 
+                                ${regBusinessAddress.addrFlrTxt}
+                                ${regBusinessAddress.addrBldngNmTxt},
+                                ${regBusinessAddress.addrBlckTxt}
+                                ${regBusinessAddress.addrStrtTxt},
+                                ${regBusinessAddress.addrCtyTxt},
+                                ${regBusinessAddress.addrDstrctTxt}`: null}
                           />
                           <Definition.Item
                             dt={t("form:label.correspondenceAddress")}
-                            dd={correspondenceAddress}
+                            dd={regCorresAddress.addrTypId === "AD_C" ? 
+                            `${regCorresAddress.addrRmTxt}, 
+                              ${regCorresAddress.addrFlrTxt}
+                              ${regCorresAddress.addrBldngNmTxt},
+                              ${regCorresAddress.addrBlckTxt}
+                              ${regCorresAddress.addrStrtTxt},
+                              ${regCorresAddress.addrCtyTxt},
+                              ${regCorresAddress.addrDstrctTxt}`: null}
                           />
                         </Definition.List>
                       </Definition>
@@ -277,10 +295,10 @@ const CompanyProfile = (props) => {
                       </Grid>
                       <Grid item xs={12}>
                         <TableCustomized
+                          renderToolbar={(({ title, quickSearch, pagination }) => [])}
                           rows={authPersonList}
                           columns={columns}
                         />
-                        {/* <AuthorizedPerson authPerson={content} /> */}
                       </Grid>
                     </Grid>
                   </CardContent>
@@ -289,7 +307,7 @@ const CompanyProfile = (props) => {
             </Grid>
 
             <Grid item xs={12}>
-              {cntctPrsnNm && (
+              {primaryContactPrsn.cntctPrsnTypId === "CT_PCP" && (
                 <Card>
                   <CardContent>
                     <Grid container spacing={2}>
@@ -307,23 +325,23 @@ const CompanyProfile = (props) => {
                           <Definition.List>
                             <Definition.Item
                               dt={t("form:label.lastNameContactPerson")}
-                              dd={cntctPrsnNm}
+                              dd={primaryContactPrsn.lName}
                             />
                             <Definition.Item
                               dt={t("form:label.firstNameContactPerson")}
-                              dd={firstName}
+                              dd={primaryContactPrsn.fName}
                             />
                             <Definition.Item
                               dt={t("form:label.title")}
-                              dd={ttlTypCd}
+                              dd={primaryContactPrsn.ttlTypCd}
                             />
                             <Definition.Item
                               dt={t("form:label.jobTitle")}
-                              dd={jbPstnTxt}
+                              dd={jobTitle1.jbPstnTxt}
                             />
                             <Definition.Item
                               dt={t("form:label.telNo")}
-                              dd={telNo}
+                              dd={primaryContactPrsn.telNo}
                             />
                             <Definition.Item
                               dt={t("form:label.mobileNo")}
@@ -331,13 +349,13 @@ const CompanyProfile = (props) => {
                             />
                             <Definition.Item
                               dt={t("form:label.email")}
-                              dd={emlAddrTxt}
+                              dd={primaryContactPrsn.emlAddrTxt}
                             />
                             <Definition.Item
                               dt={t(
                                 "form:label.preferredCommunicationLanguage"
                               )}
-                              dd={getLanguage(lnggTypId)}
+                              dd={getLanguage(primaryContactPrsn.lnggTypId)}
                             />
                           </Definition.List>
                         </Definition>
@@ -345,11 +363,11 @@ const CompanyProfile = (props) => {
                     </Grid>
                   </CardContent>
                 </Card>
-              )}
+              )} 
             </Grid>
 
             <Grid item xs={12}>
-              {lastName2 && (
+            {secondaryContactPrsn.cntctPrsnTypId === "CT_SCP" && (
                 <Card>
                   <CardContent>
                     <Grid container spacing={2}>
@@ -367,37 +385,37 @@ const CompanyProfile = (props) => {
                           <Definition.List>
                             <Definition.Item
                               dt={t("form:label.lastNameContactPerson")}
-                              dd={lastName2}
+                              dd={secondaryContactPrsn.lName}
                             />
                             <Definition.Item
                               dt={t("form:label.firstNameContactPerson")}
-                              dd={firstName2}
+                              dd={secondaryContactPrsn.fName}
                             />
                             <Definition.Item
                               dt={t("form:label.title")}
-                              dd={nameTitle2}
+                              dd={secondaryContactPrsn.ttlTypCd}
                             />
                             <Definition.Item
                               dt={t("form:label.jobTitle")}
-                              dd={jobTitle2}
+                              dd={jobTitle2.jbPstnTxt}
                             />
                             <Definition.Item
                               dt={t("form:label.telNo")}
-                              dd={telNo2}
+                              // dd={secondaryContactPrsn.telNo2}
                             />
                             <Definition.Item
                               dt={t("form:label.mobileNo")}
-                              dd={mobileNo2}
+                              // dd={secondaryContactPrsn.}
                             />
                             <Definition.Item
                               dt={t("form:label.email")}
-                              dd={emailAddress2}
+                              dd={secondaryContactPrsn.emlAddrTxt}
                             />
                             <Definition.Item
                               dt={t(
                                 "form:label.preferredCommunicationLanguage"
                               )}
-                              dd={preferredLanguageContact2}
+                              dd={getLanguage(secondaryContactPrsn.lnggTypId)}
                             />
                           </Definition.List>
                         </Definition>

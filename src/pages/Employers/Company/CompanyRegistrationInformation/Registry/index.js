@@ -4,10 +4,12 @@ import { bindActionCreators } from "redux";
 import {
   getAuthorizedPersonList,
   LdRegCmpnyInfoforAdmnPrtl,
+  getContactPerson
 } from "@redux/features/employers/actions";
 import {
   authPersonInfoListSelector,
   companyRegInfoSelector,
+  contactPersonSelector,
   isLoadingSelector,
   errorSelector,
 } from "@redux/features/employers/selectors";
@@ -17,11 +19,12 @@ const mapStateToProps = (state) => ({
   error: errorSelector(state),
   companyRegInfo: companyRegInfoSelector(state),
   authPersonList: authPersonInfoListSelector(state),
+  contactPerson: contactPersonSelector(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators(
-    { LdRegCmpnyInfoforAdmnPrtl, getAuthorizedPersonList },
+    { LdRegCmpnyInfoforAdmnPrtl, getAuthorizedPersonList, getContactPerson },
     dispatch
   ),
 });
