@@ -12,7 +12,7 @@ import {
   getSpecificMember,
   saveEnquiry,
 } from "@redux/features/members/actions";
-import Members from "./Members";
+import SearchResult from "./SearchResult";
 
 const mapStateToProps = (state) => ({
   isLoading: isLoadingSelector(state),
@@ -33,4 +33,4 @@ const mapDispatchToProps = (dispatch) => ({
   ),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Members);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchResult);

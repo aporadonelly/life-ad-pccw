@@ -18,10 +18,8 @@ import {
 
 import {
   cycleDateSelector,
-  reasonSelector,
+  termReasonsSelector,
 } from "@redux/features/system/selectors";
-
-import { loadTermReason } from "@redux/features/system/actions";
 
 import {
   loadEmpSchemes,
@@ -44,7 +42,7 @@ const mapStateToProps = (state) => ({
   save: saveSelector(state),
   valid: validateSelector(state),
   isSaving: isSavingSelector(state),
-  reason: reasonSelector(state),
+  reason: termReasonsSelector(state),
   isLoading: isLoadingSelector(state),
   error: errorSelector(state),
   valuesActions: valuesActionSelector(state),
@@ -63,7 +61,6 @@ const mapDispatchToProps = (dispatch) => ({
       loadMbrTerm,
       saveTermination,
       validTermination,
-      loadTermReason,
       passValuesActions,
       resetTermination,
       getEntitleLSPSP,

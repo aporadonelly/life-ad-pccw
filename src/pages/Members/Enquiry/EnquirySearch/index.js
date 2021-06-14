@@ -1,48 +1,31 @@
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import MemberSearch from "./MemberSearch";
-
+import {
+  customTypeByGroupIdSelector,
+  countriesSelector,
+} from "@redux/features/system/selectors";
 import {
   isLoadingSelector,
   errorSelector,
-  genderSelector,
-  idTypeSelector,
-  nationalitySelector,
-  placeOfBirthSelector,
-  employeeTypeSelector,
-  industryTypeSelector,
-  occupationSelector,
-  schemeTypeSelector,
-  statusSelector,
   employeesSelector,
   enquirySelector,
 } from "@redux/features/members/selectors";
-import {
-  getGender,
-  getIdType,
-  getNationality,
-  getPlaceOfBirth,
-  getEmployeeType,
-  getIndustryType,
-  getOccupation,
-  getSchemeType,
-  getStatus,
-  getAllMembers,
-  saveEnquiry,
-} from "@redux/features/members/actions";
+import { getAllMembers, saveEnquiry } from "@redux/features/members/actions";
+
+import MemberSearch from "./MemberSearch";
 
 const mapStateToProps = (state) => ({
   isLoading: isLoadingSelector(state),
   error: errorSelector(state),
-  gender: genderSelector(state),
-  idType: idTypeSelector(state),
-  nationality: nationalitySelector(state),
-  placeOfBirth: placeOfBirthSelector(state),
-  employeeType: employeeTypeSelector(state),
-  industryType: industryTypeSelector(state),
-  occupation: occupationSelector(state),
-  schemeType: schemeTypeSelector(state),
-  status: statusSelector(state),
+  gender: customTypeByGroupIdSelector(state, "GD"),
+  idType: customTypeByGroupIdSelector(state, "ID"),
+  nationality: customTypeByGroupIdSelector(state, "NTN"),
+  placeOfBirth: countriesSelector(state),
+  employeeType: customTypeByGroupIdSelector(state, "EP"),
+  industryType: customTypeByGroupIdSelector(state, "NT"),
+  occupation: customTypeByGroupIdSelector(state, "MB"),
+  schemeType: customTypeByGroupIdSelector(state, "SC"),
+  status: customTypeByGroupIdSelector(state, "ST"),
   employees: employeesSelector(state),
   enquiry: enquirySelector(state),
 });
@@ -50,15 +33,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators(
     {
-      getGender,
-      getIdType,
-      getNationality,
-      getPlaceOfBirth,
-      getEmployeeType,
-      getIndustryType,
-      getOccupation,
-      getSchemeType,
-      getStatus,
       getAllMembers,
       saveEnquiry,
     },
