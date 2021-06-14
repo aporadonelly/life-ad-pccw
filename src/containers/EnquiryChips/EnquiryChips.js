@@ -22,7 +22,7 @@ const EnquiryChips = (props) => {
         <Chip
           key={key}
           pair={{ key, value }}
-          style={{ backgroundColor: getColor()[500] }}
+          style={{ backgroundColor: getColor()[700] }}
         />
       ))}
     </div>
