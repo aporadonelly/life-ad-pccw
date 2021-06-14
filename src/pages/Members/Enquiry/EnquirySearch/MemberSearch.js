@@ -68,8 +68,8 @@ const MemberSearch = ({
     const newValues = { ...values };
 
     Object.keys(newValues).forEach((key) => {
-      if (isDate(newValues[key])) {
-        newValues[key] = moment(newValues[key]).format("YYYY/MM/DD");
+      if (moment(newValues[key], "DD/MM/YYYY", true).isValid()) {
+        newValues[key] = newValues[key].split("/").reverse().join("/");
       }
     });
 
@@ -187,9 +187,9 @@ const MemberSearch = ({
                           </Grid>
                           <Grid item xs={2}>
                             <Form.DatePicker
-                              label={t("form:label.birthdate")}
+                              label={t("form:label.dateOfBirth")}
                               name="dateOfBirth"
-                              format="YYYY/MM/DD"
+                              format="DD/MM/YYYY"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseInput"
                               )}
