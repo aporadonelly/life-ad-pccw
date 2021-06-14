@@ -7,19 +7,19 @@ import MenuToggler from "./MenuToggler";
 import Settings from "./Settings";
 import React, { useEffect } from "react";
 
+const intervalTime = 1000 * 60 * 8;
+
 const Page = (props) => {
   const { user, cycleDate, logout, children, reissue } = props;
   const classes = useStyles();
-  const MinuteMilisecs = 1000 * 6 * 8; /// per minute
 
   useEffect(() => {
     const interval = setInterval(() => {
       reissue();
-    }, MinuteMilisecs);
+    }, intervalTime);
 
     return () => clearInterval(interval);
-    //eslint-disable-next-line
-  }, []);
+  }, [reissue]);
 
   return (
     <AppProvider>
