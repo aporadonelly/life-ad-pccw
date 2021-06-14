@@ -7,7 +7,7 @@ import { Form } from "@components/UseForm";
 import useStyles from "./EmployeeDetailStyles";
 
 import EmpScheme4 from "./EmployeeScheme4";
-// FIX: for future use
+// FIX: for future use of supporting documents
 //import EmployeeDocuments from "./EmployeeDocuments";
 import moment from "moment";
 import * as yup from "yup";
@@ -217,7 +217,7 @@ const EmployeeDetails = (props) => {
     return selected;
   };
 
-  // FIX: pending based on employmendate data known 06/01/2021
+  // FIX: employmentDate is in api but no idea to put in UI
   // const chkEmployDate = (values) => {
   //   return true;
   // }
@@ -244,6 +244,7 @@ const EmployeeDetails = (props) => {
       payableAmount:
         values.lspspEntitlementAmount &&
         values.lspspEntitlementAmount - values.paymentAmount,
+      // NOTE: Payment Amount by ER in HKD = Total LSP/SP Entitlement Amount in HKD - Amount Payable.
     };
 
     const cloneValues = { ...values, ...forValidationValues };
