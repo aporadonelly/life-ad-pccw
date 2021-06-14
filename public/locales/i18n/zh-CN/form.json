@@ -14,7 +14,7 @@
     "gender": "性别",
     "idType": "证件类型",
     "idNumber": "身份证号码",
-    "birthdate": "出生日期",
+    "dateOfBirth": "出生日期",
     "placeOfBirth": "出生地",
     "nationality": "国籍",
     "mobileNumber": "手机号码",

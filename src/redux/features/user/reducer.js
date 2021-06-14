@@ -7,7 +7,7 @@ import storage from "redux-persist/lib/storage/session";
 const persistConfig = {
   key: "user",
   storage: storage,
-  blacklist: ["isLoading", "error"],
+  blacklist: ["isAuthenticating", "isLoading", "error"],
 };
 
 const userReducer = createReducer(initialState, (builder) =>
