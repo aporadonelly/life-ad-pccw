@@ -10,7 +10,8 @@ import { Alert } from "@material-ui/lab";
 const Termination = (props) => {
   const { id } = useParams();
   const {
-    loadTermReason,
+    //loadTermReason,
+    getTermReasons,
     loadEmpSchemes,
     isLoading,
     error,
@@ -24,8 +25,8 @@ const Termination = (props) => {
     loadBankList();
     loadPayMethod();
     loadClntBnkInfo({ clntUuid: "5B41559B-A087-4279-8E2A-2C041E308B47" });
-    loadTermReason();
-
+    //loadTermReason();
+    getTermReasons();
     // eslint-disable-next-line
   }, []);
 
