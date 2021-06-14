@@ -105,7 +105,7 @@ export const loadClntBnkInfo = createAsyncThunk(
         pageNo,
         pageSize,
       });
-      console.log("clntBnkInfo", clntBnkInfo);
+      //console.log("clntBnkInfo", clntBnkInfo);
       return { clntBnkInfo };
     } catch (error) {
       alert(error);

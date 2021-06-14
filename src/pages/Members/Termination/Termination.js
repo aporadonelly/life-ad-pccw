@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Page } from "@containers";
 import EmployeeDetails from "./terminationdetails/EmployeeDetails";
 import { useParams } from "react-router-dom";
@@ -28,6 +28,7 @@ const Termination = (props) => {
 
     // eslint-disable-next-line
   }, []);
+
   return (
     <Page>
       {isLoading ? (
