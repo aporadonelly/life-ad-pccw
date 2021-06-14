@@ -5,7 +5,7 @@ import {
   cycleDateSelector,
 } from "@redux/features/system/selectors";
 import { userSelector } from "@redux/features/user/selectors";
-import { logout } from "@redux/features/user/actions";
+import { logout, reissue } from "@redux/features/user/actions";
 import Page from "./Page";
 
 const mapStateToProps = (state) => ({
@@ -15,7 +15,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  ...bindActionCreators({ logout }, dispatch),
+  ...bindActionCreators({ logout, reissue }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Page);

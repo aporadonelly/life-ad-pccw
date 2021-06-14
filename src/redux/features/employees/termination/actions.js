@@ -66,3 +66,51 @@ export const validTermination = createAsyncThunk(
 );
 
 export const passValuesActions = createAction("@@EMPF/TERMINATION/PASS");
+
+export const getEntitleLSPSP = createAction("@@EMPF/TERMINATION/ENTITLE");
+
+export const getLspspDetails = createAction("@@EMPF/TERMINATION/LSPSP");
+
+export const loadPayMethod = createAsyncThunk(
+  "@@EMPF/TERMINATION/paymentMthdList",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const paymethod = await terminationAdapter.getPayMethod(payload);
+      return { paymethod };
+    } catch (error) {
+      console.error(error);
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const loadBankList = createAsyncThunk(
+  "@@EMPF/TERMINATION/bankList",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const bankList = await terminationAdapter.getBankList(payload);
+      return { bankList };
+    } catch (error) {
+      console.error(error);
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const loadClntBnkInfo = createAsyncThunk(
+  "@@EMPF/TERMINATION/ldClntBnkInfo",
+  async ({ pageNo, pageSize, ...payload }, { rejectWithValue }) => {
+    try {
+      const clntBnkInfo = await terminationAdapter.ldClntBnkInfo(payload, {
+        pageNo,
+        pageSize,
+      });
+      //console.log("clntBnkInfo", clntBnkInfo);
+      return { clntBnkInfo };
+    } catch (error) {
+      alert(error);
+      console.error(error);
+      return rejectWithValue({ error });
+    }
+  }
+);

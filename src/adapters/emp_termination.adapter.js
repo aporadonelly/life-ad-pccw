@@ -36,6 +36,27 @@ class TerminationAdapter extends AxiosAdapter {
   //     }
   //   });
   // }
+
+  getPayMethod(payload) {
+    const pickedPayload = pick(payload, ["pageNo", "pageSize"]);
+    return this.instance.get("/paymentMthdList", {
+      params: { ...pickedPayload },
+    });
+  }
+
+  getBankList(payload) {
+    const pickedPayload = pick(payload, ["pageNo", "pageSize"]);
+    return this.instance.get("/bankList", {
+      params: { ...pickedPayload },
+    });
+  }
+
+  ldClntBnkInfo(payload, { pageNo = 0, pageSize = 50 }) {
+    //const pickedPayload = pick(payload, ["pageNo", "pageSize"]);
+    return this.instance.post("/ldClntBnkInfo", payload, {
+      params: { pageNo, pageSize },
+    });
+  }
 }
 
 export default new TerminationAdapter({
