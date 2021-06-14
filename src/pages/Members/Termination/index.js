@@ -34,7 +34,6 @@ import {
   loadBankList,
   loadClntBnkInfo,
 } from "@redux/features/employees/termination/actions";
-import { getTermReasons } from "@redux/features/system/actions";
 
 import Termination from "./Termination";
 
@@ -70,7 +69,6 @@ const mapDispatchToProps = (dispatch) => ({
       loadPayMethod,
       loadBankList,
       loadClntBnkInfo,
-      getTermReasons,
     },
     dispatch
   ),

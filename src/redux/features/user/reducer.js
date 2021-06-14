@@ -20,8 +20,6 @@ const userReducer = createReducer(initialState, (builder) =>
       state.isLoading = false;
       state.user = null;
       state.expires = null;
-      storage.removeItem("persist:members");
-      storage.removeItem("persist:system");
     })
     .addCase(logout.rejected, (state, action) => {
       state.isLoading = false;
