@@ -7,7 +7,7 @@ const { Provider } = Context;
 const reducer = (state, action) => {
   switch (action.type) {
     case "sidebarCollapsed":
-      return { ...state, collapsed: !state.collapsed };
+      return { ...state, collapsed: action.collapsed };
 
     case "settingsToggled":
       return { ...state, settingsOpen: !state.settingsOpen };

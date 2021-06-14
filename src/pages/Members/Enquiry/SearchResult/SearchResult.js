@@ -11,16 +11,21 @@ import {
   Box,
   Tooltip,
 } from "@material-ui/core";
-import { Page } from "@containers";
+import { Page, EnquiryChips } from "@containers";
 import { PageInner } from "@components/layout";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import viewEnrollActive from "@assets/icons/enroll-active.PNG";
 import viewEnrollInActive from "@assets/icons/enroll-inactive.PNG";
 import viewRegistration from "@assets/icons/view_reg.PNG";
-import MembersEnquiry from "./MembersEnquiry";
 
-const Members = ({ employees, isLoading, getSpecificMember, saveEnquiry }) => {
+const SearchResult = ({
+  employees,
+  isLoading,
+  getSpecificMember,
+  saveEnquiry,
+  enquiry,
+}) => {
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button", "table"]);
 
@@ -69,7 +74,7 @@ const Members = ({ employees, isLoading, getSpecificMember, saveEnquiry }) => {
                   <Grid item xs={12}>
                     <Grid container>
                       <Grid item xs={8}>
-                        <MembersEnquiry />
+                        <EnquiryChips enquiry={enquiry} />
                       </Grid>
                       <Grid item xs={4} align="right" display="flex">
                         <Button
@@ -169,4 +174,4 @@ const Members = ({ employees, isLoading, getSpecificMember, saveEnquiry }) => {
     </Page>
   );
 };
-export default Members;
+export default SearchResult;

@@ -15,7 +15,13 @@ import {
   REGISTER,
 } from "redux-persist";
 import createRootReducer from "./reducers";
-import { getSystemEnv, getCycleDate } from "./features/system/actions";
+import {
+  getSystemEnv,
+  getCycleDate,
+  getCountryList,
+  getTermReasons,
+  getCustomTypeList,
+} from "./features/system/actions";
 import { reissue } from "./features/user/actions";
 
 export const history = createBrowserHistory({
@@ -53,6 +59,16 @@ export default function configureAppStore(preloadedState) {
     .then(() => {
       store.dispatch(getSystemEnv());
       store.dispatch(getCycleDate());
+      store.dispatch(getCountryList());
+      store.dispatch(getTermReasons());
+      store.dispatch(getCustomTypeList({ groupId: "GD" }));
+      store.dispatch(getCustomTypeList({ groupId: "ID" }));
+      store.dispatch(getCustomTypeList({ groupId: "NTN" }));
+      store.dispatch(getCustomTypeList({ groupId: "EP" }));
+      store.dispatch(getCustomTypeList({ groupId: "NT" }));
+      store.dispatch(getCustomTypeList({ groupId: "MB" }));
+      store.dispatch(getCustomTypeList({ groupId: "SC" }));
+      store.dispatch(getCustomTypeList({ groupId: "ST" }));
     })
     .catch(() => {
       window.location.href = `${window.location.origin}${process.env.REACT_APP_REDIRECT_URL}`;

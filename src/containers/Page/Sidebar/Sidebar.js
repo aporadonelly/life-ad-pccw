@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import { useHoverDirty, useDebounce } from "react-use";
 import { useAppState } from "@contexts/AppProvider";
 import clsx from "clsx";
 import { useStyles } from "./styles";
@@ -5,8 +7,16 @@ import { Drawer, Toolbar } from "@material-ui/core";
 import ListMenu from "./ListMenu";
 
 const Sidebar = () => {
+  const ref = useRef(null);
+  const isHovering = useHoverDirty(ref);
+  const { state, dispatch } = useAppState();
   const classes = useStyles();
-  const { state } = useAppState();
+
+  useDebounce(
+    () => dispatch({ type: "sidebarCollapsed", collapsed: isHovering }),
+    150,
+    [isHovering]
+  );
 
   return (
     <Drawer
@@ -22,6 +32,7 @@ const Sidebar = () => {
         }),
       }}
       PaperProps={{
+        ref: ref,
         component: "aside",
       }}
     >

@@ -18,7 +18,9 @@ const MenuToggler = () => {
         [classes.slideOut]: !state.collapsed,
       })}
       id="app-menu-toggler"
-      onClick={() => dispatch({ type: "sidebarCollapsed" })}
+      onClick={() =>
+        dispatch({ type: "sidebarCollapsed", collapsed: !state.collapsed })
+      }
     >
       {state.collapsed ? (
         <ChevronLeftIcon color="primary" />

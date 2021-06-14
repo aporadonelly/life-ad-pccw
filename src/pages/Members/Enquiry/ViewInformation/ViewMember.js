@@ -67,7 +67,9 @@ const ViewMember = ({ employee }) => {
                           dd={
                             gndrTypId === "GT_M"
                               ? t("form:label.male")
-                              : t("form:label.female")
+                              : gndrTypId === "GT_F"
+                              ? t("form:label.female")
+                              : "Mr/Ms"
                           }
                         />
 
@@ -92,7 +94,13 @@ const ViewMember = ({ employee }) => {
 
                         <Definition.Item
                           dt={t("form:label.gender")}
-                          dd={gndrTypId === "GT_M" ? "Male" : "Female"}
+                          dd={
+                            gndrTypId === "GT_M"
+                              ? "Male"
+                              : gndrTypId === "GT_F"
+                              ? "Female"
+                              : "Both"
+                          }
                         />
                         <Definition.Item
                           dt={t("form:label.idType")}
