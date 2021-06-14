@@ -201,7 +201,7 @@ const MemberSearch = ({
                               data={{
                                 options: nationality,
                                 label: (option) => option.cstmTypId,
-                                value: (option) => option.cstmTypDtlTxt,
+                                value: (option) => option.cstmTypId,
                               }}
                               label={t("form:label.nationality")}
                               name="nationality"

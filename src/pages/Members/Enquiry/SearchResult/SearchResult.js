@@ -11,14 +11,13 @@ import {
   Box,
   Tooltip,
 } from "@material-ui/core";
-import { Page } from "@containers";
+import { Page, EnquiryChips } from "@containers";
 import { PageInner } from "@components/layout";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import viewEnrollActive from "@assets/icons/enroll-active.PNG";
 import viewEnrollInActive from "@assets/icons/enroll-inactive.PNG";
 import viewRegistration from "@assets/icons/view_reg.PNG";
-import Chip from "./Chip";
 
 const SearchResult = ({
   employees,
@@ -75,9 +74,7 @@ const SearchResult = ({
                   <Grid item xs={12}>
                     <Grid container>
                       <Grid item xs={8}>
-                        {Object.keys(enquiry).map((key) => (
-                          <Chip key={key} label={key} value={enquiry[key]} />
-                        ))}
+                        <EnquiryChips enquiry={enquiry} />
                       </Grid>
                       <Grid item xs={4} align="right" display="flex">
                         <Button
