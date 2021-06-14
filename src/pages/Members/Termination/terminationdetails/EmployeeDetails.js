@@ -64,7 +64,7 @@ const EmployeeDetails = (props) => {
     paymentAmount: "",
     effectiveDate: "",
     changeDate: "",
-    schemes: data.clientSchemes ?? [], //employeeMockData.getScheme_LSP_SP_offect_sequence(),
+    schemes: data.clientSchemes ?? [],
     bankName: "",
     acctNumber: "",
     paymentMethod: "",
@@ -293,9 +293,7 @@ const EmployeeDetails = (props) => {
 
     console.log("vldMbrTerm", forValidationValues);
     validTermination(forValidationValues);
-
-    //const combined = { ...values, ...forValidationValues };
-    passValuesActions(cloneValues); //, actions, forValidationValues);
+    passValuesActions(cloneValues);
   };
 
   const onValidSubmit = (valuesActions, btnState) => {
@@ -314,7 +312,6 @@ const EmployeeDetails = (props) => {
       const newValues = [{ ...valuesActions, ...addedValues }];
       console.log("Submitting", newValues);
       saveTermination(newValues);
-      //actions.resetForm();
       return;
     }
   };
@@ -457,9 +454,6 @@ const EmployeeDetails = (props) => {
             const onHandleClick = (e, state) => {
               setFieldValue("state", state);
               setBtnState(state);
-              // validateForm().then((errors) => {
-              //   return setTouched(errors);
-              // });
               handleSubmit(e);
             };
 
@@ -467,14 +461,14 @@ const EmployeeDetails = (props) => {
               if (event.target.value === "false") {
                 setLSP_SP_Disable(true);
                 setFieldValue("lspspTypeId", "");
-                //setFieldValue("lastDateOfEmployment", "");
+                setfilterArrayLSP_SP(reason);
               } else if (event.target.value === "true") {
                 setLSP_SP_Disable(false);
                 if (filterArrayLSP_SP !== "") {
-                  setFieldValue("terminationReasonId", reason);
+                  setfilterArrayLSP_SP(reason);
+                  //setFieldValue("terminationReasonId", reason);
                 }
                 setfilterArrayLSP_SP("");
-                //filterArrayLSP_SP = "";
               }
             };
 
@@ -491,23 +485,18 @@ const EmployeeDetails = (props) => {
                   "TR_LO",
                   "LR_CE",
                 ];
-                //filterArrayLSP_SP =
                 setfilterArrayLSP_SP(
                   newArray.records.filter(function (obj) {
                     return !(notIncluded.indexOf(obj.cstmTypId) > -1);
                   })
                 );
-                //setFieldValue("terminationReasonId", filterArrayLSP_SP);
               } else if (event.target.value === "LS_SP") {
                 notIncluded = ["TR_RD", "TR_LO", "TR_CE"]; //"TR_RD", removed for TESTING
-                //filterArrayLSP_SP =
                 setfilterArrayLSP_SP(
                   newArray.records.filter(function (obj) {
                     return !(notIncluded.indexOf(obj.cstmTypId) > -1);
                   })
                 );
-
-                //setFieldValue("terminationReasonId", filterArrayLSP_SP);
               }
             };
 
@@ -553,7 +542,6 @@ const EmployeeDetails = (props) => {
                             label: (option) => option.cstmTypDtlTxt,
                             value: (option) => option.cstmTypId,
                           }}
-                          //options={reason} //{employeeMockData.getTerminationReasonList()}
                         />
                       </Grid>
                       <Grid item sm={3} xs={12} className={classes.datepickers}>
@@ -574,13 +562,11 @@ const EmployeeDetails = (props) => {
                       row
                       name="entitleToLspsp"
                       onClick={disableLSP_SP}
-                      //data={employeeMockData.getEntitle_LSP_SP_items()}
                       data={{
-                        options: entitleLspSp, //employeeMockData.getEntitle_LSP_SP_items(),
+                        options: entitleLspSp,
                         label: (option) => option.label,
                         value: (option) => option.value,
                       }}
-                      //helperText="Please select Yes or No"
                     />
 
                     <div className={classes.mgTop}>
@@ -602,11 +588,10 @@ const EmployeeDetails = (props) => {
                             name="lspspTypeId"
                             onClick={onClickLSP_SPReason}
                             data={{
-                              options: detailsLspSp, //employeeMockData.getLSP_SP_items(),
+                              options: detailsLspSp,
                               label: (option) => option.label,
                               value: (option) => option.value,
                             }}
-                            //helperText="Please select Yes or No"
                             disabled={LSP_SP_Disable ? "disabled" : ""}
                           />
                         </Grid>
@@ -624,7 +609,6 @@ const EmployeeDetails = (props) => {
                             fullWidth
                             type="number"
                             placeholder="Input Amount in HKD"
-                            //disabled={LSP_SP_Disable ? "disabled" : ""}
                           />
                         </Grid>
                         <Grid
@@ -641,7 +625,6 @@ const EmployeeDetails = (props) => {
                             fullWidth
                             type="number"
                             placeholder="Input Amount in HKD"
-                            //disabled={LSP_SP_Disable ? "disabled" : ""}
                           />
                         </Grid>
                       </div>
@@ -684,7 +667,6 @@ const EmployeeDetails = (props) => {
                           />
                         </Grid>
                       </div>
-                      {/*comment */}
                       <div className={classes.mgTop}>
                         <div className={classes.terminationTitle}>
                           {/* {t("form:label.supportDocuments")} */}
@@ -703,9 +685,7 @@ const EmployeeDetails = (props) => {
                             <FormikForm.Select
                               name="bankName"
                               data={{
-                                options:
-                                  //Object.keys(bankList).length && bankList,
-                                  bankList ?? [],
+                                options: bankList ?? [],
                                 label: (option) => option.bnkNm,
                                 value: (option) => option.id,
                               }}
@@ -732,9 +712,7 @@ const EmployeeDetails = (props) => {
                             <FormikForm.Select
                               name="paymentMethod"
                               data={{
-                                options:
-                                  //Object.keys(payMethod).length && payMethod,
-                                  payMethod ?? [],
+                                options: payMethod ?? [],
                                 label: (option) => option.cstmTypDtlTxt,
                                 value: (option) => option.cstmTypId,
                               }}
@@ -743,7 +721,6 @@ const EmployeeDetails = (props) => {
                           <Grid item xs={3}></Grid>
                         </Grid>
                       </div>{" "}
-                      {/*comment */}
                     </div>
                   </div>
                 </Paper>
