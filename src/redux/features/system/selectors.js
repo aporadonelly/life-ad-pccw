@@ -1,4 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
+import { find, filter } from "lodash";
 import {
   customTypesAdapter,
   countriesAdapter,
@@ -44,10 +45,16 @@ export const customTypesSelector = createSelector(
   customTypesSelectors.selectAll
 );
 
+export const customTypeByIdentitySelector = createSelector(
+  customTypesSelector,
+  (_state, identity) => identity,
+  (state, identity) => find(state, identity)
+);
+
 export const customTypeByGroupIdSelector = createSelector(
   customTypesSelector,
   (_state, cstmGrpId) => cstmGrpId,
-  (state, cstmGrpId) => state.filter((v) => v.cstmGrpId === cstmGrpId)
+  (state, cstmGrpId) => filter(state, { cstmGrpId })
 );
 
 export const customTypeByIdSelector = createSelector(
