@@ -13,6 +13,7 @@ import {
   payMethodSelector,
   bankListSelector,
   clntBnkInfoSelector,
+  isSavingSelector,
 } from "@redux/features/employees/termination/selectors";
 
 import {
@@ -42,6 +43,7 @@ const mapStateToProps = (state) => ({
   terms: termsSelector(state),
   save: saveSelector(state),
   valid: validateSelector(state),
+  isSaving: isSavingSelector(state),
   reason: reasonSelector(state),
   isLoading: isLoadingSelector(state),
   error: errorSelector(state),

@@ -1,14 +1,14 @@
 import { Grid, Paper } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
-import { labels } from "@common/labelsList";
+import { Box, CircularProgress } from "@material-ui/core";
 import { Form as FormikForm } from "@components/common";
 
 import { Form } from "@components/UseForm";
 import useStyles from "./EmployeeDetailStyles";
-import * as employeeMockData from "@mockData";
 
 import EmpScheme4 from "./EmployeeScheme4";
-
+// FIX: for future use
+//import EmployeeDocuments from "./EmployeeDocuments";
 import moment from "moment";
 import * as yup from "yup";
 import { Formik } from "formik";
@@ -19,9 +19,7 @@ import { Button } from "@material-ui/core";
 import BottomAppBar from "@components/misc/BottomAppBar/BottomAppBar";
 import FloatingButton from "@components/controls/floatingButton/floatingButton";
 import { useTranslation } from "react-i18next";
-
-import { Cancel as CancelIcon } from "@material-ui/icons";
-import { validate } from "@material-ui/pickers";
+import replaceNull from "../replaceNull";
 
 const EmployeeDetails = (props) => {
   const {
@@ -40,6 +38,7 @@ const EmployeeDetails = (props) => {
     payMethod,
     bankList,
     clnBnkInfo,
+    isSaving,
   } = props;
 
   const { t } = useTranslation(["typography", "form", "button"]);
@@ -165,17 +164,6 @@ const EmployeeDetails = (props) => {
       }
     }
   };
-
-  function replaceNull(someObj, replaceValue = "") {
-    const replacer = (key, value) =>
-      String(value) === "null" ||
-      String(value) === "undefined" ||
-      value.length === 0
-        ? replaceValue
-        : value;
-
-    return JSON.parse(JSON.stringify(someObj, replacer));
-  }
 
   function parseBoolean(str) {
     switch (str.toLowerCase()) {
@@ -715,7 +703,8 @@ const EmployeeDetails = (props) => {
                               name="bankName"
                               data={{
                                 options:
-                                  Object.keys(bankList).length && bankList,
+                                  //Object.keys(bankList).length && bankList,
+                                  bankList ?? [],
                                 label: (option) => option.bnkNm,
                                 value: (option) => option.id,
                               }}
@@ -731,7 +720,7 @@ const EmployeeDetails = (props) => {
                               placeholder="Please Input"
                               value={
                                 Object.keys(clnBnkInfo).length &&
-                                clnBnkInfo[0].bnkAccntNmbr
+                                (clnBnkInfo[0].bnkAccntNmbr ?? "")
                               }
                             />
                           </Grid>
@@ -743,7 +732,8 @@ const EmployeeDetails = (props) => {
                               name="paymentMethod"
                               data={{
                                 options:
-                                  Object.keys(payMethod).length && payMethod,
+                                  //Object.keys(payMethod).length && payMethod,
+                                  payMethod ?? [],
                                 label: (option) => option.cstmTypDtlTxt,
                                 value: (option) => option.cstmTypId,
                               }}
@@ -763,21 +753,33 @@ const EmployeeDetails = (props) => {
                       text="cancel"
                       onClick={onCancel.bind(null, resetForm)}
                     />
-                    {/* <FormikForm.FloatingButton text="submit" /> 
-                  <FormikForm.Submit text="submit">SUBMIT</FormikForm.Submit> */}
                     <Button
                       type="submit"
                       className={classes.btnReverse}
                       onClick={(e) => onHandleClick(e, "save")}
+                      disabled={isSaving ? true : false}
                     >
-                      Save
+                      {isSaving ? (
+                        <Box display="flex" justifyContent="center">
+                          <CircularProgress size={25} color="inherit" />
+                        </Box>
+                      ) : (
+                        "Save"
+                      )}
                     </Button>
                     &nbsp;
                     <Button
                       type="submit"
                       onClick={(e) => onHandleClick(e, "submit")}
+                      disabled={isSaving ? true : false}
                     >
-                      Submit
+                      {isSaving ? (
+                        <Box display="flex" justifyContent="center">
+                          <CircularProgress size={25} color="inherit" />
+                        </Box>
+                      ) : (
+                        "Submit"
+                      )}
                     </Button>
                   </BottomAppBar>
                 )}

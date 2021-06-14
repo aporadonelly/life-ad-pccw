@@ -17,7 +17,7 @@ import storage from "redux-persist/lib/storage/session";
 const persistConfig = {
   key: "employeeTermination",
   storage: storage,
-  blacklist: ["isLoading", "error"],
+  blacklist: ["isLoading", "error", "validation", "saved"],
 };
 
 export const employeeTerminationReducer = createReducer(

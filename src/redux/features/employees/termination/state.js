@@ -12,7 +12,7 @@ export const initialState = adapter.getInitialState({
   valuesActions: {},
   isLoading: false,
   isValidating: true,
-  isSubmitting: true,
+  isSaving: false,
   error: null,
   entitleLspSp: [
     { value: true, label: "Yes" },

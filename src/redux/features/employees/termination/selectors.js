@@ -27,6 +27,11 @@ export const validateSelector = createSelector(
   (state) => state.validation
 );
 
+export const isSavingSelector = createSelector(
+  stateSelector,
+  (state) => state.isSaving
+);
+
 export const valuesActionSelector = createSelector(
   stateSelector,
   (state) => state.valuesActions
