@@ -15,7 +15,7 @@
     "gender": "Gender",
     "idType": "ID Type",
     "idNumber": "ID Number",
-    "birthdate": "Date of Birth",
+    "dateOfBirth": "Date of Birth",
     "placeOfBirth": "Place of Birth",
     "nationality": "Nationality",
     "mobileNumber": "Mobile Number",
