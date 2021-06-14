@@ -347,7 +347,7 @@ const EmployeeDetails = (props) => {
               </div>
               <div>
                 <div className={classes.labels}>{t("form:label.erId")}</div>
-                <div className={classes.textValue}>{data.employerId}</div>
+                <div className={classes.textValue}>{data.employerNumber}</div>
               </div>
               <div>
                 <div className={classes.labels}>{t("form:label.branch")}</div>
@@ -391,7 +391,7 @@ const EmployeeDetails = (props) => {
               </div>
               <div>
                 <div className={classes.labels}>{t("form:label.memberNo")}</div>
-                <div className={classes.textValue}>{data.employerNumber}</div>
+                <div className={classes.textValue}>{data.accountNumber}</div>
               </div>
               <div>
                 <div className={classes.labels}>{t("form:label.acctType")}</div>
@@ -403,7 +403,7 @@ const EmployeeDetails = (props) => {
               </div>
               <div>
                 <div className={classes.labels}>{t("form:label.acctId")}</div>
-                <div className={classes.textValue}>{data.accountId}</div>
+                <div className={classes.textValue}>{data.accountNumber}</div>
               </div>
               <div>
                 <div className={classes.labels}>{t("form:label.staffNo")}</div>
