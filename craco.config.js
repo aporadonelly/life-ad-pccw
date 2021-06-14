@@ -12,16 +12,15 @@ module.exports = {
       "@components": path.resolve(__dirname, "src/components"),
       "@containers": path.resolve(__dirname, "src/containers"),
       "@contexts": path.resolve(__dirname, "src/contexts"),
+      "@helpers": path.resolve(__dirname, "src/helpers"),
       "@hocs": path.resolve(__dirname, "src/hocs"),
       "@utils": path.resolve(__dirname, "src/utils"),
-      "@menu": path.resolve(__dirname, "src/menu"),
       "@mockData": path.resolve(__dirname, "src/mockData"),
       "@pages": path.resolve(__dirname, "src/pages"),
       "@reducers": path.resolve(__dirname, "src/reducers"),
       "@redux": path.resolve(__dirname, "src/redux"),
       "@routes": path.resolve(__dirname, "src/routes"),
       "@styles": path.resolve(__dirname, "src/styles"),
-      "@ui": path.resolve(__dirname, "src/ui"),
     },
     plugins: {
       add: [

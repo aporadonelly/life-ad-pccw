@@ -1,0 +1,32 @@
+import { useStyles } from "./styles";
+import {
+  red,
+  orange,
+  yellow,
+  green,
+  blue,
+  indigo,
+} from "@material-ui/core/colors";
+import { roundrobin } from "@helpers";
+import Chip from "./Chip";
+
+const getColor = roundrobin([red, orange, yellow, green, blue, indigo]);
+
+const EnquiryChips = (props) => {
+  const { enquiry } = props;
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
+      {Object.entries(enquiry).map(([key, value]) => (
+        <Chip
+          key={key}
+          pair={{ key, value }}
+          style={{ backgroundColor: getColor()[700] }}
+        />
+      ))}
+    </div>
+  );
+};
+
+export default EnquiryChips;

@@ -21,7 +21,6 @@ const membersRoutes = [
   {
     name: "Termination",
     path: "/members/termination/:id",
-    redirect: "/members/termination",
     component: Termination,
     tab: true,
   },

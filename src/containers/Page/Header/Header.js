@@ -28,7 +28,7 @@ const Header = (props) => {
         >
           {t("header:framework")}
         </Typography>
-        {/* <SiteMap /> */}
+        <SiteMap />
         <div className={classes.grow} />
         {user && (
           <UserMenu displayName={user.displayName} onLogout={onLogout} />
