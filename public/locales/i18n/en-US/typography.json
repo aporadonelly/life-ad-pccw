@@ -15,7 +15,9 @@
     "supportingDocs": "Supporting for Business Registration / Partnership Deed / Evidence of Unincorporated Body",
     "authorizedPerson": "Authorized Person",
     "memberSearch": "Member Search",
-    "employerRegOrEnr": "Employer Registration or Enrollment Enquiries"
+    "employerRegOrEnr": "Employer Registration or Enrollment Enquiries",
+    "enquiryResult": "Enquiries Result",
+    "employerRegOrEnrEnq": "Employer Registration or Enrollment Enquiries"
   },
   "paragraph": {},
   "labelCaption": ""

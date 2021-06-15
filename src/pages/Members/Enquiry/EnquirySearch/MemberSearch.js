@@ -1,6 +1,5 @@
-import { useEffect } from "react";
 import moment from "moment";
-import { isEqual, isDate } from "lodash";
+import { isEqual } from "lodash";
 import * as yup from "yup";
 import { Formik } from "formik";
 import { Page } from "@containers";
@@ -65,15 +64,7 @@ const MemberSearch = ({
   const { t } = useTranslation(["typography", "form", "button"]);
 
   const handleSubmit = (values) => {
-    const newValues = { ...values };
-
-    Object.keys(newValues).forEach((key) => {
-      if (moment(newValues[key], "DD/MM/YYYY", true).isValid()) {
-        newValues[key] = newValues[key].split("/").reverse().join("/");
-      }
-    });
-
-    getAllMembers(newValues);
+    getAllMembers(values);
   };
 
   const handleReset = () => {

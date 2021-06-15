@@ -70,6 +70,10 @@ export default function configureAppStore(preloadedState) {
       store.dispatch(getCustomTypeList({ groupId: "MB" }));
       store.dispatch(getCustomTypeList({ groupId: "SC" }));
       store.dispatch(getCustomTypeList({ groupId: "ST" }));
+      store.dispatch(getCustomTypeList({ groupId: "NT" }));
+      store.dispatch(getCustomTypeList({ groupId: "CI" }));
+      store.dispatch(getCustomTypeList({ groupId: "CP" }));
+      store.dispatch(getCustomTypeList({ groupId: "ST" }));
     })
     .catch(() => {
       window.location.href = `${window.location.origin}${process.env.REACT_APP_REDIRECT_URL}`;

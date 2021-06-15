@@ -1,32 +1,35 @@
 import AxiosAdapter from "./axios.adapter";
+import moment from "moment";
 import { pickBy } from "lodash";
 
 class EmployerAdapter extends AxiosAdapter {
   searchEmployers(p, pageNo = 0, pageSize = 50) {
+    const newValues = { ...p };
+
+    Object.keys(newValues).forEach((key) => {
+      if (moment(newValues[key], "DD/MM/YYYY", true).isValid()) {
+        newValues[key] = newValues[key].split("/").reverse().join("/");
+      }
+    });
+
     const config = {
       params: pickBy(
         {
           pageNo,
           pageSize,
-          mpfID: p.mpfID,
-          fullName: p.companyNameEnglish,
-          chineseName: p.companyNameChinese,
-          idType: p.registrationType,
-          idNumber: p.registrationNumber,
-          dateOfBirth: p.dateOfBirth,
+          ...newValues,
         },
         (value) => {
           return value !== "";
         }
       ),
     };
-    return this.instance.get("/ldSrchRegInd", config);
+    return this.instance.get("/ldSrchRegInd", config); //Just for testing purposes. Below is the right one.
+    // return this.instance.get("/LdSrchCmpny ", config); // LdSrchCmpny still in development.
   }
 
   LdRegCmpnyInfoforAdmnPrtl(clientId) {
-    return this.instance.get("/companyReg", {
-      // params: { client_uuid: 149 },
-    });
+    return this.instance.get("/companyReg", {});
   }
 
   LdAuthPrsnInfo() {
@@ -38,5 +41,6 @@ class EmployerAdapter extends AxiosAdapter {
 }
 
 export default new EmployerAdapter({
-  baseURL: process.env.REACT_APP_REGISTRATION_EE_BASE_URL,
+  baseURL: process.env.REACT_APP_REGISTRATION_EE_BASE_URL, // just for testing
+  // baseURL: process.env.REACT_APP_REGISTRATION_ER_BASE_URL, //this is the right url.
 });
