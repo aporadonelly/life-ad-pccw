@@ -170,7 +170,7 @@ const CompanyProfile = ({
                               data={{
                                 options: typesOfCompany,
                                 label: (option) => option.cstmTypDtlTxt,
-                                value: (option) => option.cstmGrpId,
+                                value: (option) => option.cstmTypId,
                               }}
                               clearButton
                             />
