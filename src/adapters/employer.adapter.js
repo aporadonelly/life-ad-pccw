@@ -24,7 +24,8 @@ class EmployerAdapter extends AxiosAdapter {
         }
       ),
     };
-    return this.instance.get("/ldSrchRegInd", config);
+    return this.instance.get("/ldSrchRegInd", config); //Just for testing purposes. Below is the right one.
+    // return this.instance.get("/LdSrchCmpny ", config); // LdSrchCmpny still in development.
   }
 
   LdRegCmpnyInfoforAdmnPrtl(clientId) {
@@ -40,5 +41,6 @@ class EmployerAdapter extends AxiosAdapter {
 }
 
 export default new EmployerAdapter({
-  baseURL: process.env.REACT_APP_REGISTRATION_EE_BASE_URL,
+  baseURL: process.env.REACT_APP_REGISTRATION_EE_BASE_URL, // just for testing
+  // baseURL: process.env.REACT_APP_REGISTRATION_ER_BASE_URL, //this is the right url.
 });
