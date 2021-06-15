@@ -33,7 +33,10 @@ const ViewMember = ({ employee }) => {
   return (
     <Page>
       <PageHeader>
-        <PageHeader.SubjectInfo subject="Nelly" info={{ empf: "1234" }} />
+        <PageHeader.SubjectInfo
+          subject={`${lstNm}, ${frstNm}`}
+          info={{ "eMPF ID": ` ${pnsnIdTxt}` }}
+        />
       </PageHeader>
       <PageInner>
         <Grid container spacing={3}>
