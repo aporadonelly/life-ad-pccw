@@ -117,7 +117,7 @@ const ViewMember = ({ employee }) => {
                           dd={idNoTxt}
                         />
                         <Definition.Item
-                          dt={t("form:label.birthdate")}
+                          dt={t("form:label.dateOfBirth")}
                           dd={moment(brthDt).format("DD MMMM YYYY")}
                         />
 
