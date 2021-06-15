@@ -25,12 +25,24 @@ const SearchResult = ({ employers, enquiry, saveEnquiry }) => {
 
   const columns = [
     { label: t("table:thead.mpfId"), name: "pnsnIdTxt" },
-    { label: t("table:thead.displayName"), name: "fullname" },
-    { label: t("table:thead.idType"), name: "idTypeId" },
-    { label: t("table:thead.idNumber"), name: "idNoTxt" },
-    { label: t("table:thead.mobileNumber"), name: "clntPhones[0].phoneNumber" },
-    { label: t("table:thead.email"), name: "cntcts[0].emailAddrTxt" },
-    { label: t("table:thead.status"), name: "statusTypId" },
+    { label: t("table:thead.employerAcctNo"), name: "Employer Acc. No." },
+    {
+      label: t("table:thead.companyNameEnglish"),
+      name: "Company Name (English)",
+    },
+    {
+      label: t("table:thead.companyNameChinese"),
+      name: "Company Name (Chinese)",
+    },
+    { label: t("table:thead.registrationType"), name: "Registration Type" },
+    { label: t("table:thead.registrationNumber"), name: "Registration No." },
+    { label: t("table:thead.branchNumber"), name: "Branch Number" },
+    { label: t("table:thead.typesOfCompany"), name: "Type of Company)" },
+    {
+      label: t("table:thead.dateOfIncorporation"),
+      name: "Date of Incorporation",
+    },
+    { label: t("table:thead.status"), name: "Status)" },
   ];
 
   const handleNewSearch = () => {
@@ -100,7 +112,7 @@ const SearchResult = ({ employers, enquiry, saveEnquiry }) => {
                       title={t("typography:heading.enquiryResult")}
                       rows={employers}
                       columns={columns}
-                      stickyLabel={t("table:thead.custom.action")}
+                      stickyLabel={t("table:thead.custom.view")}
                       renderStickyCell={(row) => {
                         return (
                           <>
