@@ -1,5 +1,6 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { systemAdapter, employeesAdapter } from "@adapters";
+import { customTypeByIdSelector } from "@redux/features/system/actions";
 import { push } from "connected-react-router";
 import { pickBy } from "lodash";
 
@@ -145,7 +146,9 @@ export const getAllMembers = createAsyncThunk(
 
 export const getSpecificMember = createAsyncThunk(
   "@@EMPF/MEMBERS/VIEW_MEMBER",
-  async (payload, { rejectWithValue, dispatch }) => {
+  async (payload, { rejectWithValue, dispatch, getState }) => {
+    // const nationality = customTypeByIdSelector(getState(), "HK");
+    // console.log(nationality);
     try {
       const employee = await employeesAdapter.viewMember(payload);
       dispatch(push("/members/enquiry/information"));

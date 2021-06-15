@@ -4,29 +4,26 @@ import { customTypeByGroupIdSelector } from "@redux/features/system/selectors";
 import {
   isLoadingSelector,
   errorSelector,
-  employeesSelector,
   enquirySelector,
-} from "@redux/features/members/selectors";
-import { getAllMembers, saveEnquiry } from "@redux/features/members/actions";
+} from "@redux/features/employers/selectors";
+import { getEmployers } from "@redux/features/employers/actions";
 
 import EnquirySearch from "./EnquirySearch";
 
 const mapStateToProps = (state) => ({
   isLoading: isLoadingSelector(state),
+  enquiry: enquirySelector(state),
   error: errorSelector(state),
   industryType: customTypeByGroupIdSelector(state, "NT"),
   registrationType: customTypeByGroupIdSelector(state, "CI"),
   typesOfCompany: customTypeByGroupIdSelector(state, "CP"),
   enrolmentStatus: customTypeByGroupIdSelector(state, "ST"),
-  employees: employeesSelector(state),
-  enquiry: enquirySelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators(
     {
-      getAllMembers,
-      saveEnquiry,
+      getEmployers,
     },
     dispatch
   ),

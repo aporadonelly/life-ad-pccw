@@ -3,7 +3,7 @@ import { companyRoutes, enrollmentEnquiriesRoutes } from "./employers";
 
 const employersRoutes = [
   {
-    name: "Enrollment Enquiries",
+    name: "ER Registration / Enrollment Enquiries",
     path: "/employers/enquiry",
     redirect: "/employers/enquiry/search",
     children: enrollmentEnquiriesRoutes,

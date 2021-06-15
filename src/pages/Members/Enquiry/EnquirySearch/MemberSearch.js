@@ -64,15 +64,7 @@ const MemberSearch = ({
   const { t } = useTranslation(["typography", "form", "button"]);
 
   const handleSubmit = (values) => {
-    const newValues = { ...values };
-
-    Object.keys(newValues).forEach((key) => {
-      if (moment(newValues[key], "DD/MM/YYYY", true).isValid()) {
-        newValues[key] = newValues[key].split("/").reverse().join("/");
-      }
-    });
-
-    getAllMembers(newValues);
+    getAllMembers(values);
   };
 
   const handleReset = () => {

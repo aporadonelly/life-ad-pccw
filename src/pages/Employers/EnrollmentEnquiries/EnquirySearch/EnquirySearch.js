@@ -43,12 +43,12 @@ const CompanyProfile = ({
   registrationType,
   typesOfCompany,
   enrolmentStatus,
+  enquiry,
 }) => {
   const { t } = useTranslation(["typography", "form", "button"]);
   const classes = EmployeeStyles();
 
   const handleSubmit = (values) => {
-    console.log(values);
     getEmployers(values);
   };
 
@@ -70,7 +70,7 @@ const CompanyProfile = ({
             <Card>
               <CardContent>
                 <Formik
-                  initialValues={initialValues}
+                  initialValues={{ ...initialValues, ...enquiry }}
                   onSubmit={handleSubmit}
                   onReset={handleReset}
                   enableReinitialize
@@ -194,7 +194,7 @@ const CompanyProfile = ({
                             <Form.DatePicker
                               label={t("form:label.dateOfIncorporation")}
                               name="dateOfIncorporation"
-                              format="YYYY/MM/DD"
+                              format="DD/MM/YYYY"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseInput"

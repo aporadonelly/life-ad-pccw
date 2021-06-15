@@ -6,6 +6,7 @@ import {
   getEmployers,
   viewAuthPerson,
   LdRegCmpnyInfoforAdmnPrtl,
+  saveEnquiry,
 } from "./actions";
 import { initialState } from "./state";
 
@@ -66,6 +67,12 @@ const employerReducer = createReducer(initialState, (builder) =>
     .addCase(getAuthorizedPersonList.rejected, (state, action) => {
       const { error } = action.payload;
       return { ...state, isLoading: false, error };
+    })
+
+    //Saving enquiry passed on the form
+    .addCase(saveEnquiry, (state, action) => {
+      const { enquiry } = action.payload;
+      return { ...state, enquiry, error: null };
     })
 );
 export default persistReducer(persistConfig, employerReducer);

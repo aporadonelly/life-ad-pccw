@@ -9,7 +9,7 @@ import {
   Tooltip,
   Typography,
 } from "@material-ui/core";
-import { Page } from "@containers";
+import { Page, EnquiryChips } from "@containers";
 import { employersRoutes } from "@routes";
 import { PageHeader, PageInner } from "@components/layout";
 import TableCustomized from "@components/common/TableCustomized";
@@ -17,13 +17,11 @@ import viewEnrollActive from "@assets/icons/enroll-active.PNG";
 import viewEnrollInActive from "@assets/icons/enroll-inactive.PNG";
 import viewRegistration from "@assets/icons/view_reg.PNG";
 
-const SearchResult = ({ getEmployers, employers }) => {
+const SearchResult = ({ employers, enquiry, saveEnquiry }) => {
   const history = useHistory();
-  console.log(employers, "employers");
   const { t } = useTranslation(["typography", "form", "button", "table"]);
-  useEffect(() => {
-    getEmployers();
-  }, []);
+
+  useEffect(() => {}, [employers, enquiry]);
 
   const columns = [
     { label: t("table:thead.mpfId"), name: "pnsnIdTxt" },
@@ -34,6 +32,15 @@ const SearchResult = ({ getEmployers, employers }) => {
     { label: t("table:thead.email"), name: "cntcts[0].emailAddrTxt" },
     { label: t("table:thead.status"), name: "statusTypId" },
   ];
+
+  const handleNewSearch = () => {
+    saveEnquiry({});
+    history.push("/employers/enquiry/search");
+  };
+
+  const handleEditSearch = () => {
+    history.push("/employers/enquiry/search");
+  };
 
   return (
     <Page>
@@ -52,16 +59,14 @@ const SearchResult = ({ getEmployers, employers }) => {
                   <Grid container>
                     <Grid item xs={8}>
                       <Typography variant="h6" color="primary">
-                        <Button> This is where all params go!</Button>
+                        <EnquiryChips enquiry={enquiry} />
                       </Typography>
                     </Grid>
                     <Grid item xs={4} align="right" display="flex">
                       <Button
                         data-testid="back-btn"
                         variant="outlined"
-                        onClick={() =>
-                          history.push("/employers/enquiry/search")
-                        }
+                        onClick={handleEditSearch}
                       >
                         {t("button:editSearch")}
                       </Button>
@@ -69,9 +74,7 @@ const SearchResult = ({ getEmployers, employers }) => {
                       <Button
                         style={{ width: "auto" }}
                         data-testid="back-btn"
-                        onClick={() =>
-                          history.push("/employers/enquiry/search")
-                        }
+                        onClick={handleNewSearch}
                       >
                         {t("button:newSearch")}
                       </Button>
