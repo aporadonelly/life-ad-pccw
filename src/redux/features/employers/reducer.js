@@ -1,8 +1,22 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { getAuthorizedPersonList, getEmployers, viewAuthPerson, LdRegCmpnyInfoforAdmnPrtl } from "./actions";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage/session";
+import {
+  getAuthorizedPersonList,
+  getEmployers,
+  viewAuthPerson,
+  LdRegCmpnyInfoforAdmnPrtl,
+  saveEnquiry,
+} from "./actions";
 import { initialState } from "./state";
 
-export const employerReducer = createReducer(initialState, (builder) =>
+const persistConfig = {
+  key: "employers",
+  storage: storage,
+  blacklist: ["isLoading", "error"],
+};
+
+const employerReducer = createReducer(initialState, (builder) =>
   builder
     .addCase(getEmployers.pending, (state, _action) => {
       return { ...state, isLoading: true, error: null };
@@ -55,5 +69,10 @@ export const employerReducer = createReducer(initialState, (builder) =>
       return { ...state, isLoading: false, error };
     })
 
+    //Saving enquiry passed on the form
+    .addCase(saveEnquiry, (state, action) => {
+      const { enquiry } = action.payload;
+      return { ...state, enquiry, error: null };
+    })
 );
-
+export default persistReducer(persistConfig, employerReducer);

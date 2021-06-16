@@ -16,6 +16,11 @@ const MessageRender = ({ open, onClose, msgCode }) => {
     handleReset();
   };
 
+  const reloadPage = () => {
+    onClose();
+    window.location.reload();
+  };
+
   let msgDialog = "",
     imgType = "",
     btnType = "";
@@ -32,7 +37,7 @@ const MessageRender = ({ open, onClose, msgCode }) => {
             className={classes.imgDialog}
           />
         );
-        btnType = <FloatingButton text="okay" onClick={handleClose} />;
+        btnType = <FloatingButton text="okay" onClick={reloadPage} />;
         break;
       case "ExMsg_ExcdLspspAmt":
         msgDialog = (
@@ -86,6 +91,18 @@ const MessageRender = ({ open, onClose, msgCode }) => {
         break;
       case "ExMsg_incrrtTermRsn":
         msgDialog = "Incorrect termination reason.";
+        imgType = (
+          <img
+            src={ExclamationMark}
+            alt="Exclamation"
+            variant="contained"
+            className={classes.imgDialog}
+          />
+        );
+        btnType = <FloatingButton text="okay" onClick={onClose} />;
+        break;
+      case "ExMsg_incrrtLspSpType":
+        msgDialog = "Incorrect LSP/SP type.";
         imgType = (
           <img
             src={ExclamationMark}

@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useHoverDirty, useDebounce } from "react-use";
+// import { useHoverDirty, useDebounce } from "react-use";
 import { useAppState } from "@contexts/AppProvider";
 import clsx from "clsx";
 import { useStyles } from "./styles";
@@ -8,15 +8,15 @@ import ListMenu from "./ListMenu";
 
 const Sidebar = () => {
   const ref = useRef(null);
-  const isHovering = useHoverDirty(ref);
-  const { state, dispatch } = useAppState();
+  // const isHovering = useHoverDirty(ref);
+  const { state } = useAppState();
   const classes = useStyles();
 
-  useDebounce(
-    () => dispatch({ type: "sidebarCollapsed", collapsed: isHovering }),
-    150,
-    [isHovering]
-  );
+  // useDebounce(
+  //   () => dispatch({ type: "sidebarCollapsed", collapsed: isHovering }),
+  //   150,
+  //   [isHovering]
+  // );
 
   return (
     <Drawer

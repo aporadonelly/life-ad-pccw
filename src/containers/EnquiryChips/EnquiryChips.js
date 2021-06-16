@@ -6,15 +6,23 @@ import {
   green,
   blue,
   indigo,
+  purple,
 } from "@material-ui/core/colors";
 import { roundrobin } from "@helpers";
 import Chip from "./Chip";
 
-const getColor = roundrobin([red, orange, yellow, green, blue, indigo]);
-
 const EnquiryChips = (props) => {
   const { enquiry } = props;
   const classes = useStyles();
+  const getColor = roundrobin([
+    red,
+    orange,
+    yellow,
+    green,
+    blue,
+    indigo,
+    purple,
+  ]);
 
   return (
     <div className={classes.root}>

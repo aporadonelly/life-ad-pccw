@@ -1,6 +1,5 @@
-import { useEffect } from "react";
 import moment from "moment";
-import { isEqual, isDate } from "lodash";
+import { isEqual } from "lodash";
 import * as yup from "yup";
 import { Formik } from "formik";
 import { Page } from "@containers";
@@ -65,15 +64,7 @@ const MemberSearch = ({
   const { t } = useTranslation(["typography", "form", "button"]);
 
   const handleSubmit = (values) => {
-    const newValues = { ...values };
-
-    Object.keys(newValues).forEach((key) => {
-      if (isDate(newValues[key])) {
-        newValues[key] = moment(newValues[key]).format("YYYY/MM/DD");
-      }
-    });
-
-    getAllMembers(newValues);
+    getAllMembers(values);
   };
 
   const handleReset = () => {
@@ -187,9 +178,9 @@ const MemberSearch = ({
                           </Grid>
                           <Grid item xs={2}>
                             <Form.DatePicker
-                              label={t("form:label.birthdate")}
+                              label={t("form:label.dateOfBirth")}
                               name="dateOfBirth"
-                              format="YYYY/MM/DD"
+                              format="DD/MM/YYYY"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseInput"
                               )}
@@ -201,7 +192,7 @@ const MemberSearch = ({
                               data={{
                                 options: nationality,
                                 label: (option) => option.cstmTypId,
-                                value: (option) => option.cstmTypId,
+                                value: (option) => option.cstmTypDtlTxt,
                               }}
                               label={t("form:label.nationality")}
                               name="nationality"

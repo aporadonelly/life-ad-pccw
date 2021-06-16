@@ -3,7 +3,7 @@ import moment from "moment";
 import { get } from "lodash";
 import { Grid, Card, CardContent, Typography, Button } from "@material-ui/core";
 import { Page } from "@containers";
-import { PageInner } from "@components/layout";
+import { PageInner, PageHeader } from "@components/layout";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { Definition } from "@components/misc";
@@ -32,6 +32,12 @@ const ViewMember = ({ employee }) => {
 
   return (
     <Page>
+      <PageHeader>
+        <PageHeader.SubjectInfo
+          subject={`${lstNm}, ${frstNm}`}
+          info={{ "eMPF ID": ` ${pnsnIdTxt}` }}
+        />
+      </PageHeader>
       <PageInner>
         <Grid container spacing={3}>
           {/* Authorized Person */}
@@ -67,7 +73,9 @@ const ViewMember = ({ employee }) => {
                           dd={
                             gndrTypId === "GT_M"
                               ? t("form:label.male")
-                              : t("form:label.female")
+                              : gndrTypId === "GT_F"
+                              ? t("form:label.female")
+                              : "Mr/Ms"
                           }
                         />
 
@@ -92,7 +100,13 @@ const ViewMember = ({ employee }) => {
 
                         <Definition.Item
                           dt={t("form:label.gender")}
-                          dd={gndrTypId === "GT_M" ? "Male" : "Female"}
+                          dd={
+                            gndrTypId === "GT_M"
+                              ? "Male"
+                              : gndrTypId === "GT_F"
+                              ? "Female"
+                              : "Both"
+                          }
                         />
                         <Definition.Item
                           dt={t("form:label.idType")}
@@ -103,7 +117,7 @@ const ViewMember = ({ employee }) => {
                           dd={idNoTxt}
                         />
                         <Definition.Item
-                          dt={t("form:label.birthdate")}
+                          dt={t("form:label.dateOfBirth")}
                           dd={moment(brthDt).format("DD MMMM YYYY")}
                         />
 

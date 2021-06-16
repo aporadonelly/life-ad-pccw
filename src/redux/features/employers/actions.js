@@ -1,17 +1,29 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import { employerAdapter } from "@adapters";
 import { push } from "connected-react-router";
+import { pickBy } from "lodash";
 
 export const getEmployers = createAsyncThunk(
   "@@EMPF/EMPLOYER/GET_EMPLOYERS",
   async (payload, { rejectWithValue, dispatch }) => {
     try {
       const employers = await employerAdapter.searchEmployers(payload);
-      dispatch(push("/employers"));
-      return { employers: employers.content };
+      dispatch(push("/employers/enquiry/result"));
+      dispatch(saveEnquiry(payload));
+      return { employers };
     } catch (error) {
       return rejectWithValue({ error });
     }
+  }
+);
+
+export const saveEnquiry = createAction(
+  "@@EMPF/EMPLOYER/SAVE_ENQUIRY",
+  (payload) => {
+    const enquiry = pickBy(payload, (value) => {
+      return value !== "";
+    });
+    return { payload: { enquiry } };
   }
 );
 

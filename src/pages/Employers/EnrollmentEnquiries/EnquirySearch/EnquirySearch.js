@@ -32,10 +32,19 @@ const initialValues = {
   referenceNoOfMpfOrServiceAgent: "",
   registrationStatus: "",
   scheme: "",
+  trustee: "",
   enrolmentStatus: "",
 };
 
-const CompanyProfile = ({ isLoading, getEmployers }) => {
+const CompanyProfile = ({
+  isLoading,
+  getEmployers,
+  industryType,
+  registrationType,
+  typesOfCompany,
+  enrolmentStatus,
+  enquiry,
+}) => {
   const { t } = useTranslation(["typography", "form", "button"]);
   const classes = EmployeeStyles();
 
@@ -61,7 +70,7 @@ const CompanyProfile = ({ isLoading, getEmployers }) => {
             <Card>
               <CardContent>
                 <Formik
-                  initialValues={initialValues}
+                  initialValues={{ ...initialValues, ...enquiry }}
                   onSubmit={handleSubmit}
                   onReset={handleReset}
                   enableReinitialize
@@ -70,7 +79,11 @@ const CompanyProfile = ({ isLoading, getEmployers }) => {
                     return (
                       <Form>
                         <Grid item xs={12}>
-                          <Typography variant="h6" color="primary">
+                          <Typography
+                            variant="h6"
+                            color="primary"
+                            style={{ marginBottom: "13px" }}
+                          >
                             {t("typography:heading.employerRegOrEnr")}
                           </Typography>
                         </Grid>
@@ -128,11 +141,11 @@ const CompanyProfile = ({ isLoading, getEmployers }) => {
                               placeholder={t(
                                 "form:placeholder.custom.pleaseSelect"
                               )}
-                              // data={{
-                              //   options: idType,
-                              //   label: (option) => option.cstmTypDtlTxt,
-                              //   value: (option) => option.cstmTypId,
-                              // }}
+                              data={{
+                                options: registrationType,
+                                label: (option) => option.cstmTypDtlTxt,
+                                value: (option) => option.cstmTypId,
+                              }}
                               clearButton
                             />
                           </Grid>
@@ -147,28 +160,29 @@ const CompanyProfile = ({ isLoading, getEmployers }) => {
                             />
                           </Grid>
                           <Grid item xs={3}>
-                            <Form.Input
+                            <Form.Select
                               label={t("form:label.typesOfCompany")}
                               name="typesOfCompany"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseInput"
                               )}
+                              data={{
+                                options: typesOfCompany,
+                                label: (option) => option.cstmTypDtlTxt,
+                                value: (option) => option.cstmTypId,
+                              }}
+                              clearButton
                             />
                           </Grid>
                           <Grid item xs={3}>
-                            <Form.Select
+                            <Form.Input
                               label={t("form:label.branchNumber")}
                               name="branchNumber"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseSelect"
                               )}
-                              // data={{
-                              //   options: idType,
-                              //   label: (option) => option.cstmTypDtlTxt,
-                              //   value: (option) => option.cstmTypId,
-                              // }}
                               clearButton
                             />
                           </Grid>
@@ -177,16 +191,18 @@ const CompanyProfile = ({ isLoading, getEmployers }) => {
                         {/* Third line */}
                         <Grid container spacing={3}>
                           <Grid item xs={3}>
-                            <Form.Input
+                            <Form.DatePicker
                               label={t("form:label.dateOfIncorporation")}
                               name="dateOfIncorporation"
+                              format="DD/MM/YYYY"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseInput"
                               )}
+                              helperText="DDMMYYYY"
                             />
                           </Grid>
-                          <Grid item xs={4}>
+                          <Grid item xs={3}>
                             <Form.Input
                               label={t("form:label.registeredOfcAddress")}
                               name="registeredOfcAddress"
@@ -226,11 +242,11 @@ const CompanyProfile = ({ isLoading, getEmployers }) => {
                         <Grid container spacing={3}>
                           <Grid item xs={4}>
                             <Form.Select
-                              // data={{
-                              //   options: placeOfBirth,
-                              //   label: (option) => option.cntryTypNm,
-                              //   value: (option) => option.cntryTypCd,
-                              // }}
+                              data={{
+                                options: industryType,
+                                label: (option) => option.cstmTypDtlTxt,
+                                value: (option) => option.cstmTypId,
+                              }}
                               label={t("form:label.natureOfBusiness")}
                               name="natureOfBusiness"
                               type="text"
@@ -305,11 +321,11 @@ const CompanyProfile = ({ isLoading, getEmployers }) => {
                           </Grid>
                           <Grid item xs={2}>
                             <Form.Select
-                              // data={{
-                              //   options: placeOfBirth,
-                              //   label: (option) => option.cntryTypNm,
-                              //   value: (option) => option.cntryTypCd,
-                              // }}
+                              data={{
+                                options: enrolmentStatus,
+                                label: (option) => option.cstmTypDtlTxt,
+                                value: (option) => option.cstmTypId,
+                              }}
                               label={t("form:label.enrolmentStatus")}
                               name="enrolmentStatus"
                               type="text"

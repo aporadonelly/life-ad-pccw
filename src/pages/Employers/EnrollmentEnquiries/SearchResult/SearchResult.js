@@ -1,13 +1,58 @@
 import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Button, Card, CardContent, Grid, Typography } from "@material-ui/core";
-import { Page } from "@containers";
-import { PageHeader, PageInner } from "@components/layout";
+import {
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  Tooltip,
+  Typography,
+} from "@material-ui/core";
+import { Page, EnquiryChips } from "@containers";
 import { employersRoutes } from "@routes";
+import { PageHeader, PageInner } from "@components/layout";
+import TableCustomized from "@components/common/TableCustomized";
+import viewEnrollActive from "@assets/icons/enroll-active.PNG";
+import viewEnrollInActive from "@assets/icons/enroll-inactive.PNG";
+import viewRegistration from "@assets/icons/view_reg.PNG";
 
-const SearchResult = ({ employers }) => {
+const SearchResult = ({ employers, enquiry, saveEnquiry }) => {
+  const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button", "table"]);
-  useEffect(() => {}, [employers]);
+
+  useEffect(() => {}, [employers, enquiry]);
+
+  const columns = [
+    { label: t("table:thead.mpfId"), name: "pnsnIdTxt" },
+    { label: t("table:thead.employerAcctNo"), name: "Employer Acc. No." },
+    {
+      label: t("table:thead.companyNameEnglish"),
+      name: "Company Name (English)",
+    },
+    {
+      label: t("table:thead.companyNameChinese"),
+      name: "Company Name (Chinese)",
+    },
+    { label: t("table:thead.registrationType"), name: "Registration Type" },
+    { label: t("table:thead.registrationNumber"), name: "Registration No." },
+    { label: t("table:thead.branchNumber"), name: "Branch Number" },
+    { label: t("table:thead.typesOfCompany"), name: "Type of Company)" },
+    {
+      label: t("table:thead.dateOfIncorporation"),
+      name: "Date of Incorporation",
+    },
+    { label: t("table:thead.status"), name: "Status)" },
+  ];
+
+  const handleNewSearch = () => {
+    saveEnquiry({});
+    history.push("/employers/enquiry/search");
+  };
+
+  const handleEditSearch = () => {
+    history.push("/employers/enquiry/search");
+  };
 
   return (
     <Page>
@@ -19,22 +64,30 @@ const SearchResult = ({ employers }) => {
               <CardContent>
                 <Grid item xs={12}>
                   <Typography variant="h6" color="primary">
-                    Employer Registration or Enrollment Enquiries
+                    {t("typography:heading.employerRegOrEnrEnq")}
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
                   <Grid container>
                     <Grid item xs={8}>
                       <Typography variant="h6" color="primary">
-                        <Button> This is where all params go!</Button>
+                        <EnquiryChips enquiry={enquiry} />
                       </Typography>
                     </Grid>
                     <Grid item xs={4} align="right" display="flex">
-                      <Button data-testid="back-btn" variant="outlined">
+                      <Button
+                        data-testid="back-btn"
+                        variant="outlined"
+                        onClick={handleEditSearch}
+                      >
                         {t("button:editSearch")}
                       </Button>
                       &emsp;
-                      <Button style={{ width: "auto" }} data-testid="back-btn">
+                      <Button
+                        style={{ width: "auto" }}
+                        data-testid="back-btn"
+                        onClick={handleNewSearch}
+                      >
                         {t("button:newSearch")}
                       </Button>
                     </Grid>
@@ -47,7 +100,61 @@ const SearchResult = ({ employers }) => {
           {/* Table */}
           <Grid item xs={12}>
             <Card>
-              <CardContent></CardContent>
+              <CardContent>
+                <Grid
+                  container
+                  component="dl"
+                  spacing={1}
+                  alignItems="flex-start"
+                >
+                  <Grid item xs={12}>
+                    <TableCustomized
+                      title={t("typography:heading.enquiryResult")}
+                      rows={employers}
+                      columns={columns}
+                      stickyLabel={t("table:thead.custom.view")}
+                      renderStickyCell={(row) => {
+                        return (
+                          <>
+                            <Tooltip title="View Registration">
+                              <img
+                                src={viewRegistration}
+                                alt="View Registration"
+                                // onClick={() =>
+                                //   viewMembersDetails(row.pnsnIdTxt)
+                                // }
+                                variant="contained"
+                                style={{
+                                  margin: "0 5px",
+                                  background: "#EF841F",
+                                  color: "#fff",
+                                  cursor: "pointer",
+                                }}
+                              />
+                            </Tooltip>
+                            <Tooltip title="View Enrollment">
+                              <img
+                                src={
+                                  row.vwEnrFlg
+                                    ? viewEnrollActive
+                                    : viewEnrollInActive
+                                }
+                                alt="View Enrollment"
+                                variant="contained"
+                                style={{
+                                  margin: "0 5px",
+                                  background: "#EF841F",
+                                  color: "#fff",
+                                }}
+                              />
+                            </Tooltip>
+                          </>
+                        );
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+              </CardContent>
             </Card>
           </Grid>
         </Grid>

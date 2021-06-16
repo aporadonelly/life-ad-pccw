@@ -9,4 +9,5 @@ export const initialState = adapter.getInitialState({
   authPersonList: [],
   isLoading: false,
   error: null,
+  enquiry: {},
 });

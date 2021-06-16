@@ -6,6 +6,13 @@ export const employersSelector = createSelector(
   stateSelector,
   (state) => state.employers
 );
+
+//Employer Enquiry
+export const enquirySelector = createSelector(
+  stateSelector,
+  (state) => state.enquiry
+);
+
 export const authPersonSelector = createSelector(
   stateSelector,
   (state) => state.authPerson
@@ -17,7 +24,8 @@ export const companyRegInfoSelector = createSelector(
 );
 
 export const authPersonInfoListSelector = createSelector(
-  stateSelector, (state) => state.authPersonList
+  stateSelector,
+  (state) => state.authPersonList
 );
 
 export const isLoadingSelector = createSelector(

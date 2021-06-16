@@ -2,7 +2,7 @@ import AxiosAdapter from "./axios.adapter";
 
 class UserAdapter extends AxiosAdapter {
   logout() {
-    return this.instance.post("/logout", {});
+    return this.instance.get("/logout");
   }
 
   reissue() {

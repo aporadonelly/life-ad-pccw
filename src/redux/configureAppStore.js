@@ -5,6 +5,7 @@ import {
   unwrapResult,
 } from "@reduxjs/toolkit";
 import { routerMiddleware } from "connected-react-router";
+import { resetMiddleware } from "./middlewares";
 import {
   persistStore,
   FLUSH,
@@ -30,7 +31,7 @@ export const history = createBrowserHistory({
 
 export default function configureAppStore(preloadedState) {
   const debug = false;
-  const middlewares = [routerMiddleware(history)];
+  const middlewares = [routerMiddleware(history), resetMiddleware()];
 
   if (debug) {
     const { logger } = require("redux-logger");
@@ -68,6 +69,10 @@ export default function configureAppStore(preloadedState) {
       store.dispatch(getCustomTypeList({ groupId: "NT" }));
       store.dispatch(getCustomTypeList({ groupId: "MB" }));
       store.dispatch(getCustomTypeList({ groupId: "SC" }));
+      store.dispatch(getCustomTypeList({ groupId: "ST" }));
+      store.dispatch(getCustomTypeList({ groupId: "NT" }));
+      store.dispatch(getCustomTypeList({ groupId: "CI" }));
+      store.dispatch(getCustomTypeList({ groupId: "CP" }));
       store.dispatch(getCustomTypeList({ groupId: "ST" }));
     })
     .catch(() => {
