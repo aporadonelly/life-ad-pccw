@@ -34,14 +34,19 @@ class EmployerAdapter extends AxiosAdapter {
     });
   }
 
-  LdAuthPrsnInfo() {
-    return this.instance.get("/ldAuthPrsnInfo", {
-      params: { cmpnyUuid: "13717897-16EB-414F-9C06-0E8D6ECE08F0", clntUuid: "385cdceb-5f17-4de3-831a-cc222006a219" },
-    });
+  ldAuthPrsnInfo(clntUuid, pageNo = 0, pageSize = 10) {
+    const config = {
+      params: {
+        clntUuid,
+        cmpnyUuid: "7732B905-E9C1-4895-959E-FDCE74C856B3",
+        pageNo,
+        pageSize,
+      },
+    };
+    return this.instance.get("/ldAuthPrsnInfo", config);
   }
-
 }
 
 export default new EmployerAdapter({
-  baseURL: process.env.REACT_APP_REGISTRATION_ER_BASE_URL
+  baseURL: process.env.REACT_APP_REGISTRATION_ER_BASE_URL,
 });

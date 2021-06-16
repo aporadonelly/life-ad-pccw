@@ -57,11 +57,10 @@ export const getAuthorizedPersonList = createAsyncThunk(
   "@@EMPF/EMPLOYER/GET_AUTH_PERSON_INFO",
   async (_payload, { rejectWithValue }) => {
     try {
-      const authPersonInfo = await employerAdapter.LdAuthPrsnInfo();
-      return { authPersonInfo };
+      const authPersonList = await employerAdapter.ldAuthPrsnInfo();
+      return { authPersonList };
     } catch (error) {
       return rejectWithValue({ error });
     }
   }
 );
-

@@ -61,8 +61,8 @@ const employerReducer = createReducer(initialState, (builder) =>
       return { ...state, isLoading: true, error: null };
     })
     .addCase(getAuthorizedPersonList.fulfilled, (state, action) => {
-      const { authPersonInfo } = action.payload;
-      return { ...state, isLoading: false, authPersonList: authPersonInfo };
+      const { authPersonList } = action.payload;
+      return { ...state, isLoading: false, authPersonList };
     })
     .addCase(getAuthorizedPersonList.rejected, (state, action) => {
       const { error } = action.payload;
