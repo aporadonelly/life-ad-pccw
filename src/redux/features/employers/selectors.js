@@ -20,10 +20,6 @@ export const authPersonInfoListSelector = createSelector(
   stateSelector, (state) => state.authPersonList
 );
 
-export const contactPersonSelector = createSelector(
-  stateSelector, (state) => state.contactPerson
-)
-
 export const isLoadingSelector = createSelector(
   stateSelector,
   (state) => state.isLoading

@@ -35,15 +35,8 @@ class EmployerAdapter extends AxiosAdapter {
     });
   }
 
-  LdRegCntctPrsn() {
-    return this.instance.get("/ldRegCntctPrsn", {
-      params: { pageNo: 1, pageSize: 10, refNoTxt: "RGA123459(8)202105061244390856" },
-    });
-  }
-
 }
 
 export default new EmployerAdapter({
-  baseURL: process.env.REACT_APP_REGISTRATION_ER_BASE_URL,
-  // baseURL: "http://localhost:4000"
+  baseURL: process.env.REACT_APP_REGISTRATION_ER_BASE_URL
 });

@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { getAuthorizedPersonList, getEmployers, viewAuthPerson, LdRegCmpnyInfoforAdmnPrtl, getContactPerson } from "./actions";
+import { getAuthorizedPersonList, getEmployers, viewAuthPerson, LdRegCmpnyInfoforAdmnPrtl } from "./actions";
 import { initialState } from "./state";
 
 export const employerReducer = createReducer(initialState, (builder) =>
@@ -54,19 +54,6 @@ export const employerReducer = createReducer(initialState, (builder) =>
       const { error } = action.payload;
       return { ...state, isLoading: false, error };
     })
-
-        // get the contact person List from LdRegCntctPrsn function
-        .addCase(getContactPerson.pending, (state, _action) => {
-          return { ...state, isLoading: true, error: null };
-        })
-        .addCase(getContactPerson.fulfilled, (state, action) => {
-          const { contactPerson } = action.payload;
-          return { ...state, isLoading: false, contactPerson };
-        })
-        .addCase(getContactPerson.rejected, (state, action) => {
-          const { error } = action.payload;
-          return { ...state, isLoading: false, error };
-        })
 
 );
 
