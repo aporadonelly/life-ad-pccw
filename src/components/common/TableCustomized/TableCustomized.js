@@ -95,7 +95,15 @@ const EnhancedTableHead = (props) => {
 };
 
 const EnhancedTableBody = (props) => {
-  const { page, rowsPerPage, rows, columns, renderStickyCell, search } = props;
+  const {
+    rowKey,
+    page,
+    rowsPerPage,
+    rows,
+    columns,
+    renderStickyCell,
+    search,
+  } = props;
   const cellClasses = useCellStyles();
   const stickyClasses = useStickyStyles();
 
@@ -104,7 +112,7 @@ const EnhancedTableBody = (props) => {
       {rows
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
         .map((row) => (
-          <TableRow key={row.id}>
+          <TableRow key={row[rowKey]}>
             {columns.map((column) => (
               <TableCell key={column.name} classes={cellClasses}>
                 <HighlightedText
@@ -126,6 +134,7 @@ const EnhancedTableBody = (props) => {
 
 const TableCustomized = (props) => {
   const {
+    rowKey,
     title,
     rows,
     columns,
@@ -207,6 +216,7 @@ const TableCustomized = (props) => {
             onChangeSort={handleChangeSort}
           />
           <EnhancedTableBody
+            rowKey={rowKey}
             page={page}
             rowsPerPage={rowsPerPage}
             rows={orderBy(rows, sortBy, order)}
@@ -221,6 +231,7 @@ const TableCustomized = (props) => {
 };
 
 TableCustomized.defaultProps = {
+  rowKey: "id",
   rowsPerPage: 50,
   rows: [],
   columns: [],
