@@ -68,6 +68,7 @@ const EmployeeDetails = (props) => {
     bankName: "",
     acctNumber: "",
     paymentMethod: "",
+    employmentDate: data.employmentDate,
   };
 
   const validationSave = yup.object().shape({
@@ -158,11 +159,11 @@ const EmployeeDetails = (props) => {
 
   const handleClose = (e) => {
     setOpen((open) => !open);
-    if (!(e === undefined)) {
-      if (e.target.textContent === "yes") {
-        //btnClick.current.click();
-      }
-    }
+    // if (!(e === undefined)) {
+    //   if (e.target.textContent === "yes") {
+    //     //btnClick.current.click();
+    //   }
+    // }
   };
 
   function parseBoolean(str) {
@@ -218,12 +219,37 @@ const EmployeeDetails = (props) => {
   };
 
   // FIX: employmentDate is in api but no idea to put in UI
-  // const chkEmployDate = (values) => {
-  //   return true;
-  // }
+  const chkEmployDate = (values) => {
+    if (values.employmentDate === "") return true;
+    if (values.lastDateOfEmployment === "") return true;
+    const chkLspSpEmpDt = values.lspspTypeId === "" ? null : values.lspspTypeId;
+    if (!chkLspSpEmpDt) return true;
+
+    const dateLdoe = moment(values.lastDateOfEmployment, "YYYY-MM-DD");
+    const dateEmp = moment(values.employmentDate, "YYYY-MM-DD");
+    const duration = moment.duration(dateLdoe.diff(dateEmp));
+    const years = duration.asYears();
+    console.log("chkEmployDate", years);
+
+    if (chkLspSpEmpDt === "LS_LSP") {
+      if (years < 5) {
+        handleClose();
+        setBtnStatus("ExMsg_incrrtLDOE");
+        return false;
+      }
+    } else if (chkLspSpEmpDt === "LS_SP") {
+      if (years < 2) {
+        handleClose();
+        setBtnStatus("ExMsg_incrrtLDOE");
+        return false;
+      }
+    }
+    return true;
+  };
 
   const formikHandleSubmit = (values, actions) => {
     console.log("action - " + values.state, values);
+
     const termReason = filterByTermReason(values.terminationReasonId);
 
     const forValidationValues = {
@@ -245,6 +271,7 @@ const EmployeeDetails = (props) => {
         values.lspspEntitlementAmount &&
         values.lspspEntitlementAmount - values.paymentAmount,
       // NOTE: Payment Amount by ER in HKD = Total LSP/SP Entitlement Amount in HKD - Amount Payable.
+      employmentDate: moment(values.employmentDate).format("YYYY-MM-DD"),
     };
 
     const cloneValues = { ...values, ...forValidationValues };
@@ -288,8 +315,11 @@ const EmployeeDetails = (props) => {
     const chkLdoe = ldoeChange(values);
     if (!chkLdoe) return;
 
-    const chkLsp_SpAmt = chkLsp_Sp_Amount(values);
-    if (!chkLsp_SpAmt) return;
+    const chkLspSpAmt = chkLsp_Sp_Amount(values);
+    if (!chkLspSpAmt) return;
+
+    const chkEmpDate = chkEmployDate(values);
+    if (!chkEmpDate) return;
 
     console.log("vldMbrTerm", forValidationValues);
     validTermination(forValidationValues);
@@ -718,9 +748,15 @@ const EmployeeDetails = (props) => {
                               }}
                             />
                           </Grid>
-                          <Grid item xs={3}></Grid>
+                          <Grid item xs={3}>
+                            <FormikForm.Input
+                              name="employmentDate"
+                              fullWidth
+                              //display="none"
+                            />
+                          </Grid>
                         </Grid>
-                      </div>{" "}
+                      </div>
                     </div>
                   </div>
                 </Paper>
