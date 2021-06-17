@@ -36,8 +36,8 @@ const ListMenu = () => {
               primary={t(`sider:menu.${route.name}`)}
               primaryTypographyProps={{
                 className: clsx(classes.listItemText, {
-                  [classes.show]: state.collapsed,
-                  [classes.hide]: !state.collapsed,
+                  [classes.show]: !state.collapsed,
+                  [classes.hide]: state.collapsed,
                 }),
                 color: "inherit",
               }}
