@@ -18,6 +18,7 @@ const mapStateToProps = (state) => ({
   registrationType: customTypeByGroupIdSelector(state, "CI"),
   typesOfCompany: customTypeByGroupIdSelector(state, "CP"),
   enrolmentStatus: customTypeByGroupIdSelector(state, "ST"),
+  registrationStatus: customTypeByGroupIdSelector(state, "ST"),
 });
 
 const mapDispatchToProps = (dispatch) => ({

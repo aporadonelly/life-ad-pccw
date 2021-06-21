@@ -18,31 +18,35 @@ import viewEnrollInActive from "@assets/icons/enroll-inactive.PNG";
 import viewRegistration from "@assets/icons/view_reg.PNG";
 
 const SearchResult = ({ employers, enquiry, saveEnquiry }) => {
+  console.log(employers);
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button", "table"]);
 
   useEffect(() => {}, [employers, enquiry]);
 
   const columns = [
-    { label: t("table:thead.mpfId"), name: "pnsnIdTxt" },
-    { label: t("table:thead.employerAcctNo"), name: "Employer Acc. No." },
+    { label: t("table:thead.mpfId"), name: "pnsnId" },
+    {
+      label: t("table:thead.employerAcctNo"),
+      name: "branches[0].enrollments[0].employer.employerNo",
+    },
     {
       label: t("table:thead.companyNameEnglish"),
-      name: "Company Name (English)",
+      name: "companyName",
     },
     {
       label: t("table:thead.companyNameChinese"),
-      name: "Company Name (Chinese)",
+      name: "companyChineseName",
     },
-    { label: t("table:thead.registrationType"), name: "Registration Type" },
-    { label: t("table:thead.registrationNumber"), name: "Registration No." },
-    { label: t("table:thead.branchNumber"), name: "Branch Number" },
-    { label: t("table:thead.typesOfCompany"), name: "Type of Company)" },
+    { label: t("table:thead.registrationType"), name: "idType" },
+    { label: t("table:thead.registrationNumber"), name: "registrationNumber" },
+    { label: t("table:thead.branchNumber"), name: "branches[0].branchNo" },
+    { label: t("table:thead.typesOfCompany"), name: "companyType" },
     {
       label: t("table:thead.dateOfIncorporation"),
-      name: "Date of Incorporation",
+      name: "incorporationDate",
     },
-    { label: t("table:thead.status"), name: "Status)" },
+    { label: t("table:thead.status"), name: "registrationStatus" },
   ];
 
   const handleNewSearch = () => {
@@ -52,6 +56,10 @@ const SearchResult = ({ employers, enquiry, saveEnquiry }) => {
 
   const handleEditSearch = () => {
     history.push("/employers/enquiry/search");
+  };
+
+  const viewEmployerDetails = (id) => {
+    console.log(id);
   };
 
   return (
@@ -120,9 +128,9 @@ const SearchResult = ({ employers, enquiry, saveEnquiry }) => {
                               <img
                                 src={viewRegistration}
                                 alt="View Registration"
-                                // onClick={() =>
-                                //   viewMembersDetails(row.pnsnIdTxt)
-                                // }
+                                onClick={() =>
+                                  viewEmployerDetails(row.branches)
+                                }
                                 variant="contained"
                                 style={{
                                   margin: "0 5px",
@@ -135,7 +143,7 @@ const SearchResult = ({ employers, enquiry, saveEnquiry }) => {
                             <Tooltip title="View Enrollment">
                               <img
                                 src={
-                                  row.vwEnrFlg
+                                  row.branches[0]?.viewEnrollmentFlagEnabled
                                     ? viewEnrollActive
                                     : viewEnrollInActive
                                 }
@@ -145,6 +153,7 @@ const SearchResult = ({ employers, enquiry, saveEnquiry }) => {
                                   margin: "0 5px",
                                   background: "#EF841F",
                                   color: "#fff",
+                                  cursor: "pointer",
                                 }}
                               />
                             </Tooltip>
