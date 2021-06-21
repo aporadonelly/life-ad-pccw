@@ -5,6 +5,9 @@ import TableScrollbar from "./TableScrollbar";
 import Table from "./Table";
 import TableHeader from "./TableHeader";
 import TableBody from "./TableBody";
+import TableQuickSearch from "./TableQuickSearch";
+import TablePagination from "./TablePagination";
+import TableShowEntries from "./TableShowEntries";
 
 const DataTable = (props) => {
   const { components: Components, ...rest } = props;
@@ -28,5 +31,9 @@ DataTable.defaultProps = {
     Toolbar: TableToolbar,
   },
 };
+
+DataTable.QuickSearch = TableQuickSearch;
+DataTable.Pagination = TablePagination;
+DataTable.ShowEntries = TableShowEntries;
 
 export default DataTable;
