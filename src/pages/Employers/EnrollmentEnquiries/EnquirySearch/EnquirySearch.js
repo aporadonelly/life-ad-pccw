@@ -49,7 +49,7 @@ const CompanyProfile = ({
   registrationStatus,
   enquiry,
 }) => {
-  const { t } = useTranslation(["typography", "form ", "button"]);
+  const { t } = useTranslation(["typography", "form", "button"]);
   const classes = EmployeeStyles();
 
   const handleSubmit = (values) => {

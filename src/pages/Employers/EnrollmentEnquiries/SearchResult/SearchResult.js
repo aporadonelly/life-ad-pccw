@@ -52,6 +52,48 @@ const SearchResult = ({ employers, enquiry, saveEnquiry }) => {
       accessor: (row) => moment(row.incorporationDate).format("DD MMMM YYYY"),
     },
     { Header: t("table:thead.status"), accessor: "registrationStatus" },
+    {
+      Header: t("table:thead.custom.view"),
+      sticky: "right",
+      disableSortBy: true,
+      Cell: ({ row }) => {
+        return (
+          <>
+            <Tooltip title="View Registration">
+              <img
+                src={viewRegistration}
+                alt="View Registration"
+                onClick={() => viewEmployerDetails(row.original.branches)}
+                variant="contained"
+                style={{
+                  margin: "0 5px",
+                  background: "#EF841F",
+                  color: "#fff",
+                  cursor: "pointer",
+                }}
+              />
+            </Tooltip>
+            <Tooltip title="View Enrollment">
+              <img
+                src={
+                  row.original.branches[0]?.viewEnrollmentFlagEnabled
+                    ? viewEnrollActive
+                    : viewEnrollInActive
+                }
+                alt="View Enrollment"
+                variant="contained"
+                style={{
+                  margin: "0 5px",
+                  background: "#EF841F",
+                  color: "#fff",
+                  cursor: "pointer",
+                }}
+              />
+            </Tooltip>
+          </>
+        );
+      },
+    },
   ];
 
   const handleNewSearch = () => {
@@ -125,46 +167,6 @@ const SearchResult = ({ employers, enquiry, saveEnquiry }) => {
                       title={t("typography:heading.enquiryResult")}
                       data={employers}
                       columns={columns}
-                      stickyLabel={t("table:thead.custom.view")}
-                      renderStickyCell={(row) => {
-                        return (
-                          <>
-                            <Tooltip title="View Registration">
-                              <img
-                                src={viewRegistration}
-                                alt="View Registration"
-                                onClick={() =>
-                                  viewEmployerDetails(row.branches)
-                                }
-                                variant="contained"
-                                style={{
-                                  margin: "0 5px",
-                                  background: "#EF841F",
-                                  color: "#fff",
-                                  cursor: "pointer",
-                                }}
-                              />
-                            </Tooltip>
-                            <Tooltip title="View Enrollment">
-                              <img
-                                src={
-                                  row.branches[0]?.viewEnrollmentFlagEnabled
-                                    ? viewEnrollActive
-                                    : viewEnrollInActive
-                                }
-                                alt="View Enrollment"
-                                variant="contained"
-                                style={{
-                                  margin: "0 5px",
-                                  background: "#EF841F",
-                                  color: "#fff",
-                                  cursor: "pointer",
-                                }}
-                              />
-                            </Tooltip>
-                          </>
-                        );
-                      }}
                     />
                   </Grid>
                 </Grid>
