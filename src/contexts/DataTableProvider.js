@@ -11,6 +11,7 @@ const DataTableProvider = (props) => {
     {
       columns,
       data,
+      disableSortRemove: true,
       initialState: { pageSize },
     },
     useSortBy,
