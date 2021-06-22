@@ -17,7 +17,6 @@ import MessageRender from "./Message/MessageRender";
 
 import { Button } from "@material-ui/core";
 import BottomAppBar from "@components/misc/BottomAppBar/BottomAppBar";
-import FloatingButton from "@components/controls/floatingButton/floatingButton";
 import { useTranslation } from "react-i18next";
 import replaceNull from "../replaceNull";
 
@@ -282,24 +281,32 @@ const EmployeeDetails = (props) => {
       "changeDate",
       "effectiveDate",
       "effectiveDateOfTermination",
+      "employmentDate",
+      "acctNumber",
+      "bankName",
     ].forEach((e) => delete cloneValues[e]); // NOTE: not needed as of now
 
     // forValidationValues === for validation in submit
     // cloneValues  ==== for saving
 
+    const removeValues = ["", 0];
+
+    var filter = Object.keys(cloneValues).reduce(function (r, e) {
+      if (removeValues.includes(cloneValues[e])) r[e] = cloneValues[e];
+      return r;
+    }, {});
+
+    //console.log(Object.keys(filter));
+
+    Object.keys(filter).forEach((e) => delete cloneValues[e]);
+
+    if (Object.keys(cloneValues).length === 1) return;
+    if (Object.keys(cloneValues).length === 2) {
+      // lspspTypeId: null (not selected)
+      if (!cloneValues.lspspTypeId) return;
+    }
+
     if (values.state === "save") {
-      const removeValues = ["", 0];
-
-      var filter = Object.keys(cloneValues).reduce(function (r, e) {
-        if (removeValues.includes(cloneValues[e])) r[e] = cloneValues[e];
-        return r;
-      }, {});
-
-      //console.log(Object.keys(filter));
-
-      Object.keys(filter).forEach((e) => delete cloneValues[e]);
-      if (Object.keys(cloneValues).length === 1) return;
-
       const addedValues = {
         statusType: "Saved",
         statusTypeId: "ST_SV",
@@ -321,7 +328,7 @@ const EmployeeDetails = (props) => {
     const chkEmpDate = chkEmployDate(values);
     if (!chkEmpDate) return;
 
-    console.log("vldMbrTerm", forValidationValues);
+    //console.log("vldMbrTerm", forValidationValues);
     validTermination(forValidationValues);
     passValuesActions(cloneValues);
   };
@@ -346,7 +353,8 @@ const EmployeeDetails = (props) => {
     }
   };
 
-  const onCancel = (resetForm) => {
+  const onCancel = (e, resetForm) => {
+    e.preventDefault();
     handleClose();
     setBtnStatus("ExMsg_CnclPrcss");
   };
@@ -749,11 +757,12 @@ const EmployeeDetails = (props) => {
                             />
                           </Grid>
                           <Grid item xs={3}>
-                            <FormikForm.Input
-                              name="employmentDate"
-                              fullWidth
-                              //display="none"
-                            />
+                            <Box display="none">
+                              <FormikForm.Input
+                                name="employmentDate"
+                                fullWidth
+                              />
+                            </Box>
                           </Grid>
                         </Grid>
                       </div>
@@ -763,10 +772,13 @@ const EmployeeDetails = (props) => {
 
                 {bottomBar && (
                   <BottomAppBar>
-                    <FloatingButton
-                      text="cancel"
-                      onClick={onCancel.bind(null, resetForm)}
-                    />
+                    <Button
+                      type="cancel"
+                      className={classes.btnReverse}
+                      onClick={(e) => onCancel(e, resetForm)}
+                    >
+                      {t("button:cancel")}
+                    </Button>
                     <Button
                       type="submit"
                       className={classes.btnReverse}
@@ -778,7 +790,7 @@ const EmployeeDetails = (props) => {
                           <CircularProgress size={25} color="inherit" />
                         </Box>
                       ) : (
-                        "Save"
+                        t("button:save")
                       )}
                     </Button>
                     &nbsp;
@@ -792,7 +804,7 @@ const EmployeeDetails = (props) => {
                           <CircularProgress size={25} color="inherit" />
                         </Box>
                       ) : (
-                        "Submit"
+                        t("button:submit")
                       )}
                     </Button>
                   </BottomAppBar>
