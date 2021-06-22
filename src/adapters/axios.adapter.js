@@ -1,10 +1,15 @@
 import Axios from "axios";
+import queryString from "query-string";
 
 class AxiosAdapter {
   constructor(config) {
     this.instance = Axios.create({
       ...config,
       withCredentials: true,
+      paramsSerializer: (params) =>
+        queryString.stringify(params, {
+          skipEmptyString: true,
+        }),
     });
 
     this.instance.interceptors.request.use(
