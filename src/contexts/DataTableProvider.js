@@ -1,5 +1,6 @@
 import { createContext, useContext } from "react";
 import { useTable, usePagination, useSortBy } from "react-table";
+import { useSticky } from "react-table-sticky";
 
 const Context = createContext();
 const { Provider } = Context;
@@ -13,7 +14,8 @@ const DataTableProvider = (props) => {
       initialState: { pageSize },
     },
     useSortBy,
-    usePagination
+    usePagination,
+    useSticky
   );
 
   return <Provider value={{ ...tableInstance, title }}>{children}</Provider>;
