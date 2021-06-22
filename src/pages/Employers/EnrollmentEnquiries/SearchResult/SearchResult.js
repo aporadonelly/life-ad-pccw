@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import moment from "moment";
 import {
   Button,
   Card,
@@ -12,7 +13,8 @@ import {
 import { Page, EnquiryChips } from "@containers";
 import { employersRoutes } from "@routes";
 import { PageHeader, PageInner } from "@components/layout";
-import TableCustomized from "@components/common/TableCustomized";
+// import TableCustomized from "@components/common/TableCustomized";
+import { DataTable } from "@components/common";
 import viewEnrollActive from "@assets/icons/enroll-active.PNG";
 import viewEnrollInActive from "@assets/icons/enroll-inactive.PNG";
 import viewRegistration from "@assets/icons/view_reg.PNG";
@@ -25,28 +27,31 @@ const SearchResult = ({ employers, enquiry, saveEnquiry }) => {
   useEffect(() => {}, [employers, enquiry]);
 
   const columns = [
-    { label: t("table:thead.mpfId"), name: "pnsnId" },
+    { Header: t("table:thead.mpfId"), accessor: "pnsnId" },
     {
-      label: t("table:thead.employerAcctNo"),
-      name: "branches[0].enrollments[0].employer.employerNo",
+      Header: t("table:thead.employerAcctNo"),
+      accessor: "branches[0].enrollments[0].employer.employerNo",
     },
     {
-      label: t("table:thead.companyNameEnglish"),
-      name: "companyName",
+      Header: t("table:thead.companyNameEnglish"),
+      accessor: "companyName",
     },
     {
-      label: t("table:thead.companyNameChinese"),
-      name: "companyChineseName",
+      Header: t("table:thead.companyNameChinese"),
+      accessor: "companyChineseName",
     },
-    { label: t("table:thead.registrationType"), name: "idType" },
-    { label: t("table:thead.registrationNumber"), name: "registrationNumber" },
-    { label: t("table:thead.branchNumber"), name: "branches[0].branchNo" },
-    { label: t("table:thead.typesOfCompany"), name: "companyType" },
+    { Header: t("table:thead.registrationType"), accessor: "idType" },
     {
-      label: t("table:thead.dateOfIncorporation"),
-      name: "incorporationDate",
+      Header: t("table:thead.registrationNumber"),
+      accessor: "registrationNumber",
     },
-    { label: t("table:thead.status"), name: "registrationStatus" },
+    { Header: t("table:thead.branchNumber"), accessor: "branches[0].branchNo" },
+    { Header: t("table:thead.typesOfCompany"), accessor: "companyType" },
+    {
+      Header: t("table:thead.dateOfIncorporation"),
+      accessor: (row) => moment(row.incorporationDate).format("DD MMMM YYYY"),
+    },
+    { Header: t("table:thead.status"), accessor: "registrationStatus" },
   ];
 
   const handleNewSearch = () => {
@@ -116,9 +121,9 @@ const SearchResult = ({ employers, enquiry, saveEnquiry }) => {
                   alignItems="flex-start"
                 >
                   <Grid item xs={12}>
-                    <TableCustomized
+                    <DataTable
                       title={t("typography:heading.enquiryResult")}
-                      rows={employers}
+                      data={employers}
                       columns={columns}
                       stickyLabel={t("table:thead.custom.view")}
                       renderStickyCell={(row) => {

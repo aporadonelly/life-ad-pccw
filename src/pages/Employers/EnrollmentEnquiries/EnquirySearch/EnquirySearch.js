@@ -23,7 +23,7 @@ const initialValues = {
   employerAccountNumber: "",
   companyName: "",
   companyChineseName: "",
-  registrationType: "",
+  registrationTypeId: "",
   registrationNumber: "",
   branchNumber: "",
   companyTypeId: "",
@@ -49,11 +49,11 @@ const CompanyProfile = ({
   registrationStatus,
   enquiry,
 }) => {
-  console.log(industryType);
-  const { t } = useTranslation(["typography", "form", "button"]);
+  const { t } = useTranslation(["typography", "form ", "button"]);
   const classes = EmployeeStyles();
 
   const handleSubmit = (values) => {
+    console.log(values);
     getEmployers(values);
   };
 
@@ -141,7 +141,7 @@ const CompanyProfile = ({
                           <Grid item xs={3}>
                             <Form.Select
                               label={t("form:label.registrationType")}
-                              name="registrationType"
+                              name="registrationTypeId"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseSelect"

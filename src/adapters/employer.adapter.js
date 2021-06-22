@@ -1,27 +1,14 @@
 import AxiosAdapter from "./axios.adapter";
-import moment from "moment";
-import { pickBy } from "lodash";
 
 class EmployerAdapter extends AxiosAdapter {
   searchEmployers(p, pageNo = 0, pageSize = 50) {
     const newValues = { ...p };
-
-    Object.keys(newValues).forEach((key) => {
-      if (moment(newValues[key], "DD/MM/YYYY", true).isValid()) {
-        newValues[key] = newValues[key].split("/").reverse().join("/");
-      }
-    });
     const config = {
-      params: pickBy(
-        {
-          pageNo,
-          pageSize,
-          ...newValues,
-        },
-        (value) => {
-          return value !== "";
-        }
-      ),
+      params: {
+        pageNo,
+        pageSize,
+        ...newValues,
+      },
     };
     return this.instance.get("/ldSrchCmpny", config);
   }
