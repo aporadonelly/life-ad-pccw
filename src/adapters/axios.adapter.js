@@ -9,6 +9,7 @@ class AxiosAdapter {
       paramsSerializer: (params) =>
         queryString.stringify(params, {
           skipEmptyString: true,
+          skipNull: true,
         }),
     });
 
