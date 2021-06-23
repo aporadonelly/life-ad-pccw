@@ -1,6 +1,13 @@
 import AxiosAdapter from "./axios.adapter";
 
 class EnrollmentEmployer extends AxiosAdapter {
+  ldEnrCmpnyInfo(payload) {
+    const { cmpnyUuid, schmUuid } = payload;
+    return this.instance.get("/ldEnrCmpnyInfo", {
+      params: { cmpnyUuid, schmUuid },
+    });
+  }
+
   ldCmpnyRltdPrsn(payload) {
     const { cmpnyPrsnTypId, cmpnyUuid, schmUuid, clntUuid } = payload;
     return this.instance.get("/ldCmpnyRltdPrsn", {
