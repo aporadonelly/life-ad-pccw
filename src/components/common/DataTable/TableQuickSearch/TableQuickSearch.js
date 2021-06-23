@@ -6,7 +6,7 @@ import { useStyles } from "./styles";
 import { InputBase, InputAdornment } from "@material-ui/core";
 import { Search as SearchIcon, Close as CloseIcon } from "@material-ui/icons";
 
-const TableQuickSearch = (props) => {
+const TableQuickSearch = () => {
   const { globalFilter, setGlobalFilter } = useDataTableState();
   const [value, setValue] = useState(globalFilter ?? "");
   const classes = useStyles();
@@ -48,17 +48,5 @@ const TableQuickSearch = (props) => {
     </div>
   );
 };
-
-TableQuickSearch.defaultProps = {
-  globalFilter: "",
-};
-
-// TableQuickSearch.defaultProps = {
-//   onChange: () => {},
-// };
-
-// TableQuickSearch.propTypes = {
-//   onChange: PropTypes.func.isRequired,
-// };
 
 export default TableQuickSearch;
