@@ -6,6 +6,7 @@ import {
   useGlobalFilter,
 } from "react-table";
 import { useSticky } from "react-table-sticky";
+import { toString } from "lodash";
 
 const Context = createContext();
 const { Provider } = Context;
@@ -14,7 +15,7 @@ const defaultColumn = {
   Cell: ({ cell: { value }, state: { globalFilter } }) => (
     <div
       dangerouslySetInnerHTML={{
-        __html: value.replace(
+        __html: toString(value).replace(
           new RegExp(globalFilter, "gi"),
           (match) => `<mark>${match}</mark>`
         ),
