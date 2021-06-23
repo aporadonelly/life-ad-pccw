@@ -1,9 +1,27 @@
 import { createContext, useContext } from "react";
-import { useTable, usePagination, useSortBy } from "react-table";
+import {
+  useTable,
+  usePagination,
+  useSortBy,
+  useGlobalFilter,
+} from "react-table";
 import { useSticky } from "react-table-sticky";
 
 const Context = createContext();
 const { Provider } = Context;
+
+const defaultColumn = {
+  Cell: ({ cell: { value }, state: { globalFilter } }) => (
+    <div
+      dangerouslySetInnerHTML={{
+        __html: value.replace(
+          new RegExp(globalFilter, "gi"),
+          (match) => `<mark>${match}</mark>`
+        ),
+      }}
+    />
+  ),
+};
 
 const DataTableProvider = (props) => {
   const { columns, data, pageSize, title, children } = props;
@@ -11,9 +29,12 @@ const DataTableProvider = (props) => {
     {
       columns,
       data,
+      defaultColumn,
+      manualGlobalFilter: true,
       disableSortRemove: true,
       initialState: { pageSize },
     },
+    useGlobalFilter,
     useSortBy,
     usePagination,
     useSticky

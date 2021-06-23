@@ -1,28 +1,29 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { useDebounce } from "react-use";
+import { useDataTableState } from "@contexts/DataTableProvider";
 import { useStyles } from "./styles";
 import { InputBase, InputAdornment } from "@material-ui/core";
 import { Search as SearchIcon, Close as CloseIcon } from "@material-ui/icons";
 
 const TableQuickSearch = (props) => {
-  const { onChange } = props;
-  const [value, setValue] = useState("");
+  const { globalFilter, setGlobalFilter } = useDataTableState();
+  const [value, setValue] = useState(globalFilter ?? "");
   const classes = useStyles();
 
   const handleChange = (e) => {
     setValue(e.target.value);
   };
 
-  const handleClear = (e) => {
+  const handleClear = () => {
     setValue("");
   };
 
   useDebounce(
     () => {
-      onChange(value);
+      setGlobalFilter(value);
     },
-    700,
+    500,
     [value]
   );
 
@@ -49,11 +50,15 @@ const TableQuickSearch = (props) => {
 };
 
 TableQuickSearch.defaultProps = {
-  onChange: () => {},
+  globalFilter: "",
 };
 
-TableQuickSearch.propTypes = {
-  onChange: PropTypes.func.isRequired,
-};
+// TableQuickSearch.defaultProps = {
+//   onChange: () => {},
+// };
+
+// TableQuickSearch.propTypes = {
+//   onChange: PropTypes.func.isRequired,
+// };
 
 export default TableQuickSearch;
