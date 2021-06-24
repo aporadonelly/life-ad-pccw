@@ -4,9 +4,9 @@ export const employersAdapter = createEntityAdapter({
   selectId: (employer) => employer.pnsnId,
 });
 
-export const registrationEmployer = createEntityAdapter({});
+export const enrollmentEmployer = createEntityAdapter({});
 
-export const initialState = registrationEmployer.getInitialState({
+export const initialState = enrollmentEmployer.getInitialState({
   isLoading: false,
   error: null,
   draftEnquiry: {},

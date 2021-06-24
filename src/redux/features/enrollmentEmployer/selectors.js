@@ -6,7 +6,7 @@ export const employersSelectors = employersAdapter.getSelectors(
   (state) => state.employers
 );
 
-export const featureStateSelector = (state) => state.registrationEmployer;
+export const featureStateSelector = (state) => state.enrollmentEmployer;
 
 export const isLoadingSelector = createSelector(
   featureStateSelector,
@@ -47,10 +47,14 @@ export const schemesSelector = createSelector(employerSelector, (employer) =>
         branch?.enrollments
           ? concat(
               result,
-              map(branch.enrollments, ({ scheme, employer }) => ({
-                ...scheme,
-                employer,
-              }))
+              map(
+                branch.enrollments,
+                ({ scheme, employer }) =>
+                  scheme && {
+                    ...scheme,
+                    employer,
+                  }
+              )
             )
           : result,
       []

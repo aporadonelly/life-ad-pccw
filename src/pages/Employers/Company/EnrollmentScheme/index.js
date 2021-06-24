@@ -1,7 +1,7 @@
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
-import { schemesSelector } from "@redux/features/registrationEmployer/selectors";
+import { schemesSelector } from "@redux/features/enrollmentEmployer/selectors";
 
 import EnrollmentScheme from "./EnrollmentScheme";
 

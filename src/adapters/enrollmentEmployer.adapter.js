@@ -1,17 +1,20 @@
 import AxiosAdapter from "./axios.adapter";
 
 class EnrollmentEmployer extends AxiosAdapter {
+  ldSrchCmpny(payload) {
+    return this.instance.get("/ldSrchCmpny", {
+      params: {
+        ...payload,
+        pageNo: 0,
+        pageSize: 50,
+      },
+    });
+  }
+
   ldEnrCmpnyInfo(payload) {
     const { cmpnyUuid, schmUuid } = payload;
     return this.instance.get("/ldEnrCmpnyInfo", {
       params: { cmpnyUuid, schmUuid },
-    });
-  }
-
-  ldCmpnyRltdPrsn(payload) {
-    const { cmpnyPrsnTypId, cmpnyUuid, schmUuid, clntUuid } = payload;
-    return this.instance.get("/ldCmpnyRltdPrsn", {
-      params: { cmpnyUuid, cmpnyPrsnTypId, schmUuid, clntUuid },
     });
   }
 }

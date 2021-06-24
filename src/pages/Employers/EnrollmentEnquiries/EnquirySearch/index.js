@@ -6,11 +6,11 @@ import {
   isLoadingSelector,
   errorSelector,
   draftEnquirySelector,
-} from "@redux/features/registrationEmployer/selectors";
+} from "@redux/features/enrollmentEmployer/selectors";
 import {
   ldSrchCmpny,
   draftEnquiry,
-} from "@redux/features/registrationEmployer/actions";
+} from "@redux/features/enrollmentEmployer/actions";
 
 import EnquirySearch from "./EnquirySearch";
 
