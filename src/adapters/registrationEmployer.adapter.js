@@ -7,6 +7,13 @@ class RegistrationEmployer extends AxiosAdapter {
       params: { cmpnyUuid, cmpnyPrsnTypId, schmUuid, clntUuid },
     });
   }
+
+  ldRegCmpnyInfoforAdmnPrtl(payload) {
+    const { clntUuid } = payload;
+    return this.instance.get("/ldRegCmpnyInfoforAdmnPrtl", {
+      params: { clntUuid },
+    });
+  }
 }
 
 export default new RegistrationEmployer({
