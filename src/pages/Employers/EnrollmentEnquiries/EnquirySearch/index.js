@@ -1,18 +1,22 @@
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { push } from "connected-react-router";
 import { customTypeByGroupIdSelector } from "@redux/features/system/selectors";
 import {
   isLoadingSelector,
   errorSelector,
-  enquirySelector,
-} from "@redux/features/employers/selectors";
-import { getEmployers } from "@redux/features/employers/actions";
+  draftEnquirySelector,
+} from "@redux/features/registrationEmployer/selectors";
+import {
+  ldSrchCmpny,
+  draftEnquiry,
+} from "@redux/features/registrationEmployer/actions";
 
 import EnquirySearch from "./EnquirySearch";
 
 const mapStateToProps = (state) => ({
   isLoading: isLoadingSelector(state),
-  enquiry: enquirySelector(state),
+  enquiry: draftEnquirySelector(state),
   error: errorSelector(state),
   industryType: customTypeByGroupIdSelector(state, "NT"),
   registrationType: customTypeByGroupIdSelector(state, "CI"),
@@ -24,7 +28,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators(
     {
-      getEmployers,
+      ldSrchCmpny,
+      draftEnquiry,
+      push,
     },
     dispatch
   ),
