@@ -11,7 +11,7 @@ const TableToolbar = () => {
 
   return (
     <Toolbar className={classes.toolbar} variant="regular">
-      <Typography className={classes.title} variant="h5" color="primary">
+      <Typography className={classes.title} variant="h6" color="primary">
         {title}
       </Typography>
       <TableQuickSearch />
