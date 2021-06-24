@@ -101,12 +101,14 @@
     "pnsnId": "MPF ID",
     "companyName": "Company Name (English)",
     "companyChineseName": "Company Name (Chinese)",
-    "employerAccountNumber":"Employer Account No.",
+    "employerAccountNumber": "Employer Account No.",
     "registrationTypeId": "Registration Type",
     "companyTypeId": "Type of Company",
     "natureId": "Nature of Business",
     "registeredOfficeAddress": "Registered Office Address",
-    "incorporationDate": "Date of Incorporation"
+    "incorporationDate": "Date of Incorporation",
+    "scndryCtctPrsn": "Secondary Contact Person",
+    "prmryCntctPrsn": "Primary Contact Person"
   },
   "placeholder": {
     "custom": {

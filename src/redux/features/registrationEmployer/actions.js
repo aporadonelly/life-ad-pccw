@@ -18,3 +18,15 @@ export const ldSrchCmpny = createAsyncThunk(
     }
   }
 );
+
+// export const ldSrchCmpny = createAsyncThunk(
+//   "@@empf/reg/er/ldSrchCmpny",
+//   async (payload, { rejectWithValue }) => {
+//     try {
+//       const employers = await registrationEmployer.ldSrchCmpny(payload);
+//       return { employers };
+//     } catch (error) {
+//       return rejectWithValue({ error });
+//     }
+//   }
+// );

@@ -58,11 +58,12 @@ const SearchResult = ({
       sticky: "right",
       disableSortBy: true,
       Cell: ({ row }) => {
-        const { branches, pnsnId } = row.original;
+        const { pnsnId, companyId } = row.original;
         return (
           <>
-            <Tooltip title="View Registration">
+            <Tooltip title="View Registration" arrow>
               <img
+                onClick={() => handleViewRegistration({ companyId })}
                 src={viewRegistration}
                 alt="View Registration"
                 variant="contained"
@@ -74,7 +75,7 @@ const SearchResult = ({
                 }}
               />
             </Tooltip>
-            <Tooltip title="View Enrollment">
+            <Tooltip title="View Enrollment" arrow>
               <img
                 onClick={() => handleViewScheme({ pnsnId })}
                 src={
@@ -98,6 +99,9 @@ const SearchResult = ({
     },
   ];
 
+  const handleViewRegistration = ({ companyId }) => {
+    console.log(companyId);
+  };
   const handleNewSearch = () => {
     draftEnquiry({});
     push("/employers/enquiry/search");

@@ -1,12 +1,16 @@
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
-import { schemesSelector } from "@redux/features/registrationEmployer/selectors";
+import {
+  schemesSelector,
+  employerSelector,
+} from "@redux/features/registrationEmployer/selectors";
 
 import EnrollmentScheme from "./EnrollmentScheme";
 
 const mapStateToProps = (state) => ({
   schemes: schemesSelector(state),
+  employer: employerSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -15,7 +15,8 @@ import {
   Toolbar,
 } from "@material-ui/core";
 
-const EnrollmentScheme = ({ schemes, push }) => {
+const EnrollmentScheme = ({ employer, schemes, push }) => {
+  console.log(employer);
   console.log(schemes);
   const { t } = useTranslation(["typography", "form", "table", "button"]);
 
