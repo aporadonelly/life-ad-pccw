@@ -10,6 +10,13 @@ class EnrollmentEmployer extends AxiosAdapter {
       },
     });
   }
+
+  ldEnrCmpnyInfo(payload) {
+    const { cmpnyUuid, schmUuid } = payload;
+    return this.instance.get("/ldEnrCmpnyInfo", {
+      params: { cmpnyUuid, schmUuid },
+    });
+  }
 }
 
 export default new EnrollmentEmployer({
