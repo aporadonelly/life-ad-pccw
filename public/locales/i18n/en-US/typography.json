@@ -16,6 +16,10 @@
     "authorizedPerson": "Authorized Person",
     "memberSearch": "Member Search",
     "employerRegOrEnr": "Employer Registration or Enrollment Enquiries",
+    "enrolmentScheme": "Enrolment Scheme",
+    "trustee": "Trustee",
+    "schemeName": "Scheme Name",
+    "status": "Status",
     "enquiryResult": "Enquiries Result",
     "employerRegOrEnrEnq": "Employer Registration or Enrollment Enquiries"
   },
