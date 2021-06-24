@@ -7,6 +7,7 @@ import employerReducer from "./features/employers/reducer";
 import membersReducer from "./features/members/reducer";
 import employeeTermination from "./features/employees/termination/reducer";
 import employeeDetailsReducer from "@reducers/employeeDetailsReducer";
+import registrationEmployer from "./features/registrationEmployer/reducer";
 
 const createRootReducer = (history) =>
   combineReducers({
@@ -14,6 +15,7 @@ const createRootReducer = (history) =>
     employees: membersReducer,
     system,
     user,
+    registrationEmployer,
     employers: employerReducer,
     employeeTermination,
     employeeDetails: employeeDetailsReducer,

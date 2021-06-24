@@ -94,7 +94,17 @@
     "bankInfo": "银行信息",
     "bankName": "银行的名字",
     "acctNum": "账号",
-    "payMethod": "付款方法"
+    "payMethod": "付款方法",
+
+    "pnsnId": "强积金身份证",
+    "companyName": "公司名称（英文）",
+    "companyChineseName": "公司名称（中文）",
+    "employerAccountNumber":"雇主帐号",
+    "registrationTypeId": "注册类型",
+    "companyTypeId": "公司类型",
+    "natureId": "业务性质",
+    "registeredOfficeAddress": "注册办公地址",
+    "incorporationDate": "注册成立日期"
   },
   "placeholder": {
     "custom": {
