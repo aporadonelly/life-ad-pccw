@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 import {
   Grid,
@@ -37,7 +37,6 @@ const CompanyProfile = ({
   LdRegCmpnyInfoforAdmnPrtl,
   getAuthorizedPersonList,
   companyRegInfo,
-  authPersonList,
   isLoading,
 }) => {
   const classes = useStyles();
@@ -50,38 +49,46 @@ const CompanyProfile = ({
   }, [LdRegCmpnyInfoforAdmnPrtl, getAuthorizedPersonList]);
 
   const viewMembersDetails = (id) => {
-    console.log(id)
-  }
+    console.log(id);
+  };
 
-  const columns = [
-    { label: t("table:thead.lastName"), name: "lastName" },
-    { label: t("table:thead.firstName"), name: "firstName" },
-    { label: t("table:thead.chineseLastName"), name: "chineseLastName" },
-    { label: t("table:thead.chineseFirstName"), name: "chineseFirstName" },
-  ];
+  const columns = useMemo(
+    () => [
+      { label: t("table:thead.lastName"), name: "lstName" },
+      { label: t("table:thead.firstName"), name: "frstName" },
+      { label: t("table:thead.chineseLastName"), name: "chnsLstName" },
+      { label: t("table:thead.chineseFirstName"), name: "chnsFrstName" },
+    ],
+    [t]
+  );
 
-  const supportingDocuments = [
-    {
-      id: 1,
-      fileName: "Filename upload 00001.pdf",
-    },
-    {
-      id: 2,
-      fileName: "Filename upload 00002.png",
-    },
-    {
-      id: 3,
-      fileName: "Filename upload 00003.jpg",
-    },
-  ];
+  const supportingDocuments = useMemo(
+    () => [
+      {
+        id: 1,
+        fileName: "Filename upload 00001.pdf",
+      },
+      {
+        id: 2,
+        fileName: "Filename upload 00002.png",
+      },
+      {
+        id: 3,
+        fileName: "Filename upload 00003.jpg",
+      },
+    ],
+    []
+  );
 
   const {
     ldRegCmpnyInfoforAdmnPrtlProjection,
+    cmpnyRltdPrsns,
+    contactDtos,
     countryTyp,
     customTypCmpnyTyp,
     customTypNt,
     customTypId,
-  } = companyRegInfo ?? {};
+  } = companyRegInfo ?? [];
   const { cmpnyNm, cmpnyChnsNm, incrprtnDt, identification } =
     ldRegCmpnyInfoforAdmnPrtlProjection ?? {};
 
@@ -102,7 +109,7 @@ const CompanyProfile = ({
     regOfficeAddress?.addrStrtTxt,
     regOfficeAddress?.addrCtyTxt,
     regOfficeAddress?.addrDstrctTxt,
-  ]).join(", ");
+  ]).join(" ");
   const businessAddress = compact([
     regBusinessAddress?.addrRmTxt,
     regBusinessAddress?.addrFlrTxt,
@@ -122,32 +129,28 @@ const CompanyProfile = ({
     regCorresAddress?.addrDstrctTxt,
   ]).join(" ");
 
-  const contacts =
-    sortBy(
-      get(ldRegCmpnyInfoforAdmnPrtlProjection, "contacts"),
-      "cntctPrsnTypId"
-    ) ?? {};
-  const primaryContactPrsn = contacts[0];
-  const customTyp1 = get(primaryContactPrsn, "customTyp") ?? {};
-  const clientPhone =
-    sortBy(get(primaryContactPrsn, "clntPhones"), "phnTypId") ?? {};
-  const phoneNumber1 = clientPhone[0] ?? {}; // TP_MB
-  const telNumber1 = clientPhone[1] ?? {}; // TP_TP
+  const contactsDto = sortBy(contactDtos, "cntctPrsnTypId") ?? {};
+  const priContact = contactsDto[0]; // CT_PCP
+  const secContact = contactsDto[1]; // CT_SCP
 
-  const secondaryContactPrsn = contacts[1];
-  const customTyp2 = get(secondaryContactPrsn, "customTyp") ?? {};
-  const clientPhone2 =
-    sortBy(get(secondaryContactPrsn, "clntPhones"), "phnTypId") ?? {};
-  const phoneNumber2 = clientPhone2[0] ?? {}; // TP_MB
-  const telNumber2 = clientPhone2[1] ?? {}; // TP_TP
+  const { clntPhones } = priContact ?? {};
+  const clPhone = sortBy(clntPhones, "phnTypId");
+  const mobilePhone = clPhone[0]; // TP_MB
+  const telePhone = clPhone[1]; // TP_TP
+
+  const clPhone2 = sortBy(secContact?.clntPhones, "phnTypId");
+  const mobilePhone2 = clPhone2[0]; // TP_MB
+  const telePhone2 = clPhone2[1]; // TP_TP
 
   const { brnchNm, brnchNoTxt, lnggTypId } =
     get(ldRegCmpnyInfoforAdmnPrtlProjection, "branches[0]") ?? {};
-  const jobTitle1 =
-    get(ldRegCmpnyInfoforAdmnPrtlProjection, "cmpnyRltdPrsns[0]") ?? {};
-  const jobTitle2 =
-    get(ldRegCmpnyInfoforAdmnPrtlProjection, "cmpnyRltdPrsns[1]") ?? {};
 
+  // const jobTitle1 =
+  //   get(ldRegCmpnyInfoforAdmnPrtlProjection, "cmpnyRltdPrsns[0]") ?? {};
+  // const jobTitle2 =
+  //   get(ldRegCmpnyInfoforAdmnPrtlProjection, "cmpnyRltdPrsns[1]") ?? {};
+  // console.log("data:", companyRegInfo)
+  // return null;
   return (
     <Page>
       <PageHeader routes={companyRoutes}>
@@ -172,7 +175,7 @@ const CompanyProfile = ({
                 <CardContent>
                   <Grid container spacing={2}>
                     <Grid item xs={12} style={{ marginTop: 13 }}>
-                      <Typography className={classes.titleLabel}>
+                      <Typography variant="h5" color="primary">
                         {t("typography:heading.companyRegInfo")}
                       </Typography>
                     </Grid>
@@ -196,7 +199,7 @@ const CompanyProfile = ({
                             item
                             xs={3}
                             dt={t("form:label.typeOfCompany")}
-                            // dd={customTypCmpnyTyp.cstmTypDtlTxt}
+                            dd={customTypCmpnyTyp?.cstmTypDtlTxt}
                           />
                           <Definition.Item
                             item
@@ -210,22 +213,19 @@ const CompanyProfile = ({
                             item
                             xs={3}
                             dt={t("form:label.placeOfIncorporation")}
-                            // dd={countryTyp.cntryTypNm}
+                            dd={countryTyp?.cntryTypNm}
                           />
                           <Definition.Item
                             item
                             xs={3}
                             dt={t("form:label.registrationType")}
-                            // dd={customTypId.cstmTypDtlTxt}
+                            dd={customTypId?.cstmTypDtlTxt}
                           />
                           <Definition.Item
                             item
                             xs={3}
                             dt={t("form:label.registrationNumber")}
-                            // dd={
-                            //   identification.idNoTxt +
-                            //   `(${identification.idChkDgtTxt})`
-                            // }
+                            dd={`${identification.idNoTxt}(${identification.idChkDgtTxt})`}
                           />
                           <Definition.Item
                             item
@@ -237,7 +237,7 @@ const CompanyProfile = ({
                             item
                             xs={3}
                             dt={t("form:label.natureOfBusiness")}
-                            // dd={customTypNt.cstmTypDtlTxt}
+                            dd={customTypNt.cstmTypDtlTxt}
                           />
                           <Definition.Item
                             item
@@ -300,7 +300,7 @@ const CompanyProfile = ({
                         title={t(
                           "typography:heading.authorizedPersonOfEmployer"
                         )}
-                        rows={authPersonList}
+                        rows={cmpnyRltdPrsns}
                         columns={columns}
                         stickyLabel={t("table:thead.custom.view")}
                         renderToolbar={({ title }) => title}
@@ -329,37 +329,9 @@ const CompanyProfile = ({
                 </CardContent>
               </Card>
             </Grid>
-            {/* <Grid item xs={12}>
-              {authPersonList && (
-                <Card>
-                  <CardContent>
-                    <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                        <Grid container alignItems="center">
-                          <Grid item xs={6}>
-                            <Typography className={classes.titleLabel}>
-                              {t(
-                                "typography:heading.authorizedPersonOfEmployer"
-                              )}
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TableCustomized
-                          renderToolbar={({ title }) => title}
-                          rows={authPersonList}
-                          columns={columns}
-                        />
-                      </Grid>
-                    </Grid>
-                  </CardContent>
-                </Card>
-              )}
-            </Grid> */}
 
             <Grid item xs={12}>
-              {primaryContactPrsn?.cntctPrsnTypId === "CT_PCP" && (
+              {priContact?.cntctPrsnTypId === "CT_PCP" && (
                 <Card>
                   <CardContent>
                     <Grid container spacing={2}>
@@ -377,45 +349,45 @@ const CompanyProfile = ({
                           <Definition.List>
                             <Definition.Item
                               dt={t("form:label.lastNameContactPerson")}
-                              dd={primaryContactPrsn.lName}
+                              // dd={primaryContactPrsn.lName}
                             />
                             <Definition.Item
                               dt={t("form:label.firstNameContactPerson")}
-                              dd={primaryContactPrsn.fName}
+                              // dd={primaryContactPrsn.fName}
                             />
                             <Definition.Item
                               dt={t("form:label.title")}
-                              dd={customTyp1.cstmTypDtlTxt}
+                              dd={priContact?.titleType}
                             />
                             <Definition.Item
                               dt={t("form:label.jobTitle")}
-                              dd={jobTitle1.jbPstnTxt}
+                              // dd={jobTitle1.jbPstnTxt}
                             />
                             <Definition.Item
                               dt={t("form:label.telNo")}
                               dd={
-                                telNumber1.phnTypId === "TP_TP"
-                                  ? telNumber1.phnNmbr
-                                  : ""
+                                countryTyp?.cntryTypCd === "PH"
+                                  ? `(${countryTyp?.telCntryCdNmbr}) ${telePhone?.phnNmbr}`
+                                  : telePhone?.phnNmbr
                               }
                             />
                             <Definition.Item
                               dt={t("form:label.mobileNo")}
                               dd={
-                                phoneNumber1.phnTypId === "TP_MB"
-                                  ? phoneNumber1.phnNmbr
-                                  : ""
+                                countryTyp?.cntryTypCd === "PH"
+                                  ? `(${countryTyp?.telCntryCdNmbr}) ${mobilePhone.phnNmbr}`
+                                  : mobilePhone.phnNmbr
                               }
                             />
                             <Definition.Item
                               dt={t("form:label.email")}
-                              dd={primaryContactPrsn.emlAddrTxt}
+                              dd={priContact?.emlAddrTxt}
                             />
                             <Definition.Item
                               dt={t(
                                 "form:label.preferredCommunicationLanguage"
                               )}
-                              dd={getLanguage(primaryContactPrsn.lnggTypId)}
+                              dd={getLanguage(priContact?.lnggTypId)}
                             />
                           </Definition.List>
                         </Definition>
@@ -427,7 +399,7 @@ const CompanyProfile = ({
             </Grid>
 
             <Grid item xs={12}>
-              {secondaryContactPrsn?.cntctPrsnTypId === "CT_SCP" && (
+              {secContact?.cntctPrsnTypId === "CT_SCP" && (
                 <Card>
                   <CardContent>
                     <Grid container spacing={2}>
@@ -445,45 +417,45 @@ const CompanyProfile = ({
                           <Definition.List>
                             <Definition.Item
                               dt={t("form:label.lastNameContactPerson")}
-                              dd={secondaryContactPrsn.lName}
+                              // dd={secondaryContactPrsn.lName}
                             />
                             <Definition.Item
                               dt={t("form:label.firstNameContactPerson")}
-                              dd={secondaryContactPrsn.fName}
+                              // dd={secondaryContactPrsn.fName}
                             />
                             <Definition.Item
                               dt={t("form:label.title")}
-                              dd={customTyp2.cstmTypDtlTxt}
+                              dd={secContact?.titleType}
                             />
                             <Definition.Item
                               dt={t("form:label.jobTitle")}
-                              dd={jobTitle2.jbPstnTxt}
+                              // dd={secContact?.jobTitle}
                             />
                             <Definition.Item
                               dt={t("form:label.telNo")}
                               dd={
-                                telNumber2.phnTypId === "TP_TP"
-                                  ? telNumber2.phnNmbr
-                                  : ""
+                                countryTyp?.cntryTypCd === "PH"
+                                  ? `(${countryTyp?.telCntryCdNmbr}) ${telePhone2?.phnNmbr}`
+                                  : telePhone2?.phnNmbr
                               }
                             />
                             <Definition.Item
                               dt={t("form:label.mobileNo")}
                               dd={
-                                phoneNumber2.phnTypId === "TP_MB"
-                                  ? phoneNumber2.phnNmbr
-                                  : ""
+                                countryTyp?.cntryTypCd === "PH"
+                                  ? `(${countryTyp?.telCntryCdNmbr}) ${mobilePhone2?.phnNmbr}`
+                                  : mobilePhone?.phnNmbr
                               }
                             />
                             <Definition.Item
                               dt={t("form:label.email")}
-                              dd={secondaryContactPrsn.emlAddrTxt}
+                              dd={secContact?.emlAddrTxt}
                             />
                             <Definition.Item
                               dt={t(
                                 "form:label.preferredCommunicationLanguage"
                               )}
-                              dd={getLanguage(secondaryContactPrsn.lnggTypId)}
+                              dd={getLanguage(secContact?.lnggTypId)}
                             />
                           </Definition.List>
                         </Definition>
@@ -546,11 +518,10 @@ const CompanyProfile = ({
 CompanyProfile.propTypes = {
   companyRegInfo: PropTypes.objectOf(
     PropTypes.shape({
-      companyRegistrationInfo: PropTypes.object,
-      address: PropTypes.object,
+      cmpnyRltdPrsns: PropTypes.array.isRequired,
+      ldRegCmpnyInfoforAdmnPrtlProjection: PropTypes.object,
       authorizedPerson: PropTypes.arrayOf(PropTypes.object),
-      primaryContactPerson: PropTypes.object,
-      secondaryContactPerson: PropTypes.object,
+      contactDtos: PropTypes.arrayOf(PropTypes.object),
       supportingDocuments: PropTypes.arrayOf(PropTypes.object),
     })
   ),
@@ -561,9 +532,9 @@ CompanyProfile.defaultProps = {
   companyRegInfo: {},
   companyRegistrationInfo: {},
   address: {},
+  cmpnyRltdPrsns: [],
+  contactDtos: [{}],
   authorizedPerson: {},
-  primaryContactPerson: {},
-  secondaryContactPerson: {},
   supportingDocuments: [{}],
   LdRegCmpnyInfoforAdmnPrtl: () => {},
 };
