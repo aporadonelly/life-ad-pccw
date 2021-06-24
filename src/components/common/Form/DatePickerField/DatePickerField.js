@@ -27,8 +27,13 @@ const DatePickerField = (props) => {
 
   useEffect(() => {
     if (rest.value) {
-      const date = new Date(rest.value);
-      setSelectedDate(date);
+      if (moment(rest.value, "DD/MM/YYYY", true).isValid()) {
+        const date = new Date(rest.value.split("/").reverse().join("-"));
+        setSelectedDate(date);
+      } else {
+        const date = new Date(rest.value);
+        setSelectedDate(date);
+      }
     } else {
       setSelectedDate(null);
     }
