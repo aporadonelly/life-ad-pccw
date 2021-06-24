@@ -1,17 +1,21 @@
 import AxiosAdapter from "./axios.adapter";
 
 class RegistrationEmployer extends AxiosAdapter {
-  ldSrchCmpny(payload) {
-    return this.instance.get("/ldSrchCmpny", {
-      params: {
-        ...payload,
-        pageNo: 0,
-        pageSize: 50,
-      },
+  ldEnrCmpnyInfo(payload) {
+    const { cmpnyUuid, schmUuid } = payload;
+    return this.instance.get("/ldEnrCmpnyInfo", {
+      params: { cmpnyUuid, schmUuid },
+    });
+  }
+
+  ldCmpnyRltdPrsn(payload) {
+    const { cmpnyPrsnTypId, cmpnyUuid, schmUuid, clntUuid } = payload;
+    return this.instance.get("/ldCmpnyRltdPrsn", {
+      params: { cmpnyUuid, cmpnyPrsnTypId, schmUuid, clntUuid },
     });
   }
 }
 
 export default new RegistrationEmployer({
-  baseURL: process.env.REACT_APP_ENROLLMENT_ER_BASE_URL,
+  baseURL: process.env.REACT_APP_REGISTRATION_ER_BASE_URL,
 });
