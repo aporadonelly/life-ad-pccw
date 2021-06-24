@@ -1,34 +1,23 @@
 import AxiosAdapter from "./axios.adapter";
 import { pickBy } from "lodash";
+import moment from "moment";
 
 class EmployeesAdapter extends AxiosAdapter {
   // for searching of users via form
   searchMembers(p, pageNo = 0, pageSize = 50) {
+    const newValues = { ...p };
+
+    Object.keys(newValues).forEach((key) => {
+      if (moment(newValues[key], "DD/MM/YYYY", true).isValid()) {
+        newValues[key] = newValues[key].split("/").reverse().join("/");
+      }
+    });
     const config = {
       params: pickBy(
         {
           pageNo,
           pageSize,
-          mpfID: p.mpfID,
-          fullName: p.fullName,
-          gender: p.gender,
-          chineseName: p.chineseName,
-          idType: p.idType,
-          idNumber: p.idNumber,
-          dateOfBirth: p.dateOfBirth,
-          nationality: p.nationality,
-          placeOfBirth: p.placeOfBirth,
-          mobileNumber: p.mobileNumber,
-          address: p.address,
-          email: p.email,
-          dateOfEmployment: p.dateOfEmployment,
-          employeeType: p.employee_type,
-          reportedIndustryType: p.reportedIndustryType,
-          occupation: p.occupation,
-          schemeUuid: p.schemeUuid,
-          taxResidency: p.taxResidency,
-          tin: p.tin,
-          status: p.status,
+          ...newValues,
         },
         (value) => {
           return value !== "";

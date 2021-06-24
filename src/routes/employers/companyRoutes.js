@@ -1,4 +1,5 @@
 import EnrollmentScheme from "@pages/Employers/Company/EnrollmentScheme";
+import EmployerEnrollmentInformation from "@pages/Employers/Company/EmployerEnrollmentInformation";
 import { companyRegInfoRoutes } from "./company";
 
 const enrollmentEnquiriesRoutes = [
@@ -13,6 +14,12 @@ const enrollmentEnquiriesRoutes = [
     name: "Enrollment Scheme",
     path: "/employers/company/enrollment-scheme",
     component: EnrollmentScheme,
+    tab: true,
+  },
+  {
+    name: "Employer Enrollment Information",
+    path: "/employers/company/er-enrollment-info",
+    component: EmployerEnrollmentInformation,
     tab: true,
   },
 ];

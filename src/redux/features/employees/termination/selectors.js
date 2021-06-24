@@ -27,9 +27,39 @@ export const validateSelector = createSelector(
   (state) => state.validation
 );
 
+export const isSavingSelector = createSelector(
+  stateSelector,
+  (state) => state.isSaving
+);
+
 export const valuesActionSelector = createSelector(
   stateSelector,
   (state) => state.valuesActions
+);
+
+export const entitleLspSpSelector = createSelector(
+  stateSelector,
+  (state) => state.entitleLspSp
+);
+
+export const detailsLspSpSelector = createSelector(
+  stateSelector,
+  (state) => state.lspSp
+);
+
+export const payMethodSelector = createSelector(
+  stateSelector,
+  (state) => state.paymethod
+);
+
+export const bankListSelector = createSelector(
+  stateSelector,
+  (state) => state.bankList
+);
+
+export const clntBnkInfoSelector = createSelector(
+  stateSelector,
+  (state) => state.clntBnkInfo
 );
 
 export const isLoadingSelector = createSelector(

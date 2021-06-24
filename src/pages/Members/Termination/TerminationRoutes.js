@@ -1,17 +1,18 @@
 import { PageHeader } from "@components/layout";
 import { membersRoutes } from "@routes";
+import replaceNull from "./replaceNull";
 
 const TerminationRoutes = (props) => {
-  const empSubject = props.clientSchemes;
-  let subjInfoName = "Chan, Tai Man",
-    subjAccountID = "3746474",
-    subjAccountNo = "273 637 338",
-    subjCompanyName = "Great Company Limited",
-    subjEmployerNumber = "223344433",
-    subjSchemeName = "AIA MPF - Prime Value Choice";
+  const empSubject = replaceNull(props.clientSchemes);
+  let subjInfoName,
+    subjAccountID,
+    subjAccountNo,
+    subjCompanyName,
+    subjEmployerNumber,
+    subjSchemeName;
   if (empSubject) {
     subjInfoName = empSubject.firstName + " " + empSubject.lastName;
-    subjAccountID = empSubject.accountId;
+    subjAccountID = empSubject.empfNumber;
     subjAccountNo = empSubject.accountNumber;
     subjCompanyName = empSubject.companyName;
     subjEmployerNumber = empSubject.employerNumber;

@@ -1,32 +1,20 @@
 import AxiosAdapter from "./axios.adapter";
-import { pickBy } from "lodash";
 
 class EmployerAdapter extends AxiosAdapter {
   searchEmployers(p, pageNo = 0, pageSize = 50) {
+    const newValues = { ...p };
     const config = {
-      params: pickBy(
-        {
-          pageNo,
-          pageSize,
-          mpfID: p.mpfID,
-          fullName: p.companyNameEnglish,
-          chineseName: p.companyNameChinese,
-          idType: p.registrationType,
-          idNumber: p.registrationNumber,
-          dateOfBirth: p.dateOfBirth,
-        },
-        (value) => {
-          return value !== "";
-        }
-      ),
+      params: {
+        pageNo,
+        pageSize,
+        ...newValues,
+      },
     };
-    return this.instance.get("/ldSrchRegInd", config);
+    return this.instance.get("/ldSrchCmpny", config);
   }
 
   LdRegCmpnyInfoforAdmnPrtl(clientId) {
-    return this.instance.get("/companyReg", {
-      // params: { client_uuid: 149 },
-    });
+    return this.instance.get("/companyReg", {});
   }
 
   LdAuthPrsnInfo() {
@@ -38,5 +26,5 @@ class EmployerAdapter extends AxiosAdapter {
 }
 
 export default new EmployerAdapter({
-  baseURL: process.env.REACT_APP_REGISTRATION_EE_BASE_URL,
+  baseURL: process.env.REACT_APP_ENROLLMENT_BASE_URL,
 });

@@ -19,7 +19,9 @@
     "enrolmentScheme": "Enrolment Scheme",
     "trustee": "Trustee",
     "schemeName": "Scheme Name",
-    "status": "Status"
+    "status": "Status",
+    "enquiryResult": "Enquiries Result",
+    "employerRegOrEnrEnq": "Employer Registration or Enrollment Enquiries"
   },
   "paragraph": {},
   "labelCaption": ""

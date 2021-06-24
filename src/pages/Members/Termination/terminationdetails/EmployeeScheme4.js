@@ -4,7 +4,7 @@ import { Grid, Avatar } from "@material-ui/core";
 import { Form } from "@components/common";
 //import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { makeStyles } from "@material-ui/styles";
-import { labels } from "@common/labelsList";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
   schemeUl: {
@@ -12,26 +12,12 @@ const useStyles = makeStyles((theme) => ({
     listStylePosition: "inside",
     margin: 0,
     padding: 0,
-    //listStyle: "none",
-    // display: "flex",
-    // marginTop: "20px",
-    // flexDirection: "column",
-    // flexWrap: "wrap",
-    // height: "240px",
-    // alignContent: "flex-start",
   },
   schemeGrid: {
     display: "flex",
     marginTop: "20px",
     paddingRight: "28px",
   },
-  // schemeBox: {
-  //   flex: "0 0 300px",
-  //   width: "300px",
-  //   marginRight: "20px",
-  //   display: "flex",
-  //   justifyContent: "space-around",
-  // },
   schemeAvatar: {
     width: "30px",
     height: "30px",
@@ -58,6 +44,7 @@ const initialValues = {
 };
 
 const EmployeeScheme4 = (props) => {
+  const { t } = useTranslation(["typography", "form", "button"]);
   const classes = useStyles();
   let circleId = 0;
 
@@ -67,17 +54,9 @@ const EmployeeScheme4 = (props) => {
         name={props.name}
         render={({ swap, form }) => (
           <Grid>
-            <div className={classes.labels}>{labels.schemeTitle}</div>
+            <div className={classes.labels}>{t("form:label.schemeTitle")}</div>
             {form.values.schemes.map((scheme, index) => (
-              // console.log(
-              //   scheme.id,
-              //   scheme.scheme,
-              //   `schemes.${index}.id`,
-              //   form.values.schemes
-              // )
-
               <Grid item sm={7} xs={12} className={classes.schemeGrid}>
-                {/* {console.log((circleId = index + 1))} */}
                 <Avatar className={classes.schemeAvatar}>
                   {(circleId = index + 1)}
                 </Avatar>
