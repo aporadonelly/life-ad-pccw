@@ -1,14 +1,14 @@
 import { createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import { enrollmentEmployer } from "@adapters";
 
-export const draftEnquiry = createAction("@@empf/reg/er/draftEnquiry");
+export const draftEnquiry = createAction("@@empf/enr/er/draftEnquiry");
 
 export const setSelectedPnsnId = createAction(
-  "@@empf/reg/er/setSelectedPnsnId"
+  "@@empf/enr/er/setSelectedPnsnId"
 );
 
 export const ldSrchCmpny = createAsyncThunk(
-  "@@empf/reg/er/ldSrchCmpny",
+  "@@empf/enr/er/ldSrchCmpny",
   async (payload, { rejectWithValue }) => {
     try {
       const employers = await enrollmentEmployer.ldSrchCmpny(payload);
