@@ -27,7 +27,7 @@ const EnrollmentScheme = ({ employer, schemes, push }) => {
         accessor: "trustee.trusteeName",
       },
       { Header: t("typography:heading.schemeName"), accessor: "schemeName" },
-      { Header: t("typography:heading.status"), accessor: "status" },
+      { Header: t("typography:heading.status"), accessor: "employer.status" },
 
       {
         Header: t("table:thead.custom.view"),
@@ -35,7 +35,7 @@ const EnrollmentScheme = ({ employer, schemes, push }) => {
         disableSortBy: true,
         Cell: ({ row }) => {
           return (
-            <Tooltip title="View Scheme" arrow>
+            <Tooltip title="Employer Enrollment Information" arrow>
               <img src={ViewBtn} alt="" />
             </Tooltip>
           );
