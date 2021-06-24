@@ -47,10 +47,14 @@ export const schemesSelector = createSelector(employerSelector, (employer) =>
         branch?.enrollments
           ? concat(
               result,
-              map(branch.enrollments, ({ scheme, employer }) => ({
-                ...scheme,
-                employer,
-              }))
+              map(
+                branch.enrollments,
+                ({ scheme, employer }) =>
+                  scheme && {
+                    ...scheme,
+                    employer,
+                  }
+              )
             )
           : result,
       []
