@@ -1,5 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { reduce, map, concat } from "lodash";
+import { reduce, map, concat, compact } from "lodash";
 import { employersAdapter } from "./state";
 
 export const employersSelectors = employersAdapter.getSelectors(
@@ -40,12 +40,14 @@ export const employerSelector = createSelector(
 );
 
 export const schemesSelector = createSelector(employerSelector, (employer) =>
-  reduce(
-    employer?.branches,
-    (result, branch) =>
-      branch?.enrollments
-        ? concat(result, map(branch.enrollments, "scheme"))
-        : result,
-    []
+  compact(
+    reduce(
+      employer?.branches,
+      (result, branch) =>
+        branch?.enrollments
+          ? concat(result, map(branch.enrollments, "scheme"))
+          : result,
+      []
+    )
   )
 );
