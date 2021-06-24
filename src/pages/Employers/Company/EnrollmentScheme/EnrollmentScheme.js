@@ -17,19 +17,13 @@ import {
   Button,
   Tooltip,
   Toolbar,
+  Icon,
 } from "@material-ui/core";
 
 const EnrollmentScheme = () => {
   const classes = useStyles();
   const { t } = useTranslation(["typography", "form", "table", "button"]);
   const history = useHistory();
-
-  // const columns = [
-  //   { label: t("typography:heading.trustee"), name: "companyName" },
-  //   { label: t("typography:heading.schemeName"), name: "schemeName" },
-  //   { label: t("typography:heading.status"), name: "status" },
-  //   { label: t("table:thead.viewAction"), name: "view" },
-  // ];
 
   const columns = useMemo(
     () => [
@@ -47,19 +41,15 @@ const EnrollmentScheme = () => {
         Cell: ({ row }) => {
           return (
             <Box display="flex">
-              <Button data-testid="detail-btn" className={classes.detailBtn}>
-                Detail
-              </Button>
-              &nbsp;
-              <Button data-testid="delete-btn" className={classes.detailBtn}>
-                Delete
-              </Button>
+              <Icon>
+                <img src={ViewBtn} width={100} height={100} />
+              </Icon>
             </Box>
           );
         },
       },
     ],
-    [classes, t]
+    [t]
   );
 
   const rows = [
