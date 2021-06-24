@@ -13,5 +13,5 @@ class RegistrationEmployer extends AxiosAdapter {
 }
 
 export default new RegistrationEmployer({
-  baseURL: process.env.REACT_APP_REGISTRATION_ER_BASE_URL,
+  baseURL: process.env.REACT_APP_ENROLLMENT_ER_BASE_URL,
 });

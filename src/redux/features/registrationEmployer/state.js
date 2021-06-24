@@ -10,6 +10,6 @@ export const initialState = registrationEmployer.getInitialState({
   isLoading: false,
   error: null,
   draftEnquiry: {},
-  selectedPnsnId: "8810830886",
+  selectedPnsnId: null,
   employers: employersAdapter.getInitialState(),
 });

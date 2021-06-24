@@ -17,7 +17,7 @@ import { isEqual } from "lodash";
 import { Page } from "@containers";
 import { PageHeader, PageInner } from "@components/layout";
 import { employersRoutes } from "@routes";
-
+import { unwrapResult } from "@reduxjs/toolkit";
 const initialValues = {
   pnsnId: "",
   employerAccountNumber: "",
@@ -41,20 +41,26 @@ const initialValues = {
 
 const CompanyProfile = ({
   isLoading,
-  getEmployers,
   industryType,
   registrationType,
   typesOfCompany,
   enrolmentStatus,
   registrationStatus,
   enquiry,
+  ldSrchCmpny,
+  draftEnquiry,
+  push,
 }) => {
   const { t } = useTranslation(["typography", "form", "button"]);
   const classes = EmployeeStyles();
 
   const handleSubmit = (values) => {
-    console.log(values);
-    getEmployers(values);
+    ldSrchCmpny(values)
+      .then(unwrapResult)
+      .then(() => {
+        draftEnquiry(values);
+        push("/employers/enquiry/result");
+      });
   };
 
   const handleReset = () => {
