@@ -10,6 +10,7 @@ import {
   Box,
   Button,
   Tooltip,
+  Toolbar,
 } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { Definition } from "@components/misc";
@@ -17,7 +18,8 @@ import CompanySupportingDocs from "./SupportingDocuments";
 import { get, compact, sortBy } from "lodash";
 import { useHistory } from "react-router-dom";
 import useStyles from "./styles";
-import { TableCustomized } from "@components/common";
+// import { TableCustomized } from "@components/common";
+import { DataTable } from "@components/common";
 import moment from "moment";
 import { Page } from "@containers";
 import { PageHeader, PageInner } from "@components/layout";
@@ -52,12 +54,37 @@ const CompanyProfile = ({
     console.log(id);
   };
 
+  // const columns = useMemo(
+  //   () => [
+  //     { label: t("table:thead.lastName"), name: "lstName" },
+  //     { label: t("table:thead.firstName"), name: "frstName" },
+  //     { label: t("table:thead.chineseLastName"), name: "chnsLstName" },
+  //     { label: t("table:thead.chineseFirstName"), name: "chnsFrstName" },
+  //   ],
+  //   [t]
+  // );
+
   const columns = useMemo(
     () => [
-      { label: t("table:thead.lastName"), name: "lstName" },
-      { label: t("table:thead.firstName"), name: "frstName" },
-      { label: t("table:thead.chineseLastName"), name: "chnsLstName" },
-      { label: t("table:thead.chineseFirstName"), name: "chnsFrstName" },
+      { Header: t("table:thead.lastName"), accessor: "lstName" },
+      { Header: t("table:thead.firstName"), accessor: "frstName" },
+      { Header: t("table:thead.chineseLastName"), accessor: "chnsLstName" },
+      {
+        Header: t("table:thead.chineseFirstName"),
+        accessor: "chnsFrstName",
+      },
+      {
+        Header: t("table:thead.custom.action"),
+        sticky: "right",
+        disableSortBy: true,
+        Cell: ({ row }) => {
+          return (
+            <Box display="flex">
+              <Button data-testid="detail-btn">Detail</Button>
+            </Box>
+          );
+        },
+      },
     ],
     [t]
   );
@@ -130,6 +157,7 @@ const CompanyProfile = ({
   ]).join(" ");
 
   const contactsDto = sortBy(contactDtos, "cntctPrsnTypId") ?? {};
+  console.log("com reg:", companyRegInfo);
   const priContact = contactsDto[0]; // CT_PCP
   const secContact = contactsDto[1]; // CT_SCP
 
@@ -175,7 +203,7 @@ const CompanyProfile = ({
                 <CardContent>
                   <Grid container spacing={2}>
                     <Grid item xs={12} style={{ marginTop: 13 }}>
-                      <Typography variant="h5" color="primary">
+                      <Typography variant="h6" color="primary">
                         {t("typography:heading.companyRegInfo")}
                       </Typography>
                     </Grid>
@@ -225,7 +253,7 @@ const CompanyProfile = ({
                             item
                             xs={3}
                             dt={t("form:label.registrationNumber")}
-                            dd={`${identification.idNoTxt}(${identification.idChkDgtTxt})`}
+                            dd={`${identification?.idNoTxt}(${identification?.idChkDgtTxt})`}
                           />
                           <Definition.Item
                             item
@@ -237,7 +265,7 @@ const CompanyProfile = ({
                             item
                             xs={3}
                             dt={t("form:label.natureOfBusiness")}
-                            dd={customTypNt.cstmTypDtlTxt}
+                            dd={customTypNt?.cstmTypDtlTxt}
                           />
                           <Definition.Item
                             item
@@ -261,7 +289,7 @@ const CompanyProfile = ({
                     <Grid item xs={12}>
                       <Grid container alignItems="center">
                         <Grid item xs={6}>
-                          <Typography className={classes.titleLabel}>
+                          <Typography variant="h6" color="primary">
                             {t("typography:heading.address")}
                           </Typography>
                         </Grid>
@@ -296,7 +324,25 @@ const CompanyProfile = ({
                 <CardContent>
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
-                      <TableCustomized
+                      <DataTable
+                        // title={}
+                        data={cmpnyRltdPrsns} //
+                        columns={columns}
+                        // stickyLabel={t("table:thead.custom.action")}
+                        components={{
+                          Toolbar: () => (
+                            <Toolbar disableGutters>
+                              <Typography variant="h6" color="primary">
+                                {t(
+                                  "typography:heading.authorizedPersonOfEmployer"
+                                )}
+                              </Typography>
+                            </Toolbar>
+                          ),
+                        }}
+                      />
+
+                      {/* <TableCustomized
                         title={t(
                           "typography:heading.authorizedPersonOfEmployer"
                         )}
@@ -323,7 +369,7 @@ const CompanyProfile = ({
                             </>
                           );
                         }}
-                      />
+                      /> */}
                     </Grid>
                   </Grid>
                 </CardContent>
@@ -338,7 +384,7 @@ const CompanyProfile = ({
                       <Grid item xs={12}>
                         <Grid container alignItems="center">
                           <Grid item xs={6}>
-                            <Typography className={classes.titleLabel}>
+                            <Typography variant="h6" color="primary">
                               {t("typography:heading.primaryContactPerson")}
                             </Typography>
                           </Grid>
@@ -406,7 +452,7 @@ const CompanyProfile = ({
                       <Grid item xs={12}>
                         <Grid container alignItems="center">
                           <Grid item xs={6}>
-                            <Typography className={classes.titleLabel}>
+                            <Typography variant="h6" color="primary">
                               {t("typography:heading.secondaryContactPerson")}
                             </Typography>
                           </Grid>
@@ -472,7 +518,7 @@ const CompanyProfile = ({
                   <CardContent>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Typography className={classes.titleLabel}>
+                        <Typography variant="h6" color="primary">
                           {t("typography:heading.supportingDocs")}
                         </Typography>
                       </Grid>
@@ -518,7 +564,7 @@ const CompanyProfile = ({
 CompanyProfile.propTypes = {
   companyRegInfo: PropTypes.objectOf(
     PropTypes.shape({
-      cmpnyRltdPrsns: PropTypes.array.isRequired,
+      cmpnyRltdPrsns: PropTypes.object,
       ldRegCmpnyInfoforAdmnPrtlProjection: PropTypes.object,
       authorizedPerson: PropTypes.arrayOf(PropTypes.object),
       contactDtos: PropTypes.arrayOf(PropTypes.object),
@@ -529,13 +575,13 @@ CompanyProfile.propTypes = {
 };
 
 CompanyProfile.defaultProps = {
-  companyRegInfo: {},
-  companyRegistrationInfo: {},
-  address: {},
-  cmpnyRltdPrsns: [],
-  contactDtos: [{}],
-  authorizedPerson: {},
-  supportingDocuments: [{}],
+  companyRegInfo: {
+    cmpnyRltdPrsns: {},
+    address: {},
+    contactDtos: [{}],
+    authorizedPerson: {},
+    supportingDocuments: [{}],
+  },
   LdRegCmpnyInfoforAdmnPrtl: () => {},
 };
 
