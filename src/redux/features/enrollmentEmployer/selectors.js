@@ -6,7 +6,7 @@ export const employersSelectors = employersAdapter.getSelectors(
   (state) => state.employers
 );
 
-export const featureStateSelector = (state) => state.registrationEmployer;
+export const featureStateSelector = (state) => state.enrollmentEmployer;
 
 export const isLoadingSelector = createSelector(
   featureStateSelector,

@@ -6,12 +6,12 @@ import {
   errorSelector,
   draftEnquirySelector,
   employersSelector,
-} from "@redux/features/registrationEmployer/selectors";
+} from "@redux/features/enrollmentEmployer/selectors";
 import {
   ldSrchCmpny,
   draftEnquiry,
   setSelectedPnsnId,
-} from "@redux/features/registrationEmployer/actions";
+} from "@redux/features/enrollmentEmployer/actions";
 
 import SearchResult from "./SearchResult";
 
