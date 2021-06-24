@@ -4,7 +4,7 @@ import { push } from "connected-react-router";
 import {
   schemesSelector,
   employerSelector,
-} from "@redux/features/registrationEmployer/selectors";
+} from "@redux/features/enrollmentEmployer/selectors";
 
 import EnrollmentScheme from "./EnrollmentScheme";
 
