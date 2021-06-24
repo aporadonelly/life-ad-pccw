@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
 import {
@@ -19,12 +17,15 @@ import viewEnrollActive from "@assets/icons/enroll-active.PNG";
 import viewEnrollInActive from "@assets/icons/enroll-inactive.PNG";
 import viewRegistration from "@assets/icons/view_reg.PNG";
 
-const SearchResult = ({ employers, enquiry, saveEnquiry }) => {
+const SearchResult = ({
+  employers,
+  enquiry,
+  draftEnquiry,
+  setSelectedPnsnId,
+  push,
+}) => {
   console.log(employers);
-  const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button", "table"]);
-
-  useEffect(() => {}, [employers, enquiry]);
 
   const columns = [
     { Header: t("table:thead.mpfId"), accessor: "pnsnId" },
@@ -57,13 +58,13 @@ const SearchResult = ({ employers, enquiry, saveEnquiry }) => {
       sticky: "right",
       disableSortBy: true,
       Cell: ({ row }) => {
+        const { branches, pnsnId } = row.original;
         return (
           <>
             <Tooltip title="View Registration">
               <img
                 src={viewRegistration}
                 alt="View Registration"
-                onClick={() => viewEmployerDetails(row.original.branches)}
                 variant="contained"
                 style={{
                   margin: "0 5px",
@@ -75,6 +76,7 @@ const SearchResult = ({ employers, enquiry, saveEnquiry }) => {
             </Tooltip>
             <Tooltip title="View Enrollment">
               <img
+                onClick={() => handleViewScheme({ pnsnId })}
                 src={
                   row.original.branches[0]?.viewEnrollmentFlagEnabled
                     ? viewEnrollActive
@@ -97,16 +99,17 @@ const SearchResult = ({ employers, enquiry, saveEnquiry }) => {
   ];
 
   const handleNewSearch = () => {
-    saveEnquiry({});
-    history.push("/employers/enquiry/search");
+    draftEnquiry({});
+    push("/employers/enquiry/search");
   };
 
   const handleEditSearch = () => {
-    history.push("/employers/enquiry/search");
+    push("/employers/enquiry/search");
   };
 
-  const viewEmployerDetails = (id) => {
-    console.log(id);
+  const handleViewScheme = ({ pnsnId }) => {
+    setSelectedPnsnId({ pnsnId });
+    push("/employers/company/enrollment-scheme");
   };
 
   return (

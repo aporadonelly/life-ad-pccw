@@ -1,6 +1,7 @@
 import { createReducer, isAnyOf } from "@reduxjs/toolkit";
+import { identity, pickBy } from "lodash";
 import { initialState, employersAdapter } from "./state";
-import { draftEnquiry, ldSrchCmpny } from "./actions";
+import { draftEnquiry, setSelectedPnsnId, ldSrchCmpny } from "./actions";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
 
@@ -13,7 +14,10 @@ const persistConfig = {
 const registrationEmployerReducer = createReducer(initialState, (builder) =>
   builder
     .addCase(draftEnquiry, (state, action) => {
-      state.draftEnquiry = action.payload.enquiry;
+      state.draftEnquiry = pickBy(action.payload, identity);
+    })
+    .addCase(setSelectedPnsnId, (state, action) => {
+      state.selectedPnsnId = action.payload.pnsnId;
     })
     .addCase(ldSrchCmpny.pending, (state, _action) => {
       state.isLoading = true;

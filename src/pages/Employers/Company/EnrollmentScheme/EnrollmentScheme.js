@@ -42,7 +42,7 @@ const EnrollmentScheme = () => {
           return (
             <Box display="flex">
               <Icon>
-                <img src={ViewBtn} width={100} height={100} />
+                <img src={ViewBtn} width={100} height={100} alt="" />
               </Icon>
             </Box>
           );
