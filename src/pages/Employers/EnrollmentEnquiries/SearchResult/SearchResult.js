@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import moment from "moment";
 import {
   Button,
   Card,
@@ -12,37 +13,87 @@ import {
 import { Page, EnquiryChips } from "@containers";
 import { employersRoutes } from "@routes";
 import { PageHeader, PageInner } from "@components/layout";
-import TableCustomized from "@components/common/TableCustomized";
+// import TableCustomized from "@components/common/TableCustomized";
+import { DataTable } from "@components/common";
 import viewEnrollActive from "@assets/icons/enroll-active.PNG";
 import viewEnrollInActive from "@assets/icons/enroll-inactive.PNG";
 import viewRegistration from "@assets/icons/view_reg.PNG";
 
 const SearchResult = ({ employers, enquiry, saveEnquiry }) => {
+  console.log(employers);
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button", "table"]);
 
   useEffect(() => {}, [employers, enquiry]);
 
   const columns = [
-    { label: t("table:thead.mpfId"), name: "pnsnIdTxt" },
-    { label: t("table:thead.employerAcctNo"), name: "Employer Acc. No." },
+    { Header: t("table:thead.mpfId"), accessor: "pnsnId" },
     {
-      label: t("table:thead.companyNameEnglish"),
-      name: "Company Name (English)",
+      Header: t("table:thead.employerAcctNo"),
+      accessor: "branches[0].enrollments[0].employer.employerNo",
     },
     {
-      label: t("table:thead.companyNameChinese"),
-      name: "Company Name (Chinese)",
+      Header: t("table:thead.companyNameEnglish"),
+      accessor: "companyName",
     },
-    { label: t("table:thead.registrationType"), name: "Registration Type" },
-    { label: t("table:thead.registrationNumber"), name: "Registration No." },
-    { label: t("table:thead.branchNumber"), name: "Branch Number" },
-    { label: t("table:thead.typesOfCompany"), name: "Type of Company)" },
     {
-      label: t("table:thead.dateOfIncorporation"),
-      name: "Date of Incorporation",
+      Header: t("table:thead.companyNameChinese"),
+      accessor: "companyChineseName",
     },
-    { label: t("table:thead.status"), name: "Status)" },
+    { Header: t("table:thead.registrationType"), accessor: "idType" },
+    {
+      Header: t("table:thead.registrationNumber"),
+      accessor: "registrationNumber",
+    },
+    { Header: t("table:thead.branchNumber"), accessor: "branches[0].branchNo" },
+    { Header: t("table:thead.typesOfCompany"), accessor: "companyType" },
+    {
+      Header: t("table:thead.dateOfIncorporation"),
+      accessor: (row) => moment(row.incorporationDate).format("DD MMMM YYYY"),
+    },
+    { Header: t("table:thead.status"), accessor: "registrationStatus" },
+    {
+      Header: t("table:thead.custom.view"),
+      sticky: "right",
+      disableSortBy: true,
+      Cell: ({ row }) => {
+        return (
+          <>
+            <Tooltip title="View Registration">
+              <img
+                src={viewRegistration}
+                alt="View Registration"
+                onClick={() => viewEmployerDetails(row.original.branches)}
+                variant="contained"
+                style={{
+                  margin: "0 5px",
+                  background: "#EF841F",
+                  color: "#fff",
+                  cursor: "pointer",
+                }}
+              />
+            </Tooltip>
+            <Tooltip title="View Enrollment">
+              <img
+                src={
+                  row.original.branches[0]?.viewEnrollmentFlagEnabled
+                    ? viewEnrollActive
+                    : viewEnrollInActive
+                }
+                alt="View Enrollment"
+                variant="contained"
+                style={{
+                  margin: "0 5px",
+                  background: "#EF841F",
+                  color: "#fff",
+                  cursor: "pointer",
+                }}
+              />
+            </Tooltip>
+          </>
+        );
+      },
+    },
   ];
 
   const handleNewSearch = () => {
@@ -52,6 +103,10 @@ const SearchResult = ({ employers, enquiry, saveEnquiry }) => {
 
   const handleEditSearch = () => {
     history.push("/employers/enquiry/search");
+  };
+
+  const viewEmployerDetails = (id) => {
+    console.log(id);
   };
 
   return (
@@ -108,49 +163,10 @@ const SearchResult = ({ employers, enquiry, saveEnquiry }) => {
                   alignItems="flex-start"
                 >
                   <Grid item xs={12}>
-                    <TableCustomized
+                    <DataTable
                       title={t("typography:heading.enquiryResult")}
-                      rows={employers}
+                      data={employers}
                       columns={columns}
-                      stickyLabel={t("table:thead.custom.view")}
-                      renderStickyCell={(row) => {
-                        return (
-                          <>
-                            <Tooltip title="View Registration">
-                              <img
-                                src={viewRegistration}
-                                alt="View Registration"
-                                // onClick={() =>
-                                //   viewMembersDetails(row.pnsnIdTxt)
-                                // }
-                                variant="contained"
-                                style={{
-                                  margin: "0 5px",
-                                  background: "#EF841F",
-                                  color: "#fff",
-                                  cursor: "pointer",
-                                }}
-                              />
-                            </Tooltip>
-                            <Tooltip title="View Enrollment">
-                              <img
-                                src={
-                                  row.vwEnrFlg
-                                    ? viewEnrollActive
-                                    : viewEnrollInActive
-                                }
-                                alt="View Enrollment"
-                                variant="contained"
-                                style={{
-                                  margin: "0 5px",
-                                  background: "#EF841F",
-                                  color: "#fff",
-                                }}
-                              />
-                            </Tooltip>
-                          </>
-                        );
-                      }}
                     />
                   </Grid>
                 </Grid>

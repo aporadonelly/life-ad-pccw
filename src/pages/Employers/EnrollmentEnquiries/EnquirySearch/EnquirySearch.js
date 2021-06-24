@@ -19,21 +19,24 @@ import { PageHeader, PageInner } from "@components/layout";
 import { employersRoutes } from "@routes";
 
 const initialValues = {
-  mpfID: "",
-  employerAcctNo: "",
-  companyNameEnglish: "",
-  companyNameChinese: "",
-  registrationType: "",
+  pnsnId: "",
+  employerAccountNumber: "",
+  companyName: "",
+  companyChineseName: "",
+  registrationTypeId: "",
   registrationNumber: "",
   branchNumber: "",
-  typesOfCompany: "",
-  dateOfIncorporation: "",
-  natureOfBusiness: "",
+  companyTypeId: "",
+  incorporationDate: "",
+  natureId: "",
   referenceNoOfMpfOrServiceAgent: "",
   registrationStatus: "",
   scheme: "",
   trustee: "",
-  enrolmentStatus: "",
+  enrollmentStatusId: "",
+  correspondenceAddress: "",
+  businessAddress: "",
+  registeredOfficeAddress: "",
 };
 
 const CompanyProfile = ({
@@ -43,12 +46,14 @@ const CompanyProfile = ({
   registrationType,
   typesOfCompany,
   enrolmentStatus,
+  registrationStatus,
   enquiry,
 }) => {
   const { t } = useTranslation(["typography", "form", "button"]);
   const classes = EmployeeStyles();
 
   const handleSubmit = (values) => {
+    console.log(values);
     getEmployers(values);
   };
 
@@ -93,7 +98,7 @@ const CompanyProfile = ({
                           <Grid item xs={3}>
                             <Form.Input
                               label={t("form:label.mpfId")}
-                              name="mpfID"
+                              name="pnsnId"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseInput"
@@ -103,8 +108,8 @@ const CompanyProfile = ({
                           <Grid item xs={3}>
                             <Form.Input
                               label={t("form:label.employerAcctNo")}
-                              name="employerAcctNo"
-                              type="text"
+                              name="employerAccountNumber"
+                              type="number"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseInput"
                               )}
@@ -113,7 +118,7 @@ const CompanyProfile = ({
                           <Grid item xs={3}>
                             <Form.Input
                               label={t("form:label.companyNameEnglish")}
-                              name="companyNameEnglish"
+                              name="companyName"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseInput"
@@ -123,7 +128,7 @@ const CompanyProfile = ({
                           <Grid item xs={3}>
                             <Form.Input
                               label={t("form:label.companyNameChinese")}
-                              name="companyNameChinese"
+                              name="companyChineseName"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseInput"
@@ -136,7 +141,7 @@ const CompanyProfile = ({
                           <Grid item xs={3}>
                             <Form.Select
                               label={t("form:label.registrationType")}
-                              name="registrationType"
+                              name="registrationTypeId"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseSelect"
@@ -162,7 +167,7 @@ const CompanyProfile = ({
                           <Grid item xs={3}>
                             <Form.Select
                               label={t("form:label.typesOfCompany")}
-                              name="typesOfCompany"
+                              name="companyTypeId"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseInput"
@@ -193,7 +198,7 @@ const CompanyProfile = ({
                           <Grid item xs={3}>
                             <Form.DatePicker
                               label={t("form:label.dateOfIncorporation")}
-                              name="dateOfIncorporation"
+                              name="incorporationDate"
                               format="DD/MM/YYYY"
                               type="text"
                               placeholder={t(
@@ -205,7 +210,7 @@ const CompanyProfile = ({
                           <Grid item xs={3}>
                             <Form.Input
                               label={t("form:label.registeredOfcAddress")}
-                              name="registeredOfcAddress"
+                              name="registeredOfficeAddress"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseInput"
@@ -248,7 +253,7 @@ const CompanyProfile = ({
                                 value: (option) => option.cstmTypId,
                               }}
                               label={t("form:label.natureOfBusiness")}
-                              name="natureOfBusiness"
+                              name="natureId"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseSelect"
@@ -270,11 +275,11 @@ const CompanyProfile = ({
                           </Grid>
                           <Grid item xs={4}>
                             <Form.Select
-                              // data={{
-                              //   options: placeOfBirth,
-                              //   label: (option) => option.cntryTypNm,
-                              //   value: (option) => option.cntryTypCd,
-                              // }}
+                              data={{
+                                options: registrationStatus,
+                                label: (option) => option.cstmTypDtlTxt,
+                                value: (option) => option.cstmTypId,
+                              }}
                               label={t("form:label.registrationStatus")}
                               name="registrationStatus"
                               type="text"
@@ -327,7 +332,7 @@ const CompanyProfile = ({
                                 value: (option) => option.cstmTypId,
                               }}
                               label={t("form:label.enrolmentStatus")}
-                              name="enrolmentStatus"
+                              name="enrollmentStatusId"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseSelect"
