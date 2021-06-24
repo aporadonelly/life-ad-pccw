@@ -30,13 +30,13 @@ export const history = createBrowserHistory({
 });
 
 export default function configureAppStore(preloadedState) {
-  const debug = false;
+  const debug = process.env.NODE_ENV !== "production";
   const middlewares = [routerMiddleware(history), resetMiddleware()];
 
-  if (debug) {
-    const { logger } = require("redux-logger");
-    middlewares.push(logger);
-  }
+  // if (debug) {
+  //   const { logger } = require("redux-logger");
+  //   middlewares.push(logger);
+  // }
 
   const store = configureStore({
     reducer: createRootReducer(history),
