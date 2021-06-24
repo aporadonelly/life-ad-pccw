@@ -3,6 +3,10 @@ import { registrationEmployer } from "@adapters";
 
 export const draftEnquiry = createAction("@@empf/reg/er/draftEnquiry");
 
+export const setSelectedPnsnId = createAction(
+  "@@empf/reg/er/setSelectedPnsnId"
+);
+
 export const ldSrchCmpny = createAsyncThunk(
   "@@empf/reg/er/ldSrchCmpny",
   async (payload, { rejectWithValue }) => {
