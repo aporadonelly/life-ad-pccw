@@ -11,11 +11,11 @@ import { DataTable } from "@components/common";
 import ViewIcon from "@assets/icons/view_btn.svg";
 import { useTranslation } from "react-i18next";
 
-const AuthorizedPersonList = ({ cmpnyRltdPrsns }) => {
+const AuthorizedPersonList = ({ cmpnyRltdPrsns, companyId }) => {
   const { t } = useTranslation(["typography", "form", "table", "button"]);
 
-  const viewMembersDetails = (id) => {
-    console.log(id);
+  const viewMembersDetails = (id, companyId) => {
+    console.log(id, companyId);
   };
   const columns = useMemo(
     () => [
@@ -38,7 +38,7 @@ const AuthorizedPersonList = ({ cmpnyRltdPrsns }) => {
                 width={50}
                 height={50}
                 alt="View Registration"
-                onClick={() => viewMembersDetails(data)}
+                onClick={() => viewMembersDetails(data, companyId)}
                 variant="contained"
                 style={{
                   cursor: "pointer",
@@ -49,7 +49,7 @@ const AuthorizedPersonList = ({ cmpnyRltdPrsns }) => {
         },
       },
     ],
-    [t]
+    [t, companyId]
   );
 
   return (

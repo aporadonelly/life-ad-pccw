@@ -42,10 +42,9 @@ const CompanyProfile = ({
     customTypId,
   } = companyRegInfo ?? [];
 
-  const { cmpnyNm } = ldRegCmpnyInfoforAdmnPrtlProjection ?? {};
+  const { cmpnyNm, id } = ldRegCmpnyInfoforAdmnPrtlProjection ?? {};
   const { brnchNm, brnchNoTxt, lnggTypId } =
     get(ldRegCmpnyInfoforAdmnPrtlProjection, "branches[0]") ?? {};
-
   return (
     <Page>
       <PageHeader routes={companyRoutes}>
@@ -91,7 +90,10 @@ const CompanyProfile = ({
             </Grid>
             <Grid item xs={12}>
               {cmpnyRltdPrsns && (
-                <AuthorizedPersonList cmpnyRltdPrsns={cmpnyRltdPrsns} />
+                <AuthorizedPersonList
+                  cmpnyRltdPrsns={cmpnyRltdPrsns}
+                  companyId={id}
+                />
               )}
             </Grid>
 
