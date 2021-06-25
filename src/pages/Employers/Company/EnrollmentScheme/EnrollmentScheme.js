@@ -13,6 +13,7 @@ import {
   Button,
   Tooltip,
   Toolbar,
+  Box,
 } from "@material-ui/core";
 
 const EnrollmentScheme = ({ employer, schemes, push }) => {
@@ -34,9 +35,17 @@ const EnrollmentScheme = ({ employer, schemes, push }) => {
         sticky: "right",
         disableSortBy: true,
         Cell: ({ row }) => {
+          console.log(row);
           return (
             <Tooltip title="Employer Enrollment Information" arrow>
-              <img src={ViewBtn} alt="" />
+              <img
+                src={ViewBtn}
+                alt=""
+                onClick={() => console.log("hey")}
+                style={{
+                  cursor: "pointer",
+                }}
+              />
             </Tooltip>
           );
         },
@@ -55,19 +64,29 @@ const EnrollmentScheme = ({ employer, schemes, push }) => {
               <CardContent>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
-                    <DataTable
-                      data={schemes}
-                      columns={columns}
-                      components={{
-                        Toolbar: () => (
-                          <Toolbar disableGutters>
-                            <Typography variant="h6" color="primary">
-                              {t("typography:heading.enrollmentScheme")}
-                            </Typography>
-                          </Toolbar>
-                        ),
-                      }}
-                    />
+                    {schemes.length > 0 ? (
+                      <DataTable
+                        data={schemes}
+                        columns={columns}
+                        components={{
+                          Toolbar: () => (
+                            <Toolbar disableGutters>
+                              <Typography variant="h6" color="primary">
+                                {t("typography:heading.enrollmentScheme")}
+                              </Typography>
+                            </Toolbar>
+                          ),
+                        }}
+                      />
+                    ) : (
+                      <Box display="flex">
+                        <Grid item xs={12} align="center">
+                          <Typography variant="h6" color="primary">
+                            {t("table:tbody.custom.noDataFound")}
+                          </Typography>
+                        </Grid>
+                      </Box>
+                    )}
                   </Grid>
                 </Grid>
               </CardContent>
