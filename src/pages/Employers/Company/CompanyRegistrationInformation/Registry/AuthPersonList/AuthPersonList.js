@@ -17,7 +17,6 @@ const AuthorizedPersonList = ({ cmpnyRltdPrsns }) => {
   const viewMembersDetails = (id) => {
     console.log(id);
   };
-
   const columns = useMemo(
     () => [
       { Header: t("table:thead.lastName"), accessor: "lstName" },
@@ -31,7 +30,7 @@ const AuthorizedPersonList = ({ cmpnyRltdPrsns }) => {
         Header: t("table:thead.custom.action"),
         sticky: "right",
         disableSortBy: true,
-        Cell: ({ row }) => {
+        Cell: ({ data }) => {
           return (
             <Tooltip title="View Registration" placement="top" arrow>
               <img
@@ -39,7 +38,7 @@ const AuthorizedPersonList = ({ cmpnyRltdPrsns }) => {
                 width={50}
                 height={50}
                 alt="View Registration"
-                onClick={() => viewMembersDetails(row.clntUuid)}
+                onClick={() => viewMembersDetails(data)}
                 variant="contained"
                 style={{
                   cursor: "pointer",

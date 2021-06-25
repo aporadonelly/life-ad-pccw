@@ -1,8 +1,14 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { Grid, CircularProgress, Box, Button } from "@material-ui/core";
+import {
+  Grid,
+  Typography,
+  CircularProgress,
+  Box,
+  Button,
+} from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { get } from "lodash";
+import { get, isEmpty } from "lodash";
 import { useHistory } from "react-router-dom";
 import { Page } from "@containers";
 import { PageHeader, PageInner } from "@components/layout";
@@ -16,7 +22,6 @@ import SupportingDocsCard from "./SupportingDocsCard/SupportingDocsCard";
 
 const CompanyProfile = ({
   LdRegCmpnyInfoforAdmnPrtl,
-  getAuthorizedPersonList,
   companyRegInfo,
   isLoading,
 }) => {
@@ -25,8 +30,7 @@ const CompanyProfile = ({
 
   useEffect(() => {
     LdRegCmpnyInfoforAdmnPrtl();
-    getAuthorizedPersonList();
-  }, [LdRegCmpnyInfoforAdmnPrtl, getAuthorizedPersonList]);
+  }, [LdRegCmpnyInfoforAdmnPrtl]);
 
   const {
     ldRegCmpnyInfoforAdmnPrtlProjection,
@@ -37,8 +41,8 @@ const CompanyProfile = ({
     customTypNt,
     customTypId,
   } = companyRegInfo ?? [];
-  const { cmpnyNm } = ldRegCmpnyInfoforAdmnPrtlProjection ?? {};
 
+  const { cmpnyNm } = ldRegCmpnyInfoforAdmnPrtlProjection ?? {};
   const { brnchNm, brnchNoTxt, lnggTypId } =
     get(ldRegCmpnyInfoforAdmnPrtlProjection, "branches[0]") ?? {};
 
@@ -61,29 +65,34 @@ const CompanyProfile = ({
         ) : (
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <CompanyRegInfoCard
-                ldRegCmpnyInfoforAdmnPrtlProjection={
-                  ldRegCmpnyInfoforAdmnPrtlProjection
-                }
-                customTypCmpnyTyp={customTypCmpnyTyp}
-                countryTyp={countryTyp}
-                customTypNt={customTypNt}
-                customTypId={customTypId}
-                brnchNoTxt={brnchNoTxt}
-                lnggTypId={lnggTypId}
-              />
+              {ldRegCmpnyInfoforAdmnPrtlProjection && (
+                <CompanyRegInfoCard
+                  ldRegCmpnyInfoforAdmnPrtlProjection={
+                    ldRegCmpnyInfoforAdmnPrtlProjection
+                  }
+                  customTypCmpnyTyp={customTypCmpnyTyp}
+                  countryTyp={countryTyp}
+                  customTypNt={customTypNt}
+                  customTypId={customTypId}
+                  brnchNoTxt={brnchNoTxt}
+                  lnggTypId={lnggTypId}
+                />
+              )}
             </Grid>
 
             <Grid item xs={12}>
-              <AddressCard
-                ldRegCmpnyInfoforAdmnPrtlProjection={
-                  ldRegCmpnyInfoforAdmnPrtlProjection
-                }
-              />
+              {ldRegCmpnyInfoforAdmnPrtlProjection && (
+                <AddressCard
+                  ldRegCmpnyInfoforAdmnPrtlProjection={
+                    ldRegCmpnyInfoforAdmnPrtlProjection
+                  }
+                />
+              )}
             </Grid>
-
             <Grid item xs={12}>
-              <AuthorizedPersonList cmpnyRltdPrsns={cmpnyRltdPrsns} />
+              {cmpnyRltdPrsns && (
+                <AuthorizedPersonList cmpnyRltdPrsns={cmpnyRltdPrsns} />
+              )}
             </Grid>
 
             <Grid item xs={12}>
@@ -101,16 +110,24 @@ const CompanyProfile = ({
             </Grid>
 
             <Grid item xs={12}>
-              <SupportingDocsCard />
+              {cmpnyRltdPrsns && <SupportingDocsCard />}
             </Grid>
 
             <Grid item xs={12} align="right">
-              <Button
-                data-testid="back-btn"
-                onClick={() => history.push("/employers/enquiry")}
-              >
-                {t("button:back")}
-              </Button>
+              {isEmpty(companyRegInfo) ? (
+                <Grid container justify="center">
+                  <Typography variant="h6" color="primary">
+                    No Data Found.
+                  </Typography>
+                </Grid>
+              ) : (
+                <Button
+                  data-testid="back-btn"
+                  onClick={() => history.push("/employers/enquiry")}
+                >
+                  {t("button:back")}
+                </Button>
+              )}
             </Grid>
           </Grid>
         )}

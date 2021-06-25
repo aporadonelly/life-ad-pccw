@@ -52,15 +52,3 @@ export const LdRegCmpnyInfoforAdmnPrtl = createAsyncThunk(
     }
   }
 );
-
-export const getAuthorizedPersonList = createAsyncThunk(
-  "@@EMPF/EMPLOYER/GET_AUTH_PERSON_INFO",
-  async (_payload, { rejectWithValue }) => {
-    try {
-      const authPersonList = await employerAdapter.ldAuthPrsnInfo();
-      return { authPersonList };
-    } catch (error) {
-      return rejectWithValue({ error });
-    }
-  }
-);
