@@ -6,12 +6,12 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
 
 const persistConfig = {
-  key: "registrationEmployer",
+  key: "enrollmentEmployer",
   storage: storage,
   blacklist: ["isLoading", "error"],
 };
 
-const registrationEmployerReducer = createReducer(initialState, (builder) =>
+const enrollmentEmployerReducer = createReducer(initialState, (builder) =>
   builder
     .addCase(draftEnquiry, (state, action) => {
       state.draftEnquiry = pickBy(action.payload, identity);
@@ -34,4 +34,4 @@ const registrationEmployerReducer = createReducer(initialState, (builder) =>
     })
 );
 
-export default persistReducer(persistConfig, registrationEmployerReducer);
+export default persistReducer(persistConfig, enrollmentEmployerReducer);
