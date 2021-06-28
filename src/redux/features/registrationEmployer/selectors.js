@@ -1,0 +1,55 @@
+import { createSelector } from "@reduxjs/toolkit";
+import {
+  authorizedPersonsAdapter,
+  directorsAdapter,
+  partnersAdapter,
+  beneficialOwnersAdapter,
+} from "./state";
+
+export const authorizedPersonsSelectors = authorizedPersonsAdapter.getSelectors(
+  (state) => state.authorizedPersons
+);
+
+export const directorsSelectors = directorsAdapter.getSelectors(
+  (state) => state.directors
+);
+
+export const partnersSelectors = partnersAdapter.getSelectors(
+  (state) => state.partners
+);
+
+export const beneficialOwnersSelectors = beneficialOwnersAdapter.getSelectors(
+  (state) => state.beneficialOwners
+);
+
+export const featureStateSelector = (state) => state.registrationEmployer;
+
+export const isLoadingSelector = createSelector(
+  featureStateSelector,
+  (state) => state.isLoading
+);
+
+export const errorSelector = createSelector(
+  featureStateSelector,
+  (state) => state.error
+);
+
+export const authorizedPersonsSelector = createSelector(
+  featureStateSelector,
+  authorizedPersonsSelectors.selectAll
+);
+
+export const directorsSelector = createSelector(
+  featureStateSelector,
+  directorsSelectors.selectAll
+);
+
+export const partnersSelector = createSelector(
+  featureStateSelector,
+  partnersSelectors.selectAll
+);
+
+export const beneficialOwnersSelector = createSelector(
+  featureStateSelector,
+  beneficialOwnersSelectors.selectAll
+);
