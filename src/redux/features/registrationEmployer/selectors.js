@@ -34,9 +34,20 @@ export const errorSelector = createSelector(
   (state) => state.error
 );
 
+export const selectedClientUUIDSelector = createSelector(
+  featureStateSelector,
+  (state) => state.selectedClientUUID
+);
+
 export const authorizedPersonsSelector = createSelector(
   featureStateSelector,
   authorizedPersonsSelectors.selectAll
+);
+
+export const authorizedPersonSelector = createSelector(
+  featureStateSelector,
+  selectedClientUUIDSelector,
+  authorizedPersonsSelector.selectById
 );
 
 export const directorsSelector = createSelector(
@@ -44,12 +55,30 @@ export const directorsSelector = createSelector(
   directorsSelectors.selectAll
 );
 
+export const directorSelector = createSelector(
+  featureStateSelector,
+  selectedClientUUIDSelector,
+  authorizedPersonsSelector.selectById
+);
+
 export const partnersSelector = createSelector(
   featureStateSelector,
   partnersSelectors.selectAll
 );
 
+export const partnerSelector = createSelector(
+  featureStateSelector,
+  selectedClientUUIDSelector,
+  authorizedPersonsSelector.selectById
+);
+
 export const beneficialOwnersSelector = createSelector(
   featureStateSelector,
   beneficialOwnersSelectors.selectAll
+);
+
+export const beneficialOwnerSelector = createSelector(
+  featureStateSelector,
+  selectedClientUUIDSelector,
+  authorizedPersonsSelector.selectById
 );
