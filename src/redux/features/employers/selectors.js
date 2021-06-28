@@ -23,11 +23,6 @@ export const companyRegInfoSelector = createSelector(
   (state) => state.companyRegInfo
 );
 
-export const authPersonInfoListSelector = createSelector(
-  stateSelector,
-  (state) => state.authPersonList
-);
-
 export const isLoadingSelector = createSelector(
   stateSelector,
   (state) => state.isLoading
