@@ -65,3 +65,15 @@ export const getCustomTypeList = createAsyncThunk(
     }
   }
 );
+
+export const getWrkStrmSttsLst = createAsyncThunk(
+  "@@empf/system/getWrkStrmSttsLst",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const workStreams = await systemAdapter.getWrkStrmSttsLst(payload);
+      return { workStreams };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);

@@ -22,6 +22,7 @@ import {
   getCountryList,
   getTermReasons,
   getCustomTypeList,
+  getWrkStrmSttsLst,
 } from "./features/system/actions";
 import { getSchmLst, getTrstLst } from "./features/enrollmentEmployer/actions";
 import { reissue } from "./features/user/actions";
@@ -77,6 +78,7 @@ export default function configureAppStore(preloadedState) {
       store.dispatch(getCustomTypeList({ groupId: "CI" }));
       store.dispatch(getCustomTypeList({ groupId: "CP" }));
       store.dispatch(getCustomTypeList({ groupId: "ST" }));
+      store.dispatch(getWrkStrmSttsLst("ENR"));
     })
     .catch(() => {
       window.location.href = `${window.location.origin}${process.env.REACT_APP_REDIRECT_URL}`;

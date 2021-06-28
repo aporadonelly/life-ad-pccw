@@ -4,6 +4,7 @@ import {
   customTypesAdapter,
   countriesAdapter,
   termReasonsAdapter,
+  workStreamsAdapter,
 } from "./state";
 import {
   getSystemEnv,
@@ -11,6 +12,7 @@ import {
   getCustomTypeList,
   getCountryList,
   getTermReasons,
+  getWrkStrmSttsLst,
 } from "./actions";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
@@ -38,6 +40,13 @@ const systemReducer = createReducer(initialState, (builder) =>
         action.payload.customTypes
       );
     })
+    .addCase(getWrkStrmSttsLst.fulfilled, (state, action) => {
+      state.isLoading = false;
+      workStreamsAdapter.upsertMany(
+        state.workStreams,
+        action.payload.workStreams
+      );
+    })
     .addCase(getCountryList.fulfilled, (state, action) => {
       state.isLoading = false;
       countriesAdapter.setAll(state.countries, action.payload.countries);
@@ -51,6 +60,7 @@ const systemReducer = createReducer(initialState, (builder) =>
         getSystemEnv.pending,
         getCycleDate.pending,
         getCustomTypeList.pending,
+        getWrkStrmSttsLst.pending,
         getCountryList.pending,
         getTermReasons.pending
       ),
@@ -64,6 +74,7 @@ const systemReducer = createReducer(initialState, (builder) =>
         getSystemEnv.rejected,
         getCycleDate.rejected,
         getCustomTypeList.rejected,
+        getWrkStrmSttsLst.rejected,
         getCountryList.rejected,
         getTermReasons.rejected
       ),

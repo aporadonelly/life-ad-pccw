@@ -4,6 +4,7 @@ import {
   customTypesAdapter,
   countriesAdapter,
   termReasonsAdapter,
+  workStreamsAdapter,
 } from "./state";
 
 export const customTypesSelectors = customTypesAdapter.getSelectors(
@@ -16,6 +17,10 @@ export const countriesSelectors = countriesAdapter.getSelectors(
 
 export const termReasonsSelectors = termReasonsAdapter.getSelectors(
   (state) => state.termReasons
+);
+
+export const workStreamsSelectors = workStreamsAdapter.getSelectors(
+  (state) => state.workStreams
 );
 
 export const featureStateSelector = (state) => state.system;
@@ -83,4 +88,10 @@ export const termReasonSelector = createSelector(
   featureStateSelector,
   (_state, cstmTypId) => cstmTypId,
   termReasonsSelectors.selectById
+);
+
+export const workStreamsSelector = createSelector(
+  featureStateSelector,
+  (_state, customTypId) => customTypId,
+  workStreamsSelectors.selectById
 );
