@@ -62,7 +62,7 @@ const CompanyRegInfoCard = ({
                   item
                   xs={3}
                   dt={t("form:label.dateOfIncorporation")}
-                  dd={moment(incrprtnDt).format("YYYY MMM D").toUpperCase()}
+                  dd={moment(incrprtnDt).format("YYYY/MMM/D").toUpperCase()}
                 />
                 <Definition.Item
                   item
