@@ -50,7 +50,10 @@ const CompanyProfile = ({
   ldSrchCmpny,
   draftEnquiry,
   push,
+  schemes,
+  trustees,
 }) => {
+  console.log(trustees, "trustees");
   const { t } = useTranslation(["typography", "form", "button"]);
   const classes = EmployeeStyles();
 
@@ -300,11 +303,11 @@ const CompanyProfile = ({
                         <Grid container spacing={3}>
                           <Grid item xs={5}>
                             <Form.Select
-                              // data={{
-                              //   options: placeOfBirth,
-                              //   label: (option) => option.cntryTypNm,
-                              //   value: (option) => option.cntryTypCd,
-                              // }}
+                              data={{
+                                options: trustees,
+                                label: (option) => option.name,
+                                value: (option) => option.id,
+                              }}
                               label={t("form:label.trustee")}
                               name="trustee"
                               type="text"
@@ -316,11 +319,11 @@ const CompanyProfile = ({
                           </Grid>
                           <Grid item xs={5}>
                             <Form.Select
-                              // data={{
-                              //   options: placeOfBirth,
-                              //   label: (option) => option.cntryTypNm,
-                              //   value: (option) => option.cntryTypCd,
-                              // }}
+                              data={{
+                                options: schemes,
+                                label: (option) => option.name,
+                                value: (option) => option.id,
+                              }}
                               label={t("form:label.scheme")}
                               name="scheme"
                               type="text"

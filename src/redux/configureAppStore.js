@@ -23,6 +23,7 @@ import {
   getTermReasons,
   getCustomTypeList,
 } from "./features/system/actions";
+import { getSchmLst, getTrstLst } from "./features/enrollmentEmployer/actions";
 import { reissue } from "./features/user/actions";
 
 export const history = createBrowserHistory({
@@ -62,6 +63,8 @@ export default function configureAppStore(preloadedState) {
       store.dispatch(getCycleDate());
       store.dispatch(getCountryList());
       store.dispatch(getTermReasons());
+      store.dispatch(getSchmLst());
+      store.dispatch(getTrstLst());
       store.dispatch(getCustomTypeList({ groupId: "GD" }));
       store.dispatch(getCustomTypeList({ groupId: "ID" }));
       store.dispatch(getCustomTypeList({ groupId: "NTN" }));
