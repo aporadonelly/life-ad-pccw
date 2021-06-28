@@ -13,6 +13,10 @@ export const ldCmpnyRltdPrsn = createAsyncThunk(
   }
 );
 
+export const setSelectedClientUUID = createAction(
+  "@@empf/reg/er/setSelectedClientUUID"
+);
+
 export const ldRegCmpnyInfoforAdmnPrtl = createAsyncThunk(
   "@@empf/reg/er/ldRegCmpnyInfoforAdmnPrtl",
   async (payload, { rejectWithValue }) => {
