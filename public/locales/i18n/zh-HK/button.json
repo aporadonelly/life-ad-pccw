@@ -8,5 +8,11 @@
   "edit": "編輯",
   "backToCompanyProfile": "後退",
   "back": "後退",
-  "addErEnrollment": "添加新的 ER 註冊"
+  "addErEnrollment": "添加新的 ER 註冊",
+  "submit": "提交",
+  "save": "保存",
+  "cancel": "取消",
+  "yes": "是的",
+  "no": "不",
+  "ok": "好的"
 }
