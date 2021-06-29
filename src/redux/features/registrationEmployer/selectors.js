@@ -47,7 +47,7 @@ export const authorizedPersonsSelector = createSelector(
 export const authorizedPersonSelector = createSelector(
   featureStateSelector,
   selectedClientUUIDSelector,
-  authorizedPersonsSelector.selectById
+  authorizedPersonsSelectors.selectById
 );
 
 export const directorsSelector = createSelector(
@@ -58,7 +58,7 @@ export const directorsSelector = createSelector(
 export const directorSelector = createSelector(
   featureStateSelector,
   selectedClientUUIDSelector,
-  authorizedPersonsSelector.selectById
+  directorsSelectors.selectById
 );
 
 export const partnersSelector = createSelector(
@@ -69,7 +69,7 @@ export const partnersSelector = createSelector(
 export const partnerSelector = createSelector(
   featureStateSelector,
   selectedClientUUIDSelector,
-  authorizedPersonsSelector.selectById
+  partnersSelectors.selectById
 );
 
 export const beneficialOwnersSelector = createSelector(
@@ -80,5 +80,5 @@ export const beneficialOwnersSelector = createSelector(
 export const beneficialOwnerSelector = createSelector(
   featureStateSelector,
   selectedClientUUIDSelector,
-  authorizedPersonsSelector.selectById
+  beneficialOwnersSelectors.selectById
 );
