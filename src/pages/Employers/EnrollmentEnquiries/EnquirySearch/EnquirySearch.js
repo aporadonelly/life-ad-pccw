@@ -29,9 +29,9 @@ const initialValues = {
   companyTypeId: "",
   incorporationDate: "",
   natureId: "",
-  referenceNoOfMpfOrServiceAgent: "",
-  registrationStatus: "",
-  scheme: "",
+  agentRegistrationNumber: "",
+  registrationStatusId: "",
+  schemeId: "",
   trustee: "",
   enrollmentStatusId: "",
   correspondenceAddress: "",
@@ -49,13 +49,10 @@ const CompanyProfile = ({
   enquiry,
   ldSrchCmpny,
   draftEnquiry,
-  push,
-  schemes,
   trustees,
+  schemes,
+  push,
 }) => {
-  console.log(enrollmentStatus, "enrollmentStatus");
-  console.log(registrationStatus, "registrationStatus");
-
   const { t } = useTranslation(["typography", "form", "button"]);
   const classes = EmployeeStyles();
 
@@ -121,7 +118,7 @@ const CompanyProfile = ({
                             <Form.Input
                               label={t("form:label.employerAcctNo")}
                               name="employerAccountNumber"
-                              type="number"
+                              type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseInput"
                               )}
@@ -278,7 +275,7 @@ const CompanyProfile = ({
                               label={t(
                                 "form:label.referenceNoOfMpfOrServiceAgent"
                               )}
-                              name="referenceNoOfMpfOrServiceAgent"
+                              name="agentRegistrationNumber"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseInput"
@@ -293,7 +290,7 @@ const CompanyProfile = ({
                                 value: (option) => option.customTypId,
                               }}
                               label={t("form:label.registrationStatus")}
-                              name="registrationStatus"
+                              name="registrationStatusId"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseSelect"
@@ -328,7 +325,7 @@ const CompanyProfile = ({
                                 value: (option) => option.id,
                               }}
                               label={t("form:label.scheme")}
-                              name="scheme"
+                              name="schemeId"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseSelect"
@@ -343,7 +340,7 @@ const CompanyProfile = ({
                                 label: (option) => option.customTypDldText,
                                 value: (option) => option.customTypId,
                               }}
-                              label={t("form:label.enrolmentStatus")}
+                              label={t("form:label.enrollmentStatus")}
                               name="enrollmentStatusId"
                               type="text"
                               placeholder={t(

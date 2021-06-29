@@ -59,6 +59,7 @@ const SearchResult = ({
       sticky: "right",
       disableSortBy: true,
       Cell: ({ row }) => {
+        console.log(row, "row");
         const { branches, pnsnId } = row.original;
         return (
           <>
