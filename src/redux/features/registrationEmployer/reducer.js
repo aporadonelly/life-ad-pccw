@@ -6,7 +6,11 @@ import {
   partnersAdapter,
   beneficialOwnersAdapter,
 } from "./state";
-import { ldCmpnyRltdPrsn, ldRegCmpnyInfoforAdmnPrtl } from "./actions";
+import {
+  ldCmpnyRltdPrsn,
+  ldRegCmpnyInfoforAdmnPrtl,
+  setSelectedClientUUID,
+} from "./actions";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
 
@@ -48,6 +52,9 @@ const registrationEmployerReducer = createReducer(initialState, (builder) =>
     .addCase(ldRegCmpnyInfoforAdmnPrtl.fulfilled, (state, action) => {
       state.isLoading = false;
       state.registrationCompanyInformation = action.payload.regCmpnyInfo;
+    })
+    .addCase(setSelectedClientUUID, (state, action) => {
+      state.selectedClientUUID = action.payload.clntUuid;
     })
     .addMatcher(
       isAnyOf(ldCmpnyRltdPrsn.pending, ldRegCmpnyInfoforAdmnPrtl.pending),
