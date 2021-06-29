@@ -5,8 +5,7 @@ export const adapter = createEntityAdapter({});
 export const initialState = adapter.getInitialState({
   employers: [],
   authPerson: {},
-  companyRegInfo: [],
-  authPersonList: [],
+  companyRegInfo: {},
   isLoading: false,
   error: null,
   enquiry: {},

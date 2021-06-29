@@ -1,12 +1,8 @@
 import { connect } from "react-redux";
 import CompanyProfile from "./CompanyProfile";
 import { bindActionCreators } from "redux";
+import { LdRegCmpnyInfoforAdmnPrtl } from "@redux/features/employers/actions";
 import {
-  getAuthorizedPersonList,
-  LdRegCmpnyInfoforAdmnPrtl,
-} from "@redux/features/employers/actions";
-import {
-  authPersonInfoListSelector,
   companyRegInfoSelector,
   isLoadingSelector,
   errorSelector,
@@ -16,14 +12,10 @@ const mapStateToProps = (state) => ({
   isLoading: isLoadingSelector(state),
   error: errorSelector(state),
   companyRegInfo: companyRegInfoSelector(state),
-  authPersonList: authPersonInfoListSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  ...bindActionCreators(
-    { LdRegCmpnyInfoforAdmnPrtl, getAuthorizedPersonList },
-    dispatch
-  ),
+  ...bindActionCreators({ LdRegCmpnyInfoforAdmnPrtl }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompanyProfile);

@@ -17,7 +17,6 @@ import MessageRender from "./Message/MessageRender";
 
 import { Button } from "@material-ui/core";
 import BottomAppBar from "@components/misc/BottomAppBar/BottomAppBar";
-import FloatingButton from "@components/controls/floatingButton/floatingButton";
 import { useTranslation } from "react-i18next";
 import replaceNull from "../replaceNull";
 
@@ -68,6 +67,7 @@ const EmployeeDetails = (props) => {
     bankName: "",
     acctNumber: "",
     paymentMethod: "",
+    employmentDate: data.employmentDate,
   };
 
   const validationSave = yup.object().shape({
@@ -158,11 +158,11 @@ const EmployeeDetails = (props) => {
 
   const handleClose = (e) => {
     setOpen((open) => !open);
-    if (!(e === undefined)) {
-      if (e.target.textContent === "yes") {
-        //btnClick.current.click();
-      }
-    }
+    // if (!(e === undefined)) {
+    //   if (e.target.textContent === "yes") {
+    //     //btnClick.current.click();
+    //   }
+    // }
   };
 
   function parseBoolean(str) {
@@ -218,12 +218,37 @@ const EmployeeDetails = (props) => {
   };
 
   // FIX: employmentDate is in api but no idea to put in UI
-  // const chkEmployDate = (values) => {
-  //   return true;
-  // }
+  const chkEmployDate = (values) => {
+    if (values.employmentDate === "") return true;
+    if (values.lastDateOfEmployment === "") return true;
+    const chkLspSpEmpDt = values.lspspTypeId === "" ? null : values.lspspTypeId;
+    if (!chkLspSpEmpDt) return true;
+
+    const dateLdoe = moment(values.lastDateOfEmployment, "YYYY-MM-DD");
+    const dateEmp = moment(values.employmentDate, "YYYY-MM-DD");
+    const duration = moment.duration(dateLdoe.diff(dateEmp));
+    const years = duration.asYears();
+    console.log("chkEmployDate", years);
+
+    if (chkLspSpEmpDt === "LS_LSP") {
+      if (years < 5) {
+        handleClose();
+        setBtnStatus("ExMsg_incrrtLDOE");
+        return false;
+      }
+    } else if (chkLspSpEmpDt === "LS_SP") {
+      if (years < 2) {
+        handleClose();
+        setBtnStatus("ExMsg_incrrtLDOE");
+        return false;
+      }
+    }
+    return true;
+  };
 
   const formikHandleSubmit = (values, actions) => {
     console.log("action - " + values.state, values);
+
     const termReason = filterByTermReason(values.terminationReasonId);
 
     const forValidationValues = {
@@ -245,6 +270,7 @@ const EmployeeDetails = (props) => {
         values.lspspEntitlementAmount &&
         values.lspspEntitlementAmount - values.paymentAmount,
       // NOTE: Payment Amount by ER in HKD = Total LSP/SP Entitlement Amount in HKD - Amount Payable.
+      employmentDate: moment(values.employmentDate).format("YYYY-MM-DD"),
     };
 
     const cloneValues = { ...values, ...forValidationValues };
@@ -255,24 +281,32 @@ const EmployeeDetails = (props) => {
       "changeDate",
       "effectiveDate",
       "effectiveDateOfTermination",
+      "employmentDate",
+      "acctNumber",
+      "bankName",
     ].forEach((e) => delete cloneValues[e]); // NOTE: not needed as of now
 
     // forValidationValues === for validation in submit
     // cloneValues  ==== for saving
 
+    const removeValues = ["", 0];
+
+    var filter = Object.keys(cloneValues).reduce(function (r, e) {
+      if (removeValues.includes(cloneValues[e])) r[e] = cloneValues[e];
+      return r;
+    }, {});
+
+    //console.log(Object.keys(filter));
+
+    Object.keys(filter).forEach((e) => delete cloneValues[e]);
+
+    if (Object.keys(cloneValues).length === 1) return;
+    if (Object.keys(cloneValues).length === 2) {
+      // lspspTypeId: null (not selected)
+      if (!cloneValues.lspspTypeId) return;
+    }
+
     if (values.state === "save") {
-      const removeValues = ["", 0];
-
-      var filter = Object.keys(cloneValues).reduce(function (r, e) {
-        if (removeValues.includes(cloneValues[e])) r[e] = cloneValues[e];
-        return r;
-      }, {});
-
-      //console.log(Object.keys(filter));
-
-      Object.keys(filter).forEach((e) => delete cloneValues[e]);
-      if (Object.keys(cloneValues).length === 1) return;
-
       const addedValues = {
         statusType: "Saved",
         statusTypeId: "ST_SV",
@@ -288,10 +322,13 @@ const EmployeeDetails = (props) => {
     const chkLdoe = ldoeChange(values);
     if (!chkLdoe) return;
 
-    const chkLsp_SpAmt = chkLsp_Sp_Amount(values);
-    if (!chkLsp_SpAmt) return;
+    const chkLspSpAmt = chkLsp_Sp_Amount(values);
+    if (!chkLspSpAmt) return;
 
-    console.log("vldMbrTerm", forValidationValues);
+    const chkEmpDate = chkEmployDate(values);
+    if (!chkEmpDate) return;
+
+    //console.log("vldMbrTerm", forValidationValues);
     validTermination(forValidationValues);
     passValuesActions(cloneValues);
   };
@@ -316,7 +353,8 @@ const EmployeeDetails = (props) => {
     }
   };
 
-  const onCancel = (resetForm) => {
+  const onCancel = (e, resetForm) => {
+    e.preventDefault();
     handleClose();
     setBtnStatus("ExMsg_CnclPrcss");
   };
@@ -718,19 +756,29 @@ const EmployeeDetails = (props) => {
                               }}
                             />
                           </Grid>
-                          <Grid item xs={3}></Grid>
+                          <Grid item xs={3}>
+                            <Box display="none">
+                              <FormikForm.Input
+                                name="employmentDate"
+                                fullWidth
+                              />
+                            </Box>
+                          </Grid>
                         </Grid>
-                      </div>{" "}
+                      </div>
                     </div>
                   </div>
                 </Paper>
 
                 {bottomBar && (
                   <BottomAppBar>
-                    <FloatingButton
-                      text="cancel"
-                      onClick={onCancel.bind(null, resetForm)}
-                    />
+                    <Button
+                      type="cancel"
+                      className={classes.btnReverse}
+                      onClick={(e) => onCancel(e, resetForm)}
+                    >
+                      {t("button:cancel")}
+                    </Button>
                     <Button
                       type="submit"
                       className={classes.btnReverse}
@@ -742,7 +790,7 @@ const EmployeeDetails = (props) => {
                           <CircularProgress size={25} color="inherit" />
                         </Box>
                       ) : (
-                        "Save"
+                        t("button:save")
                       )}
                     </Button>
                     &nbsp;
@@ -756,7 +804,7 @@ const EmployeeDetails = (props) => {
                           <CircularProgress size={25} color="inherit" />
                         </Box>
                       ) : (
-                        "Submit"
+                        t("button:submit")
                       )}
                     </Button>
                   </BottomAppBar>
