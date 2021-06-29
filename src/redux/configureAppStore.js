@@ -78,7 +78,8 @@ export default function configureAppStore(preloadedState) {
       store.dispatch(getCustomTypeList({ groupId: "CI" }));
       store.dispatch(getCustomTypeList({ groupId: "CP" }));
       store.dispatch(getCustomTypeList({ groupId: "ST" }));
-      store.dispatch(getWrkStrmSttsLst("ENR"));
+      store.dispatch(getWrkStrmSttsLst({ workstream: "ENR" }));
+      store.dispatch(getWrkStrmSttsLst({ workstream: "REG" }));
     })
     .catch(() => {
       window.location.href = `${window.location.origin}${process.env.REACT_APP_REDIRECT_URL}`;

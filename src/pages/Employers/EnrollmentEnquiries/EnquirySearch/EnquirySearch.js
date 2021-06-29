@@ -44,7 +44,7 @@ const CompanyProfile = ({
   industryType,
   registrationType,
   typesOfCompany,
-  workStreams,
+  enrollmentStatus,
   registrationStatus,
   enquiry,
   ldSrchCmpny,
@@ -53,7 +53,9 @@ const CompanyProfile = ({
   schemes,
   trustees,
 }) => {
-  console.log(workStreams, "workStreams");
+  console.log(enrollmentStatus, "enrollmentStatus");
+  console.log(registrationStatus, "registrationStatus");
+
   const { t } = useTranslation(["typography", "form", "button"]);
   const classes = EmployeeStyles();
 
@@ -284,11 +286,11 @@ const CompanyProfile = ({
                           </Grid>
                           <Grid item xs={4}>
                             <Form.Select
-                              // data={{
-                              //   options: registrationStatus,
-                              //   label: (option) => option.cstmTypDtlTxt,
-                              //   value: (option) => option.cstmTypId,
-                              // }}
+                              data={{
+                                options: registrationStatus,
+                                label: (option) => option.customTypDldText,
+                                value: (option) => option.customTypId,
+                              }}
                               label={t("form:label.registrationStatus")}
                               name="registrationStatus"
                               type="text"
@@ -335,11 +337,11 @@ const CompanyProfile = ({
                           </Grid>
                           <Grid item xs={2}>
                             <Form.Select
-                              // data={{
-                              //   options: enrolmentStatus,
-                              //   label: (option) => option.cstmTypDtlTxt,
-                              //   value: (option) => option.cstmTypId,
-                              // }}
+                              data={{
+                                options: enrollmentStatus,
+                                label: (option) => option.customTypDldText,
+                                value: (option) => option.customTypId,
+                              }}
                               label={t("form:label.enrolmentStatus")}
                               name="enrollmentStatusId"
                               type="text"

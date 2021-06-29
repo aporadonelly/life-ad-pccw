@@ -90,8 +90,13 @@ export const termReasonSelector = createSelector(
   termReasonsSelectors.selectById
 );
 
-export const workStreamsSelector = createSelector(
+export const workSteamsSelector = createSelector(
   featureStateSelector,
-  (_state, customTypId) => customTypId,
-  workStreamsSelectors.selectById
+  workStreamsSelectors.selectAll
+);
+
+export const workSteamsByWorkSteamSelector = createSelector(
+  workSteamsSelector,
+  (_state, workStream) => workStream,
+  (state, workStream) => filter(state, { workStream })
 );

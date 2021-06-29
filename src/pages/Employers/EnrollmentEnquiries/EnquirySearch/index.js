@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import {
   customTypeByGroupIdSelector,
-  workStreamsSelector,
+  workSteamsByWorkSteamSelector,
 } from "@redux/features/system/selectors";
 import {
   isLoadingSelector,
@@ -28,8 +28,8 @@ const mapStateToProps = (state) => ({
   industryType: customTypeByGroupIdSelector(state, "NT"),
   registrationType: customTypeByGroupIdSelector(state, "CI"),
   typesOfCompany: customTypeByGroupIdSelector(state, "CP"),
-  workStreams: workStreamsSelector(state, "ENR"),
-  // registrationStatus: workStreamsSelector(state, "REG"),
+  enrollmentStatus: workSteamsByWorkSteamSelector(state, "ENR"),
+  registrationStatus: workSteamsByWorkSteamSelector(state, "REG"),
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -71,7 +71,12 @@ export const getWrkStrmSttsLst = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       const workStreams = await systemAdapter.getWrkStrmSttsLst(payload);
-      return { workStreams };
+      return {
+        workStreams: workStreams.map((workStream) => ({
+          ...workStream,
+          workStream: payload.workstream,
+        })),
+      };
     } catch (error) {
       return rejectWithValue({ error });
     }
