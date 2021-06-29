@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import moment from "moment";
 import {
+  Box,
   Button,
   Card,
   CardContent,
@@ -61,8 +62,9 @@ const SearchResult = ({
         const { branches, pnsnId } = row.original;
         return (
           <>
-            <Tooltip title="View Registration">
+            <Tooltip title="View Registration" arrow>
               <img
+                onClick={() => handleViewRegistration({ pnsnId })}
                 src={viewRegistration}
                 alt="View Registration"
                 variant="contained"
@@ -74,7 +76,7 @@ const SearchResult = ({
                 }}
               />
             </Tooltip>
-            <Tooltip title="View Enrollment">
+            <Tooltip title="View Enrollment" arrow>
               <img
                 onClick={() => handleViewScheme({ pnsnId })}
                 src={
@@ -97,6 +99,10 @@ const SearchResult = ({
       },
     },
   ];
+
+  const handleViewRegistration = ({ pnsnId }) => {
+    console.log(pnsnId, "click");
+  };
 
   const handleNewSearch = () => {
     draftEnquiry({});
@@ -166,11 +172,21 @@ const SearchResult = ({
                   alignItems="flex-start"
                 >
                   <Grid item xs={12}>
-                    <DataTable
-                      title={t("typography:heading.enquiryResult")}
-                      data={employers}
-                      columns={columns}
-                    />
+                    {employers.length > 0 ? (
+                      <DataTable
+                        title={t("typography:heading.enquiryResult")}
+                        data={employers}
+                        columns={columns}
+                      />
+                    ) : (
+                      <Box display="flex">
+                        <Grid item xs={12} align="center">
+                          <Typography variant="h6" color="primary">
+                            {t("table:tbody.custom.noDataFound")}
+                          </Typography>
+                        </Grid>
+                      </Box>
+                    )}
                   </Grid>
                 </Grid>
               </CardContent>
