@@ -2,7 +2,6 @@ import { createReducer } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
 import {
-  getAuthorizedPersonList,
   getEmployers,
   viewAuthPerson,
   LdRegCmpnyInfoforAdmnPrtl,
@@ -52,19 +51,6 @@ const employerReducer = createReducer(initialState, (builder) =>
       return { ...state, isLoading: false, companyRegInfo };
     })
     .addCase(LdRegCmpnyInfoforAdmnPrtl.rejected, (state, action) => {
-      const { error } = action.payload;
-      return { ...state, isLoading: false, error };
-    })
-
-    // get the authorized person List from LdAuthPrsnInfo function
-    .addCase(getAuthorizedPersonList.pending, (state, _action) => {
-      return { ...state, isLoading: true, error: null };
-    })
-    .addCase(getAuthorizedPersonList.fulfilled, (state, action) => {
-      const { authPersonInfo } = action.payload;
-      return { ...state, isLoading: false, authPersonList: authPersonInfo };
-    })
-    .addCase(getAuthorizedPersonList.rejected, (state, action) => {
       const { error } = action.payload;
       return { ...state, isLoading: false, error };
     })

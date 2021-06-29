@@ -27,7 +27,6 @@ const FloatingButton = (props) => {
       onClick={onClick}
       {...other}
       className={
-        //text === "submit"
         orangeBtn === true ? classes.submitBtn : classes.cancelAndSaveBtn
       }
       classes={{

@@ -1,46 +1,38 @@
 import AxiosAdapter from "./axios.adapter";
-import moment from "moment";
-import { pickBy } from "lodash";
 
 class EmployerAdapter extends AxiosAdapter {
   searchEmployers(p, pageNo = 0, pageSize = 50) {
     const newValues = { ...p };
-
-    Object.keys(newValues).forEach((key) => {
-      if (moment(newValues[key], "DD/MM/YYYY", true).isValid()) {
-        newValues[key] = newValues[key].split("/").reverse().join("/");
-      }
-    });
-
     const config = {
-      params: pickBy(
-        {
-          pageNo,
-          pageSize,
-          ...newValues,
-        },
-        (value) => {
-          return value !== "";
-        }
-      ),
+      params: {
+        pageNo,
+        pageSize,
+        ...newValues,
+      },
     };
-    return this.instance.get("/ldSrchRegInd", config); //Just for testing purposes. Below is the right one.
-    // return this.instance.get("/LdSrchCmpny ", config); // LdSrchCmpny still in development.
+    return this.instance.get("/ldSrchCmpny", config);
   }
 
   LdRegCmpnyInfoforAdmnPrtl(clientId) {
-    return this.instance.get("/companyReg", {});
+    return this.instance.get("/ldRegCmpnyInfoforAdmnPrtl", {
+      params: { clntUuid: "7732B905-E9C1-4895-959E-FDCE74C856B3" },
+    });
   }
 
-  LdAuthPrsnInfo() {
-    const cmpnyUuid = "7732B905-E9C1-4895-959E-FDCE74C856B3";
-    return this.instance.get("/ldAuthPrsnInfo", {
-      params: { cmpnyUuid },
-    });
+  ldAuthPrsnInfo(clntUuid, pageNo = 0, pageSize = 10) {
+    const config = {
+      params: {
+        clntUuid,
+        cmpnyUuid: "7732B905-E9C1-4895-959E-FDCE74C856B3",
+        pageNo,
+        pageSize,
+      },
+    };
+    return this.instance.get("/ldAuthPrsnInfo", config);
   }
 }
 
 export default new EmployerAdapter({
-  baseURL: process.env.REACT_APP_REGISTRATION_EE_BASE_URL, // just for testing
-  // baseURL: process.env.REACT_APP_REGISTRATION_ER_BASE_URL, //this is the right url.
+  baseURL: process.env.REACT_APP_REGISTRATION_ER_BASE_URL,
+  // baseURL: process.env.REACT_APP_ENROLLMENT_BASE_URL,
 });
