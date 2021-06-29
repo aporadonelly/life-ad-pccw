@@ -1,4 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
+import { find, compact, values, pick } from "lodash";
 import {
   authorizedPersonsAdapter,
   directorsAdapter,
@@ -48,6 +49,32 @@ export const authorizedPersonSelector = createSelector(
   featureStateSelector,
   selectedClientUUIDSelector,
   authorizedPersonsSelectors.selectById
+);
+
+export const authorizedPersonAddressByTypeIdSelector = createSelector(
+  authorizedPersonSelector,
+  (_, addrTypId) => addrTypId,
+  (authorizedPerson, addrTypId) =>
+    compact(
+      values(
+        pick(find(authorizedPerson?.authPrsnAddressList, { addrTypId }), [
+          "addrRmTxt",
+          "addrFlrTxt",
+          "addrBldngNmTxt",
+          "addrBlckTxt",
+          "addrStrtTxt",
+          "addrCtyTxt",
+          "addrDstrctTxt",
+        ])
+      )
+    ).join(" ")
+);
+
+export const authorizedPersonPhoneByTypeIdSelector = createSelector(
+  authorizedPersonSelector,
+  (_, phnTypId) => phnTypId,
+  (authorizedPerson, phnTypId) =>
+    find(authorizedPerson?.authPrsnClntPhoneList, { phnTypId })
 );
 
 export const directorsSelector = createSelector(
