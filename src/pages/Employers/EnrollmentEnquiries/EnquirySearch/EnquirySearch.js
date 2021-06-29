@@ -32,7 +32,7 @@ const initialValues = {
   agentRegistrationNumber: "",
   registrationStatusId: "",
   schemeId: "",
-  trustee: "",
+  trusteeId: "",
   enrollmentStatusId: "",
   correspondenceAddress: "",
   businessAddress: "",
@@ -66,7 +66,6 @@ const CompanyProfile = ({
   };
 
   const handleReset = () => {
-    console.log("Reset");
     draftEnquiry({});
   };
 
@@ -309,7 +308,7 @@ const CompanyProfile = ({
                                 value: (option) => option.id,
                               }}
                               label={t("form:label.trustee")}
-                              name="trustee"
+                              name="trusteeId"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseSelect"

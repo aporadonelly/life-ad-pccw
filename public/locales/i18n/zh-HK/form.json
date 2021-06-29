@@ -60,6 +60,7 @@
     "agentRegistrationNumber": "代理註冊號",
     "registrationStatus": "註冊狀態",
     "trustee": "受託人",
+    "trusteeId": "受託人",
     "scheme": "方案",
     "schemeId": "方案",
     "enrollmentStatus": "註冊狀態",
