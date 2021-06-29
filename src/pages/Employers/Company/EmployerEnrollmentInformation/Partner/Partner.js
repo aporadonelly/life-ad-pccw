@@ -1,7 +1,18 @@
 import { Grid, Card, CardContent, Typography } from "@material-ui/core";
 import { Definition } from "@components/misc";
 
-const Partner = () => {
+const Partner = (props) => {
+  const { partner, residentialAddress } = props;
+  const {
+    idTypId,
+    idNoTxt,
+    brthDt,
+    lastName,
+    firstName,
+    chineseLastName,
+    chineseFirstName,
+    cntryTypNm,
+  } = partner;
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
@@ -16,15 +27,27 @@ const Partner = () => {
               <Grid item xs={12}>
                 <Definition spacing={2} xs={3}>
                   <Definition.List>
-                    <Definition.Item dt="ID Type" dd="" />
-                    <Definition.Item dt="ID Number" dd="" />
-                    <Definition.Item dt="Date of Birth" dd="" />
-                    <Definition.Item dt="Last Name in English" dd="" />
-                    <Definition.Item dt="First Name in English" dd="" />
-                    <Definition.Item dt="Last Name in Chinese" dd="" />
-                    <Definition.Item dt="First Name in Chinese" dd="" />
-                    <Definition.Item dt="Nationality" dd="" />
-                    <Definition.Item dt="Residential Address" dd="" />
+                    <Definition.Item dt="ID Type" dd={idTypId} />
+                    <Definition.Item dt="ID Number" dd={idNoTxt} />
+                    <Definition.Item dt="Date of Birth" dd={brthDt} />
+                    <Definition.Item dt="Last Name in English" dd={lastName} />
+                    <Definition.Item
+                      dt="First Name in English"
+                      dd={firstName}
+                    />
+                    <Definition.Item
+                      dt="Last Name in Chinese"
+                      dd={chineseLastName}
+                    />
+                    <Definition.Item
+                      dt="First Name in Chinese"
+                      dd={chineseFirstName}
+                    />
+                    <Definition.Item dt="Nationality" dd={cntryTypNm} />
+                    <Definition.Item
+                      dt="Residential Address"
+                      dd={residentialAddress}
+                    />
                   </Definition.List>
                 </Definition>
               </Grid>
@@ -34,6 +57,10 @@ const Partner = () => {
       </Grid>
     </Grid>
   );
+};
+
+Partner.defaultProps = {
+  partner: {},
 };
 
 export default Partner;
