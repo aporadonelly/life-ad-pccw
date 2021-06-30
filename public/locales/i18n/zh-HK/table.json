@@ -2,12 +2,12 @@
   "thead": {
     "mpfId": "強積金編號",
     "employerAcctNo": "“雇主賬號”",
-    "companyNameEnglish":  "公司名稱（英文）",
-    "companyNameChinese":  "公司名稱（中文）",
-    "registrationType":"註冊類型" , 
+    "companyNameEnglish": "公司名稱（英文）",
+    "companyNameChinese": "公司名稱（中文）",
+    "registrationType": "註冊類型",
     "registrationNumber": "注册号码",
-    "branchNumber": "分行號碼" ,
-    "typesOfCompany":  "公司類型",
+    "branchNumber": "分行號碼",
+    "typesOfCompany": "公司類型",
     "dateOfIncorporation": "註冊成立日期",
     "displayName": "成員名字",
     "idType": "證件類型",
@@ -16,7 +16,8 @@
     "email": "電子郵件地址",
     "status": "地位",
     "custom": {
-      "action": "行動"
+      "action": "行動",
+      "view": "看法"
     },
     "lastName": "英文姓氏",
     "chineseLastName": "中文姓氏",

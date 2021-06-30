@@ -58,13 +58,13 @@ const CompanyProfile = ({
     ldSrchCmpny(values)
       .then(unwrapResult)
       .then(() => {
-        draftEnquiry(values);
         push("/employers/enquiry/result");
+        draftEnquiry(values);
       });
   };
 
   const handleReset = () => {
-    console.log("Reset");
+    draftEnquiry({});
   };
 
   return (
