@@ -2,12 +2,12 @@
   "thead": {
     "mpfId": "强积金编号",
     "employerAcctNo": "“雇主账号”",
-    "companyNameEnglish":  "公司名称（英文）",
-    "companyNameChinese":  "公司名称（中文）)",
-    "registrationType":"注册类型" , 
+    "companyNameEnglish": "公司名称（英文）",
+    "companyNameChinese": "公司名称（中文）)",
+    "registrationType": "注册类型",
     "registrationNumber": "註冊號碼",
-    "branchNumber": "分行号码" ,
-    "typesOfCompany":  "公司类型",
+    "branchNumber": "分行号码",
+    "typesOfCompany": "公司类型",
     "dateOfIncorporation": "注册成立日期",
     "displayName": "成员名字",
     "idType": "证件类型",
@@ -16,7 +16,8 @@
     "email": "电子邮件地址",
     "status": "地位",
     "custom": {
-      "action": "行动"
+      "action": "行动",
+      "view": "看法"
     },
     "lastName": "英文姓氏",
     "chineseLastName": "中文姓氏",
