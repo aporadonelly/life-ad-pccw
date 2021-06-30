@@ -1,7 +1,7 @@
 import { createEntityAdapter } from "@reduxjs/toolkit";
 
 export const employersAdapter = createEntityAdapter({
-  selectId: (employer) => employer.pnsnId,
+  selectId: (employer) => employer.companyName,
 });
 
 export const schemesAdapter = createEntityAdapter({

@@ -60,12 +60,12 @@ const SearchResult = ({
       disableSortBy: true,
       Cell: ({ row }) => {
         console.log(row, "row");
-        const { branches, pnsnId } = row.original;
+        const { branches, pnsnId, companyName } = row.original;
         return (
           <>
             <Tooltip title="View Registration" arrow>
               <img
-                onClick={() => handleViewRegistration({ pnsnId })}
+                onClick={() => handleViewRegistration({ pnsnId: companyName })}
                 src={viewRegistration}
                 alt="View Registration"
                 variant="contained"
@@ -79,7 +79,7 @@ const SearchResult = ({
             </Tooltip>
             <Tooltip title="View Enrollment" arrow>
               <img
-                onClick={() => handleViewScheme({ pnsnId })}
+                onClick={() => handleViewScheme({ pnsnId: companyName })}
                 src={
                   row.original.branches[0]?.viewEnrollmentFlagEnabled
                     ? viewEnrollActive
