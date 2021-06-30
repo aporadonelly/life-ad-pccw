@@ -12,6 +12,7 @@ import {
   draftEnquiry,
   setSelectedPnsnId,
 } from "@redux/features/enrollmentEmployer/actions";
+import { setSelectedCompanyUUID } from "@redux/features/registrationEmployer/actions";
 
 import SearchResult from "./SearchResult";
 
@@ -24,7 +25,13 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators(
-    { ldSrchCmpny, draftEnquiry, setSelectedPnsnId, push },
+    {
+      ldSrchCmpny,
+      draftEnquiry,
+      setSelectedPnsnId,
+      push,
+      setSelectedCompanyUUID,
+    },
     dispatch
   ),
 });

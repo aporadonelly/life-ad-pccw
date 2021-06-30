@@ -10,6 +10,7 @@ import {
   ldCmpnyRltdPrsn,
   ldRegCmpnyInfoforAdmnPrtl,
   setSelectedClientUUID,
+  setSelectedCompanyUUID,
 } from "./actions";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
@@ -52,6 +53,10 @@ const registrationEmployerReducer = createReducer(initialState, (builder) =>
     .addCase(ldRegCmpnyInfoforAdmnPrtl.fulfilled, (state, action) => {
       state.isLoading = false;
       state.registrationCompanyInformation = action.payload.regCmpnyInfo;
+    })
+    .addCase(setSelectedCompanyUUID, (state, action) => {
+      alert(action.payload.cmpnyUuid);
+      state.selectedCompanyUUID = action.payload.cmpnyUuid;
     })
     .addCase(setSelectedClientUUID, (state, action) => {
       state.selectedClientUUID = action.payload.clntUuid;

@@ -21,7 +21,7 @@ import SecondaryContactPerson from "./SecondaryContactPerson/SecondaryContactPer
 import SupportingDocsCard from "./SupportingDocsCard/SupportingDocsCard";
 
 const CompanyProfile = ({
-  LdRegCmpnyInfoforAdmnPrtl,
+  ldRegCmpnyInfoforAdmnPrtl,
   companyRegInfo,
   isLoading,
 }) => {
@@ -29,8 +29,8 @@ const CompanyProfile = ({
   const { t } = useTranslation(["typography", "form", "table", "button"]);
 
   useEffect(() => {
-    LdRegCmpnyInfoforAdmnPrtl();
-  }, [LdRegCmpnyInfoforAdmnPrtl]);
+    ldRegCmpnyInfoforAdmnPrtl();
+  }, [ldRegCmpnyInfoforAdmnPrtl]);
 
   const {
     ldRegCmpnyInfoforAdmnPrtlProjection,

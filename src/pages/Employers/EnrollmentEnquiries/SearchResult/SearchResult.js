@@ -24,6 +24,7 @@ const SearchResult = ({
   draftEnquiry,
   setSelectedPnsnId,
   push,
+  setSelectedCompanyUUID,
 }) => {
   const { t } = useTranslation(["typography", "form", "button", "table"]);
 
@@ -58,12 +59,12 @@ const SearchResult = ({
       sticky: "right",
       disableSortBy: true,
       Cell: ({ row }) => {
-        const { branches, pnsnId, companyName } = row.original;
+        const { companyName, companyId } = row.original;
         return (
           <>
             <Tooltip title="View Registration" arrow>
               <img
-                onClick={() => handleViewRegistration({ pnsnId: companyName })}
+                onClick={() => handleViewRegistration({ cmpnyUuid: companyId })}
                 src={viewRegistration}
                 alt="View Registration"
                 variant="contained"
@@ -99,8 +100,9 @@ const SearchResult = ({
     },
   ];
 
-  const handleViewRegistration = ({ pnsnId }) => {
-    console.log(pnsnId, "click");
+  const handleViewRegistration = ({ cmpnyUuid }) => {
+    setSelectedCompanyUUID({ cmpnyUuid });
+    push("/employers/company/reg-info/registry");
   };
 
   const handleNewSearch = () => {
