@@ -12,6 +12,7 @@ export const ldSrchCmpny = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       const employers = await enrollmentEmployer.ldSrchCmpny(payload);
+      console.log(employers, "employers");
       return { employers };
     } catch (error) {
       if (error === "ldSrchCmpny_ErrMsg") {
