@@ -35,8 +35,8 @@ const AuthorizedPersonList = ({ cmpnyRltdPrsns, companyId }) => {
             <Tooltip title="View Registration" placement="top" arrow>
               <img
                 src={ViewIcon}
-                width={50}
-                height={50}
+                width={40}
+                height={40}
                 alt="View Registration"
                 onClick={() => viewMembersDetails(data, companyId)}
                 variant="contained"
