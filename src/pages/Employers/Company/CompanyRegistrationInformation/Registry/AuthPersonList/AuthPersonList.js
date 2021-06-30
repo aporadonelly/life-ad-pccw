@@ -11,11 +11,18 @@ import { DataTable } from "@components/common";
 import ViewIcon from "@assets/icons/view_btn.svg";
 import { useTranslation } from "react-i18next";
 
-const AuthorizedPersonList = ({ cmpnyRltdPrsns, companyId }) => {
+const AuthorizedPersonList = ({
+  cmpnyRltdPrsns,
+  companyId,
+  setSelectedClientUUID,
+  push,
+}) => {
   const { t } = useTranslation(["typography", "form", "table", "button"]);
 
-  const viewMembersDetails = (id, companyId) => {
-    console.log(id, companyId);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleViewMembersDetails = ({ clntUuid }) => {
+    setSelectedClientUUID({ clntUuid });
+    push("/employers/company/reg-info/authorized");
   };
   const columns = useMemo(
     () => [
@@ -30,7 +37,8 @@ const AuthorizedPersonList = ({ cmpnyRltdPrsns, companyId }) => {
         Header: t("table:thead.custom.action"),
         sticky: "right",
         disableSortBy: true,
-        Cell: ({ data }) => {
+        Cell: ({ row }) => {
+          const { clientUuid } = row.original;
           return (
             <Tooltip title="View Registration" placement="top" arrow>
               <img
@@ -38,7 +46,9 @@ const AuthorizedPersonList = ({ cmpnyRltdPrsns, companyId }) => {
                 width={40}
                 height={40}
                 alt="View Registration"
-                onClick={() => viewMembersDetails(data, companyId)}
+                onClick={() =>
+                  handleViewMembersDetails({ clntUuid: clientUuid })
+                }
                 variant="contained"
                 style={{
                   cursor: "pointer",
@@ -49,7 +59,7 @@ const AuthorizedPersonList = ({ cmpnyRltdPrsns, companyId }) => {
         },
       },
     ],
-    [t, companyId]
+    [t, handleViewMembersDetails]
   );
 
   return (

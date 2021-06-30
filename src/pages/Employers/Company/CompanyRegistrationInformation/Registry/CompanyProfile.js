@@ -24,6 +24,8 @@ const CompanyProfile = ({
   ldRegCmpnyInfoforAdmnPrtl,
   companyRegInfo,
   isLoading,
+  setSelectedClientUUID,
+  push,
 }) => {
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "table", "button"]);
@@ -93,6 +95,8 @@ const CompanyProfile = ({
                 <AuthorizedPersonList
                   cmpnyRltdPrsns={cmpnyRltdPrsns}
                   companyId={id}
+                  setSelectedClientUUID={setSelectedClientUUID}
+                  push={push}
                 />
               )}
             </Grid>
@@ -125,7 +129,7 @@ const CompanyProfile = ({
               ) : (
                 <Button
                   data-testid="back-btn"
-                  onClick={() => history.push("/employers/enquiry")}
+                  onClick={() => history.push("/employers/enquiry/result")}
                 >
                   {t("button:back")}
                 </Button>
