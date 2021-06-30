@@ -12,6 +12,8 @@ import {
   ldSrchCmpny,
   getSchmLst,
   getTrstLst,
+  setSelectedCompanyUUID,
+  setSelectedSchemeUUID,
 } from "./actions";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
@@ -44,6 +46,12 @@ const enrollmentEmployerReducer = createReducer(initialState, (builder) =>
     })
     .addCase(getTrstLst.fulfilled, (state, action) => {
       trusteesAdapter.upsertMany(state.trustees, action.payload.trustees);
+    })
+    .addCase(setSelectedCompanyUUID, (state, action) => {
+      state.selectedCompanyUUID = action.payload.companyUuid;
+    })
+    .addCase(setSelectedSchemeUUID, (state, action) => {
+      state.selectedSchemeUUID = action.payload.schemeUuid;
     })
     .addMatcher(isAnyOf(ldSrchCmpny.rejected), (state, action) => {
       state.isLoading = false;

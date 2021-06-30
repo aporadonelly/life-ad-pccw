@@ -14,7 +14,7 @@ const enrollmentEnquiriesRoutes = [
     name: "Enrollment Scheme",
     path: "/employers/company/enrollment-scheme",
     component: EnrollmentScheme,
-    tab: true,
+    tab: false,
   },
   {
     name: "Employer Enrollment Information",

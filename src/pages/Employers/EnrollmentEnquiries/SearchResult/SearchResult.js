@@ -25,7 +25,6 @@ const SearchResult = ({
   setSelectedPnsnId,
   push,
 }) => {
-  console.log(employers);
   const { t } = useTranslation(["typography", "form", "button", "table"]);
 
   const columns = [
@@ -59,7 +58,6 @@ const SearchResult = ({
       sticky: "right",
       disableSortBy: true,
       Cell: ({ row }) => {
-        console.log(row, "row");
         const { branches, pnsnId, companyName } = row.original;
         return (
           <>

@@ -36,6 +36,16 @@ export const selectedPnsnIdSelector = createSelector(
   (state) => state.selectedPnsnId
 );
 
+export const selectedSchemeUUIDSelector = createSelector(
+  featureStateSelector,
+  (state) => state.selectedSchemeUUID
+);
+
+export const selectedCompanyUUIDSelector = createSelector(
+  featureStateSelector,
+  (state) => state.selectedCompanyUUID
+);
+
 export const employersSelector = createSelector(
   featureStateSelector,
   employersSelectors.selectAll

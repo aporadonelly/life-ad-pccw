@@ -111,7 +111,9 @@
     "companyTypeId": "Type of Company",
     "natureId": "Nature of Business",
     "registeredOfficeAddress": "Registered Office Address",
-    "incorporationDate": "Date of Incorporation"
+    "incorporationDate": "Date of Incorporation",
+    "scndryCtctPrsn": "Secondary Contact Person",
+    "prmryCntctPrsn": "Primary Contact Person"
   },
   "placeholder": {
     "custom": {
