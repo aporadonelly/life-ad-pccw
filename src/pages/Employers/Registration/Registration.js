@@ -7,15 +7,20 @@ const tabs = [
   {
     name: "Company Registration Information",
     path: "/employers/registration/information",
+    tab: true,
   },
   {
     name: "Employer Enrollment Information",
     path: "/employers/enrollment/information",
+    tab: true,
   },
 ];
 
+const routes = createRoutes(registrationRoutes);
+
 const Registration = (props) => {
-  const { ldRegCmpnyInfoforAdmnPrtlProjection } = props;
+  const { companyRegInfo } = props;
+  const { ldRegCmpnyInfoforAdmnPrtlProjection } = companyRegInfo;
 
   return (
     <Page>
@@ -27,9 +32,13 @@ const Registration = (props) => {
           subject={ldRegCmpnyInfoforAdmnPrtlProjection?.branches?.[0]?.brnchNm}
         />
       </PageHeader>
-      <PageInner>{createRoutes(registrationRoutes)}</PageInner>
+      <PageInner>{routes}</PageInner>
     </Page>
   );
+};
+
+Registration.defaultProps = {
+  companyRegInfo: {},
 };
 
 export default Registration;
