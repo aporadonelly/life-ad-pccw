@@ -1,9 +1,17 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { reduce, map, concat, compact } from "lodash";
-import { employersAdapter } from "./state";
+import { employersAdapter, schemesAdapter, trusteesAdapter } from "./state";
 
 export const employersSelectors = employersAdapter.getSelectors(
   (state) => state.employers
+);
+
+export const schemesSelectors = schemesAdapter.getSelectors(
+  (state) => state.schemes
+);
+
+export const trusteesSelectors = trusteesAdapter.getSelectors(
+  (state) => state.trustees
 );
 
 export const featureStateSelector = (state) => state.enrollmentEmployer;
@@ -28,6 +36,16 @@ export const selectedPnsnIdSelector = createSelector(
   (state) => state.selectedPnsnId
 );
 
+export const selectedSchemeUUIDSelector = createSelector(
+  featureStateSelector,
+  (state) => state.selectedSchemeUUID
+);
+
+export const selectedCompanyUUIDSelector = createSelector(
+  featureStateSelector,
+  (state) => state.selectedCompanyUUID
+);
+
 export const employersSelector = createSelector(
   featureStateSelector,
   employersSelectors.selectAll
@@ -39,25 +57,37 @@ export const employerSelector = createSelector(
   employersSelectors.selectById
 );
 
-export const schemesSelector = createSelector(employerSelector, (employer) =>
-  compact(
-    reduce(
-      employer?.branches,
-      (result, branch) =>
-        branch?.enrollments
-          ? concat(
-              result,
-              map(
-                branch.enrollments,
-                ({ scheme, employer }) =>
-                  scheme && {
-                    ...scheme,
-                    employer,
-                  }
+export const schemesSelector = createSelector(
+  featureStateSelector,
+  schemesSelectors.selectAll
+);
+
+export const trusteesSelector = createSelector(
+  featureStateSelector,
+  trusteesSelectors.selectAll
+);
+
+export const employerSchemesSelector = createSelector(
+  employerSelector,
+  (employer) =>
+    compact(
+      reduce(
+        employer?.branches,
+        (result, branch) =>
+          branch?.enrollments
+            ? concat(
+                result,
+                map(
+                  branch.enrollments,
+                  ({ scheme, employer }) =>
+                    scheme && {
+                      ...scheme,
+                      employer,
+                    }
+                )
               )
-            )
-          : result,
-      []
+            : result,
+        []
+      )
     )
-  )
 );

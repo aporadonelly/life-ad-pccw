@@ -22,7 +22,9 @@ import {
   getCountryList,
   getTermReasons,
   getCustomTypeList,
+  getWrkStrmSttsLst,
 } from "./features/system/actions";
+import { getSchmLst, getTrstLst } from "./features/enrollmentEmployer/actions";
 import { reissue } from "./features/user/actions";
 
 export const history = createBrowserHistory({
@@ -62,6 +64,8 @@ export default function configureAppStore(preloadedState) {
       store.dispatch(getCycleDate());
       store.dispatch(getCountryList());
       store.dispatch(getTermReasons());
+      store.dispatch(getSchmLst());
+      store.dispatch(getTrstLst());
       store.dispatch(getCustomTypeList({ groupId: "GD" }));
       store.dispatch(getCustomTypeList({ groupId: "ID" }));
       store.dispatch(getCustomTypeList({ groupId: "NTN" }));
@@ -74,6 +78,8 @@ export default function configureAppStore(preloadedState) {
       store.dispatch(getCustomTypeList({ groupId: "CI" }));
       store.dispatch(getCustomTypeList({ groupId: "CP" }));
       store.dispatch(getCustomTypeList({ groupId: "ST" }));
+      store.dispatch(getWrkStrmSttsLst({ workstream: "ENR" }));
+      store.dispatch(getWrkStrmSttsLst({ workstream: "REG" }));
     })
     .catch(() => {
       window.location.href = `${window.location.origin}${process.env.REACT_APP_REDIRECT_URL}`;

@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import moment from "moment";
 import {
+  Box,
   Button,
   Card,
   CardContent,
@@ -23,8 +24,8 @@ const SearchResult = ({
   draftEnquiry,
   setSelectedPnsnId,
   push,
+  setSelectedCompanyUUID,
 }) => {
-  console.log(employers);
   const { t } = useTranslation(["typography", "form", "button", "table"]);
 
   const columns = [
@@ -58,12 +59,12 @@ const SearchResult = ({
       sticky: "right",
       disableSortBy: true,
       Cell: ({ row }) => {
-        const { pnsnId, companyId } = row.original;
+        const { companyName, companyId } = row.original;
         return (
           <>
             <Tooltip title="View Registration" arrow>
               <img
-                onClick={() => handleViewRegistration({ companyId })}
+                onClick={() => handleViewRegistration({ cmpnyUuid: companyId })}
                 src={viewRegistration}
                 alt="View Registration"
                 variant="contained"
@@ -77,7 +78,7 @@ const SearchResult = ({
             </Tooltip>
             <Tooltip title="View Enrollment" arrow>
               <img
-                onClick={() => handleViewScheme({ pnsnId })}
+                onClick={() => handleViewScheme({ pnsnId: companyName })}
                 src={
                   row.original.branches[0]?.viewEnrollmentFlagEnabled
                     ? viewEnrollActive
@@ -99,9 +100,11 @@ const SearchResult = ({
     },
   ];
 
-  const handleViewRegistration = ({ companyId }) => {
-    console.log(companyId);
+  const handleViewRegistration = ({ cmpnyUuid }) => {
+    setSelectedCompanyUUID({ cmpnyUuid });
+    push("/employers/company/reg-info/registry");
   };
+
   const handleNewSearch = () => {
     draftEnquiry({});
     push("/employers/enquiry/search");
@@ -170,11 +173,21 @@ const SearchResult = ({
                   alignItems="flex-start"
                 >
                   <Grid item xs={12}>
-                    <DataTable
-                      title={t("typography:heading.enquiryResult")}
-                      data={employers}
-                      columns={columns}
-                    />
+                    {employers.length > 0 ? (
+                      <DataTable
+                        title={t("typography:heading.enquiryResult")}
+                        data={employers}
+                        columns={columns}
+                      />
+                    ) : (
+                      <Box display="flex">
+                        <Grid item xs={12} align="center">
+                          <Typography variant="h6" color="primary">
+                            {t("table:tbody.custom.noDataFound")}
+                          </Typography>
+                        </Grid>
+                      </Box>
+                    )}
                   </Grid>
                 </Grid>
               </CardContent>

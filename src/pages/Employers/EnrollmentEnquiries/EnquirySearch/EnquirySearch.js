@@ -29,10 +29,10 @@ const initialValues = {
   companyTypeId: "",
   incorporationDate: "",
   natureId: "",
-  referenceNoOfMpfOrServiceAgent: "",
-  registrationStatus: "",
-  scheme: "",
-  trustee: "",
+  agentRegistrationNumber: "",
+  registrationStatusId: "",
+  schemeId: "",
+  trusteeId: "",
   enrollmentStatusId: "",
   correspondenceAddress: "",
   businessAddress: "",
@@ -44,11 +44,13 @@ const CompanyProfile = ({
   industryType,
   registrationType,
   typesOfCompany,
-  enrolmentStatus,
+  enrollmentStatus,
   registrationStatus,
   enquiry,
   ldSrchCmpny,
   draftEnquiry,
+  trustees,
+  schemes,
   push,
 }) => {
   const { t } = useTranslation(["typography", "form", "button"]);
@@ -115,7 +117,7 @@ const CompanyProfile = ({
                             <Form.Input
                               label={t("form:label.employerAcctNo")}
                               name="employerAccountNumber"
-                              type="number"
+                              type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseInput"
                               )}
@@ -272,7 +274,7 @@ const CompanyProfile = ({
                               label={t(
                                 "form:label.referenceNoOfMpfOrServiceAgent"
                               )}
-                              name="referenceNoOfMpfOrServiceAgent"
+                              name="agentRegistrationNumber"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseInput"
@@ -283,11 +285,11 @@ const CompanyProfile = ({
                             <Form.Select
                               data={{
                                 options: registrationStatus,
-                                label: (option) => option.cstmTypDtlTxt,
-                                value: (option) => option.cstmTypId,
+                                label: (option) => option.customTypDldText,
+                                value: (option) => option.customTypId,
                               }}
                               label={t("form:label.registrationStatus")}
-                              name="registrationStatus"
+                              name="registrationStatusId"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseSelect"
@@ -300,13 +302,13 @@ const CompanyProfile = ({
                         <Grid container spacing={3}>
                           <Grid item xs={5}>
                             <Form.Select
-                              // data={{
-                              //   options: placeOfBirth,
-                              //   label: (option) => option.cntryTypNm,
-                              //   value: (option) => option.cntryTypCd,
-                              // }}
+                              data={{
+                                options: trustees,
+                                label: (option) => option.name,
+                                value: (option) => option.id,
+                              }}
                               label={t("form:label.trustee")}
-                              name="trustee"
+                              name="trusteeId"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseSelect"
@@ -316,13 +318,13 @@ const CompanyProfile = ({
                           </Grid>
                           <Grid item xs={5}>
                             <Form.Select
-                              // data={{
-                              //   options: placeOfBirth,
-                              //   label: (option) => option.cntryTypNm,
-                              //   value: (option) => option.cntryTypCd,
-                              // }}
+                              data={{
+                                options: schemes,
+                                label: (option) => option.name,
+                                value: (option) => option.id,
+                              }}
                               label={t("form:label.scheme")}
-                              name="scheme"
+                              name="schemeId"
                               type="text"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseSelect"
@@ -333,11 +335,11 @@ const CompanyProfile = ({
                           <Grid item xs={2}>
                             <Form.Select
                               data={{
-                                options: enrolmentStatus,
-                                label: (option) => option.cstmTypDtlTxt,
-                                value: (option) => option.cstmTypId,
+                                options: enrollmentStatus,
+                                label: (option) => option.customTypDldText,
+                                value: (option) => option.customTypId,
                               }}
-                              label={t("form:label.enrolmentStatus")}
+                              label={t("form:label.enrollmentStatus")}
                               name="enrollmentStatusId"
                               type="text"
                               placeholder={t(

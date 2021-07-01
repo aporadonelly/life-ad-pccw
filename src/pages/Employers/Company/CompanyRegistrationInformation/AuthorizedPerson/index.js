@@ -3,24 +3,20 @@ import { connect } from "react-redux";
 import {
   isLoadingSelector,
   errorSelector,
-  employersSelector,
-  authPersonSelector,
-} from "@redux/features/employers/selectors";
-import {
-  getEmployers,
-  viewAuthPerson,
-} from "@redux/features/employers/actions";
+  authorizedPersonSelector,
+} from "@redux/features/registrationEmployer/selectors";
+import { ldCmpnyRltdPrsn } from "@redux/features/registrationEmployer/actions";
+
 import ViewProfile from "./ViewProfile";
 
 const mapStateToProps = (state) => ({
   isLoading: isLoadingSelector(state),
   error: errorSelector(state),
-  employers: employersSelector(state),
-  authPerson: authPersonSelector(state),
+  authPerson: authorizedPersonSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  ...bindActionCreators({ getEmployers, viewAuthPerson }, dispatch),
+  ...bindActionCreators({ ldCmpnyRltdPrsn }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewProfile);
