@@ -38,7 +38,7 @@ const sidebarRoutes = [
   {
     name: "employer",
     path: "/employers",
-    redirect: "/employers/enquiry/search",
+    redirect: "/employers/enquiries/search",
     icon: <BusinessCenterOutlinedIcon />,
     component: null,
   },
