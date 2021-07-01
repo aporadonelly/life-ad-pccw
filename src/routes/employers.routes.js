@@ -1,25 +1,22 @@
-import Contribution from "@pages/Employers/Contribution";
-import { companyRoutes, enrollmentEnquiriesRoutes } from "./employers";
+import Enquiries from "@pages/Employers/Enquiries";
+import Enrollment from "@pages/Employers/Enrollment";
+import Registration from "@pages/Employers/Registration";
 
 const employersRoutes = [
   {
-    name: "ER Registration / Enrollment Enquiries",
-    path: "/employers/enquiry",
-    redirect: "/employers/enquiry/search",
-    children: enrollmentEnquiriesRoutes,
-    tab: true,
+    name: "Enquiries",
+    path: "/employers/enquiries",
+    component: Enquiries,
   },
   {
-    name: "Contribution",
-    path: "/employers/contribution",
-    component: Contribution,
-    tab: true,
+    name: "Enrollment",
+    path: "/employers/enrollment",
+    component: Enrollment,
   },
   {
-    name: "Company",
-    path: "/employers/company",
-    children: companyRoutes,
-    tab: false,
+    name: "Registration",
+    path: "/employers/registration",
+    component: Registration,
   },
 ];
 

@@ -9,9 +9,8 @@ import {
   Tooltip,
   Typography,
 } from "@material-ui/core";
-import { Page, EnquiryChips } from "@containers";
+import { EnquiryChips } from "@containers";
 import { employersRoutes } from "@routes";
-import { PageHeader, PageInner } from "@components/layout";
 // import TableCustomized from "@components/common/TableCustomized";
 import { DataTable } from "@components/common";
 import viewEnrollActive from "@assets/icons/enroll-active.PNG";
@@ -102,100 +101,90 @@ const SearchResult = ({
 
   const handleViewRegistration = ({ cmpnyUuid }) => {
     setSelectedCompanyUUID({ cmpnyUuid });
-    push("/employers/company/reg-info/registry");
+    push("/employers/registration/information");
   };
 
   const handleNewSearch = () => {
     draftEnquiry({});
-    push("/employers/enquiry/search");
+    push("/employers/enquiries/search");
   };
 
   const handleEditSearch = () => {
-    push("/employers/enquiry/search");
+    push("/employers/enquiries/search");
   };
 
   const handleViewScheme = ({ pnsnId }) => {
     setSelectedPnsnId({ pnsnId });
-    push("/employers/company/enrollment-scheme");
+    push("/employers/enrollment/schemes");
   };
 
   return (
-    <Page>
-      <PageHeader routes={employersRoutes} />
-      <PageInner>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Card>
-              <CardContent>
-                <Grid item xs={12}>
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <Card>
+          <CardContent>
+            <Grid item xs={12}>
+              <Typography variant="h6" color="primary">
+                {t("typography:heading.employerRegOrEnrEnq")}
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Grid container>
+                <Grid item xs={8}>
                   <Typography variant="h6" color="primary">
-                    {t("typography:heading.employerRegOrEnrEnq")}
+                    <EnquiryChips enquiry={enquiry} />
                   </Typography>
                 </Grid>
-                <Grid item xs={12}>
-                  <Grid container>
-                    <Grid item xs={8}>
+                <Grid item xs={4} align="right" display="flex">
+                  <Button
+                    data-testid="back-btn"
+                    variant="outlined"
+                    onClick={handleEditSearch}
+                  >
+                    {t("button:editSearch")}
+                  </Button>
+                  &emsp;
+                  <Button
+                    style={{ width: "auto" }}
+                    data-testid="back-btn"
+                    onClick={handleNewSearch}
+                  >
+                    {t("button:newSearch")}
+                  </Button>
+                </Grid>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+      </Grid>
+
+      {/* Table */}
+      <Grid item xs={12}>
+        <Card>
+          <CardContent>
+            <Grid container component="dl" spacing={1} alignItems="flex-start">
+              <Grid item xs={12}>
+                {employers.length > 0 ? (
+                  <DataTable
+                    title={t("typography:heading.enquiryResult")}
+                    data={employers}
+                    columns={columns}
+                  />
+                ) : (
+                  <Box display="flex">
+                    <Grid item xs={12} align="center">
                       <Typography variant="h6" color="primary">
-                        <EnquiryChips enquiry={enquiry} />
+                        {t("table:tbody.custom.noDataFound")}
                       </Typography>
                     </Grid>
-                    <Grid item xs={4} align="right" display="flex">
-                      <Button
-                        data-testid="back-btn"
-                        variant="outlined"
-                        onClick={handleEditSearch}
-                      >
-                        {t("button:editSearch")}
-                      </Button>
-                      &emsp;
-                      <Button
-                        style={{ width: "auto" }}
-                        data-testid="back-btn"
-                        onClick={handleNewSearch}
-                      >
-                        {t("button:newSearch")}
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          {/* Table */}
-          <Grid item xs={12}>
-            <Card>
-              <CardContent>
-                <Grid
-                  container
-                  component="dl"
-                  spacing={1}
-                  alignItems="flex-start"
-                >
-                  <Grid item xs={12}>
-                    {employers.length > 0 ? (
-                      <DataTable
-                        title={t("typography:heading.enquiryResult")}
-                        data={employers}
-                        columns={columns}
-                      />
-                    ) : (
-                      <Box display="flex">
-                        <Grid item xs={12} align="center">
-                          <Typography variant="h6" color="primary">
-                            {t("table:tbody.custom.noDataFound")}
-                          </Typography>
-                        </Grid>
-                      </Box>
-                    )}
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
-      </PageInner>
-    </Page>
+                  </Box>
+                )}
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+      </Grid>
+    </Grid>
   );
 };
 

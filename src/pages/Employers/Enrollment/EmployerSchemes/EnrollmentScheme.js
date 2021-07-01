@@ -1,6 +1,4 @@
 import React, { useMemo } from "react";
-import { Page } from "@containers";
-import { PageHeader, PageInner } from "@components/layout";
 import { companyRoutes } from "@routes/employers";
 import { useTranslation } from "react-i18next";
 import ViewBtn from "@assets/icons/view_btn.svg";
@@ -71,56 +69,49 @@ const EnrollmentScheme = ({
   );
 
   return (
-    <Page>
-      <PageHeader routes={companyRoutes} />
-      <PageInner>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Card>
-              <CardContent>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    {schemes.length > 0 ? (
-                      <DataTable
-                        data={schemes}
-                        columns={columns}
-                        components={{
-                          Toolbar: () => (
-                            <Toolbar disableGutters>
-                              <Typography variant="h6" color="primary">
-                                {t("typography:heading.enrollmentScheme")}
-                              </Typography>
-                            </Toolbar>
-                          ),
-                        }}
-                      />
-                    ) : (
-                      <Box display="flex">
-                        <Grid item xs={12} align="center">
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <Card>
+          <CardContent>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                {schemes.length > 0 ? (
+                  <DataTable
+                    data={schemes}
+                    columns={columns}
+                    components={{
+                      Toolbar: () => (
+                        <Toolbar disableGutters>
                           <Typography variant="h6" color="primary">
-                            {t("table:tbody.custom.noDataFound")}
+                            {t("typography:heading.enrollmentScheme")}
                           </Typography>
-                        </Grid>
-                      </Box>
-                    )}
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          <Grid item xs={12} align="right">
-            <Button
-              data-testid="back-btn"
-              onClick={() => push("/employers/enquiry/result")}
-            >
-              {t("button:back")}
-            </Button>
-          </Grid>
-        </Grid>
-        {/* )} */}
-      </PageInner>
-    </Page>
+                        </Toolbar>
+                      ),
+                    }}
+                  />
+                ) : (
+                  <Box display="flex">
+                    <Grid item xs={12} align="center">
+                      <Typography variant="h6" color="primary">
+                        {t("table:tbody.custom.noDataFound")}
+                      </Typography>
+                    </Grid>
+                  </Box>
+                )}
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid item xs={12} align="right">
+        <Button
+          data-testid="back-btn"
+          onClick={() => push("/employers/enquiry/result")}
+        >
+          {t("button:back")}
+        </Button>
+      </Grid>
+    </Grid>
   );
 };
 
