@@ -6,11 +6,14 @@ import { enquiriesRoutes } from "@routes/employers";
 const tabs = [
   {
     name: "ER Registration / Enrollment Enquiries",
-    path: "/employers/enquiries/search",
+    path: "/employers/enquiries",
+    redirect: "/employers/enquiries/search",
+    tab: true,
   },
   {
     name: "Contribution",
     path: "/employers/contribution",
+    tab: true,
   },
 ];
 
