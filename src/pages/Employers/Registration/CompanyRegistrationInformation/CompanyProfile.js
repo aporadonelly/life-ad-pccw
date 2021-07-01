@@ -10,9 +10,6 @@ import {
 import { useTranslation } from "react-i18next";
 import { get, isEmpty } from "lodash";
 import { useHistory } from "react-router-dom";
-import { Page } from "@containers";
-import { PageHeader, PageInner } from "@components/layout";
-import { companyRoutes } from "@routes/employers";
 import AuthorizedPersonList from "./AuthPersonList/AuthPersonList";
 import CompanyRegInfoCard from "./CompanyRegInfoCard/CompanyRegInfoCard";
 import AddressCard from "./AddressCard/AddressCard";
@@ -47,98 +44,83 @@ const CompanyProfile = ({
   const { cmpnyNm, id } = ldRegCmpnyInfoforAdmnPrtlProjection ?? {};
   const { brnchNm, brnchNoTxt, lnggTypId } =
     get(ldRegCmpnyInfoforAdmnPrtlProjection, "branches[0]") ?? {};
-  return (
-    <Page>
-      <PageHeader routes={companyRoutes}>
-        <PageHeader.SubjectInfo
-          subject={cmpnyNm}
-          // info={{
-          //   "Employer No.": 222223,
-          // }}
-        />
-        <PageHeader.SubjectInfo subject={brnchNm ? brnchNm : ""} />
-      </PageHeader>
-      <PageInner>
-        {isLoading ? (
-          <Box display="flex" justifyContent="center" mt={5}>
-            <CircularProgress />
-          </Box>
-        ) : (
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              {ldRegCmpnyInfoforAdmnPrtlProjection && (
-                <CompanyRegInfoCard
-                  ldRegCmpnyInfoforAdmnPrtlProjection={
-                    ldRegCmpnyInfoforAdmnPrtlProjection
-                  }
-                  customTypCmpnyTyp={customTypCmpnyTyp}
-                  countryTyp={countryTyp}
-                  customTypNt={customTypNt}
-                  customTypId={customTypId}
-                  brnchNoTxt={brnchNoTxt}
-                  lnggTypId={lnggTypId}
-                />
-              )}
-            </Grid>
-
-            <Grid item xs={12}>
-              {ldRegCmpnyInfoforAdmnPrtlProjection && (
-                <AddressCard
-                  ldRegCmpnyInfoforAdmnPrtlProjection={
-                    ldRegCmpnyInfoforAdmnPrtlProjection
-                  }
-                />
-              )}
-            </Grid>
-            <Grid item xs={12}>
-              {cmpnyRltdPrsns && (
-                <AuthorizedPersonList
-                  cmpnyRltdPrsns={cmpnyRltdPrsns}
-                  companyId={id}
-                  setSelectedClientUUID={setSelectedClientUUID}
-                  push={push}
-                />
-              )}
-            </Grid>
-
-            <Grid item xs={12}>
-              <PrimaryContactPerson
-                contactDtos={contactDtos}
-                countryTyp={countryTyp}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <SecondaryContactPerson
-                contactDtos={contactDtos}
-                countryTyp={countryTyp}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              {cmpnyRltdPrsns && <SupportingDocsCard />}
-            </Grid>
-
-            <Grid item xs={12} align="right">
-              {isEmpty(companyRegInfo) ? (
-                <Grid container justify="center">
-                  <Typography variant="h6" color="primary">
-                    No Data Found.
-                  </Typography>
-                </Grid>
-              ) : (
-                <Button
-                  data-testid="back-btn"
-                  onClick={() => history.push("/employers/enquiry/result")}
-                >
-                  {t("button:back")}
-                </Button>
-              )}
-            </Grid>
-          </Grid>
+  return isLoading ? (
+    <Box display="flex" justifyContent="center" mt={5}>
+      <CircularProgress />
+    </Box>
+  ) : (
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        {ldRegCmpnyInfoforAdmnPrtlProjection && (
+          <CompanyRegInfoCard
+            ldRegCmpnyInfoforAdmnPrtlProjection={
+              ldRegCmpnyInfoforAdmnPrtlProjection
+            }
+            customTypCmpnyTyp={customTypCmpnyTyp}
+            countryTyp={countryTyp}
+            customTypNt={customTypNt}
+            customTypId={customTypId}
+            brnchNoTxt={brnchNoTxt}
+            lnggTypId={lnggTypId}
+          />
         )}
-      </PageInner>
-    </Page>
+      </Grid>
+
+      <Grid item xs={12}>
+        {ldRegCmpnyInfoforAdmnPrtlProjection && (
+          <AddressCard
+            ldRegCmpnyInfoforAdmnPrtlProjection={
+              ldRegCmpnyInfoforAdmnPrtlProjection
+            }
+          />
+        )}
+      </Grid>
+      <Grid item xs={12}>
+        {cmpnyRltdPrsns && (
+          <AuthorizedPersonList
+            cmpnyRltdPrsns={cmpnyRltdPrsns}
+            companyId={id}
+            setSelectedClientUUID={setSelectedClientUUID}
+            push={push}
+          />
+        )}
+      </Grid>
+
+      <Grid item xs={12}>
+        <PrimaryContactPerson
+          contactDtos={contactDtos}
+          countryTyp={countryTyp}
+        />
+      </Grid>
+
+      <Grid item xs={12}>
+        <SecondaryContactPerson
+          contactDtos={contactDtos}
+          countryTyp={countryTyp}
+        />
+      </Grid>
+
+      <Grid item xs={12}>
+        {cmpnyRltdPrsns && <SupportingDocsCard />}
+      </Grid>
+
+      <Grid item xs={12} align="right">
+        {isEmpty(companyRegInfo) ? (
+          <Grid container justify="center">
+            <Typography variant="h6" color="primary">
+              No Data Found.
+            </Typography>
+          </Grid>
+        ) : (
+          <Button
+            data-testid="back-btn"
+            onClick={() => history.push("/employers/enquiry/result")}
+          >
+            {t("button:back")}
+          </Button>
+        )}
+      </Grid>
+    </Grid>
   );
 };
 

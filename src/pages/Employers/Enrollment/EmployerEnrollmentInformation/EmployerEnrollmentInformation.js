@@ -1,3 +1,3 @@
-const PayrollGroup = () => null;
+const EmployerEnrollmentInformation = () => null;
 
-export default PayrollGroup;
+export default EmployerEnrollmentInformation;
