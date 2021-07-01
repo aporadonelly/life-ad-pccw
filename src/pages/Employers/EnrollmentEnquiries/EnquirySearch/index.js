@@ -1,11 +1,16 @@
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
-import { customTypeByGroupIdSelector } from "@redux/features/system/selectors";
+import {
+  customTypeByGroupIdSelector,
+  workSteamsByWorkSteamSelector,
+} from "@redux/features/system/selectors";
 import {
   isLoadingSelector,
   errorSelector,
   draftEnquirySelector,
+  schemesSelector,
+  trusteesSelector,
 } from "@redux/features/enrollmentEmployer/selectors";
 import {
   ldSrchCmpny,
@@ -18,11 +23,13 @@ const mapStateToProps = (state) => ({
   isLoading: isLoadingSelector(state),
   enquiry: draftEnquirySelector(state),
   error: errorSelector(state),
+  schemes: schemesSelector(state),
+  trustees: trusteesSelector(state),
   industryType: customTypeByGroupIdSelector(state, "NT"),
   registrationType: customTypeByGroupIdSelector(state, "CI"),
   typesOfCompany: customTypeByGroupIdSelector(state, "CP"),
-  // enrolmentStatus: customTypeByGroupIdSelector(state, "ST"),
-  // registrationStatus: customTypeByGroupIdSelector(state, "ST"),
+  enrollmentStatus: workSteamsByWorkSteamSelector(state, "ENR"),
+  registrationStatus: workSteamsByWorkSteamSelector(state, "REG"),
 });
 
 const mapDispatchToProps = (dispatch) => ({

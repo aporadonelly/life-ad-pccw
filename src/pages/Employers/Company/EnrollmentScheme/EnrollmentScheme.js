@@ -16,10 +16,21 @@ import {
   Box,
 } from "@material-ui/core";
 
-const EnrollmentScheme = ({ employer, schemes, push }) => {
-  console.log(employer);
-  console.log(schemes);
+const EnrollmentScheme = ({
+  employer,
+  schemes,
+  push,
+  setSelectedCompanyUUID,
+  setSelectedSchemeUUID,
+}) => {
   const { t } = useTranslation(["typography", "form", "table", "button"]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleViewEmployerInfo = ({ companyUuid, schemeUuid }) => {
+    // eslint-disable-next-line no-unused-expressions
+    setSelectedCompanyUUID({ companyUuid });
+    setSelectedSchemeUUID({ schemeUuid });
+  };
 
   const columns = useMemo(
     () => [
@@ -35,13 +46,17 @@ const EnrollmentScheme = ({ employer, schemes, push }) => {
         sticky: "right",
         disableSortBy: true,
         Cell: ({ row }) => {
-          console.log(row);
           return (
             <Tooltip title="Employer Enrollment Information" arrow>
               <img
                 src={ViewBtn}
                 alt=""
-                onClick={() => console.log("hey")}
+                onClick={() =>
+                  handleViewEmployerInfo({
+                    companyUuid: employer.companyId,
+                    schemeUuid: row.original.id,
+                  })
+                }
                 style={{
                   cursor: "pointer",
                 }}
@@ -51,7 +66,8 @@ const EnrollmentScheme = ({ employer, schemes, push }) => {
         },
       },
     ],
-    [t]
+    // eslint-disable-next-line no-use-before-define
+    [employer.companyId, handleViewEmployerInfo, t]
   );
 
   return (

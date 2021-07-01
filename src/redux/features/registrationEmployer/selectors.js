@@ -40,6 +40,11 @@ export const selectedClientUUIDSelector = createSelector(
   (state) => state.selectedClientUUID
 );
 
+export const selectedCompanyUUIDSelector = createSelector(
+  featureStateSelector,
+  (state) => state.selectedCompanyUUID
+);
+
 export const authorizedPersonsSelector = createSelector(
   featureStateSelector,
   authorizedPersonsSelectors.selectAll
@@ -49,6 +54,11 @@ export const authorizedPersonSelector = createSelector(
   featureStateSelector,
   selectedClientUUIDSelector,
   authorizedPersonsSelectors.selectById
+);
+
+export const registrationCompanyInformationSelector = createSelector(
+  featureStateSelector,
+  (state) => state.registrationCompanyInformation
 );
 
 export const authorizedPersonAddressByTypeIdSelector = createSelector(

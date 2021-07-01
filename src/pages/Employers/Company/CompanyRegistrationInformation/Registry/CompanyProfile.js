@@ -21,16 +21,18 @@ import SecondaryContactPerson from "./SecondaryContactPerson/SecondaryContactPer
 import SupportingDocsCard from "./SupportingDocsCard/SupportingDocsCard";
 
 const CompanyProfile = ({
-  LdRegCmpnyInfoforAdmnPrtl,
+  ldRegCmpnyInfoforAdmnPrtl,
   companyRegInfo,
   isLoading,
+  setSelectedClientUUID,
+  push,
 }) => {
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "table", "button"]);
 
   useEffect(() => {
-    LdRegCmpnyInfoforAdmnPrtl();
-  }, [LdRegCmpnyInfoforAdmnPrtl]);
+    ldRegCmpnyInfoforAdmnPrtl();
+  }, [ldRegCmpnyInfoforAdmnPrtl]);
 
   const {
     ldRegCmpnyInfoforAdmnPrtlProjection,
@@ -93,6 +95,8 @@ const CompanyProfile = ({
                 <AuthorizedPersonList
                   cmpnyRltdPrsns={cmpnyRltdPrsns}
                   companyId={id}
+                  setSelectedClientUUID={setSelectedClientUUID}
+                  push={push}
                 />
               )}
             </Grid>
@@ -125,7 +129,7 @@ const CompanyProfile = ({
               ) : (
                 <Button
                   data-testid="back-btn"
-                  onClick={() => history.push("/employers/enquiry")}
+                  onClick={() => history.push("/employers/enquiry/result")}
                 >
                   {t("button:back")}
                 </Button>

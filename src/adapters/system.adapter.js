@@ -24,6 +24,12 @@ class SystemAdapter extends AxiosAdapter {
       params: { groupId },
     });
   }
+
+  getWrkStrmSttsLst({ workstream }) {
+    return this.instance.get("/getWrkStrmSttsLst", {
+      params: { workstream },
+    });
+  }
 }
 
 export default new SystemAdapter({

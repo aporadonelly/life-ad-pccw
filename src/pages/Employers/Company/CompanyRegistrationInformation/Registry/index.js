@@ -1,21 +1,28 @@
 import { connect } from "react-redux";
 import CompanyProfile from "./CompanyProfile";
 import { bindActionCreators } from "redux";
-import { LdRegCmpnyInfoforAdmnPrtl } from "@redux/features/employers/actions";
+import { push } from "connected-react-router";
 import {
-  companyRegInfoSelector,
+  ldRegCmpnyInfoforAdmnPrtl,
+  setSelectedClientUUID,
+} from "@redux/features/registrationEmployer/actions";
+import {
+  registrationCompanyInformationSelector,
   isLoadingSelector,
   errorSelector,
-} from "@redux/features/employers/selectors";
+} from "@redux/features/registrationEmployer/selectors";
 
 const mapStateToProps = (state) => ({
   isLoading: isLoadingSelector(state),
   error: errorSelector(state),
-  companyRegInfo: companyRegInfoSelector(state),
+  companyRegInfo: registrationCompanyInformationSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  ...bindActionCreators({ LdRegCmpnyInfoforAdmnPrtl }, dispatch),
+  ...bindActionCreators(
+    { ldRegCmpnyInfoforAdmnPrtl, setSelectedClientUUID, push },
+    dispatch
+  ),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompanyProfile);

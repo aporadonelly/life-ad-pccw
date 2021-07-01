@@ -1,7 +1,20 @@
 import { createReducer, isAnyOf } from "@reduxjs/toolkit";
 import { identity, pickBy } from "lodash";
-import { initialState, employersAdapter } from "./state";
-import { draftEnquiry, setSelectedPnsnId, ldSrchCmpny } from "./actions";
+import {
+  initialState,
+  employersAdapter,
+  schemesAdapter,
+  trusteesAdapter,
+} from "./state";
+import {
+  draftEnquiry,
+  setSelectedPnsnId,
+  ldSrchCmpny,
+  getSchmLst,
+  getTrstLst,
+  setSelectedCompanyUUID,
+  setSelectedSchemeUUID,
+} from "./actions";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
 
@@ -27,6 +40,18 @@ const enrollmentEmployerReducer = createReducer(initialState, (builder) =>
     .addCase(ldSrchCmpny.fulfilled, (state, action) => {
       state.isLoading = false;
       employersAdapter.upsertMany(state.employers, action.payload.employers);
+    })
+    .addCase(getSchmLst.fulfilled, (state, action) => {
+      schemesAdapter.upsertMany(state.schemes, action.payload.schemes);
+    })
+    .addCase(getTrstLst.fulfilled, (state, action) => {
+      trusteesAdapter.upsertMany(state.trustees, action.payload.trustees);
+    })
+    .addCase(setSelectedCompanyUUID, (state, action) => {
+      state.selectedCompanyUUID = action.payload.companyUuid;
+    })
+    .addCase(setSelectedSchemeUUID, (state, action) => {
+      state.selectedSchemeUUID = action.payload.schemeUuid;
     })
     .addMatcher(isAnyOf(ldSrchCmpny.rejected), (state, action) => {
       state.isLoading = false;

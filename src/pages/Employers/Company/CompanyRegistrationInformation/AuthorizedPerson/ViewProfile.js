@@ -24,31 +24,32 @@ const data = [
   { value: 3, label: "With User Account", withUserAcct: true },
 ];
 
-const ViewProfile = (props) => {
-  const { viewAuthPerson, authPerson, getEmployers } = props;
+const ViewProfile = ({ ldCmpnyRltdPrsn, authPerson }) => {
+  console.log(authPerson, "authPerson");
+  // const {
+  //   id_type,
+  //   id_number,
+  //   date_of_birth,
+  //   nationality,
+  //   last_name_chinese,
+  //   first_name_chinese,
+  //   last_name,
+  //   first_name,
+  //   title,
+  //   job_title,
+  //   regOfcAdd,
+  //   address,
+  //   correspondence_address,
+  // } = get(authPerson, "[0]") ?? {};
 
-  const {
-    id_type,
-    id_number,
-    date_of_birth,
-    nationality,
-    last_name_chinese,
-    first_name_chinese,
-    last_name,
-    first_name,
-    title,
-    job_title,
-    regOfcAdd,
-    address,
-    correspondence_address,
-  } = get(authPerson, "[0]") ?? {};
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button"]);
 
   useEffect(() => {
-    getEmployers();
-    viewAuthPerson();
-  }, []);
+    ldCmpnyRltdPrsn({ cmpnyPrsnTypId: "CS_AP" });
+  }, [ldCmpnyRltdPrsn]);
+
+  return null;
 
   return (
     <Page>
@@ -234,6 +235,10 @@ const ViewProfile = (props) => {
       </PageInner>
     </Page>
   );
+};
+
+ViewProfile.defaultProps = {
+  authPerson: {},
 };
 
 export default ViewProfile;
