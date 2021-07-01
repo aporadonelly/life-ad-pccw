@@ -55,7 +55,6 @@ const registrationEmployerReducer = createReducer(initialState, (builder) =>
       state.registrationCompanyInformation = action.payload.regCmpnyInfo;
     })
     .addCase(setSelectedCompanyUUID, (state, action) => {
-      alert(action.payload.cmpnyUuid, "company uuid");
       state.selectedCompanyUUID = action.payload.cmpnyUuid;
     })
     .addCase(setSelectedClientUUID, (state, action) => {
