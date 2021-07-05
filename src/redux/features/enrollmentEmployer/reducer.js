@@ -10,11 +10,12 @@ import {
   draftEnquiry,
   setSelectedPnsnId,
   ldSrchCmpny,
-  getSchmLst,
-  getTrstLst,
+  // getSchmLst,
+  // getTrstLst,
   setSelectedCompanyUUID,
   setSelectedSchemeUUID,
 } from "./actions";
+import { getSchmLst, getTrstLst } from "@redux/features/system/actions";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
 
@@ -48,7 +49,7 @@ const enrollmentEmployerReducer = createReducer(initialState, (builder) =>
       trusteesAdapter.upsertMany(state.trustees, action.payload.trustees);
     })
     .addCase(setSelectedCompanyUUID, (state, action) => {
-      state.selectedCompanyUUID = action.payload.companyUuid;
+      state.selectedCompanyUUID = action.payloagetSchmLstd.companyUuid;
     })
     .addCase(setSelectedSchemeUUID, (state, action) => {
       state.selectedSchemeUUID = action.payload.schemeUuid;

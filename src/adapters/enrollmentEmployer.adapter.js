@@ -17,14 +17,6 @@ class EnrollmentEmployer extends AxiosAdapter {
       params: { cmpnyUuid, schmUuid },
     });
   }
-
-  getSchmLst() {
-    return this.instance.get("/getSchmLst");
-  }
-
-  getTrstLst() {
-    return this.instance.get("/getTrstLst");
-  }
 }
 
 export default new EnrollmentEmployer({

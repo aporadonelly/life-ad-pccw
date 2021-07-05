@@ -10,12 +10,9 @@ export const resetTermination = createAction(
 
 export const loadEmpSchemes = createAsyncThunk(
   "@@EMPF/TERMINATION/ldEETermEdtMd",
-  // async (_payload, { rejectWithValue }) => { // no payload
   async (payload, { rejectWithValue }) => {
     try {
       const clientSchemes = await terminationAdapter.getClientSchemes(payload);
-      //console.log("actions-termination", clientSchemes);
-      //console.log("actions-termination", payload);
       return { clientSchemes };
     } catch (error) {
       console.error(error);
