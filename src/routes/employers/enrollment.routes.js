@@ -5,6 +5,8 @@ import BeneficialOwner from "@pages/Employers/Enrollment/BeneficialOwner";
 import Director from "@pages/Employers/Enrollment/Director";
 import Partner from "@pages/Employers/Enrollment/Partner";
 import PayrollGroup from "@pages/Employers/Enrollment/PayrollGroup";
+import PayrollGroupContactPerson from "@pages/Employers/Enrollment/PayrollGroupContactPerson";
+import Grade from "@pages/Employers/Enrollment/Grade";
 import SelfCertification from "@pages/Employers/Enrollment/SelfCertification";
 
 const enrollmentRoutes = [
@@ -54,6 +56,18 @@ const enrollmentRoutes = [
     name: "Payroll Group",
     path: "/employers/enrollment/payroll-group",
     component: PayrollGroup,
+    tab: false,
+  },
+  {
+    name: "Payroll Group",
+    path: "/employers/enrollment/payroll-group-contact-person",
+    component: PayrollGroupContactPerson,
+    tab: false,
+  },
+  {
+    name: "Payroll Group",
+    path: "/employers/enrollment/grade",
+    component: Grade,
     tab: false,
   },
   {
