@@ -17,7 +17,6 @@ import { Definition } from "@components/misc";
 const data = [
   { value: 1, label: "Primary Contact Person" },
   { value: 2, label: "Secondary Contact Person" },
-  { value: 3, label: "With User Account", withUserAcct: true },
 ];
 
 const AuthorizedPerson = ({
@@ -39,7 +38,6 @@ const AuthorizedPerson = ({
     chineseFirstName,
     jbPstnTxt,
     cntryTypNm,
-    authPrsnContactList,
   } = authorizedPerson;
 
   const history = useHistory();
@@ -72,7 +70,7 @@ const AuthorizedPerson = ({
                     />
 
                     <Definition.Item
-                      dt={t("form:label.birthdate")}
+                      dt={t("form:label.dateOfBirth")}
                       dd={brthDt}
                     />
 
