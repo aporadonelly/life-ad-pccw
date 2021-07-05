@@ -26,7 +26,6 @@ const AuthorizedPerson = ({
   businessAddress,
   correspondenceAddress,
 }) => {
-  console.log(authorizedPerson, "authorizedPerson");
   const {
     idTypId,
     idNoTxt,

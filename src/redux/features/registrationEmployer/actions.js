@@ -7,7 +7,6 @@ export const ldCmpnyRltdPrsn = createAsyncThunk(
   async (payload, { rejectWithValue, getState }) => {
     try {
       const cmpnyUuid = selectedCompanyUUIDSelector(getState());
-      console.log(cmpnyUuid, "cmpnyUuid");
       const cmpnyRltdPrsn = await registrationEmployer.ldCmpnyRltdPrsn({
         cmpnyUuid,
         ...payload,
