@@ -9,11 +9,12 @@ import {
 import {
   draftEnquiry,
   setSelectedPnsnId,
+  setSelectedCompanyUUID,
+  setSelectedSchemeUUID,
+  setSelectedPayrollGroupUUID,
   ldSrchCmpny,
   getSchmLst,
   getTrstLst,
-  setSelectedCompanyUUID,
-  setSelectedSchemeUUID,
 } from "./actions";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
@@ -32,6 +33,15 @@ const enrollmentEmployerReducer = createReducer(initialState, (builder) =>
     .addCase(setSelectedPnsnId, (state, action) => {
       state.selectedPnsnId = action.payload.pnsnId;
     })
+    .addCase(setSelectedCompanyUUID, (state, action) => {
+      state.selectedCompanyUUID = action.payload.companyUuid;
+    })
+    .addCase(setSelectedSchemeUUID, (state, action) => {
+      state.selectedSchemeUUID = action.payload.schemeUuid;
+    })
+    .addCase(setSelectedPayrollGroupUUID, (state, action) => {
+      state.selectedPayrollGroupUUID = action.payload.payrollGrpUuid;
+    })
     .addCase(ldSrchCmpny.pending, (state, _action) => {
       state.isLoading = true;
       state.error = null;
@@ -46,12 +56,6 @@ const enrollmentEmployerReducer = createReducer(initialState, (builder) =>
     })
     .addCase(getTrstLst.fulfilled, (state, action) => {
       trusteesAdapter.upsertMany(state.trustees, action.payload.trustees);
-    })
-    .addCase(setSelectedCompanyUUID, (state, action) => {
-      state.selectedCompanyUUID = action.payload.companyUuid;
-    })
-    .addCase(setSelectedSchemeUUID, (state, action) => {
-      state.selectedSchemeUUID = action.payload.schemeUuid;
     })
     .addMatcher(isAnyOf(ldSrchCmpny.rejected), (state, action) => {
       state.isLoading = false;
