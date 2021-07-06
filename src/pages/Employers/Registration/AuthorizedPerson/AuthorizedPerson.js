@@ -116,13 +116,13 @@ const AuthorizedPerson = ({
                   justifyContent="space-between"
                   width="80%"
                 >
-                  {data.map(({ value, label, withUserAcct }, index) => {
+                  {data.map(({ value, label }, index) => {
                     return (
                       <>
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={withUserAcct}
+                              // checked={}
                               key={index}
                               name={label}
                               value={value}
