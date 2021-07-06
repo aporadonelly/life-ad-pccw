@@ -21,7 +21,11 @@
     "schemeName": "Scheme Name",
     "status": "Status",
     "enquiryResult": "Enquiries Result",
-    "employerRegOrEnrEnq": "Employer Registration or Enrollment Enquiries"
+    "employerRegOrEnrEnq": "Employer Registration or Enrollment Enquiries",
+    "employerEnrollmentInfo": "Employer Enrollment Information",
+    "particularsOfCompanyDirector": "Particulars of Company Director",
+    "beneficialOwner": "Beneficial Owner",
+    "partner": "Partner"
   },
   "paragraph": {},
   "labelCaption": ""

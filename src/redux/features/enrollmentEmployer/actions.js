@@ -61,6 +61,7 @@ export const ldEnrCmpnyInfo = createAsyncThunk(
         schmUuid,
         ...payload,
       });
+      console.log("enr actions:", enrCmpnyInfo);
       return { enrCmpnyInfo };
     } catch (error) {
       return rejectWithValue({ error });
