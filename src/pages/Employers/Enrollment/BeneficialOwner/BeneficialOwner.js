@@ -46,6 +46,7 @@ const BeneficialOwner = (props) => {
                     />
                     <Definition.Item dt="Nationality" dd={cntryTypNm} />
                     <Definition.Item
+                      xs={12}
                       dt="Residential Address"
                       dd={residentialAddress}
                     />
