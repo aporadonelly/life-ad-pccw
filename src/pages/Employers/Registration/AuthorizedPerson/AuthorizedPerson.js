@@ -25,6 +25,8 @@ const AuthorizedPerson = ({
   residentialAddress,
   businessAddress,
   correspondenceAddress,
+  setSelectedCompanyUUID,
+  setSelectedClientUUID,
 }) => {
   const {
     idTypId,
@@ -43,8 +45,12 @@ const AuthorizedPerson = ({
   const { t } = useTranslation(["typography", "form", "button"]);
 
   useEffect(() => {
+    setSelectedCompanyUUID({
+      cmpnyUuid: "7732B905-E9C1-4895-959E-FDCE74C856B3",
+    });
+    setSelectedClientUUID({ clntUuid: "385cdceb-5f17-4de3-831a-cc222006a219" });
     ldCmpnyRltdPrsn({ cmpnyPrsnTypId: "CS_AP" });
-  }, [ldCmpnyRltdPrsn]);
+  }, [ldCmpnyRltdPrsn, setSelectedCompanyUUID, setSelectedClientUUID]);
 
   return (
     <Grid container spacing={3}>

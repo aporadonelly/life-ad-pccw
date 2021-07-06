@@ -45,9 +45,9 @@ export const ldEnrCmpnyInfo = createAsyncThunk(
 );
 
 export const setSelectedCompanyUUID = createAction(
-  "@@empf/reg/er/setSelectedCompanyUUID"
+  "@@empf/enr/er/setSelectedCompanyUUID"
 );
 
 export const setSelectedSchemeUUID = createAction(
-  "@@empf/reg/er/setSelectedSchemeUUID"
+  "@@empf/enr/er/setSelectedSchemeUUID"
 );

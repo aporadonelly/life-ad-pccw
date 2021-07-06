@@ -5,7 +5,11 @@ import {
   authorizedPersonAddressByTypeIdSelector,
   authorizedPersonPhoneByTypeIdSelector,
 } from "@redux/features/registrationEmployer/selectors";
-import { ldCmpnyRltdPrsn } from "@redux/features/registrationEmployer/actions";
+import {
+  ldCmpnyRltdPrsn,
+  setSelectedClientUUID,
+  setSelectedCompanyUUID,
+} from "@redux/features/registrationEmployer/actions";
 import AuthorizedPerson from "./AuthorizedPerson";
 
 const mapStateToProps = (state) => ({
@@ -18,7 +22,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  ...bindActionCreators({ ldCmpnyRltdPrsn }, dispatch),
+  ...bindActionCreators(
+    { ldCmpnyRltdPrsn, setSelectedClientUUID, setSelectedCompanyUUID },
+    dispatch
+  ),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthorizedPerson);

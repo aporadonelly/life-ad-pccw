@@ -49,7 +49,7 @@ const enrollmentEmployerReducer = createReducer(initialState, (builder) =>
       trusteesAdapter.upsertMany(state.trustees, action.payload.trustees);
     })
     .addCase(setSelectedCompanyUUID, (state, action) => {
-      state.selectedCompanyUUID = action.payloagetSchmLstd.companyUuid;
+      state.selectedCompanyUUID = action.payload.companyUuid;
     })
     .addCase(setSelectedSchemeUUID, (state, action) => {
       state.selectedSchemeUUID = action.payload.schemeUuid;
