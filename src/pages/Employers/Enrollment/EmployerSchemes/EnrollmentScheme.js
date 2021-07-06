@@ -106,7 +106,7 @@ const EnrollmentScheme = ({
       <Grid item xs={12} align="right">
         <Button
           data-testid="back-btn"
-          onClick={() => push("/employers/enquiry/result")}
+          onClick={() => push("/employers/enquiries/result")}
         >
           {t("button:back")}
         </Button>

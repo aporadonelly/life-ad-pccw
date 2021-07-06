@@ -82,3 +82,27 @@ export const getWrkStrmSttsLst = createAsyncThunk(
     }
   }
 );
+
+export const getSchmLst = createAsyncThunk(
+  "@@empf/enr/er/getSchmLst",
+  async (_payload, { rejectWithValue }) => {
+    try {
+      const schemes = await systemAdapter.getSchmLst();
+      return { schemes };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const getTrstLst = createAsyncThunk(
+  "@@empf/enr/er/getTrstLst",
+  async (_payload, { rejectWithValue }) => {
+    try {
+      const trustees = await systemAdapter.getTrstLst();
+      return { trustees };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);

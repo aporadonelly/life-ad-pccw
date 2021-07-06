@@ -114,7 +114,7 @@ const CompanyProfile = ({
         ) : (
           <Button
             data-testid="back-btn"
-            onClick={() => history.push("/employers/enquiry/result")}
+            onClick={() => history.push("/employers/enquiries/result")}
           >
             {t("button:back")}
           </Button>

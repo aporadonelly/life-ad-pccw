@@ -13,9 +13,8 @@ import {
   setSelectedSchemeUUID,
   setSelectedPayrollGroupUUID,
   ldSrchCmpny,
-  getSchmLst,
-  getTrstLst,
 } from "./actions";
+import { getSchmLst, getTrstLst } from "@redux/features/system/actions";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
 
