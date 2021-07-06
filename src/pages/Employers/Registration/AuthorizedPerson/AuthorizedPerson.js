@@ -25,8 +25,6 @@ const AuthorizedPerson = ({
   residentialAddress,
   businessAddress,
   correspondenceAddress,
-  setSelectedCompanyUUID,
-  setSelectedClientUUID,
 }) => {
   const {
     idTypId,
@@ -45,12 +43,8 @@ const AuthorizedPerson = ({
   const { t } = useTranslation(["typography", "form", "button"]);
 
   useEffect(() => {
-    setSelectedCompanyUUID({
-      cmpnyUuid: "7732B905-E9C1-4895-959E-FDCE74C856B3",
-    });
-    setSelectedClientUUID({ clntUuid: "385cdceb-5f17-4de3-831a-cc222006a219" });
     ldCmpnyRltdPrsn({ cmpnyPrsnTypId: "CS_AP" });
-  }, [ldCmpnyRltdPrsn, setSelectedCompanyUUID, setSelectedClientUUID]);
+  }, [ldCmpnyRltdPrsn]);
 
   return (
     <Grid container spacing={3}>
@@ -206,7 +200,7 @@ const AuthorizedPerson = ({
         <Grid container component="dl" spacing={1} justify="flex-end">
           <Button
             data-testid="back-btn"
-            onClick={() => history.push("/employers/enquiries/result")}
+            onClick={() => history.push("/employers/registration/information")}
           >
             {t("button:backToCompanyProfile")}
           </Button>

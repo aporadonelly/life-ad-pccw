@@ -11,6 +11,18 @@ export const setSelectedPnsnId = createAction(
   "@@empf/enr/er/setSelectedPnsnId"
 );
 
+export const setSelectedCompanyUUID = createAction(
+  "@@empf/enr/er/setSelectedCompanyUUID"
+);
+
+export const setSelectedSchemeUUID = createAction(
+  "@@empf/enr/er/setSelectedSchemeUUID"
+);
+
+export const setSelectedPayrollGroupUUID = createAction(
+  "@@empf/enr/er/setSelectedPayrollGroupUUID"
+);
+
 export const ldSrchCmpny = createAsyncThunk(
   "@@empf/enr/er/ldSrchCmpny",
   async (payload, { rejectWithValue }) => {
@@ -44,10 +56,14 @@ export const ldEnrCmpnyInfo = createAsyncThunk(
   }
 );
 
-export const setSelectedCompanyUUID = createAction(
-  "@@empf/enr/er/setSelectedCompanyUUID"
-);
-
-export const setSelectedSchemeUUID = createAction(
-  "@@empf/enr/er/setSelectedSchemeUUID"
+export const ldGradeInfo = createAsyncThunk(
+  "@@empf/enr/er/ldGradeInfo",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const employers = await enrollmentEmployer.ldGradeInfo(payload);
+      return { employers };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
 );
