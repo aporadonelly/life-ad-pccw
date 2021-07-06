@@ -65,6 +65,7 @@ const registrationEmployerReducer = createReducer(initialState, (builder) =>
       (state, _action) => {
         state.isLoading = true;
         state.error = null;
+        state.registrationCompanyInformation = {};
       }
     )
     .addMatcher(
