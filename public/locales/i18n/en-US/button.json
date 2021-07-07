@@ -14,5 +14,7 @@
   "cancel": "CANCEL",
   "yes": "YES",
   "no": "NO",
-  "ok": "OK"
+  "ok": "OK",
+  "addPayrollGroup": "+ Add Payroll Group",
+  "addControllingPerson": "+ Add Controlling Person"
 }

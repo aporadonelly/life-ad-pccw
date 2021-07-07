@@ -2,12 +2,12 @@
   "thead": {
     "mpfId": "MPF ID",
     "employerAcctNo": "Employer Acc. No.",
-    "companyNameEnglish":  "Company Name (English)",
-    "companyNameChinese":  "Company Name (Chinese)",
-    "registrationType":"Registration Type" , 
+    "companyNameEnglish": "Company Name (English)",
+    "companyNameChinese": "Company Name (Chinese)",
+    "registrationType": "Registration Type",
     "registrationNumber": "Registration No.",
-    "branchNumber": "Branch Number" ,
-    "typesOfCompany":  "Type of Company",
+    "branchNumber": "Branch Number",
+    "typesOfCompany": "Type of Company",
     "dateOfIncorporation": "Date of Incorporation",
     "displayName": "Member Name",
     "idType": "ID Type",
@@ -15,6 +15,9 @@
     "mobileNumber": "Mobile Number",
     "email": "Email Address",
     "status": "Status",
+    "groupId": "Group ID",
+    "contributionFrequency": "Contribution Frequency",
+    "paymentMethod": "Payment Method",
     "custom": {
       "action": "Action",
       "view": "View"
@@ -23,7 +26,9 @@
     "chineseLastName": "Last Name in Chinese",
     "firstName": "First Name in English",
     "chineseFirstName": "First Name in Chinese",
-    "viewAction": "View"
+    "viewAction": "View",
+    "type": "Type",
+    "englishName": "English Name"
   },
   "tbody": {
     "custom": {

@@ -14,5 +14,7 @@
   "cancel": "取消",
   "yes": "是的",
   "no": "不",
-  "ok": "好的"
+  "ok": "好的",
+  "addPayrollGroup": "+ 添加工資組",
+  "addControllingPerson": "+ 添加控制人"
 }
