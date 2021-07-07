@@ -2,7 +2,7 @@ import { createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import { enrollmentEmployer } from "@adapters";
 import {
   selectedSchemeUUIDSelector,
-  selectedCompanyUUIDSelector,
+  selectedEmployerUUIDSelector,
 } from "./selectors";
 
 export const draftEnquiry = createAction("@@empf/enr/er/draftEnquiry");
@@ -13,6 +13,10 @@ export const setSelectedPnsnId = createAction(
 
 export const setSelectedCompanyUUID = createAction(
   "@@empf/enr/er/setSelectedCompanyUUID"
+);
+
+export const setSelectedEmployerUUID = createAction(
+  "@@empf/enr/er/setSelectedEmployerUUID"
 );
 
 export const setSelectedSchemeUUID = createAction(
@@ -42,10 +46,10 @@ export const ldEnrCmpnyInfo = createAsyncThunk(
   "@@empf/enr/er/ldEnrCmpnyInfo",
   async (payload, { rejectWithValue, getState }) => {
     try {
-      const cmpnyUuid = selectedCompanyUUIDSelector(getState());
+      const employerUuid = selectedEmployerUUIDSelector(getState());
       const schmUuid = selectedSchemeUUIDSelector(getState());
       const enrCmpnyInfo = await enrollmentEmployer.ldEnrCmpnyInfo({
-        cmpnyUuid,
+        employerUuid,
         schmUuid,
         ...payload,
       });

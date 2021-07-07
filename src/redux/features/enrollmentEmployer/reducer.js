@@ -10,6 +10,7 @@ import {
   draftEnquiry,
   setSelectedPnsnId,
   setSelectedCompanyUUID,
+  setSelectedEmployerUUID,
   setSelectedSchemeUUID,
   setSelectedPayrollGroupUUID,
   ldSrchCmpny,
@@ -34,6 +35,9 @@ const enrollmentEmployerReducer = createReducer(initialState, (builder) =>
     })
     .addCase(setSelectedCompanyUUID, (state, action) => {
       state.selectedCompanyUUID = action.payload.companyUuid;
+    })
+    .addCase(setSelectedEmployerUUID, (state, action) => {
+      state.selectedEmployerUUID = action.payload.employerUuid;
     })
     .addCase(setSelectedSchemeUUID, (state, action) => {
       state.selectedSchemeUUID = action.payload.schemeUuid;
