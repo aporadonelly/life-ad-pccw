@@ -20,7 +20,7 @@ const TableBody = () => {
               return (
                 <TableCell
                   className={classes.root}
-                  {...cell.getCellProps(cell.cellProps)}
+                  {...cell.getCellProps(cell.column.cellProps)}
                 >
                   {cell.render("Cell")}
                 </TableCell>
