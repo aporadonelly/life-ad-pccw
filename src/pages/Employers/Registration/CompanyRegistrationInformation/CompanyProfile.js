@@ -13,8 +13,8 @@ import { useHistory } from "react-router-dom";
 import AuthorizedPersonList from "./AuthPersonList/AuthPersonList";
 import CompanyRegInfoCard from "./CompanyRegInfoCard/CompanyRegInfoCard";
 import AddressCard from "./AddressCard";
-import PrimaryContactPerson from "./PrimaryContactPerson/PrimaryContactPerson";
-import SecondaryContactPerson from "./SecondaryContactPerson/SecondaryContactPerson";
+import PrimaryContactPerson from "./PrimaryContactPerson";
+import SecondaryContactPerson from "./SecondaryContactPerson";
 import SupportingDocsCard from "./SupportingDocsCard/SupportingDocsCard";
 
 const CompanyProfile = ({
@@ -81,17 +81,11 @@ const CompanyProfile = ({
       </Grid>
 
       <Grid item xs={12}>
-        <PrimaryContactPerson
-          contactDtos={contactDtos}
-          countryTyp={countryTyp}
-        />
+        <PrimaryContactPerson />
       </Grid>
 
       <Grid item xs={12}>
-        <SecondaryContactPerson
-          contactDtos={contactDtos}
-          countryTyp={countryTyp}
-        />
+        <SecondaryContactPerson />
       </Grid>
 
       <Grid item xs={12}>

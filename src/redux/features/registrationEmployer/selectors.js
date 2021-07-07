@@ -94,6 +94,12 @@ export const contactByTypeIdSelector = createSelector(
     find(registrationCompanyInformation?.contactDtos, { cntctPrsnTypId })
 );
 
+export const clientPhoneByTypeIdSelector = createSelector(
+  contactByTypeIdSelector,
+  (_contact, _cntctPrsnTypId, phnTypId) => phnTypId,
+  (contact, phnTypId) => find(contact?.clntPhones, { phnTypId })
+);
+
 export const authorizedPersonAddressByTypeIdSelector = createSelector(
   authorizedPersonSelector,
   (_, addrTypId) => addrTypId,
