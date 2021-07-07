@@ -32,7 +32,7 @@ const SupportingDocsCard = ({ contactDtos, countryTyp }) => {
                   {t("form:label.fileName")}
                 </Grid>
               </Grid>
-              <Grid item xs={12} style={{ paddingTop: 5 }}>
+              <Grid item xs={12}>
                 <Divider />
                 {supportingDocuments.map((item, index) => (
                   <CompanySupportingDocs

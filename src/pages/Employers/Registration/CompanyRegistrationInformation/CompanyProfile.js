@@ -34,7 +34,6 @@ const CompanyProfile = ({
   const {
     ldRegCmpnyInfoforAdmnPrtlProjection,
     cmpnyRltdPrsns,
-    contactDtos,
     countryTyp,
     customTypCmpnyTyp,
     customTypNt,
@@ -70,7 +69,7 @@ const CompanyProfile = ({
         {ldRegCmpnyInfoforAdmnPrtlProjection && <AddressCard />}
       </Grid>
       <Grid item xs={12}>
-        {cmpnyRltdPrsns && (
+        {!isEmpty(cmpnyRltdPrsns) && (
           <AuthorizedPersonList
             cmpnyRltdPrsns={cmpnyRltdPrsns}
             companyId={id}
@@ -116,7 +115,6 @@ CompanyProfile.propTypes = {
   companyRegInfo: PropTypes.shape({
     ldRegCmpnyInfoforAdmnPrtlProjection: PropTypes.object,
     cmpnyRltdPrsns: PropTypes.arrayOf(PropTypes.object),
-    contactDtos: PropTypes.arrayOf(PropTypes.object),
     supportingDocuments: PropTypes.arrayOf(PropTypes.object),
   }),
   LdRegCmpnyInfoforAdmnPrtl: PropTypes.func.isRequired,
@@ -126,7 +124,6 @@ CompanyProfile.defaultProps = {
   companyRegInfo: {
     ldRegCmpnyInfoforAdmnPrtlProjection: {},
     cmpnyRltdPrsns: [{}],
-    contactDtos: [{}],
     supportingDocuments: [{}],
   },
   LdRegCmpnyInfoforAdmnPrtl: () => {},
