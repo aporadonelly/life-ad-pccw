@@ -12,7 +12,7 @@ import { get, isEmpty } from "lodash";
 import { useHistory } from "react-router-dom";
 import AuthorizedPersonList from "./AuthPersonList/AuthPersonList";
 import CompanyRegInfoCard from "./CompanyRegInfoCard/CompanyRegInfoCard";
-import AddressCard from "./AddressCard/AddressCard";
+import AddressCard from "./AddressCard";
 import PrimaryContactPerson from "./PrimaryContactPerson/PrimaryContactPerson";
 import SecondaryContactPerson from "./SecondaryContactPerson/SecondaryContactPerson";
 import SupportingDocsCard from "./SupportingDocsCard/SupportingDocsCard";
@@ -67,13 +67,7 @@ const CompanyProfile = ({
       </Grid>
 
       <Grid item xs={12}>
-        {ldRegCmpnyInfoforAdmnPrtlProjection && (
-          <AddressCard
-            ldRegCmpnyInfoforAdmnPrtlProjection={
-              ldRegCmpnyInfoforAdmnPrtlProjection
-            }
-          />
-        )}
+        {ldRegCmpnyInfoforAdmnPrtlProjection && <AddressCard />}
       </Grid>
       <Grid item xs={12}>
         {cmpnyRltdPrsns && (
