@@ -22,6 +22,7 @@ export const initialState = enrollmentEmployer.getInitialState({
   draftEnquiry: {},
   selectedPnsnId: null,
   selectedCompanyUUID: null,
+  selectedEmployerUUID: null,
   selectedSchemeUUID: null,
   selectedPayrollGroupUUID: null,
   employers: employersAdapter.getInitialState(),

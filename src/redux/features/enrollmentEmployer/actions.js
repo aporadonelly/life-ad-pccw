@@ -1,8 +1,10 @@
 import { createAsyncThunk, createAction } from "@reduxjs/toolkit";
+import { compact, concat } from "lodash";
 import { enrollmentEmployer } from "@adapters";
 import {
-  selectedSchemeUUIDSelector,
   selectedCompanyUUIDSelector,
+  selectedEmployerUUIDSelector,
+  selectedSchemeUUIDSelector,
 } from "./selectors";
 
 export const draftEnquiry = createAction("@@empf/enr/er/draftEnquiry");
@@ -13,6 +15,10 @@ export const setSelectedPnsnId = createAction(
 
 export const setSelectedCompanyUUID = createAction(
   "@@empf/enr/er/setSelectedCompanyUUID"
+);
+
+export const setSelectedEmployerUUID = createAction(
+  "@@empf/enr/er/setSelectedEmployerUUID"
 );
 
 export const setSelectedSchemeUUID = createAction(
@@ -43,10 +49,23 @@ export const ldEnrCmpnyInfo = createAsyncThunk(
   async (payload, { rejectWithValue, getState }) => {
     try {
       const cmpnyUuid = selectedCompanyUUIDSelector(getState());
+      const employerUuid = selectedEmployerUUIDSelector(getState());
       const schmUuid = selectedSchemeUUIDSelector(getState());
-      const enrCmpnyInfo = await enrollmentEmployer.ldEnrCmpnyInfo({
+
+      const primaryContactPerson = await enrollmentEmployer.ldCntctPrsnInfo({
+        cntctPrsnTypId: "CT_PCP",
         cmpnyUuid,
+      });
+      const secondaryContactPerson = await enrollmentEmployer.ldCntctPrsnInfo({
+        cntctPrsnTypId: "CT_SCP",
+        cmpnyUuid,
+      });
+      const enrCmpnyInfo = await enrollmentEmployer.ldEnrCmpnyInfo({
+        employerUuid,
         schmUuid,
+        contactPersons: compact(
+          concat(primaryContactPerson, secondaryContactPerson)
+        ),
         ...payload,
       });
       return { enrCmpnyInfo };

@@ -1,8 +1,5 @@
-import React, { useMemo } from "react";
-import { companyRoutes } from "@routes/employers";
+import { useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import ViewBtn from "@assets/icons/view_btn.svg";
-import { DataTable } from "@components/common";
 import {
   Grid,
   Card,
@@ -13,22 +10,25 @@ import {
   Toolbar,
   Box,
 } from "@material-ui/core";
+import ViewBtn from "@assets/icons/view_btn.svg";
+import { DataTable } from "@components/common";
 
-const EnrollmentScheme = ({
-  employer,
-  schemes,
-  push,
-  setSelectedCompanyUUID,
-  setSelectedSchemeUUID,
-}) => {
+const EnrollmentScheme = (props) => {
+  const {
+    schemes,
+    setSelectedEmployerUUID,
+    setSelectedSchemeUUID,
+    push,
+  } = props;
   const { t } = useTranslation(["typography", "form", "table", "button"]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const handleViewEmployerInfo = ({ companyUuid, schemeUuid }) => {
-    // eslint-disable-next-line no-unused-expressions
-    setSelectedCompanyUUID({ companyUuid });
-    setSelectedSchemeUUID({ schemeUuid });
-  };
+  const handleClick = useCallback(
+    ({ employerUuid, schemeUuid }) => {
+      setSelectedEmployerUUID({ employerUuid });
+      setSelectedSchemeUUID({ schemeUuid });
+    },
+    [setSelectedEmployerUUID, setSelectedSchemeUUID]
+  );
 
   const columns = useMemo(
     () => [
@@ -43,29 +43,26 @@ const EnrollmentScheme = ({
         Header: t("table:thead.custom.view"),
         sticky: "right",
         disableSortBy: true,
-        Cell: ({ row }) => {
-          return (
-            <Tooltip title="Employer Enrollment Information" arrow>
-              <img
-                src={ViewBtn}
-                alt=""
-                onClick={() =>
-                  handleViewEmployerInfo({
-                    companyUuid: employer.companyId,
-                    schemeUuid: row.original.id,
-                  })
-                }
-                style={{
-                  cursor: "pointer",
-                }}
-              />
-            </Tooltip>
-          );
-        },
+        Cell: ({ row }) => (
+          <Tooltip title="Employer Enrollment Information" arrow>
+            <img
+              src={ViewBtn}
+              alt=""
+              onClick={() =>
+                handleClick({
+                  employerUuid: row.original.employer.od,
+                  schemeUuid: row.original.id,
+                })
+              }
+              style={{
+                cursor: "pointer",
+              }}
+            />
+          </Tooltip>
+        ),
       },
     ],
-    // eslint-disable-next-line no-use-before-define
-    [employer.companyId, handleViewEmployerInfo, t]
+    [handleClick, t]
   );
 
   return (
@@ -73,33 +70,29 @@ const EnrollmentScheme = ({
       <Grid item xs={12}>
         <Card>
           <CardContent>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                {schemes.length > 0 ? (
-                  <DataTable
-                    data={schemes}
-                    columns={columns}
-                    components={{
-                      Toolbar: () => (
-                        <Toolbar disableGutters>
-                          <Typography variant="h6" color="primary">
-                            {t("typography:heading.enrollmentScheme")}
-                          </Typography>
-                        </Toolbar>
-                      ),
-                    }}
-                  />
-                ) : (
-                  <Box display="flex">
-                    <Grid item xs={12} align="center">
+            {schemes.length > 0 ? (
+              <DataTable
+                data={schemes}
+                columns={columns}
+                components={{
+                  Toolbar: () => (
+                    <Toolbar disableGutters>
                       <Typography variant="h6" color="primary">
-                        {t("table:tbody.custom.noDataFound")}
+                        {t("typography:heading.enrollmentScheme")}
                       </Typography>
-                    </Grid>
-                  </Box>
-                )}
-              </Grid>
-            </Grid>
+                    </Toolbar>
+                  ),
+                }}
+              />
+            ) : (
+              <Box display="flex">
+                <Grid item xs={12} align="center">
+                  <Typography variant="h6" color="primary">
+                    {t("table:tbody.custom.noDataFound")}
+                  </Typography>
+                </Grid>
+              </Box>
+            )}
           </CardContent>
         </Card>
       </Grid>
