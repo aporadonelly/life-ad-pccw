@@ -21,7 +21,7 @@ const TableHeader = () => {
                 column.isSorted ? (column.isSortedDesc ? "desc" : "asc") : false
               }
               className={classes.root}
-              {...column.getHeaderProps()}
+              {...column.getHeaderProps(column.headerProps)}
             >
               {column.canSort ? (
                 <TableSortLabel

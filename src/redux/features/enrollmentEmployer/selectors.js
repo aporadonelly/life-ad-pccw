@@ -1,5 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { reduce, map, concat, compact } from "lodash";
+import { reduce, map, concat, compact, find } from "lodash";
 import { employersAdapter, schemesAdapter, trusteesAdapter } from "./state";
 
 export const employersSelectors = employersAdapter.getSelectors(
@@ -36,6 +36,11 @@ export const selectedPnsnIdSelector = createSelector(
   (state) => state.selectedPnsnId
 );
 
+export const selectedEmployerUUIDSelector = createSelector(
+  featureStateSelector,
+  (state) => state.selectedEmployerUUID
+);
+
 export const selectedSchemeUUIDSelector = createSelector(
   featureStateSelector,
   (state) => state.selectedSchemeUUID
@@ -44,6 +49,18 @@ export const selectedSchemeUUIDSelector = createSelector(
 export const selectedCompanyUUIDSelector = createSelector(
   featureStateSelector,
   (state) => state.selectedCompanyUUID
+);
+
+export const enrCompanyInfoSelector = createSelector(
+  featureStateSelector,
+  employersSelectors.enrCompanyInfo
+);
+
+export const enrContactByTypeIdSelector = createSelector(
+  enrCompanyInfoSelector,
+  (_, cntctPrsnTypId) => cntctPrsnTypId,
+  (enrCompanyInfo, cntctPrsnTypId) =>
+    find(enrCompanyInfo?.contactPersons, { cntctPrsnTypId })
 );
 
 export const employersSelector = createSelector(

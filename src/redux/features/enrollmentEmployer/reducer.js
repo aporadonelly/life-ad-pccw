@@ -10,9 +10,11 @@ import {
   draftEnquiry,
   setSelectedPnsnId,
   setSelectedCompanyUUID,
+  setSelectedEmployerUUID,
   setSelectedSchemeUUID,
   setSelectedPayrollGroupUUID,
   ldSrchCmpny,
+  ldEnrCmpnyInfo,
 } from "./actions";
 import { getSchmLst, getTrstLst } from "@redux/features/system/actions";
 import { persistReducer } from "redux-persist";
@@ -35,6 +37,9 @@ const enrollmentEmployerReducer = createReducer(initialState, (builder) =>
     .addCase(setSelectedCompanyUUID, (state, action) => {
       state.selectedCompanyUUID = action.payload.companyUuid;
     })
+    .addCase(setSelectedEmployerUUID, (state, action) => {
+      state.selectedEmployerUUID = action.payload.employerUuid;
+    })
     .addCase(setSelectedSchemeUUID, (state, action) => {
       state.selectedSchemeUUID = action.payload.schemeUuid;
     })
@@ -46,9 +51,18 @@ const enrollmentEmployerReducer = createReducer(initialState, (builder) =>
       state.error = null;
       employersAdapter.setAll(state.employers, []);
     })
+    .addCase(ldEnrCmpnyInfo.pending, (state, _action) => {
+      state.isLoading = false;
+      state.error = null;
+      state.enrCompanyInfo = {};
+    })
     .addCase(ldSrchCmpny.fulfilled, (state, action) => {
       state.isLoading = false;
       employersAdapter.upsertMany(state.employers, action.payload.employers);
+    })
+    .addCase(ldEnrCmpnyInfo.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.enrCompanyInfo = action.payload.enrCmpnyInfo;
     })
     .addCase(getSchmLst.fulfilled, (state, action) => {
       schemesAdapter.upsertMany(state.schemes, action.payload.schemes);
@@ -56,10 +70,13 @@ const enrollmentEmployerReducer = createReducer(initialState, (builder) =>
     .addCase(getTrstLst.fulfilled, (state, action) => {
       trusteesAdapter.upsertMany(state.trustees, action.payload.trustees);
     })
-    .addMatcher(isAnyOf(ldSrchCmpny.rejected), (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload.error;
-    })
+    .addMatcher(
+      isAnyOf(ldSrchCmpny.rejected, ldEnrCmpnyInfo.rejected),
+      (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload.error;
+      }
+    )
 );
 
 export default persistReducer(persistConfig, enrollmentEmployerReducer);

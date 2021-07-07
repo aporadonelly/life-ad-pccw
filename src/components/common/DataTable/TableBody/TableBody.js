@@ -18,7 +18,10 @@ const TableBody = () => {
           <TableRow {...row.getRowProps()}>
             {row.cells.map((cell) => {
               return (
-                <TableCell className={classes.root} {...cell.getCellProps()}>
+                <TableCell
+                  className={classes.root}
+                  {...cell.getCellProps(cell.column.cellProps)}
+                >
                   {cell.render("Cell")}
                 </TableCell>
               );

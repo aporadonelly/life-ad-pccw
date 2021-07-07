@@ -15,8 +15,8 @@ import { useHistory } from "react-router-dom";
 import { Definition } from "@components/misc";
 
 const data = [
-  { value: 1, label: "Primary Contact Person" },
-  { value: 2, label: "Secondary Contact Person" },
+  { value: "CT_PCP", label: "Primary Contact Person" },
+  { value: "CT_SCP", label: "Secondary Contact Person" },
 ];
 
 const AuthorizedPerson = ({
@@ -27,7 +27,7 @@ const AuthorizedPerson = ({
   correspondenceAddress,
 }) => {
   const {
-    idTypId,
+    idTypNm,
     idNoTxt,
     brthDt,
     ttlTypNm,
@@ -37,6 +37,7 @@ const AuthorizedPerson = ({
     chineseFirstName,
     jbPstnTxt,
     cntryTypNm,
+    authPrsnContactList,
   } = authorizedPerson;
 
   const history = useHistory();
@@ -61,7 +62,7 @@ const AuthorizedPerson = ({
               <Grid item xs={12}>
                 <Definition spacing={2} xs={3}>
                   <Definition.List>
-                    <Definition.Item dt={t("form:label.idType")} dd={idTypId} />
+                    <Definition.Item dt={t("form:label.idType")} dd={idTypNm} />
 
                     <Definition.Item
                       dt={t("form:label.idNumber")}
@@ -116,7 +117,9 @@ const AuthorizedPerson = ({
                         <FormControlLabel
                           control={
                             <Checkbox
-                              // checked={}
+                              checked={
+                                authPrsnContactList[0].cntctPrsnTypId === value
+                              }
                               key={index}
                               name={label}
                               value={value}
