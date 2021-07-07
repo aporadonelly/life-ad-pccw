@@ -41,15 +41,26 @@ const AuthorizedPerson = ({
   } = authorizedPerson;
 
   const history = useHistory();
-  const { t } = useTranslation(["typography", "form", "button"]);
+  const { t } = useTranslation(["typography", "form", "button", "table"]);
 
   useEffect(() => {
     ldCmpnyRltdPrsn({ cmpnyPrsnTypId: "CS_AP" });
   }, [ldCmpnyRltdPrsn]);
 
+  if (Object.keys(authorizedPerson).length === 0) {
+    return (
+      <Box display="flex">
+        <Grid item xs={12} align="center">
+          <Typography variant="h6" color="primary">
+            {t("table:tbody.custom.noDataFound")}
+          </Typography>
+        </Grid>
+      </Box>
+    );
+  }
+
   return (
     <Grid container spacing={3}>
-      {/* Authorized Person */}
       <Grid item xs={12}>
         <Card>
           <CardContent>
@@ -118,7 +129,8 @@ const AuthorizedPerson = ({
                           control={
                             <Checkbox
                               checked={
-                                authPrsnContactList[0].cntctPrsnTypId === value
+                                authPrsnContactList?.[0]?.cntctPrsnTypId ===
+                                value
                               }
                               key={index}
                               name={label}

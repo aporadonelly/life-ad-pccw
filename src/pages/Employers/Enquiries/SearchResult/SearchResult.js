@@ -53,6 +53,11 @@ const SearchResult = ({
     { Header: t("table:thead.status"), accessor: "registrationStatus" },
     {
       Header: t("table:thead.custom.view"),
+      headerProps: {
+        style: {
+          textAlign: "center",
+        },
+      },
       sticky: "right",
       disableSortBy: true,
       Cell: ({ row }) => {
