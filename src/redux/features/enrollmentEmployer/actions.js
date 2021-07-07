@@ -1,8 +1,10 @@
 import { createAsyncThunk, createAction } from "@reduxjs/toolkit";
+import { compact, concat } from "lodash";
 import { enrollmentEmployer } from "@adapters";
 import {
-  selectedSchemeUUIDSelector,
+  selectedCompanyUUIDSelector,
   selectedEmployerUUIDSelector,
+  selectedSchemeUUIDSelector,
 } from "./selectors";
 
 export const draftEnquiry = createAction("@@empf/enr/er/draftEnquiry");
@@ -46,11 +48,24 @@ export const ldEnrCmpnyInfo = createAsyncThunk(
   "@@empf/enr/er/ldEnrCmpnyInfo",
   async (payload, { rejectWithValue, getState }) => {
     try {
+      const cmpnyUuid = selectedCompanyUUIDSelector(getState());
       const employerUuid = selectedEmployerUUIDSelector(getState());
       const schmUuid = selectedSchemeUUIDSelector(getState());
+
+      const primaryContactPerson = await enrollmentEmployer.ldCntctPrsnInfo({
+        cntctPrsnTypId: "CT_PCP",
+        cmpnyUuid,
+      });
+      const secondaryContactPerson = await enrollmentEmployer.ldCntctPrsnInfo({
+        cntctPrsnTypId: "CT_SCP",
+        cmpnyUuid,
+      });
       const enrCmpnyInfo = await enrollmentEmployer.ldEnrCmpnyInfo({
         employerUuid,
         schmUuid,
+        contactPersons: compact(
+          concat(primaryContactPerson, secondaryContactPerson)
+        ),
         ...payload,
       });
       return { enrCmpnyInfo };

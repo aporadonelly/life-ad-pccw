@@ -12,9 +12,9 @@ class EnrollmentEmployer extends AxiosAdapter {
   }
 
   ldEnrCmpnyInfo(payload) {
-    const { employerUuid, schmUuid } = payload;
+    const { cmpnyUuid, schmUuid } = payload;
     return this.instance.get("/ldEnrCmpnyInfo", {
-      params: { cmpnyUuid: employerUuid, schmUuid },
+      params: { cmpnyUuid, schmUuid },
     });
   }
 
