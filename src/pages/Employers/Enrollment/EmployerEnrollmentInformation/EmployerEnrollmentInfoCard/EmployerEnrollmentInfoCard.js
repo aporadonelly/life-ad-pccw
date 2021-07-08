@@ -7,7 +7,6 @@ import { Grid, Card, CardContent, Typography } from "@material-ui/core";
 
 const EmployerEnrollmentInfoCard = ({ enrCompanyInfo, customTypes }) => {
   const { t } = useTranslation(["typography", "form", "table", "button"]);
-  console.log("cus", customTypes);
   const {
     cmpnyBrnchInfo,
     cntryTypNm,
@@ -19,7 +18,6 @@ const EmployerEnrollmentInfoCard = ({ enrCompanyInfo, customTypes }) => {
   } = enrCompanyInfo;
   const { company, lnggTypId } = get(cmpnyBrnchInfo, "[0]") ?? {};
   const { agent } = get(entityAgent, "[0]") ?? {};
-
   return (
     <Card>
       <CardContent>
@@ -81,7 +79,7 @@ const EmployerEnrollmentInfoCard = ({ enrCompanyInfo, customTypes }) => {
                 <Definition.Item
                   xs={3}
                   dt={t("form:label.registrationType")}
-                  // dd={customTypes?.[idNo?.idTypId]?.cstmTypDtlTxt}
+                  dd={customTypes?.[idNo?.idTypId]?.cstmTypDtlTxt}
                 />
                 <Definition.Item
                   xs={3}

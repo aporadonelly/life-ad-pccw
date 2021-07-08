@@ -11,8 +11,6 @@ const AddressCard = ({
 }) => {
   const { t } = useTranslation(["typography", "form", "table", "button"]);
 
-  console.log("enrCompanyInfo:", enrCompanyInfo);
-
   return (
     <Card>
       <CardContent>

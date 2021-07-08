@@ -5,6 +5,8 @@ import {
   countriesAdapter,
   termReasonsAdapter,
   workStreamsAdapter,
+  schemesAdapter,
+  trusteesAdapter,
 } from "./state";
 
 export const customTypesSelectors = customTypesAdapter.getSelectors(
@@ -21,6 +23,14 @@ export const termReasonsSelectors = termReasonsAdapter.getSelectors(
 
 export const workStreamsSelectors = workStreamsAdapter.getSelectors(
   (state) => state.workStreams
+);
+
+export const schemesSelectors = schemesAdapter.getSelectors(
+  (state) => state.schemes
+);
+
+export const trusteesSelectors = trusteesAdapter.getSelectors(
+  (state) => state.trustees
 );
 
 export const featureStateSelector = (state) => state.system;
@@ -68,6 +78,11 @@ export const customTypeByIdSelector = createSelector(
   customTypesSelectors.selectById
 );
 
+export const customTypesEntitiesSelector = createSelector(
+  featureStateSelector,
+  customTypesSelectors.selectEntities
+);
+
 export const countriesSelector = createSelector(
   featureStateSelector,
   countriesSelectors.selectAll
@@ -77,6 +92,11 @@ export const countrySelector = createSelector(
   featureStateSelector,
   (_state, cntryTypCd) => cntryTypCd,
   countriesSelectors.selectById
+);
+
+export const countriesEntitiesSelector = createSelector(
+  featureStateSelector,
+  countriesSelectors.selectEntities
 );
 
 export const termReasonsSelector = createSelector(
@@ -99,4 +119,24 @@ export const workSteamsByWorkSteamSelector = createSelector(
   workSteamsSelector,
   (_state, workStream) => workStream,
   (state, workStream) => filter(state, { workStream })
+);
+
+export const schemesSelector = createSelector(
+  featureStateSelector,
+  schemesSelectors.selectAll
+);
+
+export const schemesEntitiesSelector = createSelector(
+  featureStateSelector,
+  schemesSelectors.selectEntities
+);
+
+export const trusteesSelector = createSelector(
+  featureStateSelector,
+  trusteesSelectors.selectAll
+);
+
+export const trusteesEntitiesSelector = createSelector(
+  featureStateSelector,
+  trusteesSelectors.selectEntities
 );

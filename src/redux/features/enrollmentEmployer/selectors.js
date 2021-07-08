@@ -1,20 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
-import {
-  reduce,
-  map,
-  concat,
-  compact,
-  find,
-  filter,
-  values,
-  pick,
-} from "lodash";
-import {
-  employersAdapter,
-  contactPersonsAdapter,
-  schemesAdapter,
-  trusteesAdapter,
-} from "./state";
+import { reduce, map, concat, compact, find } from "lodash";
+import { employersAdapter, contactPersonsAdapter } from "./state";
 
 export const employersSelectors = employersAdapter.getSelectors(
   (state) => state.employers
@@ -22,14 +8,6 @@ export const employersSelectors = employersAdapter.getSelectors(
 
 export const contactPersonsSelectors = contactPersonsAdapter.getSelectors(
   (state) => state.contactPersons
-);
-
-export const schemesSelectors = schemesAdapter.getSelectors(
-  (state) => state.schemes
-);
-
-export const trusteesSelectors = trusteesAdapter.getSelectors(
-  (state) => state.trustees
 );
 
 export const featureStateSelector = (state) => state.enrollmentEmployer;
@@ -81,25 +59,6 @@ export const enrContactByTypeIdSelector = createSelector(
     find(enrCompanyInfo?.contactPersons, { cntctPrsnTypId })
 );
 
-// export const enrAddressByTypeIdSelector = createSelector(
-//   enrCompanyInfoSelector,
-//   (_, addrTypId) => addrTypId,
-//   (enrCompanyInfo, addrTypId) =>
-//     compact(
-//       values(
-//         pick(find(enrCompanyInfo?.regAddress, { addrTypId }), [
-//           "addrRmTxt",
-//           "addrFlrTxt",
-//           "addrBldngNmTxt",
-//           "addrBlckTxt",
-//           "addrStrtTxt",
-//           "addrCtyTxt",
-//           "addrDstrctTxt",
-//         ])
-//       )
-//     ).join(" ")
-// );
-
 export const gradeInfoSelector = createSelector(
   featureStateSelector,
   (state) => state.gradeInfo
@@ -119,16 +78,6 @@ export const employerSelector = createSelector(
 export const contactPersonsSelector = createSelector(
   featureStateSelector,
   contactPersonsSelectors.selectAll
-);
-
-export const schemesSelector = createSelector(
-  featureStateSelector,
-  schemesSelectors.selectAll
-);
-
-export const trusteesSelector = createSelector(
-  featureStateSelector,
-  trusteesSelectors.selectAll
 );
 
 export const employerSchemesSelector = createSelector(

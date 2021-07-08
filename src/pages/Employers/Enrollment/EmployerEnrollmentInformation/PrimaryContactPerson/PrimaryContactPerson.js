@@ -4,18 +4,19 @@ import { Grid, Card, CardContent, Typography } from "@material-ui/core";
 import { Definition } from "@components/misc";
 import { get, sortBy } from "lodash";
 
-const PrimaryContactPerson = ({ contactPersons }) => {
+const PrimaryContactPerson = ({ enrCompanyInfo }) => {
   const { t } = useTranslation(["typography", "form", "table", "button"]);
 
-  const { companyContactList, companyPhoneList } =
-    get(contactPersons, "[0]") ?? [];
-  const primaryContact = sortBy(companyContactList, "cntctPrsnTypNm") ?? [];
-  const { ttlTypNm, cntctPrsnNm, lnggTypNm, emlAddrTxt } =
-    get(primaryContact, "[0]") ?? [];
+  const { primaryContactPerson, companyPhoneList } = enrCompanyInfo ?? {};
+  // const primaryContact = sortBy(primaryContactPerson, "cntctPrsnTypNm") ?? [];
+  // const { ttlTypNm, cntctPrsnNm, lnggTypNm, emlAddrTxt } =
+  //   get(primaryContact, "[0]") ?? [];
 
-  const phoneList = sortBy(companyPhoneList, "phnTypId") ?? [];
-  const mobilePhone = get(phoneList, "[0]") ?? {};
-  const telePhone = get(phoneList, "[2]") ?? {};
+  // const phoneList = sortBy(companyPhoneList, "phnTypId") ?? [];
+  // const mobilePhone = get(phoneList, "[0]") ?? {};
+  // const telePhone = get(phoneList, "[2]") ?? {};
+  // console.log("primary:", primaryContactPerson);
+  // console.log("Secondary", secondaryContactPerson);
 
   return (
     <Card>
@@ -35,36 +36,43 @@ const PrimaryContactPerson = ({ contactPersons }) => {
                 <Definition.Item
                   xs={3}
                   dt={t("form:label.title")}
-                  dd={ttlTypNm}
+                  dd={primaryContactPerson?.title}
                 />
                 <Definition.Item
                   xs={3}
                   dt={t("form:label.lastNameContactPerson")}
-                  dd={cntctPrsnNm}
+                  dd={primaryContactPerson?.lstNm}
                 />
                 <Definition.Item
                   xs={3}
                   dt={t("form:label.firstNameContactPerson")}
-                  // dd={natureOfBusiness}
+                  dd={primaryContactPerson?.frstNm}
                 />
 
                 <Definition.Item
                   xs={3}
                   dt={t("form:label.jobTitle")}
-                  // dd={natureOfBusiness}
+                  dd={primaryContactPerson?.jbPstnTxt}
                 />
                 <Definition.Item
                   dt={t("form:label.telNo")}
-                  dd={`${telePhone?.telCntryCdNmbr} ${telePhone?.phnNmbr}`}
+                  // dd={`${telePhone?.telCntryCdNmbr} ${telePhone?.phnNmbr}`}
                 />
                 <Definition.Item
                   dt={t("form:label.mobileNo")}
-                  dd={`${mobilePhone?.telCntryCdNmbr} ${mobilePhone?.phnNmbr}`}
+                  // dd={`${mobilePhone?.telCntryCdNmbr} ${mobilePhone?.phnNmbr}`}
                 />
-                <Definition.Item dt={t("form:label.email")} dd={emlAddrTxt} />
+                <Definition.Item
+                  dt={t("form:label.email")}
+                  dd={primaryContactPerson?.emlAddrTxt}
+                />
                 <Definition.Item
                   dt={t("form:label.preferredCommunicationLanguage")}
-                  dd={lnggTypNm}
+                  dd={
+                    primaryContactPerson?.lnggTypId === "LG_EN"
+                      ? "English"
+                      : "Chinese"
+                  }
                 />
               </Definition.List>
             </Definition>
