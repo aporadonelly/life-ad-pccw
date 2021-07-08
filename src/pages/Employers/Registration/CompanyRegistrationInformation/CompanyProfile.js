@@ -12,9 +12,9 @@ import { get, isEmpty } from "lodash";
 import { useHistory } from "react-router-dom";
 import AuthorizedPersonList from "./AuthPersonList/AuthPersonList";
 import CompanyRegInfoCard from "./CompanyRegInfoCard/CompanyRegInfoCard";
-import AddressCard from "./AddressCard/AddressCard";
-import PrimaryContactPerson from "./PrimaryContactPerson/PrimaryContactPerson";
-import SecondaryContactPerson from "./SecondaryContactPerson/SecondaryContactPerson";
+import AddressCard from "./AddressCard";
+import PrimaryContactPerson from "./PrimaryContactPerson";
+import SecondaryContactPerson from "./SecondaryContactPerson";
 import SupportingDocsCard from "./SupportingDocsCard/SupportingDocsCard";
 
 const CompanyProfile = ({
@@ -34,7 +34,6 @@ const CompanyProfile = ({
   const {
     ldRegCmpnyInfoforAdmnPrtlProjection,
     cmpnyRltdPrsns,
-    contactDtos,
     countryTyp,
     customTypCmpnyTyp,
     customTypNt,
@@ -67,16 +66,10 @@ const CompanyProfile = ({
       </Grid>
 
       <Grid item xs={12}>
-        {ldRegCmpnyInfoforAdmnPrtlProjection && (
-          <AddressCard
-            ldRegCmpnyInfoforAdmnPrtlProjection={
-              ldRegCmpnyInfoforAdmnPrtlProjection
-            }
-          />
-        )}
+        {ldRegCmpnyInfoforAdmnPrtlProjection && <AddressCard />}
       </Grid>
       <Grid item xs={12}>
-        {cmpnyRltdPrsns && (
+        {!isEmpty(cmpnyRltdPrsns) && (
           <AuthorizedPersonList
             cmpnyRltdPrsns={cmpnyRltdPrsns}
             companyId={id}
@@ -87,17 +80,11 @@ const CompanyProfile = ({
       </Grid>
 
       <Grid item xs={12}>
-        <PrimaryContactPerson
-          contactDtos={contactDtos}
-          countryTyp={countryTyp}
-        />
+        <PrimaryContactPerson />
       </Grid>
 
       <Grid item xs={12}>
-        <SecondaryContactPerson
-          contactDtos={contactDtos}
-          countryTyp={countryTyp}
-        />
+        <SecondaryContactPerson />
       </Grid>
 
       <Grid item xs={12}>
@@ -128,7 +115,6 @@ CompanyProfile.propTypes = {
   companyRegInfo: PropTypes.shape({
     ldRegCmpnyInfoforAdmnPrtlProjection: PropTypes.object,
     cmpnyRltdPrsns: PropTypes.arrayOf(PropTypes.object),
-    contactDtos: PropTypes.arrayOf(PropTypes.object),
     supportingDocuments: PropTypes.arrayOf(PropTypes.object),
   }),
   LdRegCmpnyInfoforAdmnPrtl: PropTypes.func.isRequired,
@@ -138,7 +124,6 @@ CompanyProfile.defaultProps = {
   companyRegInfo: {
     ldRegCmpnyInfoforAdmnPrtlProjection: {},
     cmpnyRltdPrsns: [{}],
-    contactDtos: [{}],
     supportingDocuments: [{}],
   },
   LdRegCmpnyInfoforAdmnPrtl: () => {},
