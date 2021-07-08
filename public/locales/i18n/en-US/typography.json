@@ -21,7 +21,8 @@
     "schemeName": "Scheme Name",
     "status": "Status",
     "enquiryResult": "Enquiries Result",
-    "employerRegOrEnrEnq": "Employer Registration or Enrollment Enquiries"
+    "employerRegOrEnrEnq": "Employer Registration or Enrollment Enquiries",
+    "payrollGroupContctPerson": "Payroll Group Contact Person"
   },
   "paragraph": {},
   "labelCaption": ""
