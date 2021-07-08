@@ -17,12 +17,12 @@ export const workStreamsAdapter = createEntityAdapter({
 });
 
 export const schemesAdapter = createEntityAdapter({
-  selectId: (scheme) => scheme.name,
+  selectId: (scheme) => scheme.id,
   sortComparer: (a, b) => a.name.localeCompare(b.name),
 });
 
 export const trusteesAdapter = createEntityAdapter({
-  selectId: (trustee) => trustee.name,
+  selectId: (trustee) => trustee.id,
   sortComparer: (a, b) => a.name.localeCompare(b.name),
 });
 
