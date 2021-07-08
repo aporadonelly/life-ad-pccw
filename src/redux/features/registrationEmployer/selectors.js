@@ -98,6 +98,25 @@ export const directorSelector = createSelector(
   directorsSelectors.selectById
 );
 
+export const directorAddressByTypeIdSelector = createSelector(
+  directorSelector,
+  (_, addrTypId) => addrTypId,
+  (director, addrTypId) =>
+    compact(
+      values(
+        pick(find(director?.authPrsnAddressList, { addrTypId }), [
+          "addrRmTxt",
+          "addrFlrTxt",
+          "addrBldngNmTxt",
+          "addrBlckTxt",
+          "addrStrtTxt",
+          "addrCtyTxt",
+          "addrDstrctTxt",
+        ])
+      )
+    ).join(" ")
+);
+
 export const partnersSelector = createSelector(
   featureStateSelector,
   partnersSelectors.selectAll
@@ -109,6 +128,25 @@ export const partnerSelector = createSelector(
   partnersSelectors.selectById
 );
 
+export const partnerAddressByTypeIdSelector = createSelector(
+  partnerSelector,
+  (_, addrTypId) => addrTypId,
+  (partner, addrTypId) =>
+    compact(
+      values(
+        pick(find(partner?.authPrsnAddressList, { addrTypId }), [
+          "addrRmTxt",
+          "addrFlrTxt",
+          "addrBldngNmTxt",
+          "addrBlckTxt",
+          "addrStrtTxt",
+          "addrCtyTxt",
+          "addrDstrctTxt",
+        ])
+      )
+    ).join(" ")
+);
+
 export const beneficialOwnersSelector = createSelector(
   featureStateSelector,
   beneficialOwnersSelectors.selectAll
@@ -118,4 +156,23 @@ export const beneficialOwnerSelector = createSelector(
   featureStateSelector,
   selectedClientUUIDSelector,
   beneficialOwnersSelectors.selectById
+);
+
+export const beneficialOwnerAddressByTypeIdSelector = createSelector(
+  beneficialOwnerSelector,
+  (_, addrTypId) => addrTypId,
+  (beneficialOwner, addrTypId) =>
+    compact(
+      values(
+        pick(find(beneficialOwner?.authPrsnAddressList, { addrTypId }), [
+          "addrRmTxt",
+          "addrFlrTxt",
+          "addrBldngNmTxt",
+          "addrBlckTxt",
+          "addrStrtTxt",
+          "addrCtyTxt",
+          "addrDstrctTxt",
+        ])
+      )
+    ).join(" ")
 );

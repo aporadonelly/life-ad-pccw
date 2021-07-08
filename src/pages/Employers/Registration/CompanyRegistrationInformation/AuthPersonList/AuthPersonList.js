@@ -22,7 +22,7 @@ const AuthorizedPersonList = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleViewMembersDetails = ({ clntUuid }) => {
     setSelectedClientUUID({ clntUuid });
-    push("/employers/company/reg-info/authorized");
+    push("/employers/registration/authorized-person");
   };
   const columns = useMemo(
     () => [

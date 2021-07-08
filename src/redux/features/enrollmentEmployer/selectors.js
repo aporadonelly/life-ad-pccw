@@ -1,9 +1,18 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { reduce, map, concat, compact } from "lodash";
-import { employersAdapter, schemesAdapter, trusteesAdapter } from "./state";
+import { reduce, map, concat, compact, find, filter } from "lodash";
+import {
+  employersAdapter,
+  contactPersonsAdapter,
+  schemesAdapter,
+  trusteesAdapter,
+} from "./state";
 
 export const employersSelectors = employersAdapter.getSelectors(
   (state) => state.employers
+);
+
+export const contactPersonsSelectors = contactPersonsAdapter.getSelectors(
+  (state) => state.contactPersons
 );
 
 export const schemesSelectors = schemesAdapter.getSelectors(
@@ -36,6 +45,11 @@ export const selectedPnsnIdSelector = createSelector(
   (state) => state.selectedPnsnId
 );
 
+export const selectedEmployerUUIDSelector = createSelector(
+  featureStateSelector,
+  (state) => state.selectedEmployerUUID
+);
+
 export const selectedSchemeUUIDSelector = createSelector(
   featureStateSelector,
   (state) => state.selectedSchemeUUID
@@ -44,6 +58,23 @@ export const selectedSchemeUUIDSelector = createSelector(
 export const selectedCompanyUUIDSelector = createSelector(
   featureStateSelector,
   (state) => state.selectedCompanyUUID
+);
+
+export const enrCompanyInfoSelector = createSelector(
+  featureStateSelector,
+  employersSelectors.enrCompanyInfo
+);
+
+export const enrContactByTypeIdSelector = createSelector(
+  enrCompanyInfoSelector,
+  (_, cntctPrsnTypId) => cntctPrsnTypId,
+  (enrCompanyInfo, cntctPrsnTypId) =>
+    find(enrCompanyInfo?.contactPersons, { cntctPrsnTypId })
+);
+
+export const gradeInfoSelector = createSelector(
+  featureStateSelector,
+  (state) => state.gradeInfo
 );
 
 export const employersSelector = createSelector(
@@ -55,6 +86,11 @@ export const employerSelector = createSelector(
   featureStateSelector,
   selectedPnsnIdSelector,
   employersSelectors.selectById
+);
+
+export const contactPersonsSelector = createSelector(
+  featureStateSelector,
+  contactPersonsSelectors.selectAll
 );
 
 export const schemesSelector = createSelector(

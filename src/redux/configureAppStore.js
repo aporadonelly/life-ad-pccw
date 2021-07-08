@@ -24,7 +24,7 @@ import {
   getCustomTypeList,
   getWrkStrmSttsLst,
 } from "./features/system/actions";
-import { getSchmLst, getTrstLst } from "./features/enrollmentEmployer/actions";
+import { getSchmLst, getTrstLst } from "./features/system/actions";
 import { reissue } from "./features/user/actions";
 
 export const history = createBrowserHistory({

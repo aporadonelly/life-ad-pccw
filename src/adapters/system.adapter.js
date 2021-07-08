@@ -30,6 +30,13 @@ class SystemAdapter extends AxiosAdapter {
       params: { workstream },
     });
   }
+  getSchmLst() {
+    return this.instance.get("/getSchmLst");
+  }
+
+  getTrstLst() {
+    return this.instance.get("/getTrstLst");
+  }
 }
 
 export default new SystemAdapter({

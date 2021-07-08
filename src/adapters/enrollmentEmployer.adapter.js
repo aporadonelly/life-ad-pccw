@@ -25,6 +25,23 @@ class EnrollmentEmployer extends AxiosAdapter {
   getTrstLst() {
     return this.instance.get("/getTrstLst");
   }
+
+  ldGradeInfo(payload) {
+    const { payrollGrpUuid, erGradeUuid } = payload;
+    return this.instance.get("/ldGradeInfo", {
+      params: { payrollGrpUuid, erGradeUuid },
+    });
+  }
+
+  ldCntctPrsnInfo(payload) {
+    const { cmpnyUuid, cntctPrsnTypId } = payload;
+    return this.instance.get("/ldCntctPrsnInfo", {
+      params: {
+        cmpnyBrnchCd: cmpnyUuid,
+        cntctPrsnTypId,
+      },
+    });
+  }
 }
 
 export default new EnrollmentEmployer({

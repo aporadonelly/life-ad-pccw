@@ -10,8 +10,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import { EnquiryChips } from "@containers";
-import { employersRoutes } from "@routes";
-// import TableCustomized from "@components/common/TableCustomized";
 import { DataTable } from "@components/common";
 import viewEnrollActive from "@assets/icons/enroll-active.PNG";
 import viewEnrollInActive from "@assets/icons/enroll-inactive.PNG";
@@ -55,6 +53,11 @@ const SearchResult = ({
     { Header: t("table:thead.status"), accessor: "registrationStatus" },
     {
       Header: t("table:thead.custom.view"),
+      headerProps: {
+        style: {
+          textAlign: "center",
+        },
+      },
       sticky: "right",
       disableSortBy: true,
       Cell: ({ row }) => {

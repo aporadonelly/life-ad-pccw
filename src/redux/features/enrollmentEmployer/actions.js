@@ -1,14 +1,32 @@
 import { createAsyncThunk, createAction } from "@reduxjs/toolkit";
+import { compact, concat } from "lodash";
 import { enrollmentEmployer } from "@adapters";
 import {
-  selectedSchemeUUIDSelector,
   selectedCompanyUUIDSelector,
+  selectedEmployerUUIDSelector,
+  selectedSchemeUUIDSelector,
 } from "./selectors";
 
 export const draftEnquiry = createAction("@@empf/enr/er/draftEnquiry");
 
 export const setSelectedPnsnId = createAction(
   "@@empf/enr/er/setSelectedPnsnId"
+);
+
+export const setSelectedCompanyUUID = createAction(
+  "@@empf/enr/er/setSelectedCompanyUUID"
+);
+
+export const setSelectedEmployerUUID = createAction(
+  "@@empf/enr/er/setSelectedEmployerUUID"
+);
+
+export const setSelectedSchemeUUID = createAction(
+  "@@empf/enr/er/setSelectedSchemeUUID"
+);
+
+export const setSelectedPayrollGroupUUID = createAction(
+  "@@empf/enr/er/setSelectedPayrollGroupUUID"
 );
 
 export const ldSrchCmpny = createAsyncThunk(
@@ -26,42 +44,30 @@ export const ldSrchCmpny = createAsyncThunk(
   }
 );
 
-export const getSchmLst = createAsyncThunk(
-  "@@empf/enr/er/getSchmLst",
-  async (_payload, { rejectWithValue }) => {
-    try {
-      const schemes = await enrollmentEmployer.getSchmLst();
-      return { schemes };
-    } catch (error) {
-      return rejectWithValue({ error });
-    }
-  }
-);
-
-export const getTrstLst = createAsyncThunk(
-  "@@empf/enr/er/getTrstLst",
-  async (_payload, { rejectWithValue }) => {
-    try {
-      const trustees = await enrollmentEmployer.getTrstLst();
-      return { trustees };
-    } catch (error) {
-      return rejectWithValue({ error });
-    }
-  }
-);
-
 export const ldEnrCmpnyInfo = createAsyncThunk(
   "@@empf/enr/er/ldEnrCmpnyInfo",
   async (payload, { rejectWithValue, getState }) => {
     try {
       const cmpnyUuid = selectedCompanyUUIDSelector(getState());
+      const employerUuid = selectedEmployerUUIDSelector(getState());
       const schmUuid = selectedSchemeUUIDSelector(getState());
-      const enrCmpnyInfo = await enrollmentEmployer.ldEnrCmpnyInfo({
+
+      const primaryContactPerson = await enrollmentEmployer.ldCntctPrsnInfo({
+        cntctPrsnTypId: "CT_PCP",
         cmpnyUuid,
+      });
+      const secondaryContactPerson = await enrollmentEmployer.ldCntctPrsnInfo({
+        cntctPrsnTypId: "CT_SCP",
+        cmpnyUuid,
+      });
+      const enrCmpnyInfo = await enrollmentEmployer.ldEnrCmpnyInfo({
+        employerUuid,
         schmUuid,
+        contactPersons: compact(
+          concat(primaryContactPerson, secondaryContactPerson)
+        ),
         ...payload,
       });
-      console.log("enr actions:", enrCmpnyInfo);
       return { enrCmpnyInfo };
     } catch (error) {
       return rejectWithValue({ error });
@@ -69,10 +75,30 @@ export const ldEnrCmpnyInfo = createAsyncThunk(
   }
 );
 
-export const setSelectedCompanyUUID = createAction(
-  "@@empf/reg/er/setSelectedCompanyUUID"
+export const ldGradeInfo = createAsyncThunk(
+  "@@empf/enr/er/ldGradeInfo",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const gradeInfo = await enrollmentEmployer.ldGradeInfo(payload);
+      return { gradeInfo };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
 );
 
-export const setSelectedSchemeUUID = createAction(
-  "@@empf/reg/er/setSelectedSchemeUUID"
+export const ldCntctPrsnInfo = createAsyncThunk(
+  "@@empf/enr/er/ldCntctPrsnInfo",
+  async (payload, { rejectWithValue, getState }) => {
+    try {
+      const cmpnyUuid = selectedCompanyUUIDSelector(getState());
+      const contactPersons = await enrollmentEmployer.ldCntctPrsnInfo({
+        cmpnyUuid,
+        ...payload,
+      });
+      return { contactPersons };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
 );

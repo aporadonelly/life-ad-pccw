@@ -6,12 +6,14 @@ import { enrollmentRoutes } from "@routes/employers";
 const tabs = [
   {
     name: "Company Registration Information",
-    path: "/employers/registration/information",
+    path: "/employers/registration",
+    redirect: "/employers/registration/information",
     tab: true,
   },
   {
     name: "Employer Enrollment Information",
-    path: "/employers/enrollment/information",
+    path: "/employers/enrollment",
+    redirect: "/employers/enrollment/information",
     tab: true,
   },
 ];
