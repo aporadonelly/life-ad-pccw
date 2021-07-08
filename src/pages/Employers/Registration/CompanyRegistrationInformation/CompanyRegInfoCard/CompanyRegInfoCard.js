@@ -24,8 +24,9 @@ const CompanyRegInfoCard = ({
 }) => {
   const { t } = useTranslation(["typography", "form", "table", "button"]);
 
-  const { cmpnyNm, cmpnyChnsNm, incrprtnDt, identification } =
+  const { cmpnyNm, cmpnyChnsNm, incrprtnDt, client } =
     ldRegCmpnyInfoforAdmnPrtlProjection ?? {};
+  const { identifications } = client;
 
   return (
     <Card>
@@ -80,7 +81,7 @@ const CompanyRegInfoCard = ({
                   item
                   xs={3}
                   dt={t("form:label.registrationNumber")}
-                  dd={`${identification?.idNoTxt}(${identification?.idChkDgtTxt})`}
+                  dd={`${identifications[0]?.idNoTxt}(${identifications[0]?.idChkDgtTxt})`}
                 />
                 <Definition.Item
                   item
