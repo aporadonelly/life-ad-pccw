@@ -1,12 +1,6 @@
 import { createReducer, isAnyOf } from "@reduxjs/toolkit";
 import { identity, pickBy } from "lodash";
-import {
-  initialState,
-  employersAdapter,
-  contactPersonsAdapter,
-  schemesAdapter,
-  trusteesAdapter,
-} from "./state";
+import { initialState, employersAdapter, contactPersonsAdapter } from "./state";
 import {
   draftEnquiry,
   setSelectedPnsnId,
@@ -17,8 +11,8 @@ import {
   ldSrchCmpny,
   ldEnrCmpnyInfo,
   ldCntctPrsnInfo,
+  ldGradeInfo,
 } from "./actions";
-import { getSchmLst, getTrstLst } from "@redux/features/system/actions";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
 
@@ -73,11 +67,8 @@ const enrollmentEmployerReducer = createReducer(initialState, (builder) =>
         action.payload.contactPersons
       );
     })
-    .addCase(getSchmLst.fulfilled, (state, action) => {
-      schemesAdapter.upsertMany(state.schemes, action.payload.schemes);
-    })
-    .addCase(getTrstLst.fulfilled, (state, action) => {
-      trusteesAdapter.upsertMany(state.trustees, action.payload.trustees);
+    .addCase(ldGradeInfo.fulfilled, (state, action) => {
+      state.gradeInfo = action.payload.gradeInfo;
     })
     .addCase(ldCntctPrsnInfo.pending, (state, _action) => {
       state.isLoading = true;

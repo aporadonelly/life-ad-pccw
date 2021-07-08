@@ -23,8 +23,9 @@ import {
   getTermReasons,
   getCustomTypeList,
   getWrkStrmSttsLst,
+  getSchmLst,
+  getTrstLst,
 } from "./features/system/actions";
-import { getSchmLst, getTrstLst } from "./features/system/actions";
 import { reissue } from "./features/user/actions";
 
 export const history = createBrowserHistory({

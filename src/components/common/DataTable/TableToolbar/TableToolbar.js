@@ -6,7 +6,12 @@ import TablePagination from "../TablePagination";
 import TableShowEntries from "../TableShowEntries";
 
 const TableToolbar = () => {
-  const { title } = useDataTableState();
+  const {
+    title,
+    disableQuickSearch,
+    disablePagination,
+    disableShowEntries,
+  } = useDataTableState();
   const classes = useStyles();
 
   return (
@@ -14,9 +19,9 @@ const TableToolbar = () => {
       <Typography className={classes.title} variant="h6" color="primary">
         {title}
       </Typography>
-      <TableQuickSearch />
-      <TablePagination />
-      <TableShowEntries />
+      {!disableQuickSearch && <TableQuickSearch />}
+      {!disablePagination && <TablePagination />}
+      {!disableShowEntries && <TableShowEntries />}
     </Toolbar>
   );
 };

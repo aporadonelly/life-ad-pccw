@@ -28,6 +28,7 @@ export const enrollmentEmployer = createEntityAdapter({});
 export const initialState = enrollmentEmployer.getInitialState({
   isLoading: false,
   error: null,
+  gradeInfo: {},
   draftEnquiry: {},
   selectedPnsnId: null,
   selectedCompanyUUID: null,

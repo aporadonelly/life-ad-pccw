@@ -16,6 +16,16 @@ export const workStreamsAdapter = createEntityAdapter({
   selectId: (workStream) => workStream.customTypId,
 });
 
+export const schemesAdapter = createEntityAdapter({
+  selectId: (scheme) => scheme.id,
+  sortComparer: (a, b) => a.name.localeCompare(b.name),
+});
+
+export const trusteesAdapter = createEntityAdapter({
+  selectId: (trustee) => trustee.id,
+  sortComparer: (a, b) => a.name.localeCompare(b.name),
+});
+
 export const systemAdapter = createEntityAdapter({});
 
 export const initialState = systemAdapter.getInitialState({
@@ -27,4 +37,6 @@ export const initialState = systemAdapter.getInitialState({
   workStreams: workStreamsAdapter.getInitialState(),
   countries: countriesAdapter.getInitialState(),
   termReasons: termReasonsAdapter.getInitialState(),
+  schemes: schemesAdapter.getInitialState(),
+  trustees: trusteesAdapter.getInitialState(),
 });

@@ -1,11 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { reduce, map, concat, compact, find, } from "lodash";
-import {
-  employersAdapter,
-  contactPersonsAdapter,
-  schemesAdapter,
-  trusteesAdapter,
-} from "./state";
+import { reduce, map, concat, compact, find } from "lodash";
+import { employersAdapter, contactPersonsAdapter } from "./state";
 
 export const employersSelectors = employersAdapter.getSelectors(
   (state) => state.employers
@@ -13,14 +8,6 @@ export const employersSelectors = employersAdapter.getSelectors(
 
 export const contactPersonsSelectors = contactPersonsAdapter.getSelectors(
   (state) => state.contactPersons
-);
-
-export const schemesSelectors = schemesAdapter.getSelectors(
-  (state) => state.schemes
-);
-
-export const trusteesSelectors = trusteesAdapter.getSelectors(
-  (state) => state.trustees
 );
 
 export const featureStateSelector = (state) => state.enrollmentEmployer;
@@ -62,7 +49,7 @@ export const selectedCompanyUUIDSelector = createSelector(
 
 export const enrCompanyInfoSelector = createSelector(
   featureStateSelector,
-  employersSelectors.enrCompanyInfo
+  (state) => state.enrCompanyInfo
 );
 
 export const enrContactByTypeIdSelector = createSelector(
@@ -70,6 +57,11 @@ export const enrContactByTypeIdSelector = createSelector(
   (_, cntctPrsnTypId) => cntctPrsnTypId,
   (enrCompanyInfo, cntctPrsnTypId) =>
     find(enrCompanyInfo?.contactPersons, { cntctPrsnTypId })
+);
+
+export const gradeInfoSelector = createSelector(
+  featureStateSelector,
+  (state) => state.gradeInfo
 );
 
 export const employersSelector = createSelector(
@@ -86,16 +78,6 @@ export const employerSelector = createSelector(
 export const contactPersonsSelector = createSelector(
   featureStateSelector,
   contactPersonsSelectors.selectAll
-);
-
-export const schemesSelector = createSelector(
-  featureStateSelector,
-  schemesSelectors.selectAll
-);
-
-export const trusteesSelector = createSelector(
-  featureStateSelector,
-  trusteesSelectors.selectAll
 );
 
 export const employerSchemesSelector = createSelector(
