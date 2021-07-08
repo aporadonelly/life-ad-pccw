@@ -62,7 +62,7 @@ export const selectedCompanyUUIDSelector = createSelector(
 
 export const enrCompanyInfoSelector = createSelector(
   featureStateSelector,
-  employersSelectors.enrCompanyInfo
+  (state) => state.enrCompanyInfo
 );
 
 export const enrContactByTypeIdSelector = createSelector(
