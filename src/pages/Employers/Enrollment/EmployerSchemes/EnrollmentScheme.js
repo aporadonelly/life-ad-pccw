@@ -15,19 +15,20 @@ import { DataTable } from "@components/common";
 
 const EnrollmentScheme = (props) => {
   const {
+    employer,
     schemes,
-    setSelectedEmployerUUID,
+    setSelectedCompanyUUID,
     setSelectedSchemeUUID,
     push,
   } = props;
   const { t } = useTranslation(["typography", "form", "table", "button"]);
 
   const handleClick = useCallback(
-    ({ employerUuid, schemeUuid }) => {
-      setSelectedEmployerUUID({ employerUuid });
+    ({ companyUuid, schemeUuid }) => {
+      setSelectedCompanyUUID({ companyUuid });
       setSelectedSchemeUUID({ schemeUuid });
     },
-    [setSelectedEmployerUUID, setSelectedSchemeUUID]
+    [setSelectedCompanyUUID, setSelectedSchemeUUID]
   );
 
   const columns = useMemo(
@@ -50,7 +51,7 @@ const EnrollmentScheme = (props) => {
               alt=""
               onClick={() =>
                 handleClick({
-                  employerUuid: row.original.employer.od,
+                  companyUuid: employer.companyId,
                   schemeUuid: row.original.id,
                 })
               }
@@ -62,7 +63,7 @@ const EnrollmentScheme = (props) => {
         ),
       },
     ],
-    [handleClick, t]
+    [employer.companyId, handleClick, t]
   );
 
   return (
