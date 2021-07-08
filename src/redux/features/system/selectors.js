@@ -5,6 +5,8 @@ import {
   countriesAdapter,
   termReasonsAdapter,
   workStreamsAdapter,
+  schemesAdapter,
+  trusteesAdapter,
 } from "./state";
 
 export const customTypesSelectors = customTypesAdapter.getSelectors(
@@ -21,6 +23,14 @@ export const termReasonsSelectors = termReasonsAdapter.getSelectors(
 
 export const workStreamsSelectors = workStreamsAdapter.getSelectors(
   (state) => state.workStreams
+);
+
+export const schemesSelectors = schemesAdapter.getSelectors(
+  (state) => state.schemes
+);
+
+export const trusteesSelectors = trusteesAdapter.getSelectors(
+  (state) => state.trustees
 );
 
 export const featureStateSelector = (state) => state.system;
@@ -99,4 +109,14 @@ export const workSteamsByWorkSteamSelector = createSelector(
   workSteamsSelector,
   (_state, workStream) => workStream,
   (state, workStream) => filter(state, { workStream })
+);
+
+export const schemesSelector = createSelector(
+  featureStateSelector,
+  schemesSelectors.selectAll
+);
+
+export const trusteesSelector = createSelector(
+  featureStateSelector,
+  trusteesSelectors.selectAll
 );
