@@ -78,6 +78,11 @@ export const customTypeByIdSelector = createSelector(
   customTypesSelectors.selectById
 );
 
+export const customTypesEntitiesSelector = createSelector(
+  featureStateSelector,
+  customTypesSelectors.selectEntities
+);
+
 export const countriesSelector = createSelector(
   featureStateSelector,
   countriesSelectors.selectAll
@@ -87,6 +92,11 @@ export const countrySelector = createSelector(
   featureStateSelector,
   (_state, cntryTypCd) => cntryTypCd,
   countriesSelectors.selectById
+);
+
+export const countriesEntitiesSelector = createSelector(
+  featureStateSelector,
+  countriesSelectors.selectEntities
 );
 
 export const termReasonsSelector = createSelector(
@@ -116,7 +126,17 @@ export const schemesSelector = createSelector(
   schemesSelectors.selectAll
 );
 
+export const schemesEntitiesSelector = createSelector(
+  featureStateSelector,
+  schemesSelectors.selectEntities
+);
+
 export const trusteesSelector = createSelector(
   featureStateSelector,
   trusteesSelectors.selectAll
+);
+
+export const trusteesEntitiesSelector = createSelector(
+  featureStateSelector,
+  trusteesSelectors.selectEntities
 );
