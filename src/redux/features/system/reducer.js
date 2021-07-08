@@ -5,6 +5,8 @@ import {
   countriesAdapter,
   termReasonsAdapter,
   workStreamsAdapter,
+  schemesAdapter,
+  trusteesAdapter,
 } from "./state";
 import {
   getSystemEnv,
@@ -13,6 +15,8 @@ import {
   getCountryList,
   getTermReasons,
   getWrkStrmSttsLst,
+  getSchmLst,
+  getTrstLst,
 } from "./actions";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
@@ -55,6 +59,12 @@ const systemReducer = createReducer(initialState, (builder) =>
       state.isLoading = false;
       termReasonsAdapter.setAll(state.termReasons, action.payload.termReasons);
     })
+    .addCase(getSchmLst.fulfilled, (state, action) => {
+      schemesAdapter.upsertMany(state.schemes, action.payload.schemes);
+    })
+    .addCase(getTrstLst.fulfilled, (state, action) => {
+      trusteesAdapter.upsertMany(state.trustees, action.payload.trustees);
+    })
     .addMatcher(
       isAnyOf(
         getSystemEnv.pending,
@@ -62,7 +72,9 @@ const systemReducer = createReducer(initialState, (builder) =>
         getCustomTypeList.pending,
         getWrkStrmSttsLst.pending,
         getCountryList.pending,
-        getTermReasons.pending
+        getTermReasons.pending,
+        getSchmLst.pending,
+        getTrstLst.pending
       ),
       (state, _action) => {
         state.isLoading = true;
@@ -76,7 +88,9 @@ const systemReducer = createReducer(initialState, (builder) =>
         getCustomTypeList.rejected,
         getWrkStrmSttsLst.rejected,
         getCountryList.rejected,
-        getTermReasons.rejected
+        getTermReasons.rejected,
+        getSchmLst.rejected,
+        getTrstLst.rejected
       ),
       (state, action) => {
         state.isLoading = false;
