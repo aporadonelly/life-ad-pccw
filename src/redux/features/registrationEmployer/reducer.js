@@ -60,14 +60,15 @@ const registrationEmployerReducer = createReducer(initialState, (builder) =>
     .addCase(setSelectedClientUUID, (state, action) => {
       state.selectedClientUUID = action.payload.clntUuid;
     })
-    .addMatcher(
-      isAnyOf(ldCmpnyRltdPrsn.pending, ldRegCmpnyInfoforAdmnPrtl.pending),
-      (state, _action) => {
-        state.isLoading = true;
-        state.error = null;
-        state.registrationCompanyInformation = {};
-      }
-    )
+    .addCase(ldRegCmpnyInfoforAdmnPrtl.pending, (state, _action) => {
+      state.isLoading = true;
+      state.error = null;
+      state.registrationCompanyInformation = {};
+    })
+    .addMatcher(isAnyOf(ldCmpnyRltdPrsn.pending), (state, _action) => {
+      state.isLoading = true;
+      state.error = null;
+    })
     .addMatcher(
       isAnyOf(ldCmpnyRltdPrsn.rejected, ldRegCmpnyInfoforAdmnPrtl.rejected),
       (state, action) => {
