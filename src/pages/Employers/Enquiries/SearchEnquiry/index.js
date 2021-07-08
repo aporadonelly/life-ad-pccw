@@ -4,13 +4,13 @@ import { push } from "connected-react-router";
 import {
   customTypeByGroupIdSelector,
   workSteamsByWorkSteamSelector,
+  schemesSelector,
+  trusteesSelector,
 } from "@redux/features/system/selectors";
 import {
   isLoadingSelector,
   errorSelector,
   draftEnquirySelector,
-  schemesSelector,
-  trusteesSelector,
 } from "@redux/features/enrollmentEmployer/selectors";
 import {
   ldSrchCmpny,
