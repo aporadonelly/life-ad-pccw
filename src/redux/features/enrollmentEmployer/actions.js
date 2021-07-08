@@ -86,3 +86,19 @@ export const ldGradeInfo = createAsyncThunk(
     }
   }
 );
+
+export const ldCntctPrsnInfo = createAsyncThunk(
+  "@@empf/enr/er/ldCntctPrsnInfo",
+  async (payload, { rejectWithValue, getState }) => {
+    try {
+      const cmpnyUuid = selectedCompanyUUIDSelector(getState());
+      const contactPersons = await enrollmentEmployer.ldCntctPrsnInfo({
+        cmpnyUuid,
+        ...payload,
+      });
+      return { contactPersons };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
