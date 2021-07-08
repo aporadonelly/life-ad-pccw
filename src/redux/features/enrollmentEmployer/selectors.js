@@ -72,6 +72,11 @@ export const enrContactByTypeIdSelector = createSelector(
     find(enrCompanyInfo?.contactPersons, { cntctPrsnTypId })
 );
 
+export const gradeInfoSelector = createSelector(
+  featureStateSelector,
+  (state) => state.gradeInfo
+);
+
 export const employersSelector = createSelector(
   featureStateSelector,
   employersSelectors.selectAll
