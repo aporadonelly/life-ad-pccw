@@ -1,5 +1,14 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { reduce, map, concat, compact, find, filter } from "lodash";
+import {
+  reduce,
+  map,
+  concat,
+  compact,
+  find,
+  filter,
+  values,
+  pick,
+} from "lodash";
 import {
   employersAdapter,
   contactPersonsAdapter,
@@ -62,7 +71,7 @@ export const selectedCompanyUUIDSelector = createSelector(
 
 export const enrCompanyInfoSelector = createSelector(
   featureStateSelector,
-  employersSelectors.enrCompanyInfo
+  (state) => state.enrCompanyInfo
 );
 
 export const enrContactByTypeIdSelector = createSelector(
@@ -71,6 +80,25 @@ export const enrContactByTypeIdSelector = createSelector(
   (enrCompanyInfo, cntctPrsnTypId) =>
     find(enrCompanyInfo?.contactPersons, { cntctPrsnTypId })
 );
+
+// export const enrAddressByTypeIdSelector = createSelector(
+//   enrCompanyInfoSelector,
+//   (_, addrTypId) => addrTypId,
+//   (enrCompanyInfo, addrTypId) =>
+//     compact(
+//       values(
+//         pick(find(enrCompanyInfo?.regAddress, { addrTypId }), [
+//           "addrRmTxt",
+//           "addrFlrTxt",
+//           "addrBldngNmTxt",
+//           "addrBlckTxt",
+//           "addrStrtTxt",
+//           "addrCtyTxt",
+//           "addrDstrctTxt",
+//         ])
+//       )
+//     ).join(" ")
+// );
 
 export const gradeInfoSelector = createSelector(
   featureStateSelector,

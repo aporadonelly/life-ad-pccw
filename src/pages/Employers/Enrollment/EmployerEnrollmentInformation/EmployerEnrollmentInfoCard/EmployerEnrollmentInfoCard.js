@@ -5,21 +5,20 @@ import { get } from "lodash";
 import { Definition } from "@components/misc";
 import { Grid, Card, CardContent, Typography } from "@material-ui/core";
 
-const EmployerEnrollmentInfoCard = ({
-  companyBranchInfo,
-  customTypCompnyTyp,
-  countryTypeName,
-  businessNatureType,
-  employerInfo,
-  customTypes,
-  agent,
-  idNo,
-}) => {
-  const { company, lnggTypId } = get(companyBranchInfo, "[0]") ?? [];
-
+const EmployerEnrollmentInfoCard = ({ enrCompanyInfo, customTypes }) => {
   const { t } = useTranslation(["typography", "form", "table", "button"]);
-
-  // console.log("customTypes:", customTypes);
+  console.log("cus", customTypes);
+  const {
+    cmpnyBrnchInfo,
+    cntryTypNm,
+    customTypNatureTyp,
+    customTypCompnyTyp,
+    idNo,
+    employerInfo,
+    entityAgent,
+  } = enrCompanyInfo;
+  const { company, lnggTypId } = get(cmpnyBrnchInfo, "[0]") ?? {};
+  const { agent } = get(entityAgent, "[0]") ?? {};
 
   return (
     <Card>
@@ -77,12 +76,12 @@ const EmployerEnrollmentInfoCard = ({
                 <Definition.Item
                   xs={6}
                   dt={t("form:label.placeOfIncorporation")}
-                  dd={countryTypeName?.cntryTypCd} // cntryTypNm
+                  dd={cntryTypNm?.cntryTypNm}
                 />
                 <Definition.Item
                   xs={3}
                   dt={t("form:label.registrationType")}
-                  dd={customTypes?.[idNo?.idTypId]?.cstmTypDtlTxt}
+                  // dd={customTypes?.[idNo?.idTypId]?.cstmTypDtlTxt}
                 />
                 <Definition.Item
                   xs={3}
@@ -93,7 +92,7 @@ const EmployerEnrollmentInfoCard = ({
                 <Definition.Item
                   xs={3}
                   dt={t("form:label.natureOfBusiness")}
-                  dd={businessNatureType?.cstmTypDtlTxt}
+                  dd={customTypNatureTyp?.cstmTypDtlTxt}
                 />
 
                 <Definition.Item

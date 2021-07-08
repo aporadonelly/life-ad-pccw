@@ -1,9 +1,11 @@
 import { connect } from "react-redux";
-import { directorsSelector } from "@redux/features/registrationEmployer/selectors";
+import { enrCompanyInfoSelector } from "@redux/features/enrollmentEmployer/selectors";
+import { customTypesEntitiesSelector } from "@redux/features/system/selectors";
 import EmployerEnrollmentInfoCard from "./EmployerEnrollmentInfoCard";
 
 const mapStateToProps = (state) => ({
-  directorsList: directorsSelector(state),
+  enrCompanyInfo: enrCompanyInfoSelector(state),
+  customTypes: customTypesEntitiesSelector(state),
 });
 
 export default connect(mapStateToProps, null)(EmployerEnrollmentInfoCard);

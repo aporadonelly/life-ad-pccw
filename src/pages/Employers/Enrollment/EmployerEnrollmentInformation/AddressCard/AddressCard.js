@@ -3,8 +3,15 @@ import { Grid, Card, CardContent, Typography } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { Definition } from "@components/misc";
 
-const AddressCard = ({ regOfficeAddress, businessAddress, corrAddress }) => {
+const AddressCard = ({
+  enrCompanyInfo,
+  regOfficeAddress,
+  businessAddress,
+  corrAddress,
+}) => {
   const { t } = useTranslation(["typography", "form", "table", "button"]);
+
+  console.log("enrCompanyInfo:", enrCompanyInfo);
 
   return (
     <Card>

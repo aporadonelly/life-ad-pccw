@@ -11,13 +11,33 @@ import SecondaryContactPerson from "./SecondaryContactPerson";
 import PayrollGroup from "./PayrollGroup";
 import SelfCertification from "./SelfCertification";
 
-const EmployerEnrollmentInformation = ({ ldCmpnyRltdPrsn }) => {
+const EmployerEnrollmentInformation = ({
+  ldCmpnyRltdPrsn,
+  enrCompanyInfo,
+  ldEnrCmpnyInfo,
+}) => {
   useEffect(() => {
-    ldCmpnyRltdPrsn({ cmpnyPrsnTypId: "CS_AP" });
-    ldCmpnyRltdPrsn({ cmpnyPrsnTypId: "CS_DT" });
-    ldCmpnyRltdPrsn({ cmpnyPrsnTypId: "CS_PN" });
-    ldCmpnyRltdPrsn({ cmpnyPrsnTypId: "CS_BO" });
-  }, [ldCmpnyRltdPrsn]);
+    ldCmpnyRltdPrsn({
+      cmpnyUuid: "F118FE53-4D61-4CAB-9760-F36114BA1F26",
+      cmpnyPrsnTypId: "CS_AP",
+    });
+    ldCmpnyRltdPrsn({
+      cmpnyUuid: "F118FE53-4D61-4CAB-9760-F36114BA1F26",
+      cmpnyPrsnTypId: "CS_DT",
+    });
+    ldCmpnyRltdPrsn({
+      cmpnyUuid: "F118FE53-4D61-4CAB-9760-F36114BA1F26",
+      cmpnyPrsnTypId: "CS_PN",
+    });
+    ldCmpnyRltdPrsn({
+      cmpnyUuid: "F118FE53-4D61-4CAB-9760-F36114BA1F26",
+      cmpnyPrsnTypId: "CS_BO",
+    });
+    ldEnrCmpnyInfo({
+      cmpnyUuid: "F118FE53-4D61-4CAB-9760-F36114BA1F26",
+      schmUuid: "79CEF4FB-4FB8-4530-A98E-909042525776",
+    });
+  }, [ldCmpnyRltdPrsn, ldEnrCmpnyInfo]);
 
   return (
     <Grid container spacing={3}>
