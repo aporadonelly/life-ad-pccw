@@ -17,6 +17,7 @@ import {
   ldSrchCmpny,
   ldEnrCmpnyInfo,
   ldCntctPrsnInfo,
+  ldGradeInfo,
 } from "./actions";
 import { getSchmLst, getTrstLst } from "@redux/features/system/actions";
 import { persistReducer } from "redux-persist";
@@ -72,6 +73,9 @@ const enrollmentEmployerReducer = createReducer(initialState, (builder) =>
         state.contactPersons,
         action.payload.contactPersons
       );
+    })
+    .addCase(ldGradeInfo.fulfilled, (state, action) => {
+      state.gradeInfo = action.payload.gradeInfo;
     })
     .addCase(getSchmLst.fulfilled, (state, action) => {
       schemesAdapter.upsertMany(state.schemes, action.payload.schemes);

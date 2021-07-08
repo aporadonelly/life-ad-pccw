@@ -79,8 +79,8 @@ export const ldGradeInfo = createAsyncThunk(
   "@@empf/enr/er/ldGradeInfo",
   async (payload, { rejectWithValue }) => {
     try {
-      const employers = await enrollmentEmployer.ldGradeInfo(payload);
-      return { employers };
+      const gradeInfo = await enrollmentEmployer.ldGradeInfo(payload);
+      return { gradeInfo };
     } catch (error) {
       return rejectWithValue({ error });
     }
