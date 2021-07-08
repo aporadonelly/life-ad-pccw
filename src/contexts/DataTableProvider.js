@@ -25,7 +25,16 @@ const defaultColumn = {
 };
 
 const DataTableProvider = (props) => {
-  const { columns, data, pageSize, title, children } = props;
+  const {
+    columns,
+    data,
+    pageSize,
+    title,
+    disableQuickSearch,
+    disablePagination,
+    disableShowEntries,
+    children,
+  } = props;
   const tableInstance = useTable(
     {
       columns,
@@ -41,7 +50,19 @@ const DataTableProvider = (props) => {
     useSticky
   );
 
-  return <Provider value={{ ...tableInstance, title }}>{children}</Provider>;
+  return (
+    <Provider
+      value={{
+        ...tableInstance,
+        title,
+        disableQuickSearch,
+        disablePagination,
+        disableShowEntries,
+      }}
+    >
+      {children}
+    </Provider>
+  );
 };
 
 DataTableProvider.defaultProps = {
