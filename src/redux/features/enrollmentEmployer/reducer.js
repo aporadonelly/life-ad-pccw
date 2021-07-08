@@ -3,6 +3,7 @@ import { identity, pickBy } from "lodash";
 import {
   initialState,
   employersAdapter,
+  contactPersonsAdapter,
   schemesAdapter,
   trusteesAdapter,
 } from "./state";
@@ -15,6 +16,7 @@ import {
   setSelectedPayrollGroupUUID,
   ldSrchCmpny,
   ldEnrCmpnyInfo,
+  ldCntctPrsnInfo,
 } from "./actions";
 import { getSchmLst, getTrstLst } from "@redux/features/system/actions";
 import { persistReducer } from "redux-persist";
@@ -64,11 +66,23 @@ const enrollmentEmployerReducer = createReducer(initialState, (builder) =>
       state.isLoading = false;
       state.enrCompanyInfo = action.payload.enrCmpnyInfo;
     })
+    .addCase(ldCntctPrsnInfo.fulfilled, (state, action) => {
+      state.isLoading = false;
+      contactPersonsAdapter.upsertMany(
+        state.contactPersons,
+        action.payload.contactPersons
+      );
+    })
     .addCase(getSchmLst.fulfilled, (state, action) => {
       schemesAdapter.upsertMany(state.schemes, action.payload.schemes);
     })
     .addCase(getTrstLst.fulfilled, (state, action) => {
       trusteesAdapter.upsertMany(state.trustees, action.payload.trustees);
+    })
+    .addCase(ldCntctPrsnInfo.pending, (state, _action) => {
+      state.isLoading = true;
+      state.error = null;
+      contactPersonsAdapter.setAll(state.contactPersons, []);
     })
     .addMatcher(
       isAnyOf(ldSrchCmpny.rejected, ldEnrCmpnyInfo.rejected),

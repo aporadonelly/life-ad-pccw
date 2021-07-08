@@ -37,8 +37,6 @@ class EnrollmentEmployer extends AxiosAdapter {
     const { cmpnyUuid, cntctPrsnTypId } = payload;
     return this.instance.get("/ldCntctPrsnInfo", {
       params: {
-        pageNo: 0,
-        pageSize: 1,
         cmpnyBrnchCd: cmpnyUuid,
         cntctPrsnTypId,
       },

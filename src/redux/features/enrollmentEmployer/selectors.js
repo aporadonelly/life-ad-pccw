@@ -1,9 +1,18 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { reduce, map, concat, compact, find } from "lodash";
-import { employersAdapter, schemesAdapter, trusteesAdapter } from "./state";
+import { reduce, map, concat, compact, find, filter } from "lodash";
+import {
+  employersAdapter,
+  contactPersonsAdapter,
+  schemesAdapter,
+  trusteesAdapter,
+} from "./state";
 
 export const employersSelectors = employersAdapter.getSelectors(
   (state) => state.employers
+);
+
+export const contactPersonsSelectors = contactPersonsAdapter.getSelectors(
+  (state) => state.contactPersons
 );
 
 export const schemesSelectors = schemesAdapter.getSelectors(
@@ -72,6 +81,11 @@ export const employerSelector = createSelector(
   featureStateSelector,
   selectedPnsnIdSelector,
   employersSelectors.selectById
+);
+
+export const contactPersonsSelector = createSelector(
+  featureStateSelector,
+  contactPersonsSelectors.selectAll
 );
 
 export const schemesSelector = createSelector(
