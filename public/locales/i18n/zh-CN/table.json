@@ -15,12 +15,9 @@
     "mobileNumber": "手机号码",
     "email": "电子邮件地址",
     "status": "地位",
-    "payrollTitle": "标题",
-    "payrollLastName": "姓",
-    "payrollFirstName": "名",
-    "primaryContactPerson": "主要联系人",
-    "secondaryContactPerson": "次要联系人",
-    "gradename": "年级名称",
+    "groupId": "组ID",
+    "contributionFrequency": "贡献频率",
+    "paymentMethod": "付款方法",
     "custom": {
       "action": "行动",
       "view": "看法"
@@ -29,7 +26,9 @@
     "chineseLastName": "中文姓氏",
     "firstName": "英文名字",
     "chineseFirstName": "中文名字",
-    "viewAction": "看法"
+    "viewAction": "看法",
+    "type": "类型",
+    "englishName": "英文名"
   },
   "tbody": {
     "custom": {

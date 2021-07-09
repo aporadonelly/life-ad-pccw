@@ -15,6 +15,7 @@
     "mobileNumber": "Mobile Number",
     "email": "Email Address",
     "status": "Status",
+<<<<<<< HEAD
     "payrollTitle": "Title",
     "payrollLastName": "Last Name",
     "payrollFirstName": "First Name",
@@ -22,6 +23,11 @@
     "secondaryContactPerson": "Secondary Contact Person",
     "gradename": "Grade Name",
 
+=======
+    "groupId": "Group ID",
+    "contributionFrequency": "Contribution Frequency",
+    "paymentMethod": "Payment Method",
+>>>>>>> 37164743b2fedc3a1eae677cc443c2fbbfb066d1
     "custom": {
       "action": "Action",
       "view": "View"
@@ -30,7 +36,9 @@
     "chineseLastName": "Last Name in Chinese",
     "firstName": "First Name in English",
     "chineseFirstName": "First Name in Chinese",
-    "viewAction": "View"
+    "viewAction": "View",
+    "type": "Type",
+    "englishName": "English Name"
   },
   "tbody": {
     "custom": {

@@ -15,9 +15,6 @@
   "yes": "YES",
   "no": "NO",
   "ok": "OK",
-  "addPayrollGroupContactPerson": "Add Payroll Group Contact Person",
-  "addGrade": "Add Grade",
-  "copyFromOtherPayrollGroup": "Copy From Other Payroll Group",
-  "detail": "Detail",
-  "delete": "Delete"
+  "addPayrollGroup": "+ Add Payroll Group",
+  "addControllingPerson": "+ Add Controlling Person"
 }

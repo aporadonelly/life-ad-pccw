@@ -23,7 +23,7 @@ export const initialState = registrationEmployer.getInitialState({
   error: null,
   registrationCompanyInformation: {},
   selectedClientUUID: null,
-  selectedCompanyUUID: null,
+  selectedCompanyUUID: "7732B905-E9C1-4895-959E-FDCE74C856B3",
   authorizedPersons: authorizedPersonsAdapter.getInitialState(),
   directors: directorsAdapter.getInitialState(),
   partners: partnersAdapter.getInitialState(),
