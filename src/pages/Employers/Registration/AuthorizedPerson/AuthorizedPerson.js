@@ -7,6 +7,7 @@ import {
   Button,
   Checkbox,
   FormControlLabel,
+  CircularProgress,
   Box,
 } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
@@ -25,6 +26,7 @@ const AuthorizedPerson = ({
   residentialAddress,
   businessAddress,
   correspondenceAddress,
+  isLoading,
 }) => {
   const {
     idTypNm,
@@ -59,7 +61,11 @@ const AuthorizedPerson = ({
     );
   }
 
-  return (
+  return isLoading ? (
+    <Box display="flex" justifyContent="center" mt={5}>
+      <CircularProgress />
+    </Box>
+  ) : (
     <Grid container spacing={3}>
       <Grid item xs={12}>
         <Card>

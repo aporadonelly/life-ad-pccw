@@ -43,6 +43,7 @@ const CompanyProfile = ({
   const { cmpnyNm, id } = ldRegCmpnyInfoforAdmnPrtlProjection ?? {};
   const { brnchNm, brnchNoTxt, lnggTypId } =
     get(ldRegCmpnyInfoforAdmnPrtlProjection, "branches[0]") ?? {};
+
   return isLoading ? (
     <Box display="flex" justifyContent="center" mt={5}>
       <CircularProgress />
