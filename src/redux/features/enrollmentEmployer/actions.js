@@ -87,6 +87,7 @@ export const ldGradeInfo = createAsyncThunk(
   }
 );
 
+// payroll dispatcher
 export const ldCntctPrsnInfo = createAsyncThunk(
   "@@empf/enr/er/ldCntctPrsnInfo",
   async (payload, { rejectWithValue, getState }) => {
@@ -102,3 +103,20 @@ export const ldCntctPrsnInfo = createAsyncThunk(
     }
   }
 );
+
+// sa
+// export const ldCntctPrsnInfo = createAsyncThunk(
+//   "@@empf/enr/er/ldCntctPrsnInfo",
+//   async (payload, { rejectWithValue, getState }) => {
+//     try {
+//       const cmpnyUuid = selectedCompanyUUIDSelector(getState());
+//       const contactPersons = await enrollmentEmployer.ldCntctPrsnInfo({
+//         cmpnyUuid,
+//         ...payload,
+//       });
+//       return { contactPersons };
+//     } catch (error) {
+//       return rejectWithValue({ error });
+//     }
+//   }
+// );

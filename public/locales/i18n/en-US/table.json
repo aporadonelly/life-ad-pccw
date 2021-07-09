@@ -2,12 +2,12 @@
   "thead": {
     "mpfId": "MPF ID",
     "employerAcctNo": "Employer Acc. No.",
-    "companyNameEnglish":  "Company Name (English)",
-    "companyNameChinese":  "Company Name (Chinese)",
-    "registrationType":"Registration Type" , 
+    "companyNameEnglish": "Company Name (English)",
+    "companyNameChinese": "Company Name (Chinese)",
+    "registrationType": "Registration Type",
     "registrationNumber": "Registration No.",
-    "branchNumber": "Branch Number" ,
-    "typesOfCompany":  "Type of Company",
+    "branchNumber": "Branch Number",
+    "typesOfCompany": "Type of Company",
     "dateOfIncorporation": "Date of Incorporation",
     "displayName": "Member Name",
     "idType": "ID Type",
@@ -15,6 +15,13 @@
     "mobileNumber": "Mobile Number",
     "email": "Email Address",
     "status": "Status",
+    "payrollTitle": "Title",
+    "payrollLastName": "Last Name",
+    "payrollFirstName": "First Name",
+    "primaryContactPerson": "Primary Contact Person",
+    "secondaryContactPerson": "Secondary Contact Person",
+    "gradename": "Grade Name",
+
     "custom": {
       "action": "Action",
       "view": "View"
