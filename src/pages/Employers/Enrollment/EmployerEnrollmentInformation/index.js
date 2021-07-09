@@ -6,15 +6,16 @@ import { ldCmpnyRltdPrsn } from "@redux/features/registrationEmployer/actions";
 import { enrCompanyInfoSelector } from "@redux/features/enrollmentEmployer/selectors";
 import EmployerEnrollmentInformation from "./EmployerEnrollmentInformation";
 
-const mapStateToProps = (state) => ({
-  enrCompanyInfo: enrCompanyInfoSelector(state),
-});
+// const mapStateToProps = (state) => ({
+//   enrCompanyInfo: enrCompanyInfoSelector(state),
+// });
 
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({ push, ldEnrCmpnyInfo, ldCmpnyRltdPrsn }, dispatch),
 });
 
 export default connect(
-  mapStateToProps,
+  null,
+  // mapStateToProps,
   mapDispatchToProps
 )(EmployerEnrollmentInformation);

@@ -15,7 +15,7 @@ const EmployerEnrollmentInfoCard = ({ enrCompanyInfo, customTypes }) => {
     idNo,
     employerInfo,
     entityAgent,
-  } = enrCompanyInfo;
+  } = enrCompanyInfo ?? {};
   const { company, lnggTypId } = get(cmpnyBrnchInfo, "[0]") ?? {};
   const { agent } = get(entityAgent, "[0]") ?? {};
   return (

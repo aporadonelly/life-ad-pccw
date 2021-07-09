@@ -24,6 +24,12 @@ const PayrollGroups = ({ authPersonList }) => {
       { Header: t("table:thead.paymentMethod"), accessor: "paymentMethod" },
       {
         Header: t("table:thead.custom.action"),
+        headerProps: {
+          style: {
+            width: 100,
+            textAlign: "center",
+          },
+        },
         sticky: "right",
         disableSortBy: true,
         Cell: ({ row }) => {
@@ -68,7 +74,7 @@ const PayrollGroups = ({ authPersonList }) => {
         <Grid container>
           <Grid item xs={12}>
             <DataTable
-              data={authPersonList} //
+              data={[]}
               columns={payrollColumns}
               components={{
                 Toolbar: () => (
@@ -82,7 +88,7 @@ const PayrollGroups = ({ authPersonList }) => {
             />
           </Grid>
 
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <Button
               data-testid="add-btn"
               style={{
@@ -98,7 +104,7 @@ const PayrollGroups = ({ authPersonList }) => {
             >
               {t("button:addPayrollGroup")}
             </Button>
-          </Grid>
+          </Grid> */}
         </Grid>
       </CardContent>
     </Card>

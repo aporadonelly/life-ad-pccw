@@ -14,27 +14,18 @@ import { DataTable } from "@components/common";
 const SelfCertification = ({ authPersonList }) => {
   const { t } = useTranslation(["typography", "form", "table", "button"]);
 
-  const data = [
-    {
-      typ: 1,
-      engName: "Filename upload 00001.pdf",
-    },
-    {
-      typ: 2,
-      engName: "Filename upload 00002.png",
-    },
-    {
-      typ: 3,
-      engName: "Filename upload 00002.png",
-    },
-  ];
-
   const selfCertColumns = useMemo(
     () => [
       { Header: t("table:thead.type"), accessor: "typ" },
       { Header: t("table:thead.englishName"), accessor: "engName" },
       {
         Header: t("table:thead.custom.action"),
+        headerProps: {
+          style: {
+            width: 100,
+            textAlign: "center",
+          },
+        },
         sticky: "right",
         disableSortBy: true,
         Cell: ({ row }) => {
@@ -66,7 +57,7 @@ const SelfCertification = ({ authPersonList }) => {
         <Grid container>
           <Grid item xs={12}>
             <DataTable
-              data={data} //
+              data={[]}
               columns={selfCertColumns}
               components={{
                 Toolbar: () => (
@@ -80,7 +71,7 @@ const SelfCertification = ({ authPersonList }) => {
             />
           </Grid>
 
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <Button
               data-testid="add-btn"
               style={{
@@ -96,7 +87,7 @@ const SelfCertification = ({ authPersonList }) => {
             >
               {t("button:addControllingPerson")}
             </Button>
-          </Grid>
+          </Grid> */}
         </Grid>
       </CardContent>
     </Card>
