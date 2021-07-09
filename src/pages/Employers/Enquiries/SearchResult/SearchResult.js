@@ -61,7 +61,8 @@ const SearchResult = ({
       sticky: "right",
       disableSortBy: true,
       Cell: ({ row }) => {
-        const { companyName, companyId } = row.original;
+        const { companyName, companyId, branches } = row.original;
+        let enrEnabled = branches[0]?.viewEnrollmentFlagEnabled;
         return (
           <>
             <Tooltip title="View Registration" arrow>
@@ -81,18 +82,15 @@ const SearchResult = ({
             <Tooltip title="View Enrollment" arrow>
               <img
                 onClick={() => handleViewScheme({ pnsnId: companyName })}
-                src={
-                  row.original.branches[0]?.viewEnrollmentFlagEnabled
-                    ? viewEnrollActive
-                    : viewEnrollInActive
-                }
+                src={enrEnabled ? viewEnrollActive : viewEnrollInActive}
                 alt="View Enrollment"
                 variant="contained"
                 style={{
                   margin: "0 5px",
                   background: "#EF841F",
                   color: "#fff",
-                  cursor: "pointer",
+                  cursor: enrEnabled ? "pointer" : "not-allowed",
+                  pointerEvents: enrEnabled ? "all" : "none",
                 }}
               />
             </Tooltip>
