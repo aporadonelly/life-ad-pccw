@@ -1,11 +1,11 @@
 {
   "thead": {
     "mpfId": "MPF ID",
-    "employerAcctNo": "Employer Acc. No.",
+    "employerAcctNo": "Employer Account No.",
     "companyNameEnglish": "Company Name (English)",
     "companyNameChinese": "Company Name (Chinese)",
     "registrationType": "Registration Type",
-    "registrationNumber": "Registration No.",
+    "registrationNumber": "Registration Number",
     "branchNumber": "Branch Number",
     "typesOfCompany": "Type of Company",
     "dateOfIncorporation": "Date of Incorporation",

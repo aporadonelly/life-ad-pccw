@@ -24,7 +24,8 @@
     "enrollmentScheme": "招生計劃",
     "trustee": "受託人",
     "schemeName": "方案名稱",
-    "status": "地位"
+    "status": "地位",
+    "payrollGroupContctPerson": "薪資組聯繫人"
   },
   "paragraph": {}
 }

@@ -27,7 +27,8 @@
     "beneficialOwner": "Beneficial Owner",
     "partner": "Partner",
     "payrollGroup": "Payroll Group",
-    "selfCertification": "Self-Certification"
+    "selfCertification": "Self-Certification",
+    "payrollGroupContctPerson": "Payroll Group Contact Person"
   },
   "paragraph": {},
   "labelCaption": ""

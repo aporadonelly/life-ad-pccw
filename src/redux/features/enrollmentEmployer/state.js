@@ -8,6 +8,21 @@ export const contactPersonsAdapter = createEntityAdapter({
   selectId: (contactPerson) => contactPerson.cntctPrsnUuid,
 });
 
+export const payrollGroupContactPersonsAdapter = createEntityAdapter({
+  selectId: (payrollGroupContactPerson) =>
+    payrollGroupContactPerson.cmpnyBrnchCd,
+});
+
+export const schemesAdapter = createEntityAdapter({
+  selectId: (scheme) => scheme.name,
+  sortComparer: (a, b) => a.name.localeCompare(b.name),
+});
+
+export const trusteesAdapter = createEntityAdapter({
+  selectId: (trustee) => trustee.name,
+  sortComparer: (a, b) => a.name.localeCompare(b.name),
+});
+
 export const enrollmentEmployer = createEntityAdapter({});
 
 export const initialState = enrollmentEmployer.getInitialState({
@@ -22,4 +37,7 @@ export const initialState = enrollmentEmployer.getInitialState({
   selectedPayrollGroupUUID: null,
   employers: employersAdapter.getInitialState(),
   contactPersons: contactPersonsAdapter.getInitialState(),
+  payrollGroupContactPersons: payrollGroupContactPersonsAdapter.getInitialState(),
+  schemes: schemesAdapter.getInitialState(),
+  trustees: trusteesAdapter.getInitialState(),
 });

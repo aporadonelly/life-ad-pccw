@@ -61,6 +61,45 @@ export const registrationCompanyInformationSelector = createSelector(
   (state) => state.registrationCompanyInformation
 );
 
+export const addressByTypeIdSelector = createSelector(
+  registrationCompanyInformationSelector,
+  (_, addrTypId) => addrTypId,
+  (registrationCompanyInformation, addrTypId) =>
+    compact(
+      values(
+        pick(
+          find(
+            registrationCompanyInformation?.ldRegCmpnyInfoforAdmnPrtlProjection
+              ?.client?.addresses,
+            { addrTypId }
+          ),
+          [
+            "addrRmTxt",
+            "addrFlrTxt",
+            "addrBldngNmTxt",
+            "addrBlckTxt",
+            "addrStrtTxt",
+            "addrCtyTxt",
+            "addrDstrctTxt",
+          ]
+        )
+      )
+    ).join(" ")
+);
+
+export const contactByTypeIdSelector = createSelector(
+  registrationCompanyInformationSelector,
+  (_, cntctPrsnTypId) => cntctPrsnTypId,
+  (registrationCompanyInformation, cntctPrsnTypId) =>
+    find(registrationCompanyInformation?.contactDtos, { cntctPrsnTypId })
+);
+
+export const clientPhoneByTypeIdSelector = createSelector(
+  contactByTypeIdSelector,
+  (_contact, _cntctPrsnTypId, phnTypId) => phnTypId,
+  (contact, phnTypId) => find(contact?.clntPhones, { phnTypId })
+);
+
 export const authorizedPersonAddressByTypeIdSelector = createSelector(
   authorizedPersonSelector,
   (_, addrTypId) => addrTypId,
