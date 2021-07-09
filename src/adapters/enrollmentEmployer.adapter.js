@@ -18,14 +18,6 @@ class EnrollmentEmployer extends AxiosAdapter {
     });
   }
 
-  getSchmLst() {
-    return this.instance.get("/getSchmLst");
-  }
-
-  getTrstLst() {
-    return this.instance.get("/getTrstLst");
-  }
-
   ldGradeInfo(payload) {
     const { payrollGrpUuid, erGradeUuid } = payload;
     return this.instance.get("/ldGradeInfo", {

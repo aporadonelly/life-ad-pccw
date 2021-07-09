@@ -2,7 +2,13 @@ import { Grid, Card, CardContent, Typography } from "@material-ui/core";
 import { Definition } from "@components/misc";
 
 const AuthorizedPerson = (props) => {
-  const { authorizedPerson, residentialAddress, telephone, mobile } = props;
+  const {
+    authorizedPerson,
+    residentialAddress,
+    telephone,
+    mobile,
+    customTypes,
+  } = props;
   const {
     idTypId,
     idNoTxt,
@@ -31,7 +37,10 @@ const AuthorizedPerson = (props) => {
               <Grid item xs={12}>
                 <Definition spacing={2} xs={3}>
                   <Definition.List>
-                    <Definition.Item dt="ID Type" dd={idTypId} />
+                    <Definition.Item
+                      dt="ID Type"
+                      dd={customTypes[idTypId]?.cstmTypDtlTxt}
+                    />
                     <Definition.Item dt="ID Number" dd={idNoTxt} />
                     <Definition.Item dt="Date of Birth" dd={brthDt} />
                     <Definition.Item dt="Title" dd={ttlTypNm} />

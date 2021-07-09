@@ -19,9 +19,7 @@
     "trustee": "受託人",
     "schemeName": "方案名稱",
     "status": "地位",
-    "payrollGroupContactPerson": "工资组联系人",
-    "gradePayroll": "年级",
-    "payrollGroup": "工资组"
+    "payrollGroupContctPerson": "薪資組聯繫人"
   },
   "paragraph": {}
 }

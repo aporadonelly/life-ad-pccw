@@ -1,36 +1,43 @@
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import { useTranslation } from "react-i18next";
-import {
-  customTypeByIdentitySelector,
-  customTypeByIdSelector,
-  countrySelector,
-} from "@redux/features/system/selectors";
 import { Chip as MuiChip } from "@material-ui/core";
 
 const Chip = (props) => {
-  const { customType, country, pair, ...rest } = props;
+  const {
+    customTypes,
+    nationality,
+    countries,
+    trustees,
+    schemes,
+    pair,
+    ...rest
+  } = props;
   const { t } = useTranslation(["form"]);
   let label = t(`form:label.${pair.key}`) + ": ";
 
-  if (customType.cstmGrpId === "NTN") label += customType.cstmTypId;
-  else if (customType.cstmTypDtlTxt) label += customType.cstmTypDtlTxt;
-  else if (country.cntryTypNm) label += country.cntryTypNm;
-  else label += pair.value;
+  if (nationality?.cstmGrpId === "NTN") {
+    label += nationality?.cstmTypId;
+  } else if (customTypes?.[pair.value]?.cstmTypDtlTxt) {
+    label += customTypes?.[pair.value]?.cstmTypDtlTxt;
+  } else if (countries?.[pair.value]?.cntryTypNm) {
+    label += countries?.[pair.value]?.cntryTypNm;
+  } else if (trustees?.[pair.value]?.name) {
+    label += trustees?.[pair.value]?.name;
+  } else if (schemes?.[pair.value]?.name) {
+    label += schemes?.[pair.value]?.name;
+  } else {
+    label += pair.value;
+  }
 
   return <MuiChip label={label} color="primary" {...rest} />;
 };
 
-const mapStateToProps = (state, { pair }) => ({
-  country: countrySelector(state, pair.value),
-  customType:
-    customTypeByIdSelector(state, pair.value) ??
-    customTypeByIdentitySelector(state, { cstmTypDtlTxt: pair.value }),
-});
-
 Chip.defaultProps = {
-  customType: {},
-  country: {},
+  customTypes: {},
+  nationality: {},
+  countries: {},
+  trustees: {},
+  schemes: {},
 };
 
 Chip.propTypes = {
@@ -40,4 +47,4 @@ Chip.propTypes = {
   }),
 };
 
-export default connect(mapStateToProps, null)(Chip);
+export default Chip;

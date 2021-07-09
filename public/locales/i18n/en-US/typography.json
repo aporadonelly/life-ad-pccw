@@ -22,9 +22,7 @@
     "status": "Status",
     "enquiryResult": "Enquiries Result",
     "employerRegOrEnrEnq": "Employer Registration or Enrollment Enquiries",
-    "payrollGroupContactPerson": "Payroll Group Contact Person",
-    "gradePayroll": "Grade",
-    "payrollGroup": "Payroll Group"
+    "payrollGroupContctPerson": "Payroll Group Contact Person"
   },
   "paragraph": {},
   "labelCaption": ""

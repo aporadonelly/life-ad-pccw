@@ -49,26 +49,34 @@ export const ldEnrCmpnyInfo = createAsyncThunk(
   async (payload, { rejectWithValue, getState }) => {
     try {
       const cmpnyUuid = selectedCompanyUUIDSelector(getState());
-      const employerUuid = selectedEmployerUUIDSelector(getState());
       const schmUuid = selectedSchemeUUIDSelector(getState());
 
       const primaryContactPerson = await enrollmentEmployer.ldCntctPrsnInfo({
         cntctPrsnTypId: "CT_PCP",
         cmpnyUuid,
+        ...payload,
       });
+
       const secondaryContactPerson = await enrollmentEmployer.ldCntctPrsnInfo({
         cntctPrsnTypId: "CT_SCP",
         cmpnyUuid,
-      });
-      const enrCmpnyInfo = await enrollmentEmployer.ldEnrCmpnyInfo({
-        employerUuid,
-        schmUuid,
-        contactPersons: compact(
-          concat(primaryContactPerson, secondaryContactPerson)
-        ),
         ...payload,
       });
-      return { enrCmpnyInfo };
+
+      const [enrCmpnyInfo] = await enrollmentEmployer.ldEnrCmpnyInfo({
+        cmpnyUuid,
+        schmUuid,
+        ...payload,
+      });
+
+      return {
+        enrCmpnyInfo: {
+          ...enrCmpnyInfo,
+          contactPersons: compact(
+            concat(primaryContactPerson, secondaryContactPerson)
+          ),
+        },
+      };
     } catch (error) {
       return rejectWithValue({ error });
     }
@@ -79,8 +87,8 @@ export const ldGradeInfo = createAsyncThunk(
   "@@empf/enr/er/ldGradeInfo",
   async (payload, { rejectWithValue }) => {
     try {
-      const employers = await enrollmentEmployer.ldGradeInfo(payload);
-      return { employers };
+      const gradeInfo = await enrollmentEmployer.ldGradeInfo(payload);
+      return { gradeInfo };
     } catch (error) {
       return rejectWithValue({ error });
     }
