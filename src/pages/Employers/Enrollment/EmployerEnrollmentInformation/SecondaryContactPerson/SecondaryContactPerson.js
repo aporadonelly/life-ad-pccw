@@ -2,7 +2,6 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Grid, Card, CardContent, Typography } from "@material-ui/core";
 import { Definition } from "@components/misc";
-import { get, sortBy } from "lodash";
 
 const SecondaryContactPerson = ({ enrCompanyInfo }) => {
   const { t } = useTranslation(["typography", "form", "table", "button"]);

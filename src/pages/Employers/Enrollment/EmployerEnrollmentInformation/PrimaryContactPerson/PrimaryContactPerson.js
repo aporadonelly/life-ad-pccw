@@ -2,21 +2,11 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Grid, Card, CardContent, Typography } from "@material-ui/core";
 import { Definition } from "@components/misc";
-import { get, sortBy } from "lodash";
 
 const PrimaryContactPerson = ({ enrCompanyInfo }) => {
   const { t } = useTranslation(["typography", "form", "table", "button"]);
 
   const { primaryContactPerson, companyPhoneList } = enrCompanyInfo ?? {};
-  // const primaryContact = sortBy(primaryContactPerson, "cntctPrsnTypNm") ?? [];
-  // const { ttlTypNm, cntctPrsnNm, lnggTypNm, emlAddrTxt } =
-  //   get(primaryContact, "[0]") ?? [];
-
-  // const phoneList = sortBy(companyPhoneList, "phnTypId") ?? [];
-  // const mobilePhone = get(phoneList, "[0]") ?? {};
-  // const telePhone = get(phoneList, "[2]") ?? {};
-  // console.log("primary:", primaryContactPerson);
-  // console.log("Secondary", secondaryContactPerson);
 
   return (
     <Card>
