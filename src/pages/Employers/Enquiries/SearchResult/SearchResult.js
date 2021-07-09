@@ -89,8 +89,8 @@ const SearchResult = ({
                   margin: "0 5px",
                   background: "#EF841F",
                   color: "#fff",
-                  cursor: enrEnabled && "pointer",
-                  pointerEvents: !enrEnabled && "none",
+                  cursor: enrEnabled ? "pointer" : "not-allowed",
+                  pointerEvents: enrEnabled ? "all" : "none",
                 }}
               />
             </Tooltip>
