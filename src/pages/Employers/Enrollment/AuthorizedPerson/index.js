@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import { customTypesEntitiesSelector } from "@redux/features/system/selectors";
 import {
   authorizedPersonSelector,
   authorizedPersonAddressByTypeIdSelector,
@@ -11,6 +12,7 @@ const mapStateToProps = (state) => ({
   telephone: authorizedPersonPhoneByTypeIdSelector(state, "TP_TP"),
   mobile: authorizedPersonPhoneByTypeIdSelector(state, "TP_MB"),
   residentialAddress: authorizedPersonAddressByTypeIdSelector(state, "AD_R"),
+  customTypes: customTypesEntitiesSelector(state),
 });
 
 export default connect(mapStateToProps, null)(AuthorizedPerson);
