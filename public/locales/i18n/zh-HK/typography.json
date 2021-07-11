@@ -19,7 +19,9 @@
     "trustee": "受託人",
     "schemeName": "方案名稱",
     "status": "地位",
-    "payrollGroupContctPerson": "薪資組聯繫人"
+    "payrollGroupContctPerson": "薪資組聯繫人",
+    "payrollGroup": "薪資組",
+    "gradePayroll": "等級工資"
   },
   "paragraph": {}
 }

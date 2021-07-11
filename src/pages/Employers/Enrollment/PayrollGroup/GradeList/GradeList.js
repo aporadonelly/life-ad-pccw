@@ -107,7 +107,7 @@ const GradeList = ({ authorizedPersons }) => {
         </Grid>
 
         <Grid className={classes.root}>
-          <Button
+          {/* <Button
             style={{
               width: "auto",
               top: "10px",
@@ -126,7 +126,7 @@ const GradeList = ({ authorizedPersons }) => {
             color="primary"
           >
             {t("button:copyFromOtherPayrollGroup")}
-          </Button>
+          </Button> */}
         </Grid>
       </CardContent>
     </Card>

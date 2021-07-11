@@ -35,7 +35,6 @@ const ContactPersonList = ({ contactPersons, ldCntctPrsnInfo }) => {
       cmpnyUuid: "1f33f55f-c1a9-43c9-84d2-f84f5a7a0c29",
     });
   }, [ldCntctPrsnInfo]);
-  console.log(contactPersons);
 
   const columns = useMemo(
     () => [
@@ -146,14 +145,14 @@ const ContactPersonList = ({ contactPersons, ldCntctPrsnInfo }) => {
             />
           </Grid>
         </Grid>
-        <Button
+        {/* <Button
           style={{ width: "auto", top: "10px", borderRadius: 19 }}
           variant="contained"
           color="primary"
         >
           <AddIcon fontSize="small" />
           {t("button:addPayrollGroupContactPerson")}
-        </Button>
+        </Button> */}
       </CardContent>
     </Card>
   );

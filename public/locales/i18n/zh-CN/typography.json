@@ -19,7 +19,9 @@
     "trustee": "受托人",
     "schemeName": "方案名称",
     "status": "地位",
-    "payrollGroupContctPerson": "薪资组联系人"
+    "payrollGroupContctPerson": "薪资组联系人",
+    "payrollGroup": "薪资组",
+    "gradePayroll": "等级工资"
   },
   "paragraph": {}
 }
