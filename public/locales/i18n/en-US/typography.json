@@ -28,7 +28,8 @@
     "partner": "Partner",
     "payrollGroup": "Payroll Group",
     "selfCertification": "Self-Certification",
-    "payrollGroupContctPerson": "Payroll Group Contact Person"
+    "payrollGroupContctPerson": "Payroll Group Contact Person",
+    "gradePayroll": "Grade Payroll"
   },
   "paragraph": {},
   "labelCaption": ""

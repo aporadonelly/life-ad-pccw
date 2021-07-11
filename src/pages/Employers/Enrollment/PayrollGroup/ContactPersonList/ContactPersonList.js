@@ -137,7 +137,7 @@ const ContactPersonList = ({ contactPersons, ldCntctPrsnInfo }) => {
                 Toolbar: () => (
                   <Toolbar disableGutters>
                     <Typography variant="h6" color="primary">
-                      {t("typography:heading.payrollGroupContactPerson")}
+                      {t("typography:heading.payrollGroupContctPerson")}
                     </Typography>
                   </Toolbar>
                 ),
