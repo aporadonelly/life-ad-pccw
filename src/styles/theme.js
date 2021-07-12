@@ -111,6 +111,10 @@ theme.overrides = {
         backgroundColor: theme.palette.secondary.main,
       },
     },
+    containedPrimary: {
+      borderWidth: 2,
+      borderRadius: 40,
+    },
     containedSecondary: {
       color: theme.palette.common.white,
       borderRadius: 40,
@@ -131,6 +135,9 @@ theme.overrides = {
         borderBottom: 0,
       },
     },
+  },
+  MuiCheckbox: {
+    root: { marginTop: -1 },
   },
 };
 
