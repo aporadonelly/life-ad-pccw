@@ -11,11 +11,9 @@ const PayrollGroupContactPerson = ({
   telephone,
   push,
 }) => {
-  console.log(contactPerson);
   const { frstNm, lstNm, emlAddrTxt, jbPstnTxt, ttlTypCd, lnggTypId } =
     contactPerson ?? [];
 
-  console.log(telephone, mobile);
   const { t } = useTranslation(["typography", "form", "button", "table"]);
 
   useEffect(() => {
