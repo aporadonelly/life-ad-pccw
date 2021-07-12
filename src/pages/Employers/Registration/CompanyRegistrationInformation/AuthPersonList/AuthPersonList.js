@@ -13,7 +13,6 @@ import { useTranslation } from "react-i18next";
 
 const AuthorizedPersonList = ({
   cmpnyRltdPrsns,
-  companyId,
   setSelectedClientUUID,
   push,
 }) => {

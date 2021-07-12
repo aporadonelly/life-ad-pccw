@@ -40,8 +40,7 @@ const CompanyProfile = ({
     customTypId,
   } = companyRegInfo ?? [];
 
-  const { cmpnyNm, id } = ldRegCmpnyInfoforAdmnPrtlProjection ?? {};
-  const { brnchNm, brnchNoTxt, lnggTypId } =
+  const { brnchNoTxt, lnggTypId } =
     get(ldRegCmpnyInfoforAdmnPrtlProjection, "branches[0]") ?? {};
 
   return isLoading ? (
@@ -73,7 +72,6 @@ const CompanyProfile = ({
         {!isEmpty(cmpnyRltdPrsns) && (
           <AuthorizedPersonList
             cmpnyRltdPrsns={cmpnyRltdPrsns}
-            companyId={id}
             setSelectedClientUUID={setSelectedClientUUID}
             push={push}
           />
