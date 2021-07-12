@@ -3,7 +3,6 @@ import { compact, concat } from "lodash";
 import { enrollmentEmployer } from "@adapters";
 import {
   selectedCompanyUUIDSelector,
-  selectedEmployerUUIDSelector,
   selectedSchemeUUIDSelector,
 } from "./selectors";
 
@@ -15,6 +14,10 @@ export const setSelectedPnsnId = createAction(
 
 export const setSelectedCompanyUUID = createAction(
   "@@empf/enr/er/setSelectedCompanyUUID"
+);
+
+export const setSelectedContactPersonUUID = createAction(
+  "@@empf/enr/er/setSelectedContactPersonUUID"
 );
 
 export const setSelectedEmployerUUID = createAction(

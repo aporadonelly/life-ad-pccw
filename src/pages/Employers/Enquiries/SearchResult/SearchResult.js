@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
 import {
@@ -25,7 +26,7 @@ const SearchResult = ({
 }) => {
   const { t } = useTranslation(["typography", "form", "button", "table"]);
 
-  const columns = [
+  const columns = useMemo(() => [
     { Header: t("table:thead.mpfId"), accessor: "pnsnId" },
     {
       Header: t("table:thead.employerAcctNo"),
@@ -98,7 +99,7 @@ const SearchResult = ({
         );
       },
     },
-  ];
+  ]);
 
   const handleViewRegistration = ({ cmpnyUuid }) => {
     setSelectedCompanyUUID({ cmpnyUuid });
