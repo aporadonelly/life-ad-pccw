@@ -23,12 +23,16 @@ const routes = createRoutes(registrationRoutes);
 const Registration = (props) => {
   const { companyRegInfo } = props;
   const { ldRegCmpnyInfoforAdmnPrtlProjection } = companyRegInfo;
+  const empfID =
+    ldRegCmpnyInfoforAdmnPrtlProjection?.client?.clientRelationships?.[0]
+      ?.enttyCd;
 
   return (
     <Page>
       <PageHeader routes={tabs}>
         <PageHeader.SubjectInfo
           subject={ldRegCmpnyInfoforAdmnPrtlProjection?.cmpnyNm}
+          info={{ "Employer eMPF ID :": empfID }}
         />
         <PageHeader.SubjectInfo
           subject={ldRegCmpnyInfoforAdmnPrtlProjection?.branches?.[0]?.brnchNm}

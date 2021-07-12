@@ -18,6 +18,7 @@
     "axios": "^0.21.1",
     "clsx": "^1.1.1",
     "connected-react-router": "^6.9.1",
+    "cross-env": "^7.0.3",
     "date-fns": "^2.20.3",
     "faker": "^5.5.3",
     "formik": "^2.2.6",
@@ -52,7 +53,7 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "cross-env BROWSER=none craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
