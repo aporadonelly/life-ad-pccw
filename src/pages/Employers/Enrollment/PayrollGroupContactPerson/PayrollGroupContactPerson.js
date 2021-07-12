@@ -1,5 +1,13 @@
 import { useEffect } from "react";
-import { Grid, Card, CardContent, Typography, Button } from "@material-ui/core";
+import {
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  Box,
+  CircularProgress,
+} from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { Definition } from "@components/misc";
 
@@ -10,6 +18,7 @@ const PayrollGroupContactPerson = ({
   mobile,
   telephone,
   push,
+  isLoading,
 }) => {
   const { frstNm, lstNm, emlAddrTxt, jbPstnTxt, ttlTypCd, lnggTypId } =
     contactPerson ?? [];
@@ -25,7 +34,11 @@ const PayrollGroupContactPerson = ({
     });
   }, [ldCntctPrsnInfo, setSelectedContactPersonUUID]);
 
-  return (
+  return isLoading ? (
+    <Box display="flex" justifyContent="center" mt={5}>
+      <CircularProgress />
+    </Box>
+  ) : (
     <Grid container spacing={3}>
       <Grid item xs={12}>
         <Card>

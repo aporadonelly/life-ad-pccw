@@ -3,6 +3,7 @@ import { push } from "connected-react-router";
 import {
   contactPersonSelector,
   contactPersonClientPhoneByTypeIdSelector,
+  isLoadingSelector,
 } from "@redux/features/enrollmentEmployer/selectors";
 import {
   ldCntctPrsnInfo,
@@ -12,6 +13,7 @@ import PayrollGroupContactPerson from "./PayrollGroupContactPerson";
 import { bindActionCreators } from "redux";
 
 const mapStateToProps = (state) => ({
+  isLoading: isLoadingSelector(state),
   contactPerson: contactPersonSelector(state),
   mobile: contactPersonClientPhoneByTypeIdSelector(state, "TP_MB"),
   telephone: contactPersonClientPhoneByTypeIdSelector(state, "TP_TP"),
