@@ -7,8 +7,20 @@ import {
 } from "@material-ui/core";
 
 const TableBody = () => {
-  const { getTableBodyProps, prepareRow, page } = useDataTableState();
+  const { getTableBodyProps, prepareRow, page, columns } = useDataTableState();
   const classes = useStyles();
+
+  if (page.length === 0) {
+    return (
+      <MuiTableBody {...getTableBodyProps()}>
+        <TableRow>
+          <TableCell colSpan={columns.length} align="center">
+            No data found
+          </TableCell>
+        </TableRow>
+      </MuiTableBody>
+    );
+  }
 
   return (
     <MuiTableBody {...getTableBodyProps()}>
