@@ -1,4 +1,4 @@
-- hosts: Jumpbox
+- hosts: jumpbox
   tasks:
     - name: Copy the file from Jenkins 
       synchronize:
