@@ -32,7 +32,7 @@ const Registration = (props) => {
       <PageHeader routes={tabs}>
         <PageHeader.SubjectInfo
           subject={ldRegCmpnyInfoforAdmnPrtlProjection?.cmpnyNm}
-          info={{ "Employer eMPF ID :": empfID }}
+          info={{ "Employer MPF ID :": empfID }}
         />
         <PageHeader.SubjectInfo
           subject={ldRegCmpnyInfoforAdmnPrtlProjection?.branches?.[0]?.brnchNm}
