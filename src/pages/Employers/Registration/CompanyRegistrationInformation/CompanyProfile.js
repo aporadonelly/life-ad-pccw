@@ -93,7 +93,7 @@ const CompanyProfile = ({
         {isEmpty(companyRegInfo) ? (
           <Grid container justify="center">
             <Typography variant="h6" color="primary">
-              No Data Found.
+              {t("typography:emptyPage.noDataFound")}
             </Typography>
           </Grid>
         ) : (
