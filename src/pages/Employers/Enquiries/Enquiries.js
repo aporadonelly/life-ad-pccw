@@ -1,27 +1,36 @@
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { Page } from "@containers";
 import { PageHeader, PageInner } from "@components/layout";
 import { createRoutes } from "@components/misc";
 import { enquiriesRoutes } from "@routes/employers";
 
-const tabs = [
-  {
-    name: "ER Registration / Enrollment Enquiries",
-    path: "/employers/enquiries",
-    redirect: "/employers/enquiries/search",
-    tab: true,
-  },
-  {
-    name: "Contribution",
-    path: "/employers/contribution",
-    tab: true,
-  },
-];
+const Enquiries = () => {
+  const { t } = useTranslation(["typography"]);
 
-const Enquiries = () => (
-  <Page>
-    <PageHeader routes={tabs} />
-    <PageInner>{createRoutes(enquiriesRoutes)}</PageInner>
-  </Page>
-);
+  const tabs = useMemo(
+    () => [
+      {
+        name: t("typography:tabs.enrollmentEnquiries"),
+        path: "/employers/enquiries",
+        redirect: "/employers/enquiries/search",
+        tab: true,
+      },
+      {
+        name: t("typography:tabs.contribution"),
+        path: "/employers/contribution",
+        tab: true,
+      },
+    ],
+    [t]
+  );
+
+  return (
+    <Page>
+      <PageHeader routes={tabs} />
+      <PageInner>{createRoutes(enquiriesRoutes)}</PageInner>
+    </Page>
+  );
+};
 
 export default Enquiries;
