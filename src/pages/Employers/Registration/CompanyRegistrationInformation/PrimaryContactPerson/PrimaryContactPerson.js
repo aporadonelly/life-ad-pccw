@@ -42,11 +42,15 @@ const PrimaryContactPerson = (props) => {
                   />
                   <Definition.Item
                     dt={t("form:label.telNo")}
-                    dd={`+${companyRegInfo?.countryTyp?.telCntryCdNmbr} ${telephone?.phnNmbr}`}
+                    dd={`+${companyRegInfo?.countryTyp?.telCntryCdNmbr} ${
+                      telephone?.phnNmbr || ""
+                    }`}
                   />
                   <Definition.Item
                     dt={t("form:label.mobileNo")}
-                    dd={`+${companyRegInfo?.countryTyp?.telCntryCdNmbr} ${mobile?.phnNmbr}`}
+                    dd={`+${companyRegInfo?.countryTyp?.telCntryCdNmbr} ${
+                      mobile?.phnNmbr || ""
+                    }`}
                   />
                   <Definition.Item
                     dt={t("form:label.email")}
