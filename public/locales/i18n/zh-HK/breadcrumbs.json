@@ -1,6 +1,7 @@
 {
   "siteMap": {
-    "/employers/company/reg-info": "公司 / 公司註冊信息",
+    "/employers/reigstration": "公司 / 公司註冊信息",
+    "/employers/enrollment": "公司/雇主註冊信息",
     "/employers/enquiries": "雇主 / ER 註冊或註冊查詢",
     "/members/enquiry": "成員 / 會員查詢",
     "/members/termination": "成員 / 終止",
