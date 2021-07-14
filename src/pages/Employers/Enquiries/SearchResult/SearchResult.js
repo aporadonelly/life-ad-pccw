@@ -67,7 +67,12 @@ const SearchResult = ({
           <>
             <Tooltip title="View Registration" arrow>
               <img
-                onClick={() => handleViewRegistration({ cmpnyUuid: companyId })}
+                onClick={() =>
+                  handleViewRegistration({
+                    cmpnyUuid: companyId,
+                    pnsnId: companyName,
+                  })
+                }
                 src={viewRegistration}
                 alt="View Registration"
                 variant="contained"
@@ -100,8 +105,9 @@ const SearchResult = ({
     },
   ];
 
-  const handleViewRegistration = ({ cmpnyUuid }) => {
+  const handleViewRegistration = ({ cmpnyUuid, pnsnId }) => {
     setSelectedCompanyUUID({ cmpnyUuid });
+    setSelectedPnsnId({ pnsnId });
     push("/employers/registration/information");
   };
 
@@ -126,7 +132,7 @@ const SearchResult = ({
           <CardContent>
             <Grid item xs={12}>
               <Typography variant="h6" color="primary">
-                {t("typography:heading.employerRegOrEnrEnq")}
+                {t("typography:heading.enrollmentEnquiries")}
               </Typography>
             </Grid>
             <Grid item xs={12}>
