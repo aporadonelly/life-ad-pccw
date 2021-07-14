@@ -21,18 +21,26 @@ const tabs = [
 const routes = createRoutes(registrationRoutes);
 
 const Registration = (props) => {
-  const { companyRegInfo } = props;
-  const { ldRegCmpnyInfoforAdmnPrtlProjection } = companyRegInfo;
+  const { employer } = props;
 
   return (
     <Page>
       <PageHeader routes={tabs}>
-        <PageHeader.SubjectInfo
-          subject={ldRegCmpnyInfoforAdmnPrtlProjection?.cmpnyNm}
-        />
-        <PageHeader.SubjectInfo
-          subject={ldRegCmpnyInfoforAdmnPrtlProjection?.branches?.[0]?.brnchNm}
-        />
+        {employer && (
+          <>
+            <PageHeader.SubjectInfo
+              subject={employer?.companyName}
+              info={{
+                "Employer eMPF ID :":
+                  employer?.branches?.[0]?.enrollments?.[0]?.employer
+                    ?.employerNo,
+              }}
+            />
+            <PageHeader.SubjectInfo
+              subject={employer?.branches?.[0]?.branchName}
+            />
+          </>
+        )}
       </PageHeader>
       <PageInner>{routes}</PageInner>
     </Page>
@@ -40,7 +48,7 @@ const Registration = (props) => {
 };
 
 Registration.defaultProps = {
-  companyRegInfo: {},
+  employer: {},
 };
 
 export default Registration;
