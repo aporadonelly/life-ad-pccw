@@ -67,7 +67,12 @@ const SearchResult = ({
           <>
             <Tooltip title="View Registration" arrow>
               <img
-                onClick={() => handleViewRegistration({ cmpnyUuid: companyId })}
+                onClick={() =>
+                  handleViewRegistration({
+                    cmpnyUuid: companyId,
+                    pnsnId: companyName,
+                  })
+                }
                 src={viewRegistration}
                 alt="View Registration"
                 variant="contained"
@@ -100,8 +105,9 @@ const SearchResult = ({
     },
   ];
 
-  const handleViewRegistration = ({ cmpnyUuid }) => {
+  const handleViewRegistration = ({ cmpnyUuid, pnsnId }) => {
     setSelectedCompanyUUID({ cmpnyUuid });
+    setSelectedPnsnId({ pnsnId });
     push("/employers/registration/information");
   };
 
