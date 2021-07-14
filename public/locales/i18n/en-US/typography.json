@@ -29,7 +29,9 @@
   },
   "tabs": {
     "companyRegistrationInformation": "Company Registration Information",
-    "employerEnrollmentInformation": "Employer Enrollment Information"
+    "employerEnrollmentInformation": "Employer Enrollment Information",
+    "enrollmentEnquiries": "ER Registration / Enrollment Enquiries",
+    "contribution": "Contribution"
   },
   "labelCaption": ""
 }
