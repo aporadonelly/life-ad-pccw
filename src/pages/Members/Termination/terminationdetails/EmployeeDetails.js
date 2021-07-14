@@ -1,14 +1,14 @@
 import { Grid, Paper } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
-import { labels } from "@common/labelsList";
+import { Box, CircularProgress } from "@material-ui/core";
 import { Form as FormikForm } from "@components/common";
 
 import { Form } from "@components/UseForm";
 import useStyles from "./EmployeeDetailStyles";
-import * as employeeMockData from "@mockData";
 
 import EmpScheme4 from "./EmployeeScheme4";
-
+// FIX: for future use of supporting documents
+//import EmployeeDocuments from "./EmployeeDocuments";
 import moment from "moment";
 import * as yup from "yup";
 import { Formik } from "formik";
@@ -17,10 +17,8 @@ import MessageRender from "./Message/MessageRender";
 
 import { Button } from "@material-ui/core";
 import BottomAppBar from "@components/misc/BottomAppBar/BottomAppBar";
-import FloatingButton from "@components/controls/floatingButton/floatingButton";
-
-import { Cancel as CancelIcon } from "@material-ui/icons";
-import { validate } from "@material-ui/pickers";
+import { useTranslation } from "react-i18next";
+import replaceNull from "../replaceNull";
 
 const EmployeeDetails = (props) => {
   const {
@@ -34,8 +32,15 @@ const EmployeeDetails = (props) => {
     save,
     resetTermination,
     cycleDate,
+    entitleLspSp,
+    detailsLspSp,
+    payMethod,
+    bankList,
+    clnBnkInfo,
+    isSaving,
   } = props;
 
+  const { t } = useTranslation(["typography", "form", "button"]);
   const classes = useStyles();
   const [LSP_SP_Disable, setLSP_SP_Disable] = useState(true);
   const [open, setOpen] = useState(false);
@@ -43,35 +48,32 @@ const EmployeeDetails = (props) => {
   const [bottomBar, setBottomBar] = useState(false);
   const [btnState, setBtnState] = useState();
   let formRef = React.useRef(false);
-  //let filterArrayLSP_SP = ""; // will be used dynamically in LSP/SP option change
   let [filterArrayLSP_SP, setfilterArrayLSP_SP] = useState("");
 
   let data = replaceNull(clientSchemes);
-  //let data = clientSchemes;
-
-  //console.log(clientSchemes);
-  //console.log(reason);
-  //console.log(data);
-  //console.log(data.schemes);
 
   const initialValues = {
     state: "",
-    lastDateOfEmployment: "", //moment("").format("YYYY/MM/DD"),
+    lastDateOfEmployment: "",
     terminationReasonId: "",
-    effective_date_of_termination: "", //moment("").format("YYYY/MM/DD"),
+    effectiveDateOfTermination: "",
     entitleToLspsp: "",
     lspspTypeId: "",
     lspspEntitlementAmount: "",
-    orsoOffsetAmount: "",
-    effective_date: "", //moment("").format("YYYY/MM/DD"),
-    change_date: "", //moment("").format("YYYY/MM/DD"),
-    schemes: data.clientSchemes ?? [], //employeeMockData.getScheme_LSP_SP_offect_sequence(),
+    paymentAmount: "",
+    effectiveDate: "",
+    changeDate: "",
+    schemes: data.clientSchemes ?? [],
+    bankName: "",
+    acctNumber: "",
+    paymentMethod: "",
+    employmentDate: data.employmentDate,
   };
 
   const validationSave = yup.object().shape({
     lastDateOfEmployment: yup.date(),
     terminationReasonId: yup.string(),
-    effective_date_of_termination: yup.date(),
+    effectiveDateOfTermination: yup.date(),
     entitleToLspsp: yup.string(),
     lspspTypeId: yup.string(),
     lspspEntitlementAmount: yup
@@ -80,26 +82,22 @@ const EmployeeDetails = (props) => {
       .positive(
         "The inputted amount cannot exceed the current statutory maximum amount HKD $390,000. Please input again."
       ),
-    orsoOffsetAmount: yup.number().positive("Money input"),
+    paymentAmount: yup.number().positive("Money input"),
   });
 
   const validationSubmit = yup.object().shape({
-    lastDateOfEmployment: yup.date().required(), //yup.date(),
-    terminationReasonId: yup.string().required("Please pick a reason"), //.required("Please pick a reason"),
-    effective_date_of_termination: yup.date(), //.required(),
+    lastDateOfEmployment: yup.date().required(),
+    terminationReasonId: yup.string().required("Please pick a reason"),
+    effectiveDateOfTermination: yup.date(),
     entitleToLspsp: yup.string().required("Please choose yes or no"),
-    lspspTypeId: yup.string(), //.required("Please choose yes or no"),
+    lspspTypeId: yup.string(), // requied in validation null if not selected
     lspspEntitlementAmount: yup
       .number()
       .min(0)
       .positive(
         "The inputted amount cannot exceed the current statutory maximum amount HKD $390,000. Please input again."
-      )
-      .required("Money input is required"),
-    orsoOffsetAmount: yup
-      .number()
-      .positive("Money input")
-      .required("Money input is required"),
+      ),
+    paymentAmount: yup.number().positive("Money input"),
   });
 
   useEffect(() => {
@@ -160,23 +158,12 @@ const EmployeeDetails = (props) => {
 
   const handleClose = (e) => {
     setOpen((open) => !open);
-    if (!(e === undefined)) {
-      if (e.target.textContent === "yes") {
-        //btnClick.current.click();
-      }
-    }
+    // if (!(e === undefined)) {
+    //   if (e.target.textContent === "yes") {
+    //     //btnClick.current.click();
+    //   }
+    // }
   };
-
-  function replaceNull(someObj, replaceValue = "") {
-    const replacer = (key, value) =>
-      String(value) === "null" ||
-      String(value) === "undefined" ||
-      value.length === 0
-        ? replaceValue
-        : value;
-
-    return JSON.parse(JSON.stringify(someObj, replacer));
-  }
 
   function parseBoolean(str) {
     switch (str.toLowerCase()) {
@@ -218,21 +205,51 @@ const EmployeeDetails = (props) => {
     return true;
   };
 
-  // FIX: pending based on employmendate data known 06/01/2021
-  // const chkEmployDate = (values) => {
-  //   return true;
-  // }
+  const filterByTermReason = (termid) => {
+    let selected = "";
+    if (termid === "") {
+      return selected;
+    }
+    if (reason) {
+      return (selected = reason.find((term) => term.cstmTypId === termid)
+        .cstmTypDtlTxt);
+    }
+    return selected;
+  };
+
+  // FIX: employmentDate is in api but no idea to put in UI
+  const chkEmployDate = (values) => {
+    if (values.employmentDate === "") return true;
+    if (values.lastDateOfEmployment === "") return true;
+    const chkLspSpEmpDt = values.lspspTypeId === "" ? null : values.lspspTypeId;
+    if (!chkLspSpEmpDt) return true;
+
+    const dateLdoe = moment(values.lastDateOfEmployment, "YYYY-MM-DD");
+    const dateEmp = moment(values.employmentDate, "YYYY-MM-DD");
+    const duration = moment.duration(dateLdoe.diff(dateEmp));
+    const years = duration.asYears();
+    console.log("chkEmployDate", years);
+
+    if (chkLspSpEmpDt === "LS_LSP") {
+      if (years < 5) {
+        handleClose();
+        setBtnStatus("ExMsg_incrrtLDOE");
+        return false;
+      }
+    } else if (chkLspSpEmpDt === "LS_SP") {
+      if (years < 2) {
+        handleClose();
+        setBtnStatus("ExMsg_incrrtLDOE");
+        return false;
+      }
+    }
+    return true;
+  };
 
   const formikHandleSubmit = (values, actions) => {
-    console.log(values);
-    //actions.validateForm();
-    //const chkValid = await validationSchema.isValid(initialValues);
-    //console.log(chkValid);
-    const chkLdoe = ldoeChange(values);
-    if (!chkLdoe) return;
+    console.log("action - " + values.state, values);
 
-    const chkLsp_SpAmt = chkLsp_Sp_Amount(values);
-    if (!chkLsp_SpAmt) return;
+    const termReason = filterByTermReason(values.terminationReasonId);
 
     const forValidationValues = {
       accountNumber: data.accountNumber, //clientSchemes.accountNumber,
@@ -241,14 +258,19 @@ const EmployeeDetails = (props) => {
         moment(values.lastDateOfEmployment).format("YYYY-MM-DD"),
       entitleToLspsp:
         values.entitleToLspsp && parseBoolean(values.entitleToLspsp),
-      lspspTypeId: values.lspspTypeId ?? null,
+      lspspTypeId: values.lspspTypeId === "" ? null : values.lspspTypeId,
+      lspspType:
+        values.lspspTypeId && (values.lspspTypeId === "LS_SP" ? "SP" : "LSP"),
       terminationReasonId: values.terminationReasonId,
+      terminationReason: termReason,
       lspspEntitlementAmount: values.lspspEntitlementAmount,
-      orsoOffsetAmount: values.orsoOffsetAmount,
+      paymentAmount: values.paymentAmount,
       otherOffsetAmount: 0.0,
       payableAmount:
         values.lspspEntitlementAmount &&
-        values.lspspEntitlementAmount - values.orsoOffsetAmount,
+        values.lspspEntitlementAmount - values.paymentAmount,
+      // NOTE: Payment Amount by ER in HKD = Total LSP/SP Entitlement Amount in HKD - Amount Payable.
+      employmentDate: moment(values.employmentDate).format("YYYY-MM-DD"),
     };
 
     const cloneValues = { ...values, ...forValidationValues };
@@ -256,49 +278,64 @@ const EmployeeDetails = (props) => {
     [
       "state",
       "schemes",
-      "change_date",
-      "effective_date",
-      "effective_date_of_termination",
+      "changeDate",
+      "effectiveDate",
+      "effectiveDateOfTermination",
+      "employmentDate",
+      "acctNumber",
+      "bankName",
     ].forEach((e) => delete cloneValues[e]); // NOTE: not needed as of now
 
     // forValidationValues === for validation in submit
     // cloneValues  ==== for saving
 
+    const removeValues = ["", 0];
+
+    var filter = Object.keys(cloneValues).reduce(function (r, e) {
+      if (removeValues.includes(cloneValues[e])) r[e] = cloneValues[e];
+      return r;
+    }, {});
+
+    //console.log(Object.keys(filter));
+
+    Object.keys(filter).forEach((e) => delete cloneValues[e]);
+
+    if (Object.keys(cloneValues).length === 1) return;
+    if (Object.keys(cloneValues).length === 2) {
+      // lspspTypeId: null (not selected)
+      if (!cloneValues.lspspTypeId) return;
+    }
+
     if (values.state === "save") {
-      const removeValues = ["", 0];
+      const addedValues = {
+        statusType: "Saved",
+        statusTypeId: "ST_SV",
+      };
+      const newValues = [{ ...cloneValues, ...addedValues }];
 
-      var filter = Object.keys(cloneValues).reduce(function (r, e) {
-        if (removeValues.includes(cloneValues[e])) r[e] = cloneValues[e];
-        return r;
-      }, {});
-
-      console.log(Object.keys(filter));
-
-      Object.keys(filter).forEach((e) => delete cloneValues[e]);
-      if (Object.keys(cloneValues).length === 1) return;
-      // const addedValues = {
-      //   accountNumber: data.accountNumber,
-      //   statusType: "Saved",
-      //   statusTypeId: "ST_SV",
-      // };
-      //const newValues = [{ ...cloneValues, ...addedValues }];
-
-      console.log("svEETermInst", cloneValues);
-      saveTermination([cloneValues]);
-      //actions.resetForm();
+      console.log("Saving", newValues);
+      saveTermination(newValues);
+      //saveTermination([cloneValues]);
       return;
     }
 
-    console.log("vldMbrTerm", forValidationValues);
-    validTermination(forValidationValues);
+    const chkLdoe = ldoeChange(values);
+    if (!chkLdoe) return;
 
-    //const combined = { ...values, ...forValidationValues };
-    passValuesActions(cloneValues); //, actions, forValidationValues);
+    const chkLspSpAmt = chkLsp_Sp_Amount(values);
+    if (!chkLspSpAmt) return;
+
+    const chkEmpDate = chkEmployDate(values);
+    if (!chkEmpDate) return;
+
+    //console.log("vldMbrTerm", forValidationValues);
+    validTermination(forValidationValues);
+    passValuesActions(cloneValues);
   };
 
   const onValidSubmit = (valuesActions, btnState) => {
     if (btnState === "submit") {
-      //IMPORTANT: id not found in /ldMbrActAccntLstForER already asked BE devs
+      //IMPORTANT: id not found in already asked BE devs
       //const enttyUuid = "327D2230-AE4C-43CF-8314-4B3525AE6CA3"
       //loadMbrTerm(enttyUuid); //pending useeffect like valid and save
       const addedValues = {
@@ -310,57 +347,64 @@ const EmployeeDetails = (props) => {
         statusTypeId: "ST_SB",
       };
       const newValues = [{ ...valuesActions, ...addedValues }];
-      console.log("submit", newValues);
+      console.log("Submitting", newValues);
       saveTermination(newValues);
-      //actions.resetForm();
       return;
     }
   };
 
-  const onCancel = (resetForm) => {
+  const onCancel = (e, resetForm) => {
+    e.preventDefault();
     handleClose();
     setBtnStatus("ExMsg_CnclPrcss");
   };
-
   return (
     <React.Fragment>
       <PageInner>
         <Paper className={classes.paperContainer} elevation={3}>
           <div className={classes.paperContentContainer}>
             <div className={classes.paperLabelTitle}>
-              {labels.employmentDetail}
+              {t("form:label.employmentDetail")}
             </div>
             <div className={classes.labelAndValueContainer}>
               <div>
-                <div className={classes.labels}>{labels.schemeName}</div>
+                <div className={classes.labels}>
+                  {t("form:label.schemeName")}
+                </div>
                 <div className={classes.textValueWithColor}>
                   {data.schemes && data.schemes[0].schemeName}
                 </div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.employerName}</div>
+                <div className={classes.labels}>
+                  {t("form:label.employerName")}{" "}
+                </div>
                 <div className={classes.textValueWithColor}>
                   {data.firstName}
                 </div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.er_id}</div>
-                <div className={classes.textValue}>{data.employerId}</div>
+                <div className={classes.labels}>{t("form:label.erId")}</div>
+                <div className={classes.textValue}>{data.employerNumber}</div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.branch}</div>
+                <div className={classes.labels}>{t("form:label.branch")}</div>
                 <div className={classes.textValue}>{data.branchName}</div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.branchId}</div>
+                <div className={classes.labels}>{t("form:label.branchId")}</div>
                 <div className={classes.textValue}>{data.branchNumber}</div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.status}</div>
+                <div className={classes.labels}>
+                  {t("form:label.termStatus")}
+                </div>
                 <div className={classes.textValue}>{data.branchStatus}</div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.effectiveDate}</div>
+                <div className={classes.labels}>
+                  {t("form:label.effectiveDate")}
+                </div>
                 <div className={classes.textValue}>
                   {data.effectiveDate &&
                     moment(data.effectiveDate).format("D MMMM y")}
@@ -371,50 +415,58 @@ const EmployeeDetails = (props) => {
         </Paper>
         <Paper className={classes.paperContainer} elevation={3}>
           <div className={classes.paperContentContainer}>
-            <div className={classes.paperLabelTitle}>{labels.memberDetail}</div>
+            <div className={classes.paperLabelTitle}>
+              {t("form:label.memberDetail")}
+            </div>
             <div className={classes.labelAndValueContainer}>
               <div>
-                <div className={classes.labels}>{labels.memberName}</div>
+                <div className={classes.labels}>
+                  {t("form:label.memberName")}
+                </div>
                 <div className={classes.textValue}>
                   {data.lastName && data.firstName + " " + data.lastName}
                 </div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.memberNo}</div>
-                <div className={classes.textValue}>{data.employerNumber}</div>
+                <div className={classes.labels}>{t("form:label.memberNo")}</div>
+                <div className={classes.textValue}>{data.accountNumber}</div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.acctType}</div>
+                <div className={classes.labels}>{t("form:label.acctType")}</div>
                 <div className={classes.textValue}>{data.accountType}</div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.eMPF_No}</div>
+                <div className={classes.labels}>{t("form:label.empfNo")}</div>
                 <div className={classes.textValue}>{data.empfNumber}</div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.acctId}</div>
-                <div className={classes.textValue}>{data.accountId}</div>
+                <div className={classes.labels}>{t("form:label.acctId")}</div>
+                <div className={classes.textValue}>{data.accountNumber}</div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.staffNo}</div>
+                <div className={classes.labels}>{t("form:label.staffNo")}</div>
                 <div className={classes.textValue}>{data.staffNumber}</div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.dateJoin}</div>
+                <div className={classes.labels}>{t("form:label.dateJoin")}</div>
                 <div className={classes.textValue}>
                   {data.joinSchemeDate &&
                     moment(data.joinSchemeDate).format("D MMMM y")}
                 </div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.terminationDate}</div>
+                <div className={classes.labels}>
+                  {t("form:label.terminationDate")}
+                </div>
                 <div className={classes.textValue}>
                   {data.terminationDate &&
                     moment(data.terminationDate).format("D MMMM y")}
                 </div>
               </div>
               <div>
-                <div className={classes.labels}>{labels.status}</div>
+                <div className={classes.labels}>
+                  {t("form:label.termStatus")}
+                </div>
                 <div className={classes.textValue}>{data.status}</div>
               </div>
             </div>
@@ -440,9 +492,6 @@ const EmployeeDetails = (props) => {
             const onHandleClick = (e, state) => {
               setFieldValue("state", state);
               setBtnState(state);
-              // validateForm().then((errors) => {
-              //   return setTouched(errors);
-              // });
               handleSubmit(e);
             };
 
@@ -450,14 +499,14 @@ const EmployeeDetails = (props) => {
               if (event.target.value === "false") {
                 setLSP_SP_Disable(true);
                 setFieldValue("lspspTypeId", "");
-                //setFieldValue("lastDateOfEmployment", "");
+                setfilterArrayLSP_SP(reason);
               } else if (event.target.value === "true") {
                 setLSP_SP_Disable(false);
                 if (filterArrayLSP_SP !== "") {
-                  setFieldValue("terminationReasonId", reason);
+                  setfilterArrayLSP_SP(reason);
+                  //setFieldValue("terminationReasonId", reason);
                 }
                 setfilterArrayLSP_SP("");
-                //filterArrayLSP_SP = "";
               }
             };
 
@@ -474,23 +523,18 @@ const EmployeeDetails = (props) => {
                   "TR_LO",
                   "LR_CE",
                 ];
-                //filterArrayLSP_SP =
                 setfilterArrayLSP_SP(
                   newArray.records.filter(function (obj) {
                     return !(notIncluded.indexOf(obj.cstmTypId) > -1);
                   })
                 );
-                //setFieldValue("terminationReasonId", filterArrayLSP_SP);
               } else if (event.target.value === "LS_SP") {
-                notIncluded = ["TR_LO", "TR_CE"]; //"TR_RD", removed for TESTING
-                //filterArrayLSP_SP =
+                notIncluded = ["TR_RD", "TR_LO", "TR_CE"]; //"TR_RD", removed for TESTING
                 setfilterArrayLSP_SP(
                   newArray.records.filter(function (obj) {
                     return !(notIncluded.indexOf(obj.cstmTypId) > -1);
                   })
                 );
-
-                //setFieldValue("terminationReasonId", filterArrayLSP_SP);
               }
             };
 
@@ -507,13 +551,13 @@ const EmployeeDetails = (props) => {
                 >
                   <div className={classes.terminationInnerContainer}>
                     <div className={classes.terminationTitle}>
-                      {labels.terminationTitle}
+                      {t("form:label.terminationTitle")}
                     </div>
 
                     <div className={classes.terminationDetailContentContainer}>
                       <Grid item sm={3} xs={12} className={classes.datepickers}>
                         <span className={classes.labels}>
-                          {labels.last_date}
+                          {t("form:label.lastDate")}
                         </span>
                         <FormikForm.DatePicker
                           name="lastDateOfEmployment"
@@ -524,7 +568,7 @@ const EmployeeDetails = (props) => {
 
                       <Grid item sm={3} xs={12} className={classes.datepickers}>
                         <span className={classes.labels}>
-                          {labels.termination_reason}
+                          {t("form:label.terminationReason")}
                         </span>
                         <FormikForm.Select
                           name="terminationReasonId"
@@ -536,37 +580,36 @@ const EmployeeDetails = (props) => {
                             label: (option) => option.cstmTypDtlTxt,
                             value: (option) => option.cstmTypId,
                           }}
-                          //options={reason} //{employeeMockData.getTerminationReasonList()}
                         />
                       </Grid>
                       <Grid item sm={3} xs={12} className={classes.datepickers}>
                         <span className={classes.labels}>
-                          {labels.effectiveDate}
+                          {t("form:label.effectiveDate")}
                         </span>
                         <FormikForm.DatePicker
-                          name="effective_date_of_termination"
+                          name="effectiveDateOfTermination"
                           helperText="YYYYMMDD"
                           format="YYYY/MM/DD"
                         />
                       </Grid>
                     </div>
-                    <div className={classes.labels}>{labels.entitle_to}</div>
+                    <div className={classes.labels}>
+                      {t("form:label.entitleTo")}
+                    </div>
                     <FormikForm.RadioGroupField
                       row
                       name="entitleToLspsp"
                       onClick={disableLSP_SP}
-                      //data={employeeMockData.getEntitle_LSP_SP_items()}
                       data={{
-                        options: employeeMockData.getEntitle_LSP_SP_items(),
+                        options: entitleLspSp,
                         label: (option) => option.label,
                         value: (option) => option.value,
                       }}
-                      //helperText="Please select Yes or No"
                     />
 
                     <div className={classes.mgTop}>
                       <div className={classes.terminationTitle}>
-                        {labels.lsp_details}
+                        {t("form:label.lspDetails")}
                       </div>
                       <div className={classes.lspRow}>
                         <Grid
@@ -576,18 +619,17 @@ const EmployeeDetails = (props) => {
                           className={`${classes.mgTop} ${classes.mgRight}`}
                         >
                           <div className={classes.labels}>
-                            {labels.entitle_lsp}
+                            {t("form:label.entitleLsp")}
                           </div>
                           <FormikForm.RadioGroupField
                             row
                             name="lspspTypeId"
                             onClick={onClickLSP_SPReason}
                             data={{
-                              options: employeeMockData.getLSP_SP_items(),
+                              options: detailsLspSp,
                               label: (option) => option.label,
                               value: (option) => option.value,
                             }}
-                            //helperText="Please select Yes or No"
                             disabled={LSP_SP_Disable ? "disabled" : ""}
                           />
                         </Grid>
@@ -598,14 +640,13 @@ const EmployeeDetails = (props) => {
                           className={`${classes.mgTop} ${classes.mgRight}`}
                         >
                           <span className={classes.labels}>
-                            {labels.total_entitle_amount}
+                            {t("form:label.totalEntitleAmount")}
                           </span>
                           <FormikForm.Input
                             name="lspspEntitlementAmount"
                             fullWidth
                             type="number"
                             placeholder="Input Amount in HKD"
-                            //disabled={LSP_SP_Disable ? "disabled" : ""}
                           />
                         </Grid>
                         <Grid
@@ -615,14 +656,13 @@ const EmployeeDetails = (props) => {
                           className={`${classes.mgTop} ${classes.mgRight}`}
                         >
                           <span className={classes.labels}>
-                            {labels.pay_amount_er}
+                            {t("form:label.payAmountEr")}
                           </span>
                           <FormikForm.Input
-                            name="orsoOffsetAmount"
+                            name="paymentAmount"
                             fullWidth
                             type="number"
                             placeholder="Input Amount in HKD"
-                            //disabled={LSP_SP_Disable ? "disabled" : ""}
                           />
                         </Grid>
                       </div>
@@ -637,7 +677,6 @@ const EmployeeDetails = (props) => {
                           />
                         )}
                       </div>
-
                       <div className={classes.effDateTop}>
                         <Grid
                           item
@@ -646,10 +685,10 @@ const EmployeeDetails = (props) => {
                           className={classes.effDateInside}
                         >
                           <span className={classes.labels}>
-                            {labels.effectiveDate}
+                            {t("form:label.effectiveDate")}
                           </span>
                           <FormikForm.DatePicker
-                            name="effective_date"
+                            name="effectiveDate"
                             helperText="YYYYMMDD"
                             format="YYYY/MM/DD"
                           />
@@ -666,31 +705,107 @@ const EmployeeDetails = (props) => {
                           />
                         </Grid>
                       </div>
+                      <div className={classes.mgTop}>
+                        <div className={classes.terminationTitle}>
+                          {/* {t("form:label.supportDocuments")} */}
+                        </div>
+                        {/* <EmployeeDocuments /> */}
+                      </div>
+                      <div className={classes.mgTop}>
+                        <div className={classes.terminationTitle}>
+                          {t("form:label.bankInfo")}
+                        </div>
+                        <Grid container spacing={3}>
+                          <Grid item xs={3}>
+                            <span className={classes.labels}>
+                              {t("form:label.bankName")}
+                            </span>
+                            <FormikForm.Select
+                              name="bankName"
+                              data={{
+                                options: bankList ?? [],
+                                label: (option) => option.bnkNm,
+                                value: (option) => option.id,
+                              }}
+                            />
+                          </Grid>
+                          <Grid item xs={3}>
+                            <span className={classes.labels}>
+                              {t("form:label.acctNum")}
+                            </span>
+                            <FormikForm.Input
+                              name="acctNumber"
+                              fullWidth
+                              placeholder="Please Input"
+                              value={
+                                Object.keys(clnBnkInfo).length &&
+                                (clnBnkInfo[0].bnkAccntNmbr ?? "")
+                              }
+                            />
+                          </Grid>
+                          <Grid item xs={3}>
+                            <span className={classes.labels}>
+                              {t("form:label.payMethod")}
+                            </span>
+                            <FormikForm.Select
+                              name="paymentMethod"
+                              data={{
+                                options: payMethod ?? [],
+                                label: (option) => option.cstmTypDtlTxt,
+                                value: (option) => option.cstmTypId,
+                              }}
+                            />
+                          </Grid>
+                          <Grid item xs={3}>
+                            <Box display="none">
+                              <FormikForm.Input
+                                name="employmentDate"
+                                fullWidth
+                              />
+                            </Box>
+                          </Grid>
+                        </Grid>
+                      </div>
                     </div>
                   </div>
                 </Paper>
 
                 {bottomBar && (
                   <BottomAppBar>
-                    <FloatingButton
-                      text="cancel"
-                      onClick={onCancel.bind(null, resetForm)}
-                    />
-                    {/* <FormikForm.FloatingButton text="submit" /> 
-                  <FormikForm.Submit text="submit">SUBMIT</FormikForm.Submit> */}
+                    <Button
+                      type="cancel"
+                      className={classes.btnReverse}
+                      onClick={(e) => onCancel(e, resetForm)}
+                    >
+                      {t("button:cancel")}
+                    </Button>
                     <Button
                       type="submit"
                       className={classes.btnReverse}
                       onClick={(e) => onHandleClick(e, "save")}
+                      disabled={isSaving ? true : false}
                     >
-                      Save
+                      {isSaving ? (
+                        <Box display="flex" justifyContent="center">
+                          <CircularProgress size={25} color="inherit" />
+                        </Box>
+                      ) : (
+                        t("button:save")
+                      )}
                     </Button>
                     &nbsp;
                     <Button
                       type="submit"
                       onClick={(e) => onHandleClick(e, "submit")}
+                      disabled={isSaving ? true : false}
                     >
-                      Submit
+                      {isSaving ? (
+                        <Box display="flex" justifyContent="center">
+                          <CircularProgress size={25} color="inherit" />
+                        </Box>
+                      ) : (
+                        t("button:submit")
+                      )}
                     </Button>
                   </BottomAppBar>
                 )}

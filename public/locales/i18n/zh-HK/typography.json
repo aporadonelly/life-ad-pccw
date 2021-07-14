@@ -14,7 +14,26 @@
     "secondaryContactPerson": "次要聯繫人",
     "supportingDocs": "商業登記證明/合夥契約/非法人團體的證明",
     "authorizedPerson": "授權人",
-    "memberSearch": "會員搜索"
+    "memberSearch": "會員搜索",
+    "enrollmentScheme": "招生計劃",
+    "trustee": "受託人",
+    "schemeName": "方案名稱",
+    "status": "地位",
+    "payrollGroupContctPerson": "薪資組聯繫人",
+    "enrollmentEnquiries": "雇主註冊或註冊查詢",
+    "enquiryResult": "查詢結果"
   },
-  "paragraph": {}
+  "paragraph": {},
+  "subjectInfo": {
+    "eMPF": "雇主強積金編號："
+  },
+  "tabs": {
+    "companyRegistrationInformation": "公司註冊信息",
+    "employerEnrollmentInformation": "雇主註冊信息",
+    "enrollmentEnquiries": "急診室註冊/註冊查詢",
+    "contribution": "貢獻"
+  },
+  "emptyPage": {
+    "noDataFound": "沒有找到數據"
+  }
 }

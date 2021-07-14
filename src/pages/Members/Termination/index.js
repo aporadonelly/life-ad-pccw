@@ -8,14 +8,18 @@ import {
   errorSelector,
   valuesActionSelector,
   termsSelector,
+  entitleLspSpSelector,
+  detailsLspSpSelector,
+  payMethodSelector,
+  bankListSelector,
+  clntBnkInfoSelector,
+  isSavingSelector,
 } from "@redux/features/employees/termination/selectors";
 
 import {
   cycleDateSelector,
-  reasonSelector,
+  termReasonsSelector,
 } from "@redux/features/system/selectors";
-
-import { loadTermReason } from "@redux/features/system/actions";
 
 import {
   loadEmpSchemes,
@@ -24,7 +28,13 @@ import {
   validTermination,
   passValuesActions,
   resetTermination,
+  getEntitleLSPSP,
+  getLspspDetails,
+  loadPayMethod,
+  loadBankList,
+  loadClntBnkInfo,
 } from "@redux/features/employees/termination/actions";
+
 import Termination from "./Termination";
 
 const mapStateToProps = (state) => ({
@@ -32,11 +42,17 @@ const mapStateToProps = (state) => ({
   terms: termsSelector(state),
   save: saveSelector(state),
   valid: validateSelector(state),
-  reason: reasonSelector(state),
+  isSaving: isSavingSelector(state),
+  reason: termReasonsSelector(state),
   isLoading: isLoadingSelector(state),
   error: errorSelector(state),
   valuesActions: valuesActionSelector(state),
   cycleDate: cycleDateSelector(state),
+  entitleLspSp: entitleLspSpSelector(state),
+  detailsLspSp: detailsLspSpSelector(state),
+  payMethod: payMethodSelector(state),
+  bankList: bankListSelector(state),
+  clnBnkInfo: clntBnkInfoSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -46,9 +62,13 @@ const mapDispatchToProps = (dispatch) => ({
       loadMbrTerm,
       saveTermination,
       validTermination,
-      loadTermReason,
       passValuesActions,
       resetTermination,
+      getEntitleLSPSP,
+      getLspspDetails,
+      loadPayMethod,
+      loadBankList,
+      loadClntBnkInfo,
     },
     dispatch
   ),

@@ -141,26 +141,13 @@ const useStyles = makeStyles((theme) => ({
     listStylePosition: "inside",
     margin: 0,
     padding: 0,
-    //listStyle: "none",
-    // display: "flex",
-    // marginTop: "20px",
-    // flexDirection: "column",
-    // flexWrap: "wrap",
-    // height: "240px",
-    // alignContent: "flex-start",
   },
   schemeGrid: {
     display: "flex",
     marginTop: "20px",
     paddingRight: "28px",
   },
-  // schemeBox: {
-  //   flex: "0 0 300px",
-  //   width: "300px",
-  //   marginRight: "20px",
-  //   display: "flex",
-  //   justifyContent: "space-around",
-  // },
+
   schemeAvatar: {
     width: "30px",
     height: "30px",

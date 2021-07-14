@@ -1,6 +1,5 @@
-import { useEffect } from "react";
 import moment from "moment";
-import { isEqual, isDate } from "lodash";
+import { isEqual } from "lodash";
 import * as yup from "yup";
 import { Formik } from "formik";
 import { Page } from "@containers";
@@ -50,22 +49,13 @@ const validationSchema = yup.object().shape({
 const MemberSearch = ({
   isLoading,
   gender,
-  getGender,
   idType,
-  getIdType,
-  getNationality,
   nationality,
   placeOfBirth,
-  getPlaceOfBirth,
-  getEmployeeType,
   employeeType,
   industryType,
-  getIndustryType,
-  getOccupation,
   occupation,
-  getSchemeType,
   schemeType,
-  getStatus,
   status,
   getAllMembers,
   saveEnquiry,
@@ -73,29 +63,8 @@ const MemberSearch = ({
 }) => {
   const { t } = useTranslation(["typography", "form", "button"]);
 
-  useEffect(() => {
-    getGender();
-    getIdType();
-    getNationality();
-    getPlaceOfBirth();
-    getEmployeeType();
-    getIndustryType();
-    getOccupation();
-    getSchemeType();
-    getStatus();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const handleSubmit = (values) => {
-    const newValues = { ...values };
-
-    Object.keys(newValues).forEach((key) => {
-      if (isDate(newValues[key])) {
-        newValues[key] = moment(newValues[key]).format("YYYY/MM/DD");
-      }
-    });
-
-    getAllMembers(newValues);
+    getAllMembers(values);
   };
 
   const handleReset = () => {
@@ -209,9 +178,9 @@ const MemberSearch = ({
                           </Grid>
                           <Grid item xs={2}>
                             <Form.DatePicker
-                              label={t("form:label.birthdate")}
+                              label={t("form:label.dateOfBirth")}
                               name="dateOfBirth"
-                              format="YYYY/MM/DD"
+                              format="DD/MM/YYYY"
                               placeholder={t(
                                 "form:placeholder.custom.pleaseInput"
                               )}

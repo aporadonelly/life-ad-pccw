@@ -8,5 +8,11 @@
   "edit": "edit",
   "backToCompanyProfile": "Back",
   "back": "Back",
-  "addErEnrollment": "Add New ER Enrollment"
+  "addErEnrollment": "Add New ER Enrollment",
+  "submit": "SUBMIT",
+  "save": "SAVE",
+  "cancel": "CANCEL",
+  "yes": "YES",
+  "no": "NO",
+  "ok": "OK"
 }

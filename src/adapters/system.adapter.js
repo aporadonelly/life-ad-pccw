@@ -1,7 +1,7 @@
 import AxiosAdapter from "./axios.adapter";
 
 class SystemAdapter extends AxiosAdapter {
-  getCycleDate(token) {
+  getCycleDate() {
     return this.instance.get("/getCycleDate", {
       params: { cycleDtStpCd: 1, schmCd: 1 },
     });
@@ -11,54 +11,31 @@ class SystemAdapter extends AxiosAdapter {
     return this.instance.get("/getSystemEnv");
   }
 
-  //fetch gender data
-  fetchGender() {
-    return this.instance.get("/getCustomTypList?groupId=GD");
-  }
-
-  //fetch ID Type
-  fetchIdType() {
-    return this.instance.get("/getCustomTypList?groupId=ID");
-  }
-
-  //Fetch Nationality
-  fetchNationality() {
-    return this.instance.get("/getCustomTypList?groupId=NTN");
-  }
-
-  //Fetch Place of Birth
-  fetchPlaceOfBirth() {
+  getCountryLst() {
     return this.instance.get("/getCountryLst");
   }
 
-  //Fetch Employee Type
-  fetchEmployeeType() {
-    return this.instance.get("/getCustomTypList?groupId=EP");
-  }
-
-  //Fetch Industry Type
-  fetchIndustryType() {
-    return this.instance.get("/getCustomTypList?groupId=NT");
-  }
-
-  //Fetch Occupation
-  fetchOccupation() {
-    return this.instance.get("/getCustomTypList?groupId=MB");
-  }
-
-  //Fetch Scheme Type
-  fetchSchemeType() {
-    return this.instance.get("/getCustomTypList?groupId=SC");
-  }
-
-  //Fetch Status
-  fetchStatus() {
-    return this.instance.get("/getCustomTypList?groupId=ST");
-  }
-
-  // previously from termination
-  getReason() {
+  getTermRsnLst() {
     return this.instance.get("/getTermRsnLst");
+  }
+
+  getCustomTypList({ groupId }) {
+    return this.instance.get("/getCustomTypList", {
+      params: { groupId },
+    });
+  }
+
+  getWrkStrmSttsLst({ workstream }) {
+    return this.instance.get("/getWrkStrmSttsLst", {
+      params: { workstream },
+    });
+  }
+  getSchmLst() {
+    return this.instance.get("/getSchmLst");
+  }
+
+  getTrstLst() {
+    return this.instance.get("/getTrstLst");
   }
 }
 

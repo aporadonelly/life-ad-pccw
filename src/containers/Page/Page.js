@@ -5,10 +5,21 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import MenuToggler from "./MenuToggler";
 import Settings from "./Settings";
+import React, { useEffect } from "react";
+
+const intervalTime = 1000 * 60 * 8;
 
 const Page = (props) => {
-  const { user, cycleDate, logout, children } = props;
+  const { user, cycleDate, logout, children, reissue } = props;
   const classes = useStyles();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      reissue();
+    }, intervalTime);
+
+    return () => clearInterval(interval);
+  }, [reissue]);
 
   return (
     <AppProvider>

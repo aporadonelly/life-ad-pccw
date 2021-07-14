@@ -1,0 +1,55 @@
+import { makeStyles } from "@material-ui/core/styles";
+
+export const useStyles = makeStyles((theme) => ({
+  button: {
+    backgroundColor: "#BCBCBC",
+    width: 40,
+    height: 23,
+    borderRadius: 4,
+    "&:first-child": {
+      padding: theme.spacing(0, 1.25, 0, 1),
+      "&:after": {
+        content: "''",
+        width: 0,
+        height: 0,
+        borderTopWidth: theme.spacing(0.75),
+        borderTopStyle: "solid",
+        borderTopColor: "transparent",
+        borderRightWidth: theme.spacing(1.5),
+        borderRightStyle: "solid",
+        borderRightColor: theme.palette.common.white,
+        borderBottomWidth: theme.spacing(0.75),
+        borderBottomStyle: "solid",
+        borderBottomColor: "transparent",
+      },
+    },
+    "&:last-child": {
+      padding: theme.spacing(0, 1, 0, 1.25),
+      "&:after": {
+        content: "''",
+        width: 0,
+        height: 0,
+        borderTopWidth: theme.spacing(0.75),
+        borderTopStyle: "solid",
+        borderTopColor: "transparent",
+        borderLeftWidth: theme.spacing(1.5),
+        borderLeftStyle: "solid",
+        borderLeftColor: theme.palette.common.white,
+        borderBottomWidth: theme.spacing(0.75),
+        borderBottomStyle: "solid",
+        borderBottomColor: "transparent",
+      },
+    },
+  },
+  page: {
+    color: "#707070",
+    width: 40,
+    height: 23,
+    lineHeight: "22px",
+    textAlign: "center",
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: "#707070",
+    borderRadius: 4,
+  },
+}));

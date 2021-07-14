@@ -3,10 +3,12 @@ import { connectRouter } from "connected-react-router";
 import system from "./features/system/reducer";
 import user from "./features/user/reducer";
 // import { companyReducer } from "./features/company/reducer";
-import { employerReducer } from "./features/employers/reducer";
+import employerReducer from "./features/employers/reducer";
 import membersReducer from "./features/members/reducer";
-import { employeeTerminationReducer } from "./features/employees/termination/reducer";
+import employeeTermination from "./features/employees/termination/reducer";
 import employeeDetailsReducer from "@reducers/employeeDetailsReducer";
+import enrollmentEmployer from "./features/enrollmentEmployer/reducer";
+import registrationEmployer from "./features/registrationEmployer/reducer";
 
 const createRootReducer = (history) =>
   combineReducers({
@@ -14,8 +16,10 @@ const createRootReducer = (history) =>
     employees: membersReducer,
     system,
     user,
+    registrationEmployer,
+    enrollmentEmployer,
     employers: employerReducer,
-    employeeTermination: employeeTerminationReducer,
+    employeeTermination,
     employeeDetails: employeeDetailsReducer,
   });
 

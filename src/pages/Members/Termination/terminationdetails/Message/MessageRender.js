@@ -6,14 +6,22 @@ import { DialogBox } from "@components/dialogs";
 import { useStyles } from "./MessageStyles";
 import FloatingButton from "@components/controls/floatingButton/floatingButton";
 import { useFormikContext } from "formik";
+import { Button } from "@material-ui/core";
+import { useTranslation } from "react-i18next";
 
 const MessageRender = ({ open, onClose, msgCode }) => {
+  const { t } = useTranslation(["typography", "form", "button"]);
   const classes = useStyles();
   const { handleReset } = useFormikContext();
 
   const handleClose = () => {
     onClose();
     handleReset();
+  };
+
+  const reloadPage = () => {
+    onClose();
+    window.location.reload();
   };
 
   let msgDialog = "",
@@ -32,7 +40,9 @@ const MessageRender = ({ open, onClose, msgCode }) => {
             className={classes.imgDialog}
           />
         );
-        btnType = <FloatingButton text="okay" onClick={handleClose} />;
+        //btnType = <FloatingButton text="okay" onClick={reloadPage} />;
+        btnType = <Button onClick={reloadPage}>{t("button:okay")}</Button>;
+        // FIX: okay button did not translate
         break;
       case "ExMsg_ExcdLspspAmt":
         msgDialog = (
@@ -86,6 +96,18 @@ const MessageRender = ({ open, onClose, msgCode }) => {
         break;
       case "ExMsg_incrrtTermRsn":
         msgDialog = "Incorrect termination reason.";
+        imgType = (
+          <img
+            src={ExclamationMark}
+            alt="Exclamation"
+            variant="contained"
+            className={classes.imgDialog}
+          />
+        );
+        btnType = <FloatingButton text="okay" onClick={onClose} />;
+        break;
+      case "ExMsg_incrrtLspSpType":
+        msgDialog = "Incorrect LSP/SP type.";
         imgType = (
           <img
             src={ExclamationMark}

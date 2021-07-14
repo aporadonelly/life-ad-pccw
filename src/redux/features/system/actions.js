@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { systemAdapter } from "@adapters";
 
 export const getSystemEnv = createAsyncThunk(
-  "@@EMPF/SYSTEM/GET_SYSTEM_ENV",
+  "@@empf/system/getSystemEnv",
   async (_payload, { rejectWithValue }) => {
     try {
       const { prmtrTyp, prmtrDscrptn } = await systemAdapter.getSystemEnv();
@@ -19,7 +19,7 @@ export const getSystemEnv = createAsyncThunk(
 );
 
 export const getCycleDate = createAsyncThunk(
-  "@@EMPF/SYSTEM/GET_CYCLE_DATE",
+  "@@empf/system/getCycleDate",
   async (_payload, { rejectWithValue }) => {
     try {
       const { cycleDt: cycleDate } = await systemAdapter.getCycleDate();
@@ -30,16 +30,78 @@ export const getCycleDate = createAsyncThunk(
   }
 );
 
-// previously from termination
-export const loadTermReason = createAsyncThunk(
-  "@@EMPF/TERMINATION/getTermRsnLst",
+export const getCountryList = createAsyncThunk(
+  "@@empf/system/getCountryLst",
   async (_payload, { rejectWithValue }) => {
     try {
-      const reasonTerm = await systemAdapter.getReason();
-      //console.log("actions-termination", reasonTerm);
-      return { reasonTerm };
+      const countries = await systemAdapter.getCountryLst();
+      return { countries };
     } catch (error) {
-      console.error(error);
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const getTermReasons = createAsyncThunk(
+  "@@empf/system/getTermRsnLst",
+  async (_payload, { rejectWithValue }) => {
+    try {
+      const termReasons = await systemAdapter.getTermRsnLst();
+      return { termReasons };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const getCustomTypeList = createAsyncThunk(
+  "@@empf/system/getCustomTypList",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const customTypes = await systemAdapter.getCustomTypList(payload);
+      return { customTypes };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const getWrkStrmSttsLst = createAsyncThunk(
+  "@@empf/system/getWrkStrmSttsLst",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const workStreams = await systemAdapter.getWrkStrmSttsLst(payload);
+      return {
+        workStreams: workStreams.map((workStream) => ({
+          ...workStream,
+          workStream: payload.workstream,
+        })),
+      };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const getSchmLst = createAsyncThunk(
+  "@@empf/enr/er/getSchmLst",
+  async (_payload, { rejectWithValue }) => {
+    try {
+      const schemes = await systemAdapter.getSchmLst();
+      return { schemes };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const getTrstLst = createAsyncThunk(
+  "@@empf/enr/er/getTrstLst",
+  async (_payload, { rejectWithValue }) => {
+    try {
+      const trustees = await systemAdapter.getTrstLst();
+      return { trustees };
+    } catch (error) {
       return rejectWithValue({ error });
     }
   }
