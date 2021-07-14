@@ -132,7 +132,7 @@ const SearchResult = ({
           <CardContent>
             <Grid item xs={12}>
               <Typography variant="h6" color="primary">
-                {t("typography:heading.employerRegOrEnrEnq")}
+                {t("typography:heading.enrollmentEnquiries")}
               </Typography>
             </Grid>
             <Grid item xs={12}>
