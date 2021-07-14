@@ -28,6 +28,8 @@
   },
   "tabs": {
     "companyRegistrationInformation": "公司注册信息",
-    "employerEnrollmentInformation": "雇主注册信息"
+    "employerEnrollmentInformation": "雇主注册信息",
+    "enrollmentEnquiries": "急诊室注册/注册查询",
+    "contribution": "贡献"
   }
 }
