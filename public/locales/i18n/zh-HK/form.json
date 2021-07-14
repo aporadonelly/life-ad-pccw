@@ -108,7 +108,9 @@
     "companyTypeId": "公司類型",
     "natureId": "業務性質",
     "registeredOfficeAddress": "註冊辦公地址",
-    "incorporationDate": "註冊成立日期"
+    "incorporationDate": "註冊成立日期",
+    "scndryCtctPrsn": "次要聯繫人",
+    "prmryCntctPrsn": "主要聯繫人"
   },
   "placeholder": {
     "custom": {

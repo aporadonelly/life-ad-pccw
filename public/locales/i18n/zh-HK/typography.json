@@ -19,7 +19,15 @@
     "trustee": "受託人",
     "schemeName": "方案名稱",
     "status": "地位",
-    "payrollGroupContctPerson": "薪資組聯繫人"
+    "payrollGroupContctPerson": "薪資組聯繫人",
+    "enrollmentEnquiries": "雇主註冊或註冊查詢"
   },
-  "paragraph": {}
+  "paragraph": {},
+  "subjectInfo": {
+    "eMPF": "雇主強積金編號："
+  },
+  "tabs": {
+    "companyRegistrationInformation": "公司註冊信息",
+    "employerEnrollmentInformation": "雇主註冊信息"
+  }
 }
