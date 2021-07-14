@@ -33,5 +33,8 @@
     "enrollmentEnquiries": "ER Registration / Enrollment Enquiries",
     "contribution": "Contribution"
   },
-  "labelCaption": ""
+  "labelCaption": "",
+  "emptyPage": {
+    "noDataFound": "No Data Found."
+  }
 }

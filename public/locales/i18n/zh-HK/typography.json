@@ -32,5 +32,8 @@
     "employerEnrollmentInformation": "雇主註冊信息",
     "enrollmentEnquiries": "急診室註冊/註冊查詢",
     "contribution": "貢獻"
+  },
+  "emptyPage": {
+    "noDataFound": "沒有找到數據"
   }
 }
