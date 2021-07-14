@@ -3,7 +3,7 @@ import { addressByTypeIdSelector } from "@redux/features/registrationEmployer/se
 import AddressCard from "./AddressCard";
 
 const mapStateToProps = (state) => ({
-  registeredAddress: addressByTypeIdSelector(state, "AD_RO"),
+  registeredAddress: addressByTypeIdSelector(state, "AD_R"),
   businessAddress: addressByTypeIdSelector(state, "AD_B"),
   correspondenceAddress: addressByTypeIdSelector(state, "AD_C"),
 });
