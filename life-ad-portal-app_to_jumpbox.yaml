@@ -8,4 +8,4 @@
     - name: Copy the file from Jenkins to Jumpbox
       copy:
         src: /empf/var/lib/jenkins/workspace/life-ad-portal-ui/build
-        dest: /empf/empfpd/git/life-admin-portal-app/
+        dest: /empf/empfpd/git/life-admin-portal-app
