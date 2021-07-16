@@ -2,7 +2,7 @@
   tasks:
     - name: Fetch the file from Jumpbox to local 
       fetch:
-        src: /empf/empfpd/git/life-admin-portal-app/root/build
+        src: /empf/empfpd/git/life-admin-portal-app/build
         dest: /empf/var/lib/jenkins/workspace/life-ad-portal-ui/build_backup
         flat: yes
     - name: Copy the file from Jenkins to Jumpbox
