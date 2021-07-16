@@ -1,11 +1,10 @@
 - hosts: jumpbox
   tasks:
     - name: Fetch the file from Jumpbox to local 
-      fetch:
+      copy:
         src: /empf/empfpd/git/life-admin-portal-app/build
-        dest: /empf/var/lib/jenkins/workspace/life-ad-portal-ui/build_backup
-        flat: yes
+        dest: /empf/empfpd/git/life-admin-portal-app/build_{{ ansible_date_time.iso8601 }}
     - name: Copy the file from Jenkins to Jumpbox
       copy:
         src: /empf/var/lib/jenkins/workspace/life-ad-portal-ui/build
-        dest: /empf/empfpd/git/life-admin-portal-app/root
+        dest: /empf/empfpd/git/life-admin-portal-app/
