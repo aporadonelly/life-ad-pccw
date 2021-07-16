@@ -2,8 +2,9 @@
   tasks:
     - name: Fetch the file from Jumpbox to local 
       copy:
-        remote_src: /empf/empfpd/git/life-admin-portal-app/build
+        src: /empf/empfpd/git/life-admin-portal-app/build
         dest: /empf/empfpd/git/life-admin-portal-app/build_{{ ansible_date_time.iso8601 }}
+        remote_src: yes
     - name: Copy the file from Jenkins to Jumpbox
       copy:
         src: /empf/var/lib/jenkins/workspace/life-ad-portal-ui/build
