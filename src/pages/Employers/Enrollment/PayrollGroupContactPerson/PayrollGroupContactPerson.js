@@ -89,6 +89,29 @@ const PayrollGroupContactPerson = ({
         </Card>
       </Grid>
       <Grid item xs={12}>
+        <Card>
+          <CardContent>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Typography variant="h6" color="primary">
+                  {t("form:label.address")}
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Definition spacing={2} xs={3}>
+                  <Definition.List>
+                    <Definition.Item
+                      dt={t("form:label.correspondenceAddress")}
+                      // dd={ttlTypCd === "TT_MS" ? "Miss" : "Mr."}
+                    />
+                  </Definition.List>
+                </Definition>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid item xs={12}>
         <Grid container component="dl" spacing={1} justify="flex-end">
           <Button
             data-testid="back-btn"
@@ -102,6 +125,10 @@ const PayrollGroupContactPerson = ({
   );
 };
 
-PayrollGroupContactPerson.defaultProps = {};
+PayrollGroupContactPerson.defaultProps = {
+  contactPerson: {},
+  mobile: {},
+  telephone: {},
+};
 
 export default PayrollGroupContactPerson;

@@ -9,7 +9,6 @@ import {
   FormControlLabel,
   CircularProgress,
   Box,
-  CircularProgress,
 } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import eSig from "@assets/icons/signature.svg";
