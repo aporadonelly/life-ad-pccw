@@ -1,25 +1,35 @@
 import { Grid, Card, CardContent, Typography } from "@material-ui/core";
-import React from "react";
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 import { Definition } from "@components/misc";
 import { useTranslation } from "react-i18next";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import moment from "moment";
 
-const Information = ({ props }) => {
+const Information = ({ payrollGrpInfo, ldPayrollGrpInfo }) => {
   const { t } = useTranslation(["typography", "form", "table", "button"]);
-  // const { authorizedPerson, residentialAddress, telephone, mobile } = props;
-  // const {
-  //   idTypId,
-  //   lastName,
-  //   firstName,
-  //   chineseLastName,
-  //   chineseFirstName,
-  //   jbPstnTxt,
-  //   cntryTypNm,
-  //   authPrsnContactList,
-  // } = authorizedPerson;
+  const {
+    payrollGroupCode,
+    payrollGroupName,
+    frequencyOptions,
+    contributionDayOptions,
+    commencementDate,
+    paymentMethodOptions,
+    contributionBillsGenerationDate,
+    preprintedRemittanceOptions,
+    //defaultPayrollGroup,
+    voluntaryContributionOption,
+    unvestedBenefitOptions,
+  } = payrollGrpInfo;
+
+  useEffect(() => {
+    ldPayrollGrpInfo({
+      payrollGroupId: "740DF08D-90FE-492C-9F09-8492F7218B97",
+    });
+  }, [ldPayrollGrpInfo]);
 
   return (
     <Grid container spacing={3}>
@@ -37,19 +47,19 @@ const Information = ({ props }) => {
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.payrollGroupCode")}
-                      dd="PG01"
+                      dd={payrollGroupCode}
                     />
                     <Definition.Item
                       dt={t("form:label.payrollGroupName")}
-                      dd="General Staff"
+                      dd={payrollGroupName}
                     />
                     <Definition.Item
                       dt={t("form:label.contributionFrequency")}
-                      dd="Monthly"
+                      dd={frequencyOptions?.[0]?.cstmTypDtlTxt}
                     />
                     <Definition.Item
                       dt={t("form:label.commencementDate")}
-                      dd="0106/2019"
+                      dd={moment(commencementDate).format("L").toUpperCase()}
                     />
                   </Definition.List>
                 </Definition>
@@ -60,7 +70,7 @@ const Information = ({ props }) => {
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.contributionDay")}
-                      dd="The day on which the relevant income for the relevant contribution period is paid to the casual employee or the next working day subsequent to the pay day."
+                      dd={contributionDayOptions?.[2]?.cstmTypDtlTxt}
                     />
                   </Definition.List>
                 </Definition>
@@ -71,11 +81,13 @@ const Information = ({ props }) => {
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.paymentMethod")}
-                      dd="The day on which relevant"
+                      dd={paymentMethodOptions?.[0]?.cstmTypDtlTxt}
                     />
                     <Definition.Item
                       dt={t("form:label.contributionBillGenerationDate")}
-                      dd="Thelevant"
+                      dd={moment(contributionBillsGenerationDate)
+                        .format("LL")
+                        .toUpperCase()}
                     />
                   </Definition.List>
                 </Definition>
@@ -86,7 +98,7 @@ const Information = ({ props }) => {
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.preprintedRemittanceStatementOption")}
-                      dd="The day on which the relevant income for the relevant contribution period is paid"
+                      dd={preprintedRemittanceOptions?.[0]?.cstmTypDtlTxt || ""}
                     />
                   </Definition.List>
                 </Definition>
@@ -100,8 +112,8 @@ const Information = ({ props }) => {
                         <Checkbox
                           color="primary"
                           icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                          //checked={defaultPayrollGroup === true}
                           checkedIcon={<CheckBoxIcon fontSize="small" />}
-                          name="default"
                         />
                       }
                       label={t(
@@ -114,8 +126,8 @@ const Information = ({ props }) => {
                       control={
                         <Checkbox
                           color="primary"
-                          name="voluntary"
                           icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                          checked={voluntaryContributionOption === true}
                           checkedIcon={<CheckBoxIcon fontSize="small" />}
                         />
                       }
@@ -132,7 +144,7 @@ const Information = ({ props }) => {
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.voluntaryContributionUnvestedBenefit")}
-                      dd="The day on which the relevant income for the"
+                      dd={unvestedBenefitOptions?.[5]?.cstmTypDtlTxt || ""}
                     />
                   </Definition.List>
                 </Definition>
@@ -145,10 +157,13 @@ const Information = ({ props }) => {
   );
 };
 
-// AuthorizedPerson.defaultProps = {
-//   authorizedPerson: {},
-//   telephone: {},
-//   mobile: {},
-// };
+Information.propTypes = {
+  payrollGrpInfo: PropTypes.object,
+  ldPayrollGrpInfo: PropTypes.func.isRequired,
+};
 
+Information.defaultProps = {
+  payrollGrpInfo: [],
+  ldPayrollGrpInfo: () => {},
+};
 export default Information;

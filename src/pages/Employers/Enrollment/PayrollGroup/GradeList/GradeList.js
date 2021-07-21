@@ -1,4 +1,5 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
+import PropTypes from "prop-types";
 import {
   Grid,
   Box,
@@ -14,37 +15,30 @@ import AddIcon from "@material-ui/icons/Add";
 import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
-  button: {
-    minWidth: 90,
-    borderRadius: 19,
-  },
   root: {
     "& > *": {
       margin: theme.spacing(0.5),
     },
   },
+  btnAction: {
+    minWidth: 90,
+    borderRadius: 19,
+  },
+  btnGradeLst: {
+    width: "auto",
+    top: "10px",
+    borderRadius: 19,
+  },
 }));
 
-const GradeList = ({ authorizedPersons }) => {
+const GradeList = ({ gradeList, getGradeLst }) => {
   const { t } = useTranslation(["typography", "form", "table", "button"]);
   const classes = useStyles();
-
-  const row = [
-    {
-      id: 1,
-      gradename: "General Staff",
-    },
-    {
-      id: 2,
-      gradename: "Manager",
-    },
-  ];
-
   const columns = useMemo(
     () => [
       {
         Header: t("table:thead.gradename"),
-        accessor: "gradename",
+        accessor: "erGrdTxt",
       },
       {
         Header: t("table:thead.custom.action"),
@@ -60,17 +54,16 @@ const GradeList = ({ authorizedPersons }) => {
             <>
               <Box className={classes.root}>
                 <Button
-                  className={classes.button}
+                  className={classes.btnAction}
                   direction="row-reverse"
                   justify="center"
-                  alignItems="center"
                   size="small"
                   color="primary"
                 >
                   {t("button:detail")}
                 </Button>
                 {/* <Button
-                  className={classes.button}
+                  className={classes.btnAction}
                   variant="contained"
                   size="small"
                   color="primary"
@@ -85,13 +78,18 @@ const GradeList = ({ authorizedPersons }) => {
     ],
     [t]
   );
+
+  useEffect(() => {
+    getGradeLst({ erUuid: "f4abdd73-2aa6-47da-aebd-640fcab8df82" });
+  }, [getGradeLst]);
+
   return (
     <Card>
       <CardContent>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <DataTable
-              data={row}
+              data={gradeList}
               columns={columns}
               components={{
                 Toolbar: () => (
@@ -108,12 +106,7 @@ const GradeList = ({ authorizedPersons }) => {
 
         <Grid className={classes.root}>
           {/* <Button
-            style={{
-              width: "auto",
-              top: "10px",
-              borderRadius: 19,
-              mr: "10px",
-            }}
+            className={classes.btnGradeLst}
             variant="contained"
             color="primary"
           >
@@ -121,7 +114,7 @@ const GradeList = ({ authorizedPersons }) => {
             {t("button:addGrade")}
           </Button>
           <Button
-            style={{ width: "auto", top: "10px", borderRadius: 19 }}
+            className={classes.btnGradeLst}
             variant="contained"
             color="primary"
           >
@@ -131,6 +124,16 @@ const GradeList = ({ authorizedPersons }) => {
       </CardContent>
     </Card>
   );
+};
+
+GradeList.propTypes = {
+  gradeList: PropTypes.array,
+  getGradeLst: PropTypes.func.isRequired,
+};
+
+GradeList.defaultProps = {
+  GradeList: [],
+  getGradeLst: () => {},
 };
 
 export default GradeList;

@@ -119,7 +119,9 @@
     "companyTypeId": "公司类型",
     "natureId": "业务性质",
     "registeredOfficeAddress": "注册办公地址",
-    "incorporationDate": "注册成立日期"
+    "incorporationDate": "注册成立日期",
+    "scndryCtctPrsn": "次要联系人",
+    "prmryCntctPrsn": "主要联系人"
   },
   "placeholder": {
     "custom": {

@@ -1,4 +1,5 @@
 import React, { useMemo, useEffect } from "react";
+import PropTypes from "prop-types";
 import {
   Box,
   Grid,
@@ -15,14 +16,19 @@ import { useTranslation } from "react-i18next";
 import Checkbox from "@material-ui/core/Checkbox";
 
 const useStyles = makeStyles((theme) => ({
-  button: {
-    minWidth: 90,
-    borderRadius: 19,
-  },
   root: {
     "& > *": {
       margin: theme.spacing(0.5),
     },
+  },
+  btnAction: {
+    minWidth: 90,
+    borderRadius: 19,
+  },
+  btnGrpCntctPrsn: {
+    width: "auto",
+    top: "10px",
+    borderRadius: 19,
   },
 }));
 
@@ -45,7 +51,6 @@ const ContactPersonList = ({ contactPersons, ldCntctPrsnInfo }) => {
         Header: t("table:thead.primaryContactPerson"),
         headerProps: {
           style: {
-            width: 100,
             textAlign: "center",
           },
         },
@@ -66,7 +71,6 @@ const ContactPersonList = ({ contactPersons, ldCntctPrsnInfo }) => {
         Header: t("table:thead.secondaryContactPerson"),
         headerProps: {
           style: {
-            width: 100,
             textAlign: "center",
           },
         },
@@ -99,17 +103,16 @@ const ContactPersonList = ({ contactPersons, ldCntctPrsnInfo }) => {
             <>
               <Box className={classes.root}>
                 <Button
-                  className={classes.button}
+                  className={classes.btnAction}
                   direction="row-reverse"
                   justify="center"
-                  alignItems="center"
                   size="small"
                   color="primary"
                 >
                   {t("button:detail")}
                 </Button>
                 {/* <Button
-                  className={classes.button}
+                  className={classes.btnAction}
                   variant="contained"
                   size="small"
                   color="primary"
@@ -145,17 +148,23 @@ const ContactPersonList = ({ contactPersons, ldCntctPrsnInfo }) => {
             />
           </Grid>
         </Grid>
-        {/* <Button
-          style={{ width: "auto", top: "10px", borderRadius: 19 }}
-          variant="contained"
-          color="primary"
-        >
+        {/* <Button className={classes.btnGrpCntctPrsn} variant="contained" color="primary">
           <AddIcon fontSize="small" />
           {t("button:addPayrollGroupContactPerson")}
         </Button> */}
       </CardContent>
     </Card>
   );
+};
+
+ContactPersonList.propTypes = {
+  contactPersons: PropTypes.array,
+  ldCntctPrsnInfo: PropTypes.func.isRequired,
+};
+
+ContactPersonList.defaultProps = {
+  contactPersons: [],
+  ldCntctPrsnInfo: () => {},
 };
 
 export default ContactPersonList;

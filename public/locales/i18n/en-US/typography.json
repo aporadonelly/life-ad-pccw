@@ -15,7 +15,6 @@
     "supportingDocs": "Supporting for Business Registration / Partnership Deed / Evidence of Unincorporated Body",
     "authorizedPerson": "Authorized Person",
     "memberSearch": "Member Search",
-    "employerRegOrEnr": "Employer Registration or Enrollment Enquiries",
     "enrollmentScheme": "Enrollment Scheme",
     "trustee": "Trustee",
     "schemeName": "Scheme Name",
@@ -28,9 +27,22 @@
     "partner": "Partner",
     "payrollGroup": "Payroll Group",
     "selfCertification": "Self-Certification",
+    "gradePayroll": "Grade Payroll",
     "payrollGroupContctPerson": "Payroll Group Contact Person",
-    "gradePayroll": "Grade Payroll"
+    "enrollmentEnquiries": "Employer Registration or Enrollment Enquiries"
   },
   "paragraph": {},
-  "labelCaption": ""
+  "subjectInfo": {
+    "eMPF": "Employer MPF ID: "
+  },
+  "tabs": {
+    "companyRegistrationInformation": "Company Registration Information",
+    "employerEnrollmentInformation": "Employer Enrollment Information",
+    "enrollmentEnquiries": "ER Registration / Enrollment Enquiries",
+    "contribution": "Contribution"
+  },
+  "labelCaption": "",
+  "emptyPage": {
+    "noDataFound": "No Data Found."
+  }
 }
