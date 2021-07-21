@@ -1,6 +1,7 @@
 import Task from "@pages/Task";
 import membersRoutes from "./members.routes";
 import employersRoutes from "./employers.routes";
+import dataModificationRoutes from "./dataModification.routes";
 
 const appRoutes = [
   {
@@ -8,6 +9,13 @@ const appRoutes = [
     path: "/",
     exact: true,
     component: Task,
+    tab: false,
+  },
+  {
+    name: "Data Modification",
+    path: "/data-modification",
+    exact: true,
+    children: dataModificationRoutes,
     tab: false,
   },
   {
