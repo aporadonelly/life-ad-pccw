@@ -93,7 +93,7 @@ const CompanyProfile = ({
                           color="primary"
                           style={{ marginBottom: "13px" }}
                         >
-                          {t("typography:heading.employerRegOrEnr")}
+                          {t("typography:heading.enrollmentEnquiries")}
                         </Typography>
                       </Grid>
 

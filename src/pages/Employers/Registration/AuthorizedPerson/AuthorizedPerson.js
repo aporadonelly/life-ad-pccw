@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import {
   Grid,
   Card,
@@ -9,16 +9,12 @@ import {
   FormControlLabel,
   CircularProgress,
   Box,
+  CircularProgress,
 } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import eSig from "@assets/icons/signature.svg";
 import { useHistory } from "react-router-dom";
 import { Definition } from "@components/misc";
-
-const data = [
-  { value: "CT_PCP", label: "Primary Contact Person" },
-  { value: "CT_SCP", label: "Secondary Contact Person" },
-];
 
 const AuthorizedPerson = ({
   ldCmpnyRltdPrsn,
@@ -44,6 +40,14 @@ const AuthorizedPerson = ({
 
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button", "table"]);
+
+  const data = useMemo(
+    () => [
+      { value: "CT_PCP", label: t("form:label.prmryCntctPrsn") },
+      { value: "CT_SCP", label: t("form:label.scndryCtctPrsn") },
+    ],
+    [t]
+  );
 
   useEffect(() => {
     ldCmpnyRltdPrsn({ cmpnyPrsnTypId: "CS_AP" });
@@ -122,33 +126,25 @@ const AuthorizedPerson = ({
                 </Definition>
               </Grid>
               <Grid item xs={12}>
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  width="80%"
-                >
-                  {data.map(({ value, label }, index) => {
-                    return (
-                      <>
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              checked={
-                                authPrsnContactList?.[0]?.cntctPrsnTypId ===
-                                value
-                              }
-                              key={index}
-                              name={label}
-                              value={value}
-                            />
-                          }
-                          label={label}
-                        />
-                      </>
-                    );
-                  })}
-                </Box>
+                <Grid container>
+                  {data.map(({ label, value }) => (
+                    <Grid item xs={6}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={
+                              authPrsnContactList?.[0]?.cntctPrsnTypId === value
+                            }
+                            key={value}
+                            name={label}
+                            value={value}
+                          />
+                        }
+                        label={label}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
               </Grid>
             </Grid>
           </CardContent>

@@ -47,7 +47,7 @@ const NavTabs = (props) => {
   );
 
   useEffect(() => {
-    setTimeout(() => window.dispatchEvent(new CustomEvent("resize")), 150);
+    setTimeout(() => window.dispatchEvent(new CustomEvent("resize")), 500);
   }, []);
 
   return (

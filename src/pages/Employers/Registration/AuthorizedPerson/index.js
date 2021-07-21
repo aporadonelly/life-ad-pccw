@@ -5,7 +5,6 @@ import {
   authorizedPersonAddressByTypeIdSelector,
   authorizedPersonPhoneByTypeIdSelector,
   isLoadingSelector,
-  errorSelector,
 } from "@redux/features/registrationEmployer/selectors";
 import {
   ldCmpnyRltdPrsn,
@@ -22,7 +21,6 @@ const mapStateToProps = (state) => ({
   businessAddress: authorizedPersonAddressByTypeIdSelector(state, "AD_B"),
   correspondenceAddress: authorizedPersonAddressByTypeIdSelector(state, "AD_C"),
   isLoading: isLoadingSelector(state),
-  error: errorSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

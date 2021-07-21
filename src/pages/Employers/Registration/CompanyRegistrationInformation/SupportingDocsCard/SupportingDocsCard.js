@@ -46,7 +46,7 @@ const SupportingDocsCard = ({ contactDtos, countryTyp }) => {
           ) : (
             <Grid container justify="center" style={{ marginTop: 20 }}>
               <Typography variant="h6" color="primary">
-                No data Found
+                {t("typography:emptyPage.noDataFound")}
               </Typography>
             </Grid>
           )}
