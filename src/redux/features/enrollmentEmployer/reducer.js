@@ -1,6 +1,11 @@
 import { createReducer, isAnyOf } from "@reduxjs/toolkit";
 import { identity, pickBy } from "lodash";
-import { initialState, employersAdapter, contactPersonsAdapter } from "./state";
+import {
+  initialState,
+  employersAdapter,
+  contactPersonsAdapter,
+  gradeListAdapter,
+} from "./state";
 import {
   draftEnquiry,
   setSelectedPnsnId,
@@ -12,6 +17,8 @@ import {
   ldEnrCmpnyInfo,
   ldCntctPrsnInfo,
   ldGradeInfo,
+  getGradeLst,
+  ldPayrollGrpInfo,
 } from "./actions";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
@@ -74,6 +81,20 @@ const enrollmentEmployerReducer = createReducer(initialState, (builder) =>
       state.isLoading = true;
       state.error = null;
       contactPersonsAdapter.setAll(state.contactPersons, []);
+    })
+    .addCase(getGradeLst.fulfilled, (state, action) => {
+      gradeListAdapter.setAll(state.gradeList, action.payload.gradeList);
+    })
+    .addCase(getGradeLst.pending, (state, _action) => {
+      state.isLoading = true;
+      state.error = null;
+    })
+    .addCase(ldPayrollGrpInfo.fulfilled, (state, action) => {
+      state.payrollGrpInfo = action.payload.payrollGrpInfo;
+    })
+    .addCase(ldPayrollGrpInfo.pending, (state, _action) => {
+      state.isLoading = true;
+      state.error = null;
     })
     .addMatcher(
       isAnyOf(ldSrchCmpny.rejected, ldEnrCmpnyInfo.rejected),

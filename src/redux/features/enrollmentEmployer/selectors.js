@@ -1,6 +1,10 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { reduce, map, concat, compact, find } from "lodash";
-import { employersAdapter, contactPersonsAdapter } from "./state";
+import {
+  employersAdapter,
+  contactPersonsAdapter,
+  gradeListAdapter,
+} from "./state";
 
 export const employersSelectors = employersAdapter.getSelectors(
   (state) => state.employers
@@ -8,6 +12,10 @@ export const employersSelectors = employersAdapter.getSelectors(
 
 export const contactPersonsSelectors = contactPersonsAdapter.getSelectors(
   (state) => state.contactPersons
+);
+
+export const gradeListSelectors = gradeListAdapter.getSelectors(
+  (state) => state.gradeList
 );
 
 export const featureStateSelector = (state) => state.enrollmentEmployer;
@@ -78,6 +86,16 @@ export const employerSelector = createSelector(
 export const contactPersonsSelector = createSelector(
   featureStateSelector,
   contactPersonsSelectors.selectAll
+);
+
+export const gradeListSelector = createSelector(
+  featureStateSelector,
+  gradeListSelectors.selectAll
+);
+
+export const payrollGrpInfoSelector = createSelector(
+  featureStateSelector,
+  (state) => state.payrollGrpInfo
 );
 
 export const employerSchemesSelector = createSelector(
