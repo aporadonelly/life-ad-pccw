@@ -33,7 +33,7 @@ const AuthorizedPerson = (props) => {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Typography variant="h6" color="primary">
-                  {t("typography:heading.authorizedPerson")} idType
+                  {t("typography:heading.authorizedPerson")}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
