@@ -163,7 +163,7 @@ Information.propTypes = {
 };
 
 Information.defaultProps = {
-  payrollGrpInfo: [],
+  payrollGrpInfo: {},
   ldPayrollGrpInfo: () => {},
 };
 export default Information;
