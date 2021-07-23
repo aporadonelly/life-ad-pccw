@@ -15,6 +15,13 @@
     "mobileNumber": "Mobile Number",
     "email": "Email Address",
     "status": "Status",
+    "payrollTitle": "Title",
+    "payrollLastName": "Last Name",
+    "payrollFirstName": "First Name",
+    "primaryContactPerson": "Primary Contact Person",
+    "secondaryContactPerson": "Secondary Contact Person",
+    "gradename": "Grade Name",
+
     "custom": {
       "action": "Action",
       "view": "View"

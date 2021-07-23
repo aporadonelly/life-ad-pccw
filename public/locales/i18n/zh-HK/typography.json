@@ -20,6 +20,8 @@
     "schemeName": "方案名稱",
     "status": "地位",
     "payrollGroupContctPerson": "薪資組聯繫人",
+    "payrollGroup": "薪資組",
+    "gradePayroll": "等級工資",
     "enrollmentEnquiries": "雇主註冊或註冊查詢",
     "enquiryResult": "查詢結果"
   },

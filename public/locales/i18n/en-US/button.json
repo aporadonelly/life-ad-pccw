@@ -14,5 +14,10 @@
   "cancel": "CANCEL",
   "yes": "YES",
   "no": "NO",
-  "ok": "OK"
+  "ok": "OK",
+  "addPayrollGroupContactPerson": "Add Payroll Group Contact Person",
+  "addGrade": "Add Grade",
+  "copyFromOtherPayrollGroup": "Copy From Other Payroll Group",
+  "detail": "Detail",
+  "delete": "Delete"
 }

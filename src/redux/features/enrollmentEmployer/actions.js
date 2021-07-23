@@ -113,3 +113,27 @@ export const ldCntctPrsnInfo = createAsyncThunk(
     }
   }
 );
+
+export const getGradeLst = createAsyncThunk(
+  "@@empf/enr/er/getGradeLst",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const gradeList = await enrollmentEmployer.getGradeLst(payload);
+      return { gradeList };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const ldPayrollGrpInfo = createAsyncThunk(
+  "@@empf/enr/er/ldPayrollGrpInfo",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const payrollGrpInfo = await enrollmentEmployer.ldPayrollGrpInfo(payload);
+      return { payrollGrpInfo };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);

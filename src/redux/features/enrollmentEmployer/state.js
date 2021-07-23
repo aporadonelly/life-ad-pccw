@@ -13,6 +13,10 @@ export const payrollGroupContactPersonsAdapter = createEntityAdapter({
     payrollGroupContactPerson.cmpnyBrnchCd,
 });
 
+export const gradeListAdapter = createEntityAdapter({
+  selectId: (gradeList) => gradeList.id,
+});
+
 export const schemesAdapter = createEntityAdapter({
   selectId: (scheme) => scheme.name,
   sortComparer: (a, b) => a.name.localeCompare(b.name),
@@ -39,6 +43,8 @@ export const initialState = enrollmentEmployer.getInitialState({
   employers: employersAdapter.getInitialState(),
   contactPersons: contactPersonsAdapter.getInitialState(),
   payrollGroupContactPersons: payrollGroupContactPersonsAdapter.getInitialState(),
+  gradeList: gradeListAdapter.getInitialState(),
+  payrollGrpInfo: {},
   schemes: schemesAdapter.getInitialState(),
   trustees: trusteesAdapter.getInitialState(),
 });
