@@ -26,7 +26,7 @@ const SearchResult = ({
 }) => {
   const { t } = useTranslation(["typography", "form", "button", "table"]);
 
-  const columns = [
+  const columns = () => [
     { Header: t("table:thead.mpfId"), accessor: "pnsnId" },
     {
       Header: t("table:thead.employerAcctNo"),

@@ -1,5 +1,6 @@
 import { Grid, Card, CardContent, Typography } from "@material-ui/core";
 import { Definition } from "@components/misc";
+import { useTranslation } from "react-i18next";
 
 const AuthorizedPerson = (props) => {
   const {
@@ -22,6 +23,7 @@ const AuthorizedPerson = (props) => {
     cntryTypNm,
     authPrsnContactList,
   } = authorizedPerson;
+  const { t } = useTranslation(["typography", "form", "button", "table"]);
 
   return (
     <Grid container spacing={3}>
@@ -31,44 +33,59 @@ const AuthorizedPerson = (props) => {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Typography variant="h6" color="primary">
-                  Authorized Person
+                  {t("typography:heading.authorizedPerson")}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
                 <Definition spacing={2} xs={3}>
                   <Definition.List>
                     <Definition.Item
-                      dt="ID Type"
+                      dt={t("form:label.idType")}
                       dd={customTypes[idTypId]?.cstmTypDtlTxt}
                     />
-                    <Definition.Item dt="ID Number" dd={idNoTxt} />
-                    <Definition.Item dt="Date of Birth" dd={brthDt} />
-                    <Definition.Item dt="Title" dd={ttlTypNm} />
-                    <Definition.Item dt="Last Name in English" dd={lastName} />
                     <Definition.Item
-                      dt="First Name in English"
+                      dt={t("form:label.idNumber")}
+                      dd={idNoTxt}
+                    />
+                    <Definition.Item
+                      dt={t("form:label.dateOfBirth")}
+                      dd={brthDt}
+                    />
+                    <Definition.Item dt={t("form:label.title")} dd={ttlTypNm} />
+                    <Definition.Item
+                      dt={t("form:label.lastName")}
+                      dd={lastName}
+                    />
+                    <Definition.Item
+                      dt={t("form:label.firstName")}
                       dd={firstName}
                     />
                     <Definition.Item
-                      dt="Last Name in Chinese"
+                      dt={t("form:label.chineseLastName")}
                       dd={chineseLastName}
                     />
                     <Definition.Item
-                      dt="First Name in Chinese"
+                      dt={t("form:label.chineseFirstName")}
                       dd={chineseFirstName}
                     />
-                    <Definition.Item dt="Job Title" dd={jbPstnTxt} />
                     <Definition.Item
-                      dt="Residential Address"
+                      dt={t("form:label.jobTitle")}
+                      dd={jbPstnTxt}
+                    />
+                    <Definition.Item
+                      dt={t("form:label.residentialAddress")}
                       dd={residentialAddress}
                     />
-                    <Definition.Item dt="Nationality" dd={cntryTypNm} />
+                    <Definition.Item
+                      dt={t("form:label.nationality")}
+                      dd={cntryTypNm}
+                    />
                     <Definition.Item
                       dt="Telephone Number (Country Code)"
                       dd={telephone.telCntryCdNmbr}
                     />
                     <Definition.Item
-                      dt="Telephone Number (phone number)"
+                      dt={t("form:label.telNo")}
                       dd={telephone.phnNmbr}
                     />
                     <Definition.Item
@@ -76,11 +93,11 @@ const AuthorizedPerson = (props) => {
                       dd={mobile.telCntryCdNmbr}
                     />
                     <Definition.Item
-                      dt="Mobile Number (phone number)"
+                      dt={t("form:label.mobileNumber")}
                       dd={mobile.phnNmbr}
                     />
                     <Definition.Item
-                      dt="Preferred Communication Language"
+                      dt={t("form:label.preferredCommunicationLanguage")}
                       dd={authPrsnContactList?.[0]?.lnggTypNm}
                     />
                   </Definition.List>
