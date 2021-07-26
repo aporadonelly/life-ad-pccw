@@ -1,9 +1,32 @@
 import { connect } from "react-redux";
-import { contactPersonsSelector } from "@redux/features/enrollmentEmployer/selectors";
+import { push } from "connected-react-router";
+import {
+  contactPersonSelector,
+  contactPersonClientPhoneByTypeIdSelector,
+  isLoadingSelector,
+} from "@redux/features/enrollmentEmployer/selectors";
+import {
+  ldCntctPrsnInfo,
+  setSelectedContactPersonUUID,
+} from "@redux/features/enrollmentEmployer/actions";
 import PayrollGroupContactPerson from "./PayrollGroupContactPerson";
+import { bindActionCreators } from "redux";
 
 const mapStateToProps = (state) => ({
-  contactPersons: contactPersonsSelector(state),
+  isLoading: isLoadingSelector(state),
+  contactPerson: contactPersonSelector(state),
+  mobile: contactPersonClientPhoneByTypeIdSelector(state, "TP_MB"),
+  telephone: contactPersonClientPhoneByTypeIdSelector(state, "TP_TP"),
 });
 
-export default connect(mapStateToProps, null)(PayrollGroupContactPerson);
+const mapDispatchToProps = (dispatch) => ({
+  ...bindActionCreators(
+    { ldCntctPrsnInfo, setSelectedContactPersonUUID, push },
+    dispatch
+  ),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PayrollGroupContactPerson);

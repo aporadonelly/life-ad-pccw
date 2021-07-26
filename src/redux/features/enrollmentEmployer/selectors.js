@@ -45,9 +45,19 @@ export const selectedEmployerUUIDSelector = createSelector(
   (state) => state.selectedEmployerUUID
 );
 
+export const selectedContactPersonUUIDSelector = createSelector(
+  featureStateSelector,
+  (state) => state.selectedContactPersonUUID
+);
+
 export const selectedSchemeUUIDSelector = createSelector(
   featureStateSelector,
   (state) => state.selectedSchemeUUID
+);
+
+export const selectedClientUUIDSelector = createSelector(
+  featureStateSelector,
+  (state) => state.selectedClientUUID
 );
 
 export const selectedCompanyUUIDSelector = createSelector(
@@ -88,14 +98,17 @@ export const contactPersonsSelector = createSelector(
   contactPersonsSelectors.selectAll
 );
 
-export const gradeListSelector = createSelector(
+export const contactPersonSelector = createSelector(
   featureStateSelector,
-  gradeListSelectors.selectAll
+  selectedContactPersonUUIDSelector,
+  contactPersonsSelectors.selectById
 );
 
-export const payrollGrpInfoSelector = createSelector(
-  featureStateSelector,
-  (state) => state.payrollGrpInfo
+export const contactPersonClientPhoneByTypeIdSelector = createSelector(
+  contactPersonSelector,
+  (_, phnTypId) => phnTypId,
+
+  (contact, phnTypId) => find(contact?.clntPhones, { phnTypId })
 );
 
 export const employerSchemesSelector = createSelector(

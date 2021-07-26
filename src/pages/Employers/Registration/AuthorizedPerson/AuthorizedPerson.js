@@ -7,8 +7,8 @@ import {
   Button,
   Checkbox,
   FormControlLabel,
-  Box,
   CircularProgress,
+  Box,
 } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import eSig from "@assets/icons/signature.svg";

@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import {
   Grid,
   Card,
@@ -19,10 +19,13 @@ const AuthorizedPersonList = ({
   const { t } = useTranslation(["typography", "form", "table", "button"]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const handleViewMembersDetails = ({ clntUuid }) => {
-    setSelectedClientUUID({ clntUuid });
-    push("/employers/registration/authorized-person");
-  };
+  const handleViewMembersDetails = useCallback(
+    ({ clntUuid }) => {
+      setSelectedClientUUID({ clntUuid });
+      push("/employers/registration/authorized-person");
+    },
+    [setSelectedClientUUID, push]
+  );
   const columns = useMemo(
     () => [
       { Header: t("table:thead.lastName"), accessor: "lstName" },
