@@ -70,6 +70,16 @@ export const enrCompanyInfoSelector = createSelector(
   (state) => state.enrCompanyInfo
 );
 
+export const payrollGrpInfoSelector = createSelector(
+  featureStateSelector,
+  (state) => state.payrollGrpInfo
+);
+
+export const gradeListSelector = createSelector(
+  featureStateSelector,
+  gradeListSelectors.selectAll
+);
+
 export const enrContactByTypeIdSelector = createSelector(
   enrCompanyInfoSelector,
   (_, cntctPrsnTypId) => cntctPrsnTypId,
