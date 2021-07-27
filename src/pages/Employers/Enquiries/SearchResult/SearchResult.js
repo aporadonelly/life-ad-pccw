@@ -26,85 +26,92 @@ const SearchResult = ({
 }) => {
   const { t } = useTranslation(["typography", "form", "button", "table"]);
 
-  const columns = useMemo(() => [
-    { Header: t("table:thead.mpfId"), accessor: "pnsnId" },
-    {
-      Header: t("table:thead.employerAcctNo"),
-      accessor: "branches[0].enrollments[0].employer.employerNo",
-    },
-    {
-      Header: t("table:thead.companyNameEnglish"),
-      accessor: "companyName",
-    },
-    {
-      Header: t("table:thead.companyNameChinese"),
-      accessor: "companyChineseName",
-    },
-    { Header: t("table:thead.registrationType"), accessor: "idType" },
-    {
-      Header: t("table:thead.registrationNumber"),
-      accessor: "registrationNumber",
-    },
-    { Header: t("table:thead.branchNumber"), accessor: "branches[0].branchNo" },
-    { Header: t("table:thead.typesOfCompany"), accessor: "companyType" },
-    {
-      Header: t("table:thead.dateOfIncorporation"),
-      accessor: (row) => moment(row.incorporationDate).format("DD MMMM YYYY"),
-    },
-    { Header: t("table:thead.status"), accessor: "registrationStatus" },
-    {
-      Header: t("table:thead.custom.view"),
-      headerProps: {
-        style: {
-          textAlign: "center",
+  const columns = useMemo(
+    () => [
+      { Header: t("table:thead.mpfId"), accessor: "pnsnId" },
+      {
+        Header: t("table:thead.employerAcctNo"),
+        accessor: "branches[0].enrollments[0].employer.employerNo",
+      },
+      {
+        Header: t("table:thead.companyNameEnglish"),
+        accessor: "companyName",
+      },
+      {
+        Header: t("table:thead.companyNameChinese"),
+        accessor: "companyChineseName",
+      },
+      { Header: t("table:thead.registrationType"), accessor: "idType" },
+      {
+        Header: t("table:thead.registrationNumber"),
+        accessor: "registrationNumber",
+      },
+      {
+        Header: t("table:thead.branchNumber"),
+        accessor: "branches[0].branchNo",
+      },
+      { Header: t("table:thead.typesOfCompany"), accessor: "companyType" },
+      {
+        Header: t("table:thead.dateOfIncorporation"),
+        accessor: (row) => moment(row.incorporationDate).format("DD MMMM YYYY"),
+      },
+      { Header: t("table:thead.status"), accessor: "registrationStatus" },
+      {
+        Header: t("table:thead.custom.view"),
+        headerProps: {
+          style: {
+            textAlign: "center",
+          },
+        },
+        sticky: "right",
+        disableSortBy: true,
+        Cell: ({ row }) => {
+          const { companyName, companyId, branches } = row.original;
+          let enrEnabled = branches[0]?.viewEnrollmentFlagEnabled;
+          return (
+            <>
+              <Tooltip title="View Registration" arrow>
+                <img
+                  onClick={() =>
+                    handleViewRegistration({
+                      cmpnyUuid: companyId,
+                      pnsnId: companyName,
+                    })
+                  }
+                  src={viewRegistration}
+                  alt="View Registration"
+                  variant="contained"
+                  style={{
+                    margin: "0 5px",
+                    background: "#EF841F",
+                    color: "#fff",
+                    cursor: "pointer",
+                  }}
+                />
+              </Tooltip>
+              <Tooltip title="View Enrollment" arrow>
+                <img
+                  onClick={() => handleViewScheme({ pnsnId: companyName })}
+                  src={enrEnabled ? viewEnrollActive : viewEnrollInActive}
+                  alt="View Enrollment"
+                  variant="contained"
+                  style={{
+                    margin: "0 5px",
+                    background: "#EF841F",
+                    color: "#fff",
+                    cursor: enrEnabled ? "pointer" : "not-allowed",
+                    pointerEvents: enrEnabled ? "all" : "none",
+                  }}
+                />
+              </Tooltip>
+            </>
+          );
         },
       },
-      sticky: "right",
-      disableSortBy: true,
-      Cell: ({ row }) => {
-        const { companyName, companyId, branches } = row.original;
-        let enrEnabled = branches[0]?.viewEnrollmentFlagEnabled;
-        return (
-          <>
-            <Tooltip title="View Registration" arrow>
-              <img
-                onClick={() =>
-                  handleViewRegistration({
-                    cmpnyUuid: companyId,
-                    pnsnId: companyName,
-                  })
-                }
-                src={viewRegistration}
-                alt="View Registration"
-                variant="contained"
-                style={{
-                  margin: "0 5px",
-                  background: "#EF841F",
-                  color: "#fff",
-                  cursor: "pointer",
-                }}
-              />
-            </Tooltip>
-            <Tooltip title="View Enrollment" arrow>
-              <img
-                onClick={() => handleViewScheme({ pnsnId: companyName })}
-                src={enrEnabled ? viewEnrollActive : viewEnrollInActive}
-                alt="View Enrollment"
-                variant="contained"
-                style={{
-                  margin: "0 5px",
-                  background: "#EF841F",
-                  color: "#fff",
-                  cursor: enrEnabled ? "pointer" : "not-allowed",
-                  pointerEvents: enrEnabled ? "all" : "none",
-                }}
-              />
-            </Tooltip>
-          </>
-        );
-      },
-    },
-  ]);
+    ],
+    // eslint-disable-next-line no-use-before-define
+    [handleViewRegistration, handleViewScheme, t]
+  );
 
   const handleViewRegistration = useCallback(
     ({ cmpnyUuid, pnsnId }) => {
