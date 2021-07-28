@@ -20,7 +20,7 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo }) => {
     paymentMethodOptions,
     contributionBillsGenerationDate,
     preprintedRemittanceOptions,
-    //defaultPayrollGroup,
+    partialPaymentHandlingOption,
     voluntaryContributionOption,
     unvestedBenefitOptions,
   } = payrollGrpInfo;
@@ -112,7 +112,7 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo }) => {
                         <Checkbox
                           color="primary"
                           icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
-                          //checked={defaultPayrollGroup === true}
+                          checked={partialPaymentHandlingOption === true}
                           checkedIcon={<CheckBoxIcon fontSize="small" />}
                         />
                       }
