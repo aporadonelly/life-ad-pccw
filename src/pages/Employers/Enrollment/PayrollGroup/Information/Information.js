@@ -55,7 +55,7 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo }) => {
                     />
                     <Definition.Item
                       dt={t("form:label.contributionFrequency")}
-                      dd={frequencyOptions?.[0]?.cstmTypDtlTxt}
+                      dd={frequencyOptions?.[1]?.cstmTypDtlTxt}
                     />
                     <Definition.Item
                       dt={t("form:label.commencementDate")}
@@ -70,7 +70,7 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo }) => {
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.contributionDay")}
-                      dd={contributionDayOptions?.[2]?.cstmTypDtlTxt}
+                      dd={contributionDayOptions?.[1]?.cstmTypDtlTxt}
                     />
                   </Definition.List>
                 </Definition>
@@ -81,7 +81,7 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo }) => {
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.paymentMethod")}
-                      dd={paymentMethodOptions?.[0]?.cstmTypDtlTxt}
+                      dd={paymentMethodOptions?.[1]?.cstmTypDtlTxt}
                     />
                     <Definition.Item
                       dt={t("form:label.contributionBillGenerationDate")}
@@ -98,7 +98,7 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo }) => {
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.preprintedRemittanceStatementOption")}
-                      dd={preprintedRemittanceOptions?.[0]?.cstmTypDtlTxt || ""}
+                      dd={preprintedRemittanceOptions?.[1]?.cstmTypDtlTxt || ""}
                     />
                   </Definition.List>
                 </Definition>
@@ -144,7 +144,7 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo }) => {
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.voluntaryContributionUnvestedBenefit")}
-                      dd={unvestedBenefitOptions?.[5]?.cstmTypDtlTxt || ""}
+                      dd={unvestedBenefitOptions?.[1]?.cstmTypDtlTxt || ""}
                     />
                   </Definition.List>
                 </Definition>
