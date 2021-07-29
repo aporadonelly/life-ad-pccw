@@ -55,7 +55,7 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo }) => {
                     />
                     <Definition.Item
                       dt={t("form:label.contributionFrequency")}
-                      dd={contributionFrequency.frequencyType}
+                      dd={contributionFrequency?.frequencyType}
                     />
                     <Definition.Item
                       dt={t("form:label.commencementDate")}
