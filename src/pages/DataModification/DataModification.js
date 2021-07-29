@@ -22,7 +22,6 @@ const DataModification = (props) => {
   const classes = useStyles();
 
   const handleChange = (value, newValue) => {
-    console.log('value :'+ value + ' - newValue :' + newValue)
     setActiveTab(newValue);
   };
 
