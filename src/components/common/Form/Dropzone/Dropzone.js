@@ -92,8 +92,12 @@ const Dropzone = (props) => {
                 alignItems="center"
                 justifyContent="center"
               >
-                <Box width={50}>
-                  <IconButton onClick={handleRemove(index)}>
+                <Box width={50} position="relative">
+                  <IconButton
+                    size="small"
+                    onClick={handleRemove(index)}
+                    style={{ position: "absolute", top: -10, left: -10 }}
+                  >
                     <CancelIcon color="error" />
                   </IconButton>
                   <FileIcon extension={file.name.split(".").pop()} width={45} />
