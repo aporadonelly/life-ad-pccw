@@ -12,11 +12,11 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
-    display: "flex",
+    display: 'flex',
     // height: 224,
   },
-  rowFilled: {
-    background: "#ede8e8",
+  rootTab: {
+    background: theme.palette.divider,
   },
 }));
 
@@ -43,25 +43,19 @@ const DataModification = (props) => {
         <div className={classes.root}>
           <Grid xs={2}>
             <Tabs
-              TabIndicatorProps={{
-                style: {
-                  display: "none",
-                },
-              }}
+              indicatorColor="none"
               orientation="vertical"
               variant="scrollable"
               value={index}
               onChange={onChange}
-              aria-label="Vertical tabs example"
-              className={classes.tabs}
+              aria-label="Section Tab"
             >
               <Tab
-                wrapped
                 label={TitleTabs("1:", "Personal Details")}
                 {...a11yProps(0)}
               />
               <Tab
-                className={classes.rowFilled}
+                className={{root: classes.rootTab}}
                 label={TitleTabs("2:", "Contact Information")}
                 {...a11yProps(1)}
               />
@@ -70,7 +64,7 @@ const DataModification = (props) => {
                 {...a11yProps(2)}
               />
               <Tab
-                className={classes.rowFilled}
+                className={{root: classes.rootTab}}
                 label={TitleTabs("4:", "MPF Accounts Information")}
                 {...a11yProps(3)}
               />
@@ -79,7 +73,7 @@ const DataModification = (props) => {
                 {...a11yProps(4)}
               />
               <Tab
-                className={classes.rowFilled}
+                className={{root: classes.rootTab}}
                 label={TitleTabs("6:", "CRS Information")}
                 {...a11yProps(5)}
               />
@@ -88,7 +82,7 @@ const DataModification = (props) => {
                 {...a11yProps(6)}
               />
               <Tab
-                className={classes.rowFilled}
+                className={{root: classes.rootTab}}
                 label={TitleTabs("8:", "Upload Supporting Documents")}
                 {...a11yProps(7)}
               />
