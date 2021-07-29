@@ -19,6 +19,7 @@ const Dropzone = (props) => {
     helpers,
     zoneActiveText,
     placeholder,
+    titleClass,
     multiple,
     error,
     helperText,
@@ -73,10 +74,10 @@ const Dropzone = (props) => {
                 alignItems="center"
                 justifyContent="center"
               >
-                <Box width={50}>
-                  <FileIcon extension={file.name.split(".").pop()} width={45} />
+                <Box width={40}>
+                  <FileIcon extension={file.name.split(".").pop()} width={35} />
                 </Box>
-                <Typography variant="subtitle2">
+                <Typography className={titleClass} variant="subtitle2">
                   {file.name.split(".").shift()}
                 </Typography>
               </Box>
