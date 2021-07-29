@@ -14,7 +14,7 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo }) => {
   const {
     payrollGroupCode,
     payrollGroupName,
-    frequencyOptions,
+    contributionFrequency,
     contributionDayOptions,
     commencementDate,
     paymentMethodOptions,
@@ -55,7 +55,7 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo }) => {
                     />
                     <Definition.Item
                       dt={t("form:label.contributionFrequency")}
-                      dd={frequencyOptions?.[1]?.cstmTypDtlTxt}
+                      dd={contributionFrequency.frequencyType}
                     />
                     <Definition.Item
                       dt={t("form:label.commencementDate")}
@@ -70,7 +70,7 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo }) => {
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.contributionDay")}
-                      dd={contributionDayOptions?.[1]?.cstmTypDtlTxt}
+                      dd={contributionDayOptions?.[0]?.cstmTypDtlTxt}
                     />
                   </Definition.List>
                 </Definition>
@@ -81,7 +81,7 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo }) => {
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.paymentMethod")}
-                      dd={paymentMethodOptions?.[1]?.cstmTypDtlTxt}
+                      dd={paymentMethodOptions?.[0]?.cstmTypDtlTxt}
                     />
                     <Definition.Item
                       dt={t("form:label.contributionBillGenerationDate")}
@@ -98,7 +98,7 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo }) => {
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.preprintedRemittanceStatementOption")}
-                      dd={preprintedRemittanceOptions?.[1]?.cstmTypDtlTxt || ""}
+                      dd={preprintedRemittanceOptions?.[0]?.cstmTypDtlTxt || ""}
                     />
                   </Definition.List>
                 </Definition>
@@ -144,7 +144,7 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo }) => {
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.voluntaryContributionUnvestedBenefit")}
-                      dd={unvestedBenefitOptions?.[1]?.cstmTypDtlTxt || ""}
+                      dd={unvestedBenefitOptions?.[0]?.cstmTypDtlTxt || ""}
                     />
                   </Definition.List>
                 </Definition>
