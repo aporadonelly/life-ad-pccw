@@ -2,12 +2,15 @@ import { useDropzone } from "react-dropzone";
 import { withField } from "@hocs";
 import {
   Box,
+  IconButton,
   Typography,
   FormControl,
   FormLabel,
   FormHelperText,
 } from "@material-ui/core";
+import { Cancel as CancelIcon } from "@material-ui/icons";
 import { FileIcon } from "react-file-icon";
+import { concat, map, head, isEmpty, filter } from "lodash";
 import clsx from "clsx";
 
 const Dropzone = (props) => {
@@ -37,11 +40,26 @@ const Dropzone = (props) => {
     ...rest,
   });
 
-  function handleDrop(acceptedFiles) {
-    const files = multiple ? value.concat(acceptedFiles) : acceptedFiles;
+  function handleDrop(acceptedFiles, fileRejections) {
+    const files = multiple
+      ? concat(value, acceptedFiles, map(fileRejections, "file"))
+      : acceptedFiles.length > 0
+      ? head(acceptedFiles)
+      : head(fileRejections)?.file;
 
     helpers.setValue(files);
   }
+
+  const handleRemove = (index) => (e) => {
+    e.stopPropagation();
+
+    if (multiple) {
+      value.splice(index, 1);
+      helpers.setValue(value);
+    } else {
+      helpers.setValue("");
+    }
+  };
 
   return (
     <FormControl error={error}>
@@ -53,8 +71,8 @@ const Dropzone = (props) => {
         })}
       >
         <input {...getInputProps()} name={name} />
-        {(acceptedFiles.length && value.length) || fileRejections.length ? (
-          value.map((file) => {
+        {(acceptedFiles.length && !isEmpty(value)) || fileRejections.length ? (
+          concat([], value).map((file, index) => {
             if (file.type.includes("image")) {
               return (
                 <img
@@ -74,8 +92,11 @@ const Dropzone = (props) => {
                 alignItems="center"
                 justifyContent="center"
               >
-                <Box width={40}>
-                  <FileIcon extension={file.name.split(".").pop()} width={35} />
+                <Box width={50}>
+                  <IconButton onClick={handleRemove(index)}>
+                    <CancelIcon color="error" />
+                  </IconButton>
+                  <FileIcon extension={file.name.split(".").pop()} width={45} />
                 </Box>
                 <Typography className={titleClass} variant="subtitle2">
                   {file.name.split(".").shift()}
