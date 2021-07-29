@@ -8,7 +8,6 @@ const useStyles = makeStyles((theme) => ({
   dropzone: {
     border: "1px solid black",
     margin: theme.spacing(1, 0),
-    // padding: theme.spacing(1),
     width: 100,
     display: "flex",
     justifyContent: "center",
@@ -25,25 +24,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
   },
-  titleClass: {
-    fontSize: 10,
-  },
-  pageInner: {
-    marginTop: 15,
-  },
   uploadArea: {
     margin: 15,
   },
-  rowFilled: {
-    background: "#ede8e8",
-    display: "flex",
-    padding: "3px 3px 3px 5px",
-  },
-  rowNonFilled: {
-    display: "flex",
-    padding: "3px 3px 3px 5px",
-  },
-
   gridItem: {
     backgroundColor: "#ede8e8",
   },
@@ -141,10 +124,10 @@ const SupportingDocuments = () => {
             <Grid item xs={6}>
               HKID
             </Grid>
-            <Grid item xs={6}>
+            <Grid className={classes.gridItem} item xs={6}>
               First Name
             </Grid>
-            <Grid item xs={6}>
+            <Grid className={classes.gridItem} item xs={6}>
               HIKD
             </Grid>
             <Grid item xs={6}>
