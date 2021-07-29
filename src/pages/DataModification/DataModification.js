@@ -11,10 +11,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
     display: "flex",
-    // height: 224,
   },
-  rootTab: {
-    background: theme.palette.divider,
+  tabs: {
+    backgroundColor: theme.palette.divider,
   },
 }));
 
@@ -23,15 +22,8 @@ const DataModification = (props) => {
   const classes = useStyles();
 
   const handleChange = (value, newValue) => {
+    console.log('value :'+ value + ' - newValue :' + newValue)
     setActiveTab(newValue);
-  };
-
-  const a11yProps = (index) => {
-    console.log(index);
-    return {
-      id: `vertical-tab-${index}`,
-      "aria-controls": `vertical-tabpanel-${index}`,
-    };
   };
 
   return (
@@ -47,40 +39,46 @@ const DataModification = (props) => {
                 onChange={handleChange}
                 aria-label="Section Tab"
               >
-                <Tab label={TitleTabs("1:", "Personal Details")} />
                 <Tab
-                  className={{ root: classes.rootTab }}
-                  label={TitleTabs("2:", "Contact Information")}
+                  className={classes.tabs}
+                  label={TitleTabs("1:", "Personal Details")}
+                  value="Section 1"
                 />
+                <Tab label={TitleTabs("2:", "Contact Information")} value="Section 2" />
                 <Tab
+                  className={classes.tabs}
                   label={TitleTabs("3:", "Communication Preferences")}
-                  {...a11yProps(2)}
+                  value="Section 3"
+                />
+                <Tab label={TitleTabs("4:", "MPF Accounts Information")} value="Section 4"/>
+                <Tab
+                  className={classes.tabs}
+                  label={TitleTabs("5:", "Payment Method")}
+                  value="Section 5"
+                />
+                <Tab label={TitleTabs("6:", "CRS Information")} value="Section 6" />
+                <Tab
+                  className={classes.tabs}
+                  label={TitleTabs("7:", "Others Details")}
+                  value="Section 7"
                 />
                 <Tab
-                  className={{ root: classes.rootTab }}
-                  label={TitleTabs("4:", "MPF Accounts Information")}
-                />
-                <Tab label={TitleTabs("5:", "Payment Method")} />
-                <Tab
-                  className={{ root: classes.rootTab }}
-                  label={TitleTabs("6:", "CRS Information")}
-                />
-                <Tab label={TitleTabs("7:", "Others Details")} />
-                <Tab
-                  className={{ root: classes.rootTab }}
                   label={TitleTabs("8:", "Upload Supporting Documents")}
                   value="Section 8"
                 />
                 <Tab
+                  className={classes.tabs}
                   label={TitleTabs("9:", "Confirmation")}
-                  {...a11yProps(8)}
+                  value="Section 9"
                 />
               </TabList>
             </Grid>
             <Grid item xs={10}>
-              <TabPanel value="Section 8">
-                <SupportingDocuments />
-              </TabPanel>
+              <Box ml={2} mr={2}>
+                <TabPanel value="Section 8">
+                  <SupportingDocuments />
+                </TabPanel>
+              </Box>
             </Grid>
           </Grid>
         </TabContext>
