@@ -31,21 +31,15 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo, customType }) => {
     });
   }, [ldPayrollGrpInfo]);
 
-  const VCUB = useMemo(
-    () =>
-      Object.freeze({
-        1: "Age 65 reached",
-        2: "Retained address invalid / Claimant becomes unlocated",
-        3: "Death proof received for deceased member",
-        4: "Phased withdrawal",
-        5: "Refund",
-        6: "Unclaim Benefit Type Name",
-        7: "Unpresented cheque",
-      }),
-    [t]
-  );
-
-  // { value: "CT_SCP", label: t("form:label.scndryCtctPrsn") },
+  const VCUB = Object.freeze({
+    1: "Age 65 reached",
+    2: "Retained address invalid / Claimant becomes unlocated",
+    3: "Death proof received for deceased member",
+    4: "Phased withdrawal",
+    5: "Refund",
+    6: "Unclaim Benefit Type Name",
+    7: "Unpresented cheque",
+  });
 
   return (
     <Grid container spacing={3}>
