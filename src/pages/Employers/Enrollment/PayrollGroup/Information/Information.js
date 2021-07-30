@@ -1,5 +1,5 @@
 import { Grid, Card, CardContent, Typography } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 import { Definition } from "@components/misc";
 import { useTranslation } from "react-i18next";
@@ -9,20 +9,20 @@ import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import moment from "moment";
 
-const Information = ({ payrollGrpInfo, ldPayrollGrpInfo }) => {
+const Information = ({ payrollGrpInfo, ldPayrollGrpInfo, customType }) => {
   const { t } = useTranslation(["typography", "form", "table", "button"]);
   const {
     payrollGroupCode,
     payrollGroupName,
     contributionFrequency,
-    contributionDayOptions,
+    contributionDay,
     commencementDate,
-    paymentMethodOptions,
+    paymentMethod,
     contributionBillsGenerationDate,
-    preprintedRemittanceOptions,
+    pprRsOption,
     partialPaymentHandlingOption,
     voluntaryContributionOption,
-    unvestedBenefitOptions,
+    voluntaryContributionUnvestedBenefit,
   } = payrollGrpInfo;
 
   useEffect(() => {
@@ -30,6 +30,22 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo }) => {
       payrollGroupId: "740DF08D-90FE-492C-9F09-8492F7218B97",
     });
   }, [ldPayrollGrpInfo]);
+
+  const VCUB = useMemo(
+    () =>
+      Object.freeze({
+        1: "Age 65 reached",
+        2: "Retained address invalid / Claimant becomes unlocated",
+        3: "Death proof received for deceased member",
+        4: "Phased withdrawal",
+        5: "Refund",
+        6: "Unclaim Benefit Type Name",
+        7: "Unpresented cheque",
+      }),
+    [t]
+  );
+
+  // { value: "CT_SCP", label: t("form:label.scndryCtctPrsn") },
 
   return (
     <Grid container spacing={3}>
@@ -70,7 +86,7 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo }) => {
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.contributionDay")}
-                      dd={contributionDayOptions?.[0]?.cstmTypDtlTxt}
+                      dd={customType[contributionDay]?.cstmTypDtlTxt}
                     />
                   </Definition.List>
                 </Definition>
@@ -81,7 +97,7 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo }) => {
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.paymentMethod")}
-                      dd={paymentMethodOptions?.[0]?.cstmTypDtlTxt}
+                      dd={customType[paymentMethod?.typeId]?.cstmTypDtlTxt}
                     />
                     <Definition.Item
                       dt={t("form:label.contributionBillGenerationDate")}
@@ -98,7 +114,7 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo }) => {
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.preprintedRemittanceStatementOption")}
-                      dd={preprintedRemittanceOptions?.[0]?.cstmTypDtlTxt || ""}
+                      dd={pprRsOption}
                     />
                   </Definition.List>
                 </Definition>
@@ -144,7 +160,7 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo }) => {
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.voluntaryContributionUnvestedBenefit")}
-                      dd={unvestedBenefitOptions?.[0]?.cstmTypDtlTxt || ""}
+                      dd={VCUB[voluntaryContributionUnvestedBenefit]}
                     />
                   </Definition.List>
                 </Definition>
