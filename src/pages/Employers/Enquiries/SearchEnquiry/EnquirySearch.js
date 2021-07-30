@@ -12,9 +12,7 @@ import { useTranslation } from "react-i18next";
 import { Formik } from "formik";
 import { Form } from "@components/common";
 import { BottomAppBar } from "@components/misc";
-import EmployeeStyles from "@components/employees/styles/EmployeeStyles";
 import { isEqual } from "lodash";
-import { employersRoutes } from "@routes";
 import { unwrapResult } from "@reduxjs/toolkit";
 const initialValues = {
   pnsnId: "",
@@ -52,7 +50,6 @@ const CompanyProfile = ({
   push,
 }) => {
   const { t } = useTranslation(["typography", "form", "button"]);
-  const classes = EmployeeStyles();
 
   const handleSubmit = (values) => {
     ldSrchCmpny(values)
@@ -347,14 +344,8 @@ const CompanyProfile = ({
                       </Grid>
 
                       {/* Floating Buttons */}
-                      <Grid
-                        container
-                        item
-                        xs={12}
-                        justify="flex-end"
-                        className={classes.fieldSpacing}
-                      >
-                        <div className={classes.formBtnContainer}>
+                      <Grid container item xs={12} justify="flex-end">
+                        <div>
                           <BottomAppBar>
                             <Form.Reset variant="outlined" color="default">
                               {t("button:clear")}
