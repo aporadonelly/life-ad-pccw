@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import { Cancel as CancelIcon } from "@material-ui/icons";
 import { FileIcon } from "react-file-icon";
-import { concat, map, head, isEmpty, filter } from "lodash";
+import { concat, map, head, isEmpty, compact } from "lodash";
 import clsx from "clsx";
 
 const Dropzone = (props) => {
@@ -61,6 +61,8 @@ const Dropzone = (props) => {
     }
   };
 
+  console.log("DROPZONE VALUE: ", value);
+
   return (
     <FormControl error={error}>
       <FormLabel>{label}</FormLabel>
@@ -72,7 +74,7 @@ const Dropzone = (props) => {
       >
         <input {...getInputProps()} name={name} />
         {(acceptedFiles.length && !isEmpty(value)) || fileRejections.length ? (
-          concat([], value).map((file, index) => {
+          compact(concat([], value)).map((file, index) => {
             if (file.type.includes("image")) {
               return (
                 <img
