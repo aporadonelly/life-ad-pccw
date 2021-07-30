@@ -30,9 +30,12 @@ const DataTableProvider = (props) => {
     data,
     pageSize,
     title,
+    striped,
     disableQuickSearch,
     disablePagination,
     disableShowEntries,
+    tableProps,
+    tableBodyProps,
     children,
   } = props;
   const tableInstance = useTable(
@@ -55,6 +58,9 @@ const DataTableProvider = (props) => {
       value={{
         ...tableInstance,
         title,
+        striped,
+        tableProps,
+        tableBodyProps,
         disableQuickSearch,
         disablePagination,
         disableShowEntries,
