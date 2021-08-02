@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { compact, values, pick } from "lodash";
 import {
   Grid,
   Card,
@@ -20,8 +21,17 @@ const PayrollGroupContactPerson = ({
   push,
   isLoading,
 }) => {
-  const { frstNm, lstNm, emlAddrTxt, jbPstnTxt, ttlTypCd, lnggTypId } =
-    contactPerson ?? [];
+  const {
+    frstNm,
+    lstNm,
+    emlAddrTxt,
+    jbPstnTxt,
+    ttlTypCd,
+    lnggTypId,
+    crrspndnceAddr,
+  } = contactPerson ?? [];
+
+  console.log(contactPerson, "contactPerson");
 
   const { t } = useTranslation(["typography", "form", "button", "table"]);
 
@@ -102,7 +112,19 @@ const PayrollGroupContactPerson = ({
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.correspondenceAddress")}
-                      // dd={ttlTypCd === "TT_MS" ? "Miss" : "Mr."}
+                      dd={compact(
+                        values(
+                          pick(crrspndnceAddr, [
+                            "addrRmTxt",
+                            "addrFlrTxt",
+                            "addrBldngNmTxt",
+                            "addrBlckTxt",
+                            "addrStrtTxt",
+                            "addrCtyTxt",
+                            "addrDstrctTxt",
+                          ])
+                        )
+                      ).join(" ")}
                     />
                   </Definition.List>
                 </Definition>
