@@ -50,15 +50,14 @@ const SearchResult = ({
         sticky: "right",
         disableSortBy: true,
         Cell: ({ row }) => {
-          const { companyName, companyId, branches } = row.original;
-          let enrEnabled = branches[0]?.viewEnrollmentFlagEnabled;
+          const { pnsnIdTxt, vwEnrFlg } = row.original;
           return (
             <>
               <Tooltip title="View Registration">
                 <img
                   src={viewRegistration}
                   alt="View Registration"
-                  onClick={() => viewMembersDetails(row.pnsnIdTxt)}
+                  onClick={() => viewMembersDetails(pnsnIdTxt)}
                   variant="contained"
                   style={{
                     margin: "0 5px",
@@ -70,7 +69,7 @@ const SearchResult = ({
               </Tooltip>
               <Tooltip title="View Enrollment">
                 <img
-                  src={row.vwEnrFlg ? viewEnrollActive : viewEnrollInActive}
+                  src={vwEnrFlg ? viewEnrollActive : viewEnrollInActive}
                   alt="View Enrollment"
                   variant="contained"
                   style={{
@@ -158,55 +157,11 @@ const SearchResult = ({
                     alignItems="flex-start"
                   >
                     <Grid item xs={12}>
-                      <DataTable
-                        title={t("typography:heading.enquiryResult")}
-                        data={employees}
-                        columns={columns}
-                      />
-                      {/* {employees.length > 0 ? (
-                        <TableCustomized
-                          title={t("typography:heading.searchResult")}
-                          rows={employees}
+                      {employees.length > 0 ? (
+                        <DataTable
+                          title={t("typography:heading.enquiryResult")}
+                          data={employees}
                           columns={columns}
-                          stickyLabel={t("table:thead.custom.action")}
-                          renderStickyCell={(row) => {
-                            return (
-                              <>
-                                <Tooltip title="View Registration">
-                                  <img
-                                    src={viewRegistration}
-                                    alt="View Registration"
-                                    onClick={() =>
-                                      viewMembersDetails(row.pnsnIdTxt)
-                                    }
-                                    variant="contained"
-                                    style={{
-                                      margin: "0 5px",
-                                      background: "#EF841F",
-                                      color: "#fff",
-                                      cursor: "pointer",
-                                    }}
-                                  />
-                                </Tooltip>
-                                <Tooltip title="View Enrollment">
-                                  <img
-                                    src={
-                                      row.vwEnrFlg
-                                        ? viewEnrollActive
-                                        : viewEnrollInActive
-                                    }
-                                    alt="View Enrollment"
-                                    variant="contained"
-                                    style={{
-                                      margin: "0 5px",
-                                      background: "#EF841F",
-                                      color: "#fff",
-                                    }}
-                                  />
-                                </Tooltip>
-                              </>
-                            );
-                          }}
                         />
                       ) : (
                         <Box display="flex">
@@ -216,7 +171,7 @@ const SearchResult = ({
                             </Typography>
                           </Grid>
                         </Box>
-                      )} */}
+                      )}
                     </Grid>
                   </Grid>
                 </CardContent>
