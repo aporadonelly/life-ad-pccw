@@ -1,6 +1,5 @@
-/* eslint-disable default-case */
-import { useEffect } from "react";
-import TableCustomized from "@components/common/TableCustomized";
+import { useEffect, useMemo } from "react";
+import { DataTable } from "@components/common";
 import {
   Grid,
   Card,
@@ -29,15 +28,65 @@ const SearchResult = ({
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button", "table"]);
 
-  const columns = [
-    { label: t("table:thead.mpfId"), name: "pnsnIdTxt" },
-    { label: t("table:thead.displayName"), name: "fullname" },
-    { label: t("table:thead.idType"), name: "idTypeId" },
-    { label: t("table:thead.idNumber"), name: "idNoTxt" },
-    { label: t("table:thead.mobileNumber"), name: "clntPhones[0].phoneNumber" },
-    { label: t("table:thead.email"), name: "cntcts[0].emailAddrTxt" },
-    { label: t("table:thead.status"), name: "statusTypId" },
-  ];
+  const columns = useMemo(
+    () => [
+      { Header: t("table:thead.mpfId"), accessor: "pnsnIdTxt" },
+      { Header: t("table:thead.displayName"), accessor: "fullname" },
+      { Header: t("table:thead.idType"), accessor: "idTypeId" },
+      { Header: t("table:thead.idNumber"), accessor: "idNoTxt" },
+      {
+        Header: t("table:thead.mobileNumber"),
+        accessor: "clntPhones[0].phoneNumber",
+      },
+      { Header: t("table:thead.email"), accessor: "cntcts[0].emailAddrTxt" },
+      { Header: t("table:thead.status"), accessor: "statusTypId" },
+      {
+        Header: t("table:thead.custom.action"),
+        headerProps: {
+          style: {
+            textAlign: "center",
+          },
+        },
+        sticky: "right",
+        disableSortBy: true,
+        Cell: ({ row }) => {
+          const { companyName, companyId, branches } = row.original;
+          let enrEnabled = branches[0]?.viewEnrollmentFlagEnabled;
+          return (
+            <>
+              <Tooltip title="View Registration">
+                <img
+                  src={viewRegistration}
+                  alt="View Registration"
+                  onClick={() => viewMembersDetails(row.pnsnIdTxt)}
+                  variant="contained"
+                  style={{
+                    margin: "0 5px",
+                    background: "#EF841F",
+                    color: "#fff",
+                    cursor: "pointer",
+                  }}
+                />
+              </Tooltip>
+              <Tooltip title="View Enrollment">
+                <img
+                  src={row.vwEnrFlg ? viewEnrollActive : viewEnrollInActive}
+                  alt="View Enrollment"
+                  variant="contained"
+                  style={{
+                    margin: "0 5px",
+                    background: "#EF841F",
+                    color: "#fff",
+                  }}
+                />
+              </Tooltip>
+            </>
+          );
+        },
+      },
+    ],
+    [t]
+  );
 
   useEffect(() => {}, [employees]);
 
@@ -109,7 +158,12 @@ const SearchResult = ({
                     alignItems="flex-start"
                   >
                     <Grid item xs={12}>
-                      {employees.length > 0 ? (
+                      <DataTable
+                        title={t("typography:heading.enquiryResult")}
+                        data={employees}
+                        columns={columns}
+                      />
+                      {/* {employees.length > 0 ? (
                         <TableCustomized
                           title={t("typography:heading.searchResult")}
                           rows={employees}
@@ -162,7 +216,7 @@ const SearchResult = ({
                             </Typography>
                           </Grid>
                         </Box>
-                      )}
+                      )} */}
                     </Grid>
                   </Grid>
                 </CardContent>
