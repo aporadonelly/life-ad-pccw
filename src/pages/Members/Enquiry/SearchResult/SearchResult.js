@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useCallback } from "react";
 import { DataTable } from "@components/common";
 import {
   Grid,
@@ -13,10 +13,10 @@ import {
 import { EnquiryChips } from "@containers";
 import { PageInner } from "@components/layout";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
 import viewEnrollActive from "@assets/icons/enroll-active.PNG";
 import viewEnrollInActive from "@assets/icons/enroll-inactive.PNG";
 import viewRegistration from "@assets/icons/view_reg.PNG";
+import useStyles from "./SearchResultStyles";
 
 const SearchResult = ({
   employees,
@@ -26,8 +26,26 @@ const SearchResult = ({
   enquiry,
   push,
 }) => {
-  const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button", "table"]);
+  const classes = useStyles();
+
+  useEffect(() => {}, [employees]);
+
+  const viewMembersDetails = useCallback(
+    (id) => {
+      getSpecificMember(id);
+    },
+    [getSpecificMember]
+  );
+
+  const handleEditSearch = () => {
+    push("/members/enquiry/search");
+  };
+
+  const handleNewSearch = () => {
+    saveEnquiry({});
+    push("/members/enquiry/search");
+  };
 
   const columns = useMemo(
     () => [
@@ -60,12 +78,7 @@ const SearchResult = ({
                   alt="View Registration"
                   onClick={() => viewMembersDetails(pnsnIdTxt)}
                   variant="contained"
-                  style={{
-                    margin: "0 5px",
-                    background: "#EF841F",
-                    color: "#fff",
-                    cursor: "pointer",
-                  }}
+                  className={classes.viewRegBtn}
                 />
               </Tooltip>
               <Tooltip title="View Enrollment">
@@ -73,11 +86,7 @@ const SearchResult = ({
                   src={vwEnrFlg ? viewEnrollActive : viewEnrollInActive}
                   alt="View Enrollment"
                   variant="contained"
-                  style={{
-                    margin: "0 5px",
-                    background: "#EF841F",
-                    color: "#fff",
-                  }}
+                  className={classes.viewEnrBtn}
                 />
               </Tooltip>
             </>
@@ -85,23 +94,9 @@ const SearchResult = ({
         },
       },
     ],
-    [t]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [t, viewMembersDetails]
   );
-
-  useEffect(() => {}, [employees]);
-
-  const viewMembersDetails = (id) => {
-    getSpecificMember(id);
-  };
-
-  const handleEditSearch = () => {
-    push("/members/enquiry/search");
-  };
-
-  const handleNewSearch = () => {
-    saveEnquiry({});
-    push("/members/enquiry/search");
-  };
 
   return (
     <>
