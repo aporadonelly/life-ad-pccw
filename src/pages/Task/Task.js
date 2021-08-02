@@ -1,5 +1,3 @@
-import { Page } from "@containers";
-
-const Task = () => <Page />;
+const Task = () => null;
 
 export default Task;

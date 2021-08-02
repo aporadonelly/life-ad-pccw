@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Page } from "@containers";
 import EmployeeDetails from "./terminationdetails/EmployeeDetails";
 import { useParams } from "react-router-dom";
 import TerminationRoutes from "./TerminationRoutes";
@@ -27,7 +26,7 @@ const Termination = (props) => {
   }, []);
 
   return (
-    <Page>
+    <>
       {isLoading ? (
         <Box display="flex" justifyContent="center" mt={5}>
           <CircularProgress />
@@ -43,7 +42,7 @@ const Termination = (props) => {
           <EmployeeDetails {...props} />
         </>
       )}
-    </Page>
+    </>
   );
 };
 

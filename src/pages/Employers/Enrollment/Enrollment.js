@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Page } from "@containers";
 import { PageHeader, PageInner } from "@components/layout";
 import { createRoutes } from "@components/misc";
 import { enrollmentRoutes } from "@routes/employers";
@@ -30,7 +29,7 @@ const Enrollment = (props) => {
   );
 
   return (
-    <Page>
+    <>
       <PageHeader routes={tabs}>
         {employer && (
           <>
@@ -48,7 +47,7 @@ const Enrollment = (props) => {
         )}
       </PageHeader>
       <PageInner>{routes}</PageInner>
-    </Page>
+    </>
   );
 };
 

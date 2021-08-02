@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import moment from "moment";
 import { get } from "lodash";
 import { Grid, Card, CardContent, Typography, Button } from "@material-ui/core";
-import { Page } from "@containers";
 import { PageInner, PageHeader } from "@components/layout";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
@@ -31,7 +30,7 @@ const ViewMember = ({ employee }) => {
   const { t } = useTranslation(["typography", "form", "button"]);
 
   return (
-    <Page>
+    <>
       <PageHeader>
         <PageHeader.SubjectInfo
           subject={`${lstNm}, ${frstNm}`}
@@ -263,7 +262,7 @@ const ViewMember = ({ employee }) => {
           </Grid>
         </Grid>
       </PageInner>
-    </Page>
+    </>
   );
 };
 

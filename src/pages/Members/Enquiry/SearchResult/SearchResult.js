@@ -11,7 +11,7 @@ import {
   Box,
   Tooltip,
 } from "@material-ui/core";
-import { Page, EnquiryChips } from "@containers";
+import { EnquiryChips } from "@containers";
 import { PageInner } from "@components/layout";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
@@ -55,7 +55,7 @@ const SearchResult = ({
   };
 
   return (
-    <Page>
+    <>
       <PageInner>
         {isLoading ? (
           <Box display="flex" justifyContent="center">
@@ -171,7 +171,7 @@ const SearchResult = ({
           </Grid>
         )}
       </PageInner>
-    </Page>
+    </>
   );
 };
 export default SearchResult;
