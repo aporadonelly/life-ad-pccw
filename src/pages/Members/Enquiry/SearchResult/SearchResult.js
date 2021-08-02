@@ -24,6 +24,7 @@ const SearchResult = ({
   getSpecificMember,
   saveEnquiry,
   enquiry,
+  push,
 }) => {
   const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button", "table"]);
@@ -94,12 +95,12 @@ const SearchResult = ({
   };
 
   const handleEditSearch = () => {
-    history.push("/members/enquiry/search");
+    push("/members/enquiry/search");
   };
 
   const handleNewSearch = () => {
     saveEnquiry({});
-    history.push("/members/enquiry/search");
+    push("/members/enquiry/search");
   };
 
   return (
