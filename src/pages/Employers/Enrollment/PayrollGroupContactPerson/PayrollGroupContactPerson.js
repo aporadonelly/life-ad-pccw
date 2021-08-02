@@ -31,8 +31,6 @@ const PayrollGroupContactPerson = ({
     crrspndnceAddr,
   } = contactPerson ?? [];
 
-  console.log(contactPerson, "contactPerson");
-
   const { t } = useTranslation(["typography", "form", "button", "table"]);
 
   useEffect(() => {
