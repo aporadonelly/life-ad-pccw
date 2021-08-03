@@ -37,58 +37,79 @@ const initialValues = {
   others: [],
   address: [],
 };
+const FILE_SIZE = 5000000;
+const SUPPORTED_FORMATS = [
+  "image/tiff",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+];
 
 const validationSchema = yup.object().shape({
-  // hkid: yup.array().min(1).required()
-  // .test("fileSize", "The HK ID file is too large", (value) =>((value[0]?.size <= 5000000))),
-  // address: yup.array().min(1).required()
-  // .test("fileSize", "The Address Proof file is too large", (value) =>((value[0]?.size <= 5000000))),
-
-  // others: yup
-  // .mixed()
-  // .required("A file is required")
-  // .test(
-  //   "fileSize",
-  //   "File too large",
-  //   value => value && value[0]?.size <= 5000000
-  // )
-
-  // others: yup.array().of(
-  //   yup.object().shape(
-  //     {
-  //       lastModified: yup.string().nullable(),
-  //       lastModifiedDate: yup.string().nullable(),
-  //       name: yup.string().nullable(),
-  //       path: yup.string().nullable(),
-  //       size: yup.string().nullable(),
-  //       type: yup.string().nullable(),
-  //       webkitRelativePath: yup.string().nullable(),
-  //     }
-  //   )
-  // )
-
-  others: yup
-    .array()
-    .of(
-      yup.object().shape({
-        size: yup
-          .mixed()
-          .test(
-            "fileSize",
-            "The HK ID file is too large",
-            (value) => value[0]?.size <= 5000000
-          ),
-      })
-    )
+  hkid: yup
+    .mixed()
     .required()
-    .min(1),
+    .test(
+      "fileSize",
+      "File Size is too large",
+      (value) => value?.size <= FILE_SIZE
+    )
+    .test("fileType", "Unsupported File Format", (value) =>
+      SUPPORTED_FORMATS.includes(value?.type)
+    )
+    .test("fileExists", "File Exists", (value, context) => {
+      const { address, others } = context.parent;
+
+      if (value?.name === address?.name) {
+        return false;
+      } else if (others.some((v) => v.name === value?.name)) {
+        return false;
+      } else {
+        return true;
+      }
+    }),
+  address: yup
+    .mixed()
+    .required()
+    .test(
+      "fileSize",
+      "File Size is too large",
+      (value) => value?.size <= FILE_SIZE
+    )
+    .test("fileType", "Unsupported File Format", (value) =>
+      SUPPORTED_FORMATS.includes(value?.type)
+    )
+    .test("fileExists", "File Exists", (value, context) => {
+      const { hkid, others } = context.parent;
+
+      if (value?.name === hkid?.name) {
+        return false;
+      } else if (others.some((v) => v.name === value?.name)) {
+        return false;
+      } else {
+        return true;
+      }
+    }),
+  others: yup
+    .mixed()
+    .test("fileSize", "File Size is too large", (value) =>
+      value.every((v) => v.size <= FILE_SIZE)
+    )
+    .test("fileType", "Unsupported File Format", (value) =>
+      value.every((v) => SUPPORTED_FORMATS.includes(v.type))
+    )
+    .test("fileExists", "File Exists", (value, context) => {
+      const { hkid, address } = context.parent;
+
+      if (value.some((v) => v.name === hkid?.name)) {
+        return false;
+      } else if (value.some((v) => v.name === address?.name)) {
+        return false;
+      } else {
+        return true;
+      }
+    }),
 });
 
 const SupportingDocuments = () => {
-  const acceptType = [
-    "image/tiff",
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-  ];
   const classes = useStyles();
 
   const handleSubmit = (values) => {
@@ -98,7 +119,7 @@ const SupportingDocuments = () => {
   return (
     <Formik
       initialValues={initialValues}
-      // validationSchema={validationSchema}
+      validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
       <Grid container>
@@ -146,7 +167,7 @@ const SupportingDocuments = () => {
           <Form.Dropzone
             label="HK ID / Passport"
             name="hkid"
-            accept={acceptType}
+            accept={SUPPORTED_FORMATS}
             // maxSize={5000000} // bytes
             placeholder="Drag to upload"
             className={classes.dropzone}
@@ -156,7 +177,7 @@ const SupportingDocuments = () => {
           <Form.Dropzone
             label="Address Proof"
             name="address"
-            accept={acceptType}
+            accept={SUPPORTED_FORMATS}
             // maxSize={5000000} // bytes
             placeholder="Drag to upload"
             className={classes.dropzone}
@@ -166,7 +187,7 @@ const SupportingDocuments = () => {
           <Form.Dropzone
             label="Others"
             name="others"
-            accept={acceptType}
+            accept={SUPPORTED_FORMATS}
             // maxSize={5000000} // bytes
             placeholder="Drag to upload"
             className={classes.dropzoneOthers}
