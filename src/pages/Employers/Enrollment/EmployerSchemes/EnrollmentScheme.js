@@ -71,29 +71,19 @@ const EnrollmentScheme = (props) => {
       <Grid item xs={12}>
         <Card>
           <CardContent>
-            {schemes.length > 0 ? (
-              <DataTable
-                data={schemes}
-                columns={columns}
-                components={{
-                  Toolbar: () => (
-                    <Toolbar disableGutters>
-                      <Typography variant="h6" color="primary">
-                        {t("typography:heading.enrollmentScheme")}
-                      </Typography>
-                    </Toolbar>
-                  ),
-                }}
-              />
-            ) : (
-              <Box display="flex">
-                <Grid item xs={12} align="center">
-                  <Typography variant="h6" color="primary">
-                    {t("table:tbody.custom.noDataFound")}
-                  </Typography>
-                </Grid>
-              </Box>
-            )}
+            <DataTable
+              data={schemes}
+              columns={columns}
+              components={{
+                Toolbar: () => (
+                  <Toolbar disableGutters>
+                    <Typography variant="h6" color="primary">
+                      {t("typography:heading.enrollmentScheme")}
+                    </Typography>
+                  </Toolbar>
+                ),
+              }}
+            />
           </CardContent>
         </Card>
       </Grid>
