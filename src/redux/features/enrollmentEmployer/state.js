@@ -5,7 +5,7 @@ export const employersAdapter = createEntityAdapter({
 });
 
 export const contactPersonsAdapter = createEntityAdapter({
-  selectId: (contactPerson) => contactPerson.cntctPrsnUuid,
+  selectId: (contactPerson) => contactPerson.id,
 });
 
 export const payrollGroupContactPersonsAdapter = createEntityAdapter({
