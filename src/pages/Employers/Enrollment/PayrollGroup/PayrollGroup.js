@@ -8,10 +8,6 @@ import { useTranslation } from "react-i18next";
 const PayrollGroup = ({ push }) => {
   const { t } = useTranslation(["typography", "form", "table", "button"]);
 
-  // useEffect(() => {
-  //   push();
-  // }, [push]);
-
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
