@@ -2,7 +2,6 @@ import { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
 import {
-  Box,
   Button,
   Card,
   CardContent,
@@ -25,6 +24,32 @@ const SearchResult = ({
   setSelectedCompanyUUID,
 }) => {
   const { t } = useTranslation(["typography", "form", "button", "table"]);
+
+  const handleViewScheme = useCallback(
+    ({ pnsnId }) => {
+      setSelectedPnsnId({ pnsnId });
+      push("/employers/enrollment/schemes");
+    },
+    [push, setSelectedPnsnId]
+  );
+
+  const handleViewRegistration = useCallback(
+    ({ cmpnyUuid, pnsnId }) => {
+      setSelectedCompanyUUID({ cmpnyUuid });
+      setSelectedPnsnId({ pnsnId });
+      push("/employers/registration/information");
+    },
+    [push, setSelectedCompanyUUID, setSelectedPnsnId]
+  );
+
+  const handleNewSearch = () => {
+    draftEnquiry({});
+    push("/employers/enquiries/search");
+  };
+
+  const handleEditSearch = () => {
+    push("/employers/enquiries/search");
+  };
 
   const columns = useMemo(
     () => [
@@ -111,32 +136,6 @@ const SearchResult = ({
     ],
     // eslint-disable-next-line no-use-before-define
     [handleViewRegistration, handleViewScheme, t]
-  );
-
-  const handleViewRegistration = useCallback(
-    ({ cmpnyUuid, pnsnId }) => {
-      setSelectedCompanyUUID({ cmpnyUuid });
-      setSelectedPnsnId({ pnsnId });
-      push("/employers/registration/information");
-    },
-    [push, setSelectedCompanyUUID, setSelectedPnsnId]
-  );
-
-  const handleNewSearch = () => {
-    draftEnquiry({});
-    push("/employers/enquiries/search");
-  };
-
-  const handleEditSearch = () => {
-    push("/employers/enquiries/search");
-  };
-
-  const handleViewScheme = useCallback(
-    ({ pnsnId }) => {
-      setSelectedPnsnId({ pnsnId });
-      push("/employers/enrollment/schemes");
-    },
-    [push, setSelectedPnsnId]
   );
 
   return (

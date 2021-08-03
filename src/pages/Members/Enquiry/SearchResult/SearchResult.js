@@ -16,7 +16,7 @@ import { useTranslation } from "react-i18next";
 import viewEnrollActive from "@assets/icons/enroll-active.PNG";
 import viewEnrollInActive from "@assets/icons/enroll-inactive.PNG";
 import viewRegistration from "@assets/icons/view_reg.PNG";
-import useStyles from "./SearchResultStyles";
+import useStyles from "./styles";
 
 const SearchResult = ({
   employees,
