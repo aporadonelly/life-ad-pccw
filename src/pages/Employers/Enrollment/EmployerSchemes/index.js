@@ -1,26 +1,21 @@
-import { bindActionCreators } from "redux";
+import { compose, bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { push } from "connected-react-router";
-import {
-  employerSelector,
-  employerSchemesSelector,
-} from "@redux/features/enrollmentEmployer/selectors";
-import {
-  setSelectedCompanyUUID,
-  setSelectedSchemeUUID,
-} from "@redux/features/enrollmentEmployer/actions";
+import { withRouter } from "react-router-dom";
+import { push } from "@redux/helpers";
+import { employerSchemesSelector } from "@redux/features/enrollmentEmployer/selectors";
 import EnrollmentScheme from "./EnrollmentScheme";
 
-const mapStateToProps = (state) => ({
-  employer: employerSelector(state),
-  schemes: employerSchemesSelector(state),
-});
+const mapStateToProps = (state, ownProps) => {
+  const { companyName } = ownProps.match.params;
+  return {
+    schemes: employerSchemesSelector(state, companyName),
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
-  ...bindActionCreators(
-    { push, setSelectedCompanyUUID, setSelectedSchemeUUID },
-    dispatch
-  ),
+  ...bindActionCreators({ push }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EnrollmentScheme);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose(withRouter, withConnect)(EnrollmentScheme);

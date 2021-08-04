@@ -35,36 +35,6 @@ export const draftEnquirySelector = createSelector(
   (state) => state.draftEnquiry
 );
 
-export const selectedPnsnIdSelector = createSelector(
-  featureStateSelector,
-  (state) => state.selectedPnsnId
-);
-
-export const selectedEmployerUUIDSelector = createSelector(
-  featureStateSelector,
-  (state) => state.selectedEmployerUUID
-);
-
-export const selectedContactPersonUUIDSelector = createSelector(
-  featureStateSelector,
-  (state) => state.selectedContactPersonUUID
-);
-
-export const selectedSchemeUUIDSelector = createSelector(
-  featureStateSelector,
-  (state) => state.selectedSchemeUUID
-);
-
-export const selectedClientUUIDSelector = createSelector(
-  featureStateSelector,
-  (state) => state.selectedClientUUID
-);
-
-export const selectedCompanyUUIDSelector = createSelector(
-  featureStateSelector,
-  (state) => state.selectedCompanyUUID
-);
-
 export const enrCompanyInfoSelector = createSelector(
   featureStateSelector,
   (state) => state.enrCompanyInfo
@@ -99,7 +69,7 @@ export const employersSelector = createSelector(
 
 export const employerSelector = createSelector(
   featureStateSelector,
-  selectedPnsnIdSelector,
+  (_, companyName) => companyName,
   employersSelectors.selectById
 );
 
@@ -110,14 +80,13 @@ export const contactPersonsSelector = createSelector(
 
 export const contactPersonSelector = createSelector(
   featureStateSelector,
-  selectedContactPersonUUIDSelector,
+  (_, cntctPrsnUuid) => cntctPrsnUuid,
   contactPersonsSelectors.selectById
 );
 
 export const contactPersonClientPhoneByTypeIdSelector = createSelector(
   contactPersonSelector,
-  (_, phnTypId) => phnTypId,
-
+  (_, _cntctPrsnUuid, phnTypId) => phnTypId,
   (contact, phnTypId) => find(contact?.clntPhones, { phnTypId })
 );
 
@@ -144,4 +113,10 @@ export const employerSchemesSelector = createSelector(
         []
       )
     )
+);
+
+export const employerSchemeSelector = createSelector(
+  employerSchemesSelector,
+  (_, _companyName, schmUuid) => schmUuid,
+  (schemes, schmUuid) => find(schemes, { id: schmUuid })
 );

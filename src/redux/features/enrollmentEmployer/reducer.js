@@ -8,12 +8,6 @@ import {
 } from "./state";
 import {
   draftEnquiry,
-  setSelectedPnsnId,
-  setSelectedCompanyUUID,
-  setSelectedContactPersonUUID,
-  setSelectedEmployerUUID,
-  setSelectedSchemeUUID,
-  setSelectedPayrollGroupUUID,
   ldSrchCmpny,
   ldEnrCmpnyInfo,
   ldCntctPrsnInfo,
@@ -34,24 +28,6 @@ const enrollmentEmployerReducer = createReducer(initialState, (builder) =>
   builder
     .addCase(draftEnquiry, (state, action) => {
       state.draftEnquiry = pickBy(action.payload, identity);
-    })
-    .addCase(setSelectedPnsnId, (state, action) => {
-      state.selectedPnsnId = action.payload.pnsnId;
-    })
-    .addCase(setSelectedCompanyUUID, (state, action) => {
-      state.selectedCompanyUUID = action.payload.companyUuid;
-    })
-    .addCase(setSelectedContactPersonUUID, (state, action) => {
-      state.selectedContactPersonUUID = action.payload.cntctPrsnUuid;
-    })
-    .addCase(setSelectedEmployerUUID, (state, action) => {
-      state.selectedEmployerUUID = action.payload.employerUuid;
-    })
-    .addCase(setSelectedSchemeUUID, (state, action) => {
-      state.selectedSchemeUUID = action.payload.schemeUuid;
-    })
-    .addCase(setSelectedPayrollGroupUUID, (state, action) => {
-      state.selectedPayrollGroupUUID = action.payload.payrollGrpUuid;
     })
     .addCase(ldSrchCmpny.pending, (state, _action) => {
       state.isLoading = true;

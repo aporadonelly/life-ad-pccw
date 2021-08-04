@@ -12,63 +12,71 @@ import SelfCertification from "@pages/Employers/Enrollment/SelfCertification";
 const enrollmentRoutes = [
   {
     name: "Employer Schemes",
-    path: "/employers/enrollment/schemes",
+    path: "/employers/enrollment/:companyName/schemes",
+    exact: true,
     component: EmployerSchemes,
     tab: false,
   },
   {
     name: "Employer Enrollment Information",
-    path: "/employers/enrollment/information",
+    path: "/employers/enrollment/:companyName/schemes/:schmUuid/information",
     component: EmployerEnrollmentInformation,
     exact: true,
     tab: false,
   },
   {
-    name: "Authorized Person",
-    path: "/employers/enrollment/information/authorized-person",
+    name: "Employer Enrollment Authorized Person",
+    path:
+      "/employers/enrollment/:companyName/payroll-group/:payrollGroupId/authorized-person/:clntUuid",
     component: AuthorizedPerson,
     tab: false,
   },
   {
-    name: "Beneficial Owner",
-    path: "/employers/enrollment/information/beneficial-owner",
+    name: "Employer Enrollment Beneficial Owner",
+    path:
+      "/employers/enrollment/:companyName/payroll-group/:payrollGroupId/beneficial-owner/:clntUuid",
     component: BeneficialOwner,
     tab: false,
   },
   {
-    name: "Director",
-    path: "/employers/enrollment/information/director",
+    name: "Employer Enrollment Director",
+    path:
+      "/employers/enrollment/:companyName/payroll-group/:payrollGroupId/director/:clntUuid",
     component: Director,
     tab: false,
   },
   {
-    name: "Partner",
-    path: "/employers/enrollment/information/partner",
+    name: "Employer Enrollment Partner",
+    path:
+      "/employers/enrollment/:companyName/payroll-group/:payrollGroupId/partner/:clntUuid",
     component: Partner,
     tab: false,
   },
   {
     name: "Payroll Group",
-    path: "/employers/enrollment/payroll-group",
+    path:
+      "/employers/enrollment/:companyName/schemes/:schmUuid/payroll-group/:payrollGroupId",
     component: PayrollGroup,
     exact: true,
     tab: false,
   },
   {
     name: "Payroll Group Contact Person",
-    path: "/employers/enrollment/payroll-group/contact-person",
+    path:
+      "/employers/enrollment/:companyName/payroll-group/:payrollGroupId/contact-person/:cntctPrsnUuid",
     component: PayrollGroupContactPerson,
     tab: false,
   },
   {
     name: "Grade",
-    path: "/employers/enrollment/payroll-group/grade",
+    path:
+      "/employers/enrollment/:companyName/payroll-group/:payrollGroupId/grade/:gradeId",
     component: Grade,
     tab: false,
   },
   {
     name: "Self Certification",
-    path: "/employers/enrollment/self-certification",
+    path: "/employers/enrollment/:companyName/self-certification",
     component: SelfCertification,
     tab: false,
   },

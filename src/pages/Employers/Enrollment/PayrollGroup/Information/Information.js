@@ -9,7 +9,8 @@ import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import moment from "moment";
 
-const Information = ({ payrollGrpInfo, ldPayrollGrpInfo }) => {
+const Information = (props) => {
+  const { payrollGrpInfo } = props;
   const { t } = useTranslation(["typography", "form", "table", "button"]);
   const {
     payrollGroupCode,
@@ -24,12 +25,6 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo }) => {
     voluntaryContributionOption,
     unvestedBenefitOptions,
   } = payrollGrpInfo;
-
-  useEffect(() => {
-    ldPayrollGrpInfo({
-      payrollGroupId: "740DF08D-90FE-492C-9F09-8492F7218B97",
-    });
-  }, [ldPayrollGrpInfo]);
 
   return (
     <Grid container spacing={3}>

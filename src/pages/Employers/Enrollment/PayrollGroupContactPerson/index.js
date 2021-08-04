@@ -1,32 +1,39 @@
+import { compose, bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { push } from "connected-react-router";
+import { withRouter } from "react-router-dom";
+import { push } from "@redux/helpers";
 import {
+  employerSelector,
   contactPersonSelector,
   contactPersonClientPhoneByTypeIdSelector,
   isLoadingSelector,
 } from "@redux/features/enrollmentEmployer/selectors";
-import {
-  ldCntctPrsnInfo,
-  setSelectedContactPersonUUID,
-} from "@redux/features/enrollmentEmployer/actions";
+import { ldCntctPrsnInfo } from "@redux/features/enrollmentEmployer/actions";
 import PayrollGroupContactPerson from "./PayrollGroupContactPerson";
-import { bindActionCreators } from "redux";
 
-const mapStateToProps = (state) => ({
-  isLoading: isLoadingSelector(state),
-  contactPerson: contactPersonSelector(state),
-  mobile: contactPersonClientPhoneByTypeIdSelector(state, "TP_MB"),
-  telephone: contactPersonClientPhoneByTypeIdSelector(state, "TP_TP"),
-});
+const mapStateToProps = (state, ownProps) => {
+  const { companyName, cntctPrsnUuid } = ownProps.match.params;
+  return {
+    employer: employerSelector(state, companyName),
+    isLoading: isLoadingSelector(state),
+    contactPerson: contactPersonSelector(state, cntctPrsnUuid),
+    mobile: contactPersonClientPhoneByTypeIdSelector(
+      state,
+      cntctPrsnUuid,
+      "TP_MB"
+    ),
+    telephone: contactPersonClientPhoneByTypeIdSelector(
+      state,
+      cntctPrsnUuid,
+      "TP_TP"
+    ),
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
-  ...bindActionCreators(
-    { ldCntctPrsnInfo, setSelectedContactPersonUUID, push },
-    dispatch
-  ),
+  ...bindActionCreators({ ldCntctPrsnInfo, push }, dispatch),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PayrollGroupContactPerson);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose(withRouter, withConnect)(PayrollGroupContactPerson);

@@ -31,7 +31,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const GradeList = ({ gradeList, getGradeLst }) => {
+const GradeList = (props) => {
+  const { gradeList } = props;
   const { t } = useTranslation(["typography", "form", "table", "button"]);
   const classes = useStyles();
   const columns = useMemo(
@@ -76,12 +77,8 @@ const GradeList = ({ gradeList, getGradeLst }) => {
         },
       },
     ],
-    [t]
+    [classes.btnAction, classes.root, t]
   );
-
-  useEffect(() => {
-    getGradeLst({ erUuid: "f4abdd73-2aa6-47da-aebd-640fcab8df82" });
-  }, [getGradeLst]);
 
   return (
     <Card>
@@ -128,12 +125,10 @@ const GradeList = ({ gradeList, getGradeLst }) => {
 
 GradeList.propTypes = {
   gradeList: PropTypes.array,
-  getGradeLst: PropTypes.func.isRequired,
 };
 
 GradeList.defaultProps = {
-  GradeList: [],
-  getGradeLst: () => {},
+  gradeList: [],
 };
 
 export default GradeList;

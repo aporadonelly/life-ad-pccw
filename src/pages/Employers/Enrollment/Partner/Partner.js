@@ -1,8 +1,16 @@
+import { useEffect } from "react";
 import { Grid, Card, CardContent, Typography } from "@material-ui/core";
 import { Definition } from "@components/misc";
 
 const Partner = (props) => {
-  const { partner, residentialAddress, customTypes } = props;
+  const {
+    match,
+    partner,
+    residentialAddress,
+    customTypes,
+    ldCmpnyRltdPrsn,
+  } = props;
+  const { cmpnyUuid, clntUuid } = match.params;
   const {
     idTypId,
     idNoTxt,
@@ -13,6 +21,15 @@ const Partner = (props) => {
     chineseFirstName,
     cntryTypNm,
   } = partner;
+
+  useEffect(() => {
+    ldCmpnyRltdPrsn({
+      cmpnyPrsnTypId: "CS_PN",
+      cmpnyUuid,
+      clntUuid,
+    });
+  }, [clntUuid, cmpnyUuid, ldCmpnyRltdPrsn]);
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>

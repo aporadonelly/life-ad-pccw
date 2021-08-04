@@ -1,16 +1,19 @@
+import { compose, bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { push } from "connected-react-router";
+import { withRouter } from "react-router-dom";
+import { push } from "@redux/helpers";
 import { contactPersonsSelector } from "@redux/features/enrollmentEmployer/selectors";
-import { ldCntctPrsnInfo } from "@redux/features/enrollmentEmployer/actions";
+
 import ContactPersonList from "./ContactPersonList";
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps) => ({
   contactPersons: contactPersonsSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  ...bindActionCreators({ push, ldCntctPrsnInfo }, dispatch),
+  ...bindActionCreators({ push }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactPersonList);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose(withRouter, withConnect)(ContactPersonList);

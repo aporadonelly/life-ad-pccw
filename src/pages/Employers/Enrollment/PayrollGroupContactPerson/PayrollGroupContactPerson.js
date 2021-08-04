@@ -11,28 +11,31 @@ import {
 import { useTranslation } from "react-i18next";
 import { Definition } from "@components/misc";
 
-const PayrollGroupContactPerson = ({
-  ldCntctPrsnInfo,
-  setSelectedContactPersonUUID,
-  contactPerson,
-  mobile,
-  telephone,
-  push,
-  isLoading,
-}) => {
-  const { frstNm, lstNm, emlAddrTxt, jbPstnTxt, ttlTypCd, lnggTypId } =
-    contactPerson ?? [];
+const PayrollGroupContactPerson = (props) => {
+  const {
+    ldCntctPrsnInfo,
+    contactPerson,
+    mobile,
+    telephone,
+    push,
+    isLoading,
+  } = props;
+  const {
+    frstNm,
+    lstNm,
+    emlAddrTxt,
+    jbPstnTxt,
+    ttlTypCd,
+    lnggTypId,
+  } = contactPerson;
 
   const { t } = useTranslation(["typography", "form", "button", "table"]);
 
-  useEffect(() => {
-    ldCntctPrsnInfo({
-      cmpnyUuid: "7732b905-e9c1-4895-959e-fdce74c856b3",
-    });
-    setSelectedContactPersonUUID({
-      cntctPrsnUuid: "c2c058c9-2338-de8c-e053-870a1fac4e2c",
-    });
-  }, [ldCntctPrsnInfo, setSelectedContactPersonUUID]);
+  // useEffect(() => {
+  //   ldCntctPrsnInfo({
+  //     cmpnyUuid: "7732b905-e9c1-4895-959e-fdce74c856b3",
+  //   });
+  // }, [ldCntctPrsnInfo]);
 
   return isLoading ? (
     <Box display="flex" justifyContent="center" mt={5}>

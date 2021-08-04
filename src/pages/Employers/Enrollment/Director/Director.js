@@ -1,8 +1,16 @@
+import { useEffect } from "react";
 import { Grid, Card, CardContent, Typography } from "@material-ui/core";
 import { Definition } from "@components/misc";
 
 const Director = (props) => {
-  const { director, residentialAddress, customTypes } = props;
+  const {
+    match,
+    director,
+    residentialAddress,
+    customTypes,
+    ldCmpnyRltdPrsn,
+  } = props;
+  const { cmpnyUuid, clntUuid } = match.params;
   const {
     idTypId,
     idNoTxt,
@@ -13,6 +21,14 @@ const Director = (props) => {
     chineseFirstName,
     cntryTypNm,
   } = director;
+
+  useEffect(() => {
+    ldCmpnyRltdPrsn({
+      cmpnyPrsnTypId: "CS_DN",
+      cmpnyUuid,
+      clntUuid,
+    });
+  }, [clntUuid, cmpnyUuid, ldCmpnyRltdPrsn]);
 
   return (
     <Grid container spacing={3}>

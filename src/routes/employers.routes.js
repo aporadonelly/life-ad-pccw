@@ -10,12 +10,12 @@ const employersRoutes = [
   },
   {
     name: "Enrollment",
-    path: "/employers/enrollment",
+    path: "/employers/enrollment/:companyName",
     component: Enrollment,
   },
   {
     name: "Registration",
-    path: "/employers/registration",
+    path: "/employers/registration/:companyName",
     component: Registration,
   },
 ];

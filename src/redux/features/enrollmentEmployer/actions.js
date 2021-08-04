@@ -1,36 +1,8 @@
 import { createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import { compact, concat } from "lodash";
 import { enrollmentEmployer } from "@adapters";
-import {
-  selectedCompanyUUIDSelector,
-  selectedSchemeUUIDSelector,
-} from "./selectors";
 
 export const draftEnquiry = createAction("@@empf/enr/er/draftEnquiry");
-
-export const setSelectedPnsnId = createAction(
-  "@@empf/enr/er/setSelectedPnsnId"
-);
-
-export const setSelectedCompanyUUID = createAction(
-  "@@empf/enr/er/setSelectedCompanyUUID"
-);
-
-export const setSelectedContactPersonUUID = createAction(
-  "@@empf/enr/er/setSelectedContactPersonUUID"
-);
-
-export const setSelectedEmployerUUID = createAction(
-  "@@empf/enr/er/setSelectedEmployerUUID"
-);
-
-export const setSelectedSchemeUUID = createAction(
-  "@@empf/enr/er/setSelectedSchemeUUID"
-);
-
-export const setSelectedPayrollGroupUUID = createAction(
-  "@@empf/enr/er/setSelectedPayrollGroupUUID"
-);
 
 export const ldSrchCmpny = createAsyncThunk(
   "@@empf/enr/er/ldSrchCmpny",
@@ -51,8 +23,7 @@ export const ldEnrCmpnyInfo = createAsyncThunk(
   "@@empf/enr/er/ldEnrCmpnyInfo",
   async (payload, { rejectWithValue, getState }) => {
     try {
-      const cmpnyUuid = selectedCompanyUUIDSelector(getState());
-      const schmUuid = selectedSchemeUUIDSelector(getState());
+      const { cmpnyUuid, schmUuid } = payload;
 
       const primaryContactPerson = await enrollmentEmployer.ldCntctPrsnInfo({
         cntctPrsnTypId: "CT_PCP",
@@ -102,11 +73,7 @@ export const ldCntctPrsnInfo = createAsyncThunk(
   "@@empf/enr/er/ldCntctPrsnInfo",
   async (payload, { rejectWithValue, getState }) => {
     try {
-      const cmpnyUuid = selectedCompanyUUIDSelector(getState());
-      const contactPersons = await enrollmentEmployer.ldCntctPrsnInfo({
-        cmpnyUuid,
-        ...payload,
-      });
+      const contactPersons = await enrollmentEmployer.ldCntctPrsnInfo(payload);
       return { contactPersons };
     } catch (error) {
       return rejectWithValue({ error });

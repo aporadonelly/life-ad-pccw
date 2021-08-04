@@ -2,7 +2,6 @@ import { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
 import {
-  Box,
   Button,
   Card,
   CardContent,
@@ -16,15 +15,34 @@ import viewEnrollActive from "@assets/icons/enroll-active.PNG";
 import viewEnrollInActive from "@assets/icons/enroll-inactive.PNG";
 import viewRegistration from "@assets/icons/view_reg.PNG";
 
-const SearchResult = ({
-  employers,
-  enquiry,
-  draftEnquiry,
-  setSelectedPnsnId,
-  push,
-  setSelectedCompanyUUID,
-}) => {
+const SearchResult = ({ employers, enquiry, draftEnquiry, push }) => {
   const { t } = useTranslation(["typography", "form", "button", "table"]);
+
+  const handleViewRegistration = useCallback(
+    ({ companyName }) => {
+      push({
+        routeName: "Company Registration Information",
+        params: { companyName },
+      });
+    },
+    [push]
+  );
+
+  const handleNewSearch = () => {
+    draftEnquiry({});
+    push({ routeName: "Employer Search Enquiry" });
+  };
+
+  const handleEditSearch = () => {
+    push({ routeName: "Employer Search Enquiry" });
+  };
+
+  const handleViewScheme = useCallback(
+    ({ companyName }) => {
+      push({ routeName: "Employer Schemes", params: { companyName } });
+    },
+    [push]
+  );
 
   const columns = useMemo(
     () => [
@@ -66,7 +84,7 @@ const SearchResult = ({
         sticky: "right",
         disableSortBy: true,
         Cell: ({ row }) => {
-          const { companyName, companyId, branches } = row.original;
+          const { companyName, branches } = row.original;
           let enrEnabled = branches[0]?.viewEnrollmentFlagEnabled;
           return (
             <>
@@ -74,8 +92,7 @@ const SearchResult = ({
                 <img
                   onClick={() =>
                     handleViewRegistration({
-                      cmpnyUuid: companyId,
-                      pnsnId: companyName,
+                      companyName,
                     })
                   }
                   src={viewRegistration}
@@ -91,7 +108,7 @@ const SearchResult = ({
               </Tooltip>
               <Tooltip title="View Enrollment" arrow>
                 <img
-                  onClick={() => handleViewScheme({ pnsnId: companyName })}
+                  onClick={() => handleViewScheme({ companyName })}
                   src={enrEnabled ? viewEnrollActive : viewEnrollInActive}
                   alt="View Enrollment"
                   variant="contained"
@@ -109,34 +126,7 @@ const SearchResult = ({
         },
       },
     ],
-    // eslint-disable-next-line no-use-before-define
     [handleViewRegistration, handleViewScheme, t]
-  );
-
-  const handleViewRegistration = useCallback(
-    ({ cmpnyUuid, pnsnId }) => {
-      setSelectedCompanyUUID({ cmpnyUuid });
-      setSelectedPnsnId({ pnsnId });
-      push("/employers/registration/information");
-    },
-    [push, setSelectedCompanyUUID, setSelectedPnsnId]
-  );
-
-  const handleNewSearch = () => {
-    draftEnquiry({});
-    push("/employers/enquiries/search");
-  };
-
-  const handleEditSearch = () => {
-    push("/employers/enquiries/search");
-  };
-
-  const handleViewScheme = useCallback(
-    ({ pnsnId }) => {
-      setSelectedPnsnId({ pnsnId });
-      push("/employers/enrollment/schemes");
-    },
-    [push, setSelectedPnsnId]
   );
 
   return (

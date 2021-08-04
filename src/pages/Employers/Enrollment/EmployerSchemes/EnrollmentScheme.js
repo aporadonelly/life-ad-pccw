@@ -1,35 +1,30 @@
 import { useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  Grid,
-  Card,
-  CardContent,
-  Typography,
-  Button,
-  Tooltip,
-  Toolbar,
-  Box,
-} from "@material-ui/core";
-import ViewBtn from "@assets/icons/view_btn.svg";
+import { Grid, Card, CardContent, Button, Tooltip } from "@material-ui/core";
 import { DataTable } from "@components/common";
+import ViewBtn from "@assets/icons/view_btn.svg";
 
 const EnrollmentScheme = (props) => {
-  const {
-    employer,
-    schemes,
-    setSelectedCompanyUUID,
-    setSelectedSchemeUUID,
-    push,
-  } = props;
+  const { match, schemes, push } = props;
+  const { companyName } = match.params;
   const { t } = useTranslation(["typography", "form", "table", "button"]);
 
   const handleClick = useCallback(
-    ({ companyUuid, schemeUuid }) => {
-      setSelectedCompanyUUID({ companyUuid });
-      setSelectedSchemeUUID({ schemeUuid });
+    ({ schmUuid }) => {
+      push({
+        routeName: "Employer Enrollment Information",
+        params: {
+          companyName,
+          schmUuid,
+        },
+      });
     },
-    [setSelectedCompanyUUID, setSelectedSchemeUUID]
+    [companyName, push]
   );
+
+  const handleBack = () => {
+    push({ routeName: "Employer Search Result" });
+  };
 
   const columns = useMemo(
     () => [
@@ -49,12 +44,7 @@ const EnrollmentScheme = (props) => {
             <img
               src={ViewBtn}
               alt=""
-              onClick={() =>
-                handleClick({
-                  companyUuid: employer.companyId,
-                  schemeUuid: row.original.id,
-                })
-              }
+              onClick={() => handleClick({ schmUuid: row.original.id })}
               style={{
                 cursor: "pointer",
               }}
@@ -63,7 +53,7 @@ const EnrollmentScheme = (props) => {
         ),
       },
     ],
-    [employer.companyId, handleClick, t]
+    [handleClick, t]
   );
 
   return (
@@ -74,26 +64,16 @@ const EnrollmentScheme = (props) => {
             <DataTable
               data={schemes}
               columns={columns}
-              components={{
-                Toolbar: () => (
-                  <Toolbar disableGutters>
-                    <Typography variant="h6" color="primary">
-                      {t("typography:heading.enrollmentScheme")}
-                    </Typography>
-                  </Toolbar>
-                ),
-              }}
+              title={t("typography:heading.enrollmentScheme")}
+              disableQuickSearch
+              disablePagination
+              disableShowEntries
             />
           </CardContent>
         </Card>
       </Grid>
       <Grid item xs={12} align="right">
-        <Button
-          data-testid="back-btn"
-          onClick={() => push("/employers/enquiries/result")}
-        >
-          {t("button:back")}
-        </Button>
+        <Button onClick={handleBack}>{t("button:back")}</Button>
       </Grid>
     </Grid>
   );
