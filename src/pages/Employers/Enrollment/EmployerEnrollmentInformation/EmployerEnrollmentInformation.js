@@ -31,26 +31,51 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EmployerEnrollmentInformation = ({
-  isLoading,
-  draftEnquiry,
-  ldEnrCmpnyInfo,
-  ldCmpnyRltdPrsn,
-  getPayrollGrpList,
-  getCRSFormLst,
-  push,
-}) => {
+const EmployerEnrollmentInformation = (props) => {
+  const {
+    match,
+    employer,
+    scheme,
+    isLoading,
+    draftEnquiry,
+    ldEnrCmpnyInfo,
+    ldCmpnyRltdPrsn,
+    getPayrollGrpList,
+    getCRSFormLst,
+    push,
+  } = props;
+  const { companyId } = employer;
+  const { companyName, schmUuid } = match.params;
   const classes = useStyles();
   const { t } = useTranslation(["button"]);
+
+  const handleBack = () => {
+    push({ routeName: "Employer Schemes", params: { companyName } });
+  };
+
   useEffect(() => {
-    ldCmpnyRltdPrsn({ cmpnyPrsnTypId: "CS_AP" });
-    ldCmpnyRltdPrsn({ cmpnyPrsnTypId: "CS_DT" });
-    ldCmpnyRltdPrsn({ cmpnyPrsnTypId: "CS_PN" });
-    ldCmpnyRltdPrsn({ cmpnyPrsnTypId: "CS_BO" });
-    ldEnrCmpnyInfo();
-    getPayrollGrpList();
-    getCRSFormLst();
-  }, [ldEnrCmpnyInfo, ldCmpnyRltdPrsn, getPayrollGrpList, getCRSFormLst]);
+    ldCmpnyRltdPrsn({ cmpnyUuid: companyId, cmpnyPrsnTypId: "CS_AP" });
+    ldCmpnyRltdPrsn({ cmpnyUuid: companyId, cmpnyPrsnTypId: "CS_DT" });
+    ldCmpnyRltdPrsn({ cmpnyUuid: companyId, cmpnyPrsnTypId: "CS_PN" });
+    ldCmpnyRltdPrsn({ cmpnyUuid: companyId, cmpnyPrsnTypId: "CS_BO" });
+  }, [companyId, ldCmpnyRltdPrsn]);
+
+  useEffect(() => {
+    ldEnrCmpnyInfo({
+      cmpnyUuid: companyId,
+      schmUuid,
+    });
+  }, [companyId, ldEnrCmpnyInfo, schmUuid]);
+
+  useEffect(() => {
+    getPayrollGrpList({ empUuid: scheme?.employer?.id });
+  }, [getPayrollGrpList, scheme?.employer?.id]);
+
+  useEffect(() => {
+    getCRSFormLst({
+      cmpnyUuid: companyId,
+    });
+  }, [companyId, getCRSFormLst]);
 
   const handleNewSeacrh = () => {
     draftEnquiry({});
@@ -97,7 +122,7 @@ const EmployerEnrollmentInformation = ({
         <Button
           className={classes.backButton}
           data-testid="back-btn"
-          onClick={() => push("schemes")}
+          onClick={handleBack}
         >
           {t("button:back")}
         </Button>
@@ -118,6 +143,7 @@ EmployerEnrollmentInformation.propTypes = {
 };
 
 EmployerEnrollmentInformation.defaultProps = {
+  employer: {},
   ldEnrCmpnyInfo: () => {},
   ldCmpnyRltdPrsn: () => {},
   getPayrollGrpList: () => {},

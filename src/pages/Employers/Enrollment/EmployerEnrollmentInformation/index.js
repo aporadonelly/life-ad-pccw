@@ -9,12 +9,21 @@ import {
   getCRSFormLst,
 } from "@redux/features/enrollmentEmployer/actions";
 import { ldCmpnyRltdPrsn } from "@redux/features/registrationEmployer/actions";
-import { isLoadingSelector } from "@redux/features/enrollmentEmployer/selectors";
+import {
+  isLoadingSelector,
+  employerSelector,
+  employerSchemeSelector,
+} from "@redux/features/enrollmentEmployer/selectors";
 import EmployerEnrollmentInformation from "./EmployerEnrollmentInformation";
 
-const mapStateToProps = (state) => ({
-  isLoading: isLoadingSelector(state),
-});
+const mapStateToProps = (state, ownProps) => {
+  const { companyName, schmUuid } = ownProps.match.params;
+  return {
+    employer: employerSelector(state, companyName),
+    scheme: employerSchemeSelector(state, companyName, schmUuid),
+    isLoading: isLoadingSelector(state),
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators(
@@ -30,7 +39,6 @@ const mapDispatchToProps = (dispatch) => ({
   ),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EmployerEnrollmentInformation);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose(withRouter, withConnect)(EmployerEnrollmentInformation);
