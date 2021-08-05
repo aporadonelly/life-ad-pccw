@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { compact, values, pick } from "lodash";
 import {
   Grid,
   Card,
@@ -20,17 +21,24 @@ const PayrollGroupContactPerson = ({
   push,
   isLoading,
 }) => {
-  const { frstNm, lstNm, emlAddrTxt, jbPstnTxt, ttlTypCd, lnggTypId } =
-    contactPerson ?? [];
+  const {
+    frstNm,
+    lstNm,
+    emlAddrTxt,
+    jbPstnTxt,
+    ttlTypCd,
+    lnggTypId,
+    crrspndnceAddr,
+  } = contactPerson ?? [];
 
   const { t } = useTranslation(["typography", "form", "button", "table"]);
 
   useEffect(() => {
     ldCntctPrsnInfo({
-      cmpnyUuid: "7732b905-e9c1-4895-959e-fdce74c856b3",
+      cmpnyUuid: "022c6b33-cd86-4ceb-af61-cb02372fbcaa",
     });
     setSelectedContactPersonUUID({
-      cntctPrsnUuid: "c2c058c9-2338-de8c-e053-870a1fac4e2c",
+      cntctPrsnUuid: "bdf483f1-b938-4067-a27c-9ef9db14a9f1",
     });
   }, [ldCntctPrsnInfo, setSelectedContactPersonUUID]);
 
@@ -98,11 +106,23 @@ const PayrollGroupContactPerson = ({
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Definition spacing={2} xs={3}>
+                <Definition spacing={2} xs={6}>
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.correspondenceAddress")}
-                      // dd={ttlTypCd === "TT_MS" ? "Miss" : "Mr."}
+                      dd={compact(
+                        values(
+                          pick(crrspndnceAddr, [
+                            "addrRmTxt",
+                            "addrFlrTxt",
+                            "addrBldngNmTxt",
+                            "addrBlckTxt",
+                            "addrStrtTxt",
+                            "addrCtyTxt",
+                            "addrDstrctTxt",
+                          ])
+                        )
+                      ).join(" ")}
                     />
                   </Definition.List>
                 </Definition>
