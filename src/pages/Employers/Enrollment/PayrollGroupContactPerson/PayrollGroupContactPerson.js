@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { compact, values, pick } from "lodash";
 import {
   Grid,
   Card,
@@ -12,14 +13,8 @@ import { useTranslation } from "react-i18next";
 import { Definition } from "@components/misc";
 
 const PayrollGroupContactPerson = (props) => {
-  const {
-    ldCntctPrsnInfo,
-    contactPerson,
-    mobile,
-    telephone,
-    push,
-    isLoading,
-  } = props;
+  const { contactPerson, mobile, telephone, push, isLoading } = props;
+
   const {
     frstNm,
     lstNm,
@@ -27,6 +22,7 @@ const PayrollGroupContactPerson = (props) => {
     jbPstnTxt,
     ttlTypCd,
     lnggTypId,
+    crrspndnceAddr,
   } = contactPerson;
 
   const { t } = useTranslation(["typography", "form", "button", "table"]);
@@ -101,11 +97,23 @@ const PayrollGroupContactPerson = (props) => {
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Definition spacing={2} xs={3}>
+                <Definition spacing={2} xs={6}>
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.correspondenceAddress")}
-                      // dd={ttlTypCd === "TT_MS" ? "Miss" : "Mr."}
+                      dd={compact(
+                        values(
+                          pick(crrspndnceAddr, [
+                            "addrRmTxt",
+                            "addrFlrTxt",
+                            "addrBldngNmTxt",
+                            "addrBlckTxt",
+                            "addrStrtTxt",
+                            "addrCtyTxt",
+                            "addrDstrctTxt",
+                          ])
+                        )
+                      ).join(" ")}
                     />
                   </Definition.List>
                 </Definition>

@@ -1,6 +1,7 @@
 import { compose, bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { push } from "@redux/helpers";
 import {
   employerSelector,
   employerSchemeSelector,
@@ -22,7 +23,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators(
-    { ldPayrollGrpInfo, ldCntctPrsnInfo, getGradeLst },
+    { ldPayrollGrpInfo, ldCntctPrsnInfo, getGradeLst, push },
     dispatch
   ),
 });

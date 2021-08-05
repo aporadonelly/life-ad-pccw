@@ -79,6 +79,11 @@ export default function configureAppStore(preloadedState) {
       store.dispatch(getCustomTypeList({ groupId: "CI" }));
       store.dispatch(getCustomTypeList({ groupId: "CP" }));
       store.dispatch(getCustomTypeList({ groupId: "ST" }));
+      store.dispatch(getCustomTypeList({ groupId: "FQ" }));
+      store.dispatch(getCustomTypeList({ groupId: "PM" }));
+      store.dispatch(getCustomTypeList({ groupId: "UB" }));
+      store.dispatch(getCustomTypeList({ groupId: "CO" }));
+      store.dispatch(getCustomTypeList({ groupId: "PP_RS" }));
       store.dispatch(getWrkStrmSttsLst({ workstream: "ENR" }));
       store.dispatch(getWrkStrmSttsLst({ workstream: "REG" }));
     })

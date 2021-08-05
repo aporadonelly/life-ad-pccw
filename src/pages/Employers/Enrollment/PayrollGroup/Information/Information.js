@@ -1,5 +1,5 @@
 import { Grid, Card, CardContent, Typography } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 import { Definition } from "@components/misc";
 import { useTranslation } from "react-i18next";
@@ -10,21 +10,31 @@ import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import moment from "moment";
 
 const Information = (props) => {
-  const { payrollGrpInfo } = props;
+  const { payrollGrpInfo, customTypes } = props;
   const { t } = useTranslation(["typography", "form", "table", "button"]);
   const {
     payrollGroupCode,
     payrollGroupName,
-    frequencyOptions,
-    contributionDayOptions,
+    contributionFrequency,
+    contributionDay,
     commencementDate,
-    paymentMethodOptions,
+    paymentMethod,
     contributionBillsGenerationDate,
-    preprintedRemittanceOptions,
-    //defaultPayrollGroup,
+    pprRsOption,
+    partialPaymentHandlingOption,
     voluntaryContributionOption,
-    unvestedBenefitOptions,
+    voluntaryContributionUnvestedBenefit,
   } = payrollGrpInfo;
+
+  const VCUB = Object.freeze({
+    1: "Age 65 reached",
+    2: "Retained address invalid / Claimant becomes unlocated",
+    3: "Death proof received for deceased member",
+    4: "Phased withdrawal",
+    5: "Refund",
+    6: "Unclaim Benefit Type Name",
+    7: "Unpresented cheque",
+  });
 
   return (
     <Grid container spacing={3}>
@@ -50,7 +60,7 @@ const Information = (props) => {
                     />
                     <Definition.Item
                       dt={t("form:label.contributionFrequency")}
-                      dd={frequencyOptions?.[0]?.cstmTypDtlTxt}
+                      dd={contributionFrequency?.frequencyType}
                     />
                     <Definition.Item
                       dt={t("form:label.commencementDate")}
@@ -65,7 +75,7 @@ const Information = (props) => {
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.contributionDay")}
-                      dd={contributionDayOptions?.[2]?.cstmTypDtlTxt}
+                      dd={customTypes[contributionDay]?.cstmTypDtlTxt}
                     />
                   </Definition.List>
                 </Definition>
@@ -76,7 +86,7 @@ const Information = (props) => {
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.paymentMethod")}
-                      dd={paymentMethodOptions?.[0]?.cstmTypDtlTxt}
+                      dd={customTypes[paymentMethod?.typeId]?.cstmTypDtlTxt}
                     />
                     <Definition.Item
                       dt={t("form:label.contributionBillGenerationDate")}
@@ -93,7 +103,7 @@ const Information = (props) => {
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.preprintedRemittanceStatementOption")}
-                      dd={preprintedRemittanceOptions?.[0]?.cstmTypDtlTxt || ""}
+                      dd={pprRsOption}
                     />
                   </Definition.List>
                 </Definition>
@@ -107,7 +117,7 @@ const Information = (props) => {
                         <Checkbox
                           color="primary"
                           icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
-                          //checked={defaultPayrollGroup === true}
+                          checked={partialPaymentHandlingOption === true}
                           checkedIcon={<CheckBoxIcon fontSize="small" />}
                         />
                       }
@@ -139,7 +149,7 @@ const Information = (props) => {
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.voluntaryContributionUnvestedBenefit")}
-                      dd={unvestedBenefitOptions?.[5]?.cstmTypDtlTxt || ""}
+                      dd={VCUB[voluntaryContributionUnvestedBenefit]}
                     />
                   </Definition.List>
                 </Definition>
