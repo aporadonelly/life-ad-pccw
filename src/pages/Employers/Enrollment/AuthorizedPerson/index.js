@@ -12,22 +12,14 @@ import { ldCmpnyRltdPrsn } from "@redux/features/registrationEmployer/actions";
 import AuthorizedPerson from "./AuthorizedPerson";
 
 const mapStateToProps = (state, ownProps) => {
-  const cntctPrsnUuid = ownProps.match.params.cntctPrsnUuid;
+  const { clntUuid } = ownProps.match.params;
   return {
-    authorizedPerson: authorizedPersonSelector(state, cntctPrsnUuid),
-    telephone: authorizedPersonPhoneByTypeIdSelector(
-      state,
-      cntctPrsnUuid,
-      "TP_TP"
-    ),
-    mobile: authorizedPersonPhoneByTypeIdSelector(
-      state,
-      cntctPrsnUuid,
-      "TP_MB"
-    ),
+    authorizedPerson: authorizedPersonSelector(state, clntUuid),
+    telephone: authorizedPersonPhoneByTypeIdSelector(state, clntUuid, "TP_TP"),
+    mobile: authorizedPersonPhoneByTypeIdSelector(state, clntUuid, "TP_MB"),
     residentialAddress: authorizedPersonAddressByTypeIdSelector(
       state,
-      cntctPrsnUuid,
+      clntUuid,
       "AD_R"
     ),
     customTypes: customTypesEntitiesSelector(state),

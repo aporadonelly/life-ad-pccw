@@ -11,12 +11,12 @@ import { ldCmpnyRltdPrsn } from "@redux/features/registrationEmployer/actions";
 import Director from "./Director";
 
 const mapStateToProps = (state, ownProps) => {
-  const cntctPrsnUuid = ownProps.match.params.cntctPrsnUuid;
+  const { clntUuid } = ownProps.match.params;
   return {
-    director: directorSelector(state, cntctPrsnUuid),
+    director: directorSelector(state, clntUuid),
     residentialAddress: directorAddressByTypeIdSelector(
       state,
-      cntctPrsnUuid,
+      clntUuid,
       "AD_R"
     ),
     customTypes: customTypesEntitiesSelector(state),

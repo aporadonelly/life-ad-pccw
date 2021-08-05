@@ -11,14 +11,10 @@ import { ldCmpnyRltdPrsn } from "@redux/features/registrationEmployer/actions";
 import Partner from "./Partner";
 
 const mapStateToProps = (state, ownProps) => {
-  const cntctPrsnUuid = ownProps.match.params.cntctPrsnUuid;
+  const { clntUuid } = ownProps.match.params;
   return {
-    partner: partnerSelector(state, cntctPrsnUuid),
-    residentialAddress: partnerAddressByTypeIdSelector(
-      state,
-      cntctPrsnUuid,
-      "AD_R"
-    ),
+    partner: partnerSelector(state, clntUuid),
+    residentialAddress: partnerAddressByTypeIdSelector(state, clntUuid, "AD_R"),
     customTypes: customTypesEntitiesSelector(state),
   };
 };

@@ -11,12 +11,12 @@ import { ldCmpnyRltdPrsn } from "@redux/features/registrationEmployer/actions";
 import BeneficialOwner from "./BeneficialOwner";
 
 const mapStateToProps = (state, ownProps) => {
-  const cntctPrsnUuid = ownProps.match.params.cntctPrsnUuid;
+  const { clntUuid } = ownProps.match.params;
   return {
-    beneficialOwner: beneficialOwnerSelector(state, cntctPrsnUuid),
+    beneficialOwner: beneficialOwnerSelector(state, clntUuid),
     residentialAddress: beneficialOwnerAddressByTypeIdSelector(
       state,
-      cntctPrsnUuid,
+      clntUuid,
       "AD_R"
     ),
     customTypes: customTypesEntitiesSelector(state),
