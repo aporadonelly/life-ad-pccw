@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import {
   Grid,
@@ -13,10 +13,8 @@ import ViewIcon from "@assets/icons/view_btn.svg";
 import { useTranslation } from "react-i18next";
 
 const BeneficialOwnerList = ({ beneficialOwnersList }) => {
-  const { t } = useTranslation(["typography", "form", "table", "button"]);
-  const viewDetails = (clntUuid) => {
-    console.log("clntUuid: ", clntUuid);
-  };
+  const { t } = useTranslation(["typography", "table"]);
+  const viewDetails = useCallback((clntUuid) => {}, []);
 
   const columns = useMemo(
     () => [

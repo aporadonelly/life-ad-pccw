@@ -81,8 +81,9 @@ const PrimaryContactPerson = ({ contactPerson, telephoneNo, mobileNo }) => {
 };
 
 PrimaryContactPerson.propTypes = {
-  // contactPerson,
-  // telephoneNo, mobileNo
+  contactPerson: PropTypes.object,
+  telephoneNo: PropTypes.object,
+  mobileNo: PropTypes.object,
 };
 
 PrimaryContactPerson.defaultProps = {

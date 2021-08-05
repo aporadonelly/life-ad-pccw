@@ -13,10 +13,8 @@ import ViewIcon from "@assets/icons/view_btn.svg";
 import { useTranslation } from "react-i18next";
 
 const AuthorizedPersonList = ({ authorizedPersons }) => {
-  const { t } = useTranslation(["typography", "form", "table", "button"]);
-  const viewDetails = useCallback(({ clntUuid }) => {
-    console.log("clientUuid: ", clntUuid);
-  }, []);
+  const { t } = useTranslation(["typography", "table"]);
+  const viewDetails = useCallback(({ clntUuid }) => {}, []);
   const columns = useMemo(
     () => [
       { Header: t("table:thead.lastName"), accessor: "lastName" },
@@ -50,7 +48,6 @@ const AuthorizedPersonList = ({ authorizedPersons }) => {
     ],
     [t, viewDetails]
   );
-  console.log("auth", authorizedPersons);
   return (
     <Card>
       <CardContent>

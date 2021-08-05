@@ -13,10 +13,8 @@ import ViewIcon from "@assets/icons/view_btn.svg";
 import { useTranslation } from "react-i18next";
 
 const PartnersList = ({ partnersList, push }) => {
-  const { t } = useTranslation(["typography", "form", "table", "button"]);
-  const viewDetails = useCallback((clntUuid) => {
-    console.log("clntUuid:", clntUuid);
-  }, []);
+  const { t } = useTranslation(["typography", "table"]);
+  const viewDetails = useCallback((clntUuid) => {}, []);
 
   const columns = useMemo(
     () => [

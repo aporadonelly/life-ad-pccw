@@ -12,16 +12,12 @@ import { useTranslation } from "react-i18next";
 import { DataTable } from "@components/common";
 import ViewIcon from "@assets/icons/view_btn.svg";
 
-const PayrollGroupsList = ({
-  payrollGroupsList,
-  setSelectedPayrollGroupUUID,
-  push,
-}) => {
-  const { t } = useTranslation(["typography", "form", "table", "button"]);
+const PayrollGroupsList = ({ payrollGroupsList, push }) => {
+  const { t } = useTranslation(["typography", "table"]);
 
   const viewDetails = useCallback(
     ({ pyrollGrpUuid }) => {
-      push(`/employers/enrollment/payroll-group/${pyrollGrpUuid}`);
+      push("/employers/enrollment/payroll-group");
     },
     [push]
   );

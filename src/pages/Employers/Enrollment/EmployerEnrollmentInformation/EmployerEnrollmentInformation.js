@@ -41,19 +41,15 @@ const EmployerEnrollmentInformation = ({
   push,
 }) => {
   const classes = useStyles();
-  const { t } = useTranslation(["typography", "form", "table", "button"]);
+  const { t } = useTranslation(["button"]);
   useEffect(() => {
     ldCmpnyRltdPrsn({ cmpnyPrsnTypId: "CS_AP" });
     ldCmpnyRltdPrsn({ cmpnyPrsnTypId: "CS_DT" });
     ldCmpnyRltdPrsn({ cmpnyPrsnTypId: "CS_PN" });
     ldCmpnyRltdPrsn({ cmpnyPrsnTypId: "CS_BO" });
     ldEnrCmpnyInfo();
-    getPayrollGrpList({
-      empUuid: "618AFFB6-2561-4996-B79F-9DD034F16ED1",
-    });
-    getCRSFormLst({
-      cmpnyUuid: "5E3AA11D-17C7-413E-B6CB-DDCE67154B3D",
-    });
+    getPayrollGrpList();
+    getCRSFormLst();
   }, [ldEnrCmpnyInfo, ldCmpnyRltdPrsn, getPayrollGrpList, getCRSFormLst]);
 
   const handleNewSeacrh = () => {

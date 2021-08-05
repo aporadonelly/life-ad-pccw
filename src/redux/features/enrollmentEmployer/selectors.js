@@ -1,5 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { reduce, map, concat, compact, find, values, pick } from "lodash";
+import { reduce, map, concat, compact, find } from "lodash";
 import {
   employersAdapter,
   contactPersonsAdapter,

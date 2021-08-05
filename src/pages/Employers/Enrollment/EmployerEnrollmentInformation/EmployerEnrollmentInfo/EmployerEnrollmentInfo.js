@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
-import { get, isEmpty } from "lodash";
+import { get } from "lodash";
 import { Definition } from "@components/misc";
 import { Grid, Card, CardContent, Typography } from "@material-ui/core";
 
 const EmployerEnrollmentInfo = ({ enrCompanyInfo, customTypes }) => {
-  const { t } = useTranslation(["typography", "form", "table", "button"]);
+  const { t } = useTranslation(["typography", "form"]);
   const {
     cmpnyBrnchInfo,
     cntryTypNm,

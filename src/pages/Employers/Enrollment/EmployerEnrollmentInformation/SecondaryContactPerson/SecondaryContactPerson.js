@@ -3,12 +3,10 @@ import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 import { Grid, Card, CardContent, Typography } from "@material-ui/core";
 import { Definition } from "@components/misc";
-import { isEmpty } from "lodash";
 
 const SecondaryContactPerson = ({ contactPerson, telephoneNo, mobileNo }) => {
   const { t } = useTranslation(["typography", "form", "table", "button"]);
 
-  // if (!isEmpty(contactPerson)) {
   return (
     <Card>
       <CardContent>
@@ -79,8 +77,18 @@ const SecondaryContactPerson = ({ contactPerson, telephoneNo, mobileNo }) => {
       </CardContent>
     </Card>
   );
-  // }
-  // return null;
+};
+
+SecondaryContactPerson.propTypes = {
+  contactPerson: PropTypes.object,
+  telephoneNo: PropTypes.object,
+  mobileNo: PropTypes.object,
+};
+
+SecondaryContactPerson.defaultProps = {
+  contactPerson: {},
+  telephoneNo: {},
+  mobileNo: {},
 };
 
 export default SecondaryContactPerson;

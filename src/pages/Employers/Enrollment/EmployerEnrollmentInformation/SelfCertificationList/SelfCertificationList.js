@@ -14,11 +14,11 @@ import ViewIcon from "@assets/icons/view_btn.svg";
 import { compact } from "lodash";
 
 const SelfCertificationList = ({ cmpnyUuid, crsList, push }) => {
-  const { t } = useTranslation(["typography", "form", "table", "button"]);
+  const { t } = useTranslation(["typography", "table"]);
 
   const viewDetails = useCallback(
     ({ cmpnyUuid }) => {
-      push(`/employers/enrollment/self-certification/${cmpnyUuid}`);
+      push("/employers/enrollment/self-certification");
     },
     [push]
   );
