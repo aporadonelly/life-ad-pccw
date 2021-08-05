@@ -41,17 +41,17 @@
     "female": "Ms.",
     "male": "Mr.",
     "mpfID": "MPF ID",
+    "empfID": "Employer MPF ID",
     "employerAcctNo": "Employer Account No.",
     "companyNameEnglish": "Company Name (English)",
     "companyNameChinese": "Company Name (Chinese)",
     "registrationType": "Registration Type",
     "registrationNumber": "Registration No.",
+    "registrationNo": "Registration Number",
     "branchNumber": "Branch No.",
     "typesOfCompany": "Types of Company",
     "dateOfIncorporation": "Date of Incorporation",
     "natureOfBusiness": "Nature of Business",
-    "referenceNoOfMpfOrServiceAgent": "Reference No. Of MPF Intermediary / Service Agent",
-    "agentRegistrationNumber": "Agent Registration Number",
     "registrationStatus": "Registration Status",
     "registrationStatusId": "Registration Status",
     "trustee": "Trustee",
@@ -122,7 +122,11 @@
     "registeredOfficeAddress": "Registered Office Address",
     "incorporationDate": "Date of Incorporation",
     "scndryCtctPrsn": "Secondary Contact Person",
-    "prmryCntctPrsn": "Primary Contact Person"
+    "prmryCntctPrsn": "Primary Contact Person",
+    "directMarketing": "Direct Marketing",
+    "noOfEmployeeJoinTheScheme": "No. of Employees joining the Scheme",
+    "referenceNoOfMpfOrServiceAgent": "Reference No. Of MPF Intermediary / Service Agent",
+    "agentRegistrationNumber": "Agent Registration Number"
   },
   "placeholder": {
     "custom": {

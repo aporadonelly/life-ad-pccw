@@ -21,6 +21,11 @@
     "primaryContactPerson": "Primary Contact Person",
     "secondaryContactPerson": "Secondary Contact Person",
     "gradename": "Grade Name",
+    "groupId": "Group ID",
+    "contributionFrequency": "Contribution Frequency",
+    "paymentMethod": "Payment Method",
+    "type": "Type",
+    "englishName": "Name in English",
 
     "custom": {
       "action": "Action",

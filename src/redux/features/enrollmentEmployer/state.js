@@ -27,6 +27,16 @@ export const trusteesAdapter = createEntityAdapter({
   sortComparer: (a, b) => a.name.localeCompare(b.name),
 });
 
+export const payrollGroupsListAdapter = createEntityAdapter({
+  selectId: (payrollGroupList) => payrollGroupList.pyrollGrpUuid,
+  sortComparer: (a, b) => a.pymntMthdTyp.localeCompare(b.pymntMthdTyp),
+});
+
+export const crsListAdapter = createEntityAdapter({
+  selectId: (crsList) => crsList.firstName,
+  sortComparer: (a, b) => a.formTyp.localeCompare(b.formTyp),
+});
+
 export const enrollmentEmployer = createEntityAdapter({});
 
 export const initialState = enrollmentEmployer.getInitialState({
@@ -47,4 +57,6 @@ export const initialState = enrollmentEmployer.getInitialState({
   payrollGrpInfo: {},
   schemes: schemesAdapter.getInitialState(),
   trustees: trusteesAdapter.getInitialState(),
+  payrollGroupList: payrollGroupsListAdapter.getInitialState(),
+  crsList: crsListAdapter.getInitialState(),
 });

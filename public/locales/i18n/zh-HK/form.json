@@ -8,6 +8,7 @@
     "chineseFirstName": "名（中文",
     "chineseLastName": "姓氏（中文）",
     "mpfId": "強積金編號",
+    "empfID": "雇主強積金 ID",
     "mpfSchemeName": "強積金計劃名稱",
     "displayName": "成員名字",
     "chineseName": "會員名（中文",
@@ -42,6 +43,7 @@
     "placeOfIncorporation": "成立地點",
     "registrationType": "登記類型",
     "registrationNumber": "註冊號碼",
+    "registrationNo": "註冊號碼",
     "branchNumber": "分行號碼",
     "natureOfBusiness": "業務性質",
     "lastNameContactPerson": "姓",
@@ -121,7 +123,9 @@
     "registeredOfficeAddress": "註冊辦公地址",
     "incorporationDate": "註冊成立日期",
     "scndryCtctPrsn": "次要聯繫人",
-    "prmryCntctPrsn": "主要聯繫人"
+    "prmryCntctPrsn": "主要聯繫人",
+    "directMarketing": "直銷",
+    "noOfEmployeeJoinTheScheme": "參加計劃的僱員人數"
   },
   "placeholder": {
     "custom": {
