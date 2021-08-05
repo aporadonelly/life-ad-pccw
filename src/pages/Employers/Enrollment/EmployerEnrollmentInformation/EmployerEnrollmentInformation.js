@@ -37,7 +37,6 @@ const EmployerEnrollmentInformation = (props) => {
     employer,
     scheme,
     isLoading,
-    draftEnquiry,
     ldEnrCmpnyInfo,
     ldCmpnyRltdPrsn,
     getPayrollGrpList,
@@ -76,11 +75,6 @@ const EmployerEnrollmentInformation = (props) => {
       cmpnyUuid: companyId,
     });
   }, [companyId, getCRSFormLst]);
-
-  const handleNewSeacrh = () => {
-    draftEnquiry({});
-    push("/employers/enquiries/search");
-  };
 
   return isLoading ? (
     <Box display="flex" justifyContent="center" mt={5}>
@@ -125,10 +119,6 @@ const EmployerEnrollmentInformation = (props) => {
           onClick={handleBack}
         >
           {t("button:back")}
-        </Button>
-        &nbsp;&nbsp;
-        <Button data-testid="back-btn" onClick={handleNewSeacrh}>
-          {t("button:newSearch")}
         </Button>
       </Grid>
     </Grid>

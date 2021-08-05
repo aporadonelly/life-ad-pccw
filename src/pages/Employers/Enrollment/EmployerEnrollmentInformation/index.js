@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { push } from "@redux/helpers";
 import {
-  draftEnquiry,
   ldEnrCmpnyInfo,
   getPayrollGrpList,
   getCRSFormLst,
@@ -29,7 +28,6 @@ const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators(
     {
       push,
-      draftEnquiry,
       ldEnrCmpnyInfo,
       ldCmpnyRltdPrsn,
       getPayrollGrpList,
