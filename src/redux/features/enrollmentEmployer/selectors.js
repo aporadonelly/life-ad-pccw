@@ -1,9 +1,11 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { reduce, map, concat, compact, find, values, pick } from "lodash";
+import { reduce, map, concat, compact, find } from "lodash";
 import {
   employersAdapter,
   contactPersonsAdapter,
   gradeListAdapter,
+  payrollGroupListAdapter,
+  crsFormListAdapter,
 } from "./state";
 
 export const employersSelectors = employersAdapter.getSelectors(
@@ -16,6 +18,14 @@ export const contactPersonsSelectors = contactPersonsAdapter.getSelectors(
 
 export const gradeListSelectors = gradeListAdapter.getSelectors(
   (state) => state.gradeList
+);
+
+export const payrollGroupListSelectors = payrollGroupListAdapter.getSelectors(
+  (state) => state.payrollGroupList
+);
+
+export const crsFormListSelectors = crsFormListAdapter.getSelectors(
+  (state) => state.crsFormList
 );
 
 export const featureStateSelector = (state) => state.enrollmentEmployer;
@@ -40,6 +50,16 @@ export const enrCompanyInfoSelector = createSelector(
   (state) => state.enrCompanyInfo
 );
 
+export const payrollGroupListSelector = createSelector(
+  featureStateSelector,
+  payrollGroupListSelectors.selectAll
+);
+
+export const crsFormListSelector = createSelector(
+  featureStateSelector,
+  crsFormListSelectors.selectAll
+);
+
 export const payrollGrpInfoSelector = createSelector(
   featureStateSelector,
   (state) => state.payrollGrpInfo
@@ -55,6 +75,12 @@ export const enrContactByTypeIdSelector = createSelector(
   (_, cntctPrsnTypId) => cntctPrsnTypId,
   (enrCompanyInfo, cntctPrsnTypId) =>
     find(enrCompanyInfo?.contactPersons, { cntctPrsnTypId })
+);
+
+export const clientPhoneByTypeIdSelector = createSelector(
+  enrContactByTypeIdSelector,
+  (_contactPersons, _cntctPrsnTypId, phnTypId) => phnTypId,
+  (contactPersons, phnTypId) => find(contactPersons?.clntPhones, { phnTypId })
 );
 
 export const gradeInfoSelector = createSelector(

@@ -5,6 +5,8 @@ import {
   employersAdapter,
   contactPersonsAdapter,
   gradeListAdapter,
+  crsFormListAdapter,
+  payrollGroupListAdapter,
 } from "./state";
 import {
   draftEnquiry,
@@ -14,6 +16,8 @@ import {
   ldGradeInfo,
   getGradeLst,
   ldPayrollGrpInfo,
+  getCRSFormLst,
+  getPayrollGrpList,
 } from "./actions";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
@@ -38,6 +42,32 @@ const enrollmentEmployerReducer = createReducer(initialState, (builder) =>
       state.isLoading = false;
       state.error = null;
       state.enrCompanyInfo = {};
+    })
+    .addCase(getPayrollGrpList.pending, (state, _action) => {
+      state.isLoading = true;
+      state.error = null;
+      payrollGroupListAdapter.setAll(state.payrollGroupList, []);
+    })
+    .addCase(getCRSFormLst.pending, (state, _action) => {
+      state.isLoading = true;
+      state.error = null;
+      crsFormListAdapter.setAll(state.crsFormList, []);
+    })
+    .addCase(getCRSFormLst.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.error = null;
+      crsFormListAdapter.upsertMany(
+        state.crsFormList,
+        action.payload.crsFormList
+      );
+    })
+    .addCase(getPayrollGrpList.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.error = null;
+      payrollGroupListAdapter.upsertMany(
+        state.payrollGroupList,
+        action.payload.payrollGroupList
+      );
     })
     .addCase(ldSrchCmpny.fulfilled, (state, action) => {
       state.isLoading = false;
@@ -77,7 +107,12 @@ const enrollmentEmployerReducer = createReducer(initialState, (builder) =>
       state.error = null;
     })
     .addMatcher(
-      isAnyOf(ldSrchCmpny.rejected, ldEnrCmpnyInfo.rejected),
+      isAnyOf(
+        ldSrchCmpny.rejected,
+        ldEnrCmpnyInfo.rejected,
+        getPayrollGrpList.rejected,
+        getCRSFormLst.rejected
+      ),
       (state, action) => {
         state.isLoading = false;
         state.error = action.payload.error;

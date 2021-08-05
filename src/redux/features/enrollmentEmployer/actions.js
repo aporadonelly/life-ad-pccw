@@ -57,6 +57,34 @@ export const ldEnrCmpnyInfo = createAsyncThunk(
   }
 );
 
+export const getPayrollGrpList = createAsyncThunk(
+  "@@empf/enr/er/getPayrollGrpList",
+  async (payload, { rejectWithValue, getState }) => {
+    try {
+      const payrollGroupList = await enrollmentEmployer.getPayrollGrpList(
+        payload
+      );
+      return { payrollGroupList };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const getCRSFormLst = createAsyncThunk(
+  "@@empf/enr/er/getCRSFormLst",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const { getCrsFormLstDtos } = await enrollmentEmployer.getCRSFormLst(
+        payload
+      );
+      return { crsFormList: getCrsFormLstDtos };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
 export const ldGradeInfo = createAsyncThunk(
   "@@empf/enr/er/ldGradeInfo",
   async (payload, { rejectWithValue }) => {
