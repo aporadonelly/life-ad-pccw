@@ -8,6 +8,7 @@
     "chineseFirstName": "名（中文",
     "chineseLastName": "姓氏（中文",
     "mpfId": "强积金编号",
+    "empfID": "雇主强积金 ID",
     "mpfSchemeName": "强积金计划名称",
     "displayName": "成员名字",
     "chineseName": "会员名（中文)",
@@ -42,6 +43,7 @@
     "placeOfIncorporation": "成立地点",
     "registrationType": "登记类型",
     "registrationNumber": "注册号码",
+    "registrationNo": "注册号码",
     "branchNumber": "分行号码",
     "natureOfBusiness": "业务性质",
     "lastNameContactPerson": "姓",
@@ -121,7 +123,9 @@
     "registeredOfficeAddress": "注册办公地址",
     "incorporationDate": "注册成立日期",
     "scndryCtctPrsn": "次要联系人",
-    "prmryCntctPrsn": "主要联系人"
+    "prmryCntctPrsn": "主要联系人",
+    "directMarketing": "直销",
+    "noOfEmployeeJoinTheScheme": "参加计划的雇员人数"
   },
   "placeholder": {
     "custom": {

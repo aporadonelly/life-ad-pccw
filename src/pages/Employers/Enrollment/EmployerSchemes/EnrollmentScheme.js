@@ -27,8 +27,9 @@ const EnrollmentScheme = (props) => {
     ({ companyUuid, schemeUuid }) => {
       setSelectedCompanyUUID({ companyUuid });
       setSelectedSchemeUUID({ schemeUuid });
+      push("/employers/enrollment/information");
     },
-    [setSelectedCompanyUUID, setSelectedSchemeUUID]
+    [setSelectedCompanyUUID, setSelectedSchemeUUID, push]
   );
 
   const columns = useMemo(

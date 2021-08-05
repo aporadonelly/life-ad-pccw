@@ -1,9 +1,11 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { reduce, map, concat, compact, find, values, pick } from "lodash";
+import { reduce, map, concat, compact, find } from "lodash";
 import {
   employersAdapter,
   contactPersonsAdapter,
   gradeListAdapter,
+  payrollGroupsListAdapter,
+  crsListAdapter,
 } from "./state";
 
 export const employersSelectors = employersAdapter.getSelectors(
@@ -16,6 +18,14 @@ export const contactPersonsSelectors = contactPersonsAdapter.getSelectors(
 
 export const gradeListSelectors = gradeListAdapter.getSelectors(
   (state) => state.gradeList
+);
+
+export const payrollGroupsListSelectors = payrollGroupsListAdapter.getSelectors(
+  (state) => state.payrollGroupList
+);
+
+export const getCRSFormListsSelectors = crsListAdapter.getSelectors(
+  (state) => state.crsList
 );
 
 export const featureStateSelector = (state) => state.enrollmentEmployer;
@@ -65,9 +75,24 @@ export const selectedCompanyUUIDSelector = createSelector(
   (state) => state.selectedCompanyUUID
 );
 
+export const selectedPayrollGroupUUIDSelector = createSelector(
+  featureStateSelector,
+  (state) => state.selectedPayrollGroupUUID
+);
+
 export const enrCompanyInfoSelector = createSelector(
   featureStateSelector,
   (state) => state.enrCompanyInfo
+);
+
+export const payrollGroupListSelector = createSelector(
+  featureStateSelector,
+  payrollGroupsListSelectors.selectAll
+);
+
+export const enrCRSFormListSelector = createSelector(
+  featureStateSelector,
+  getCRSFormListsSelectors.selectAll
 );
 
 export const payrollGrpInfoSelector = createSelector(
@@ -85,6 +110,12 @@ export const enrContactByTypeIdSelector = createSelector(
   (_, cntctPrsnTypId) => cntctPrsnTypId,
   (enrCompanyInfo, cntctPrsnTypId) =>
     find(enrCompanyInfo?.contactPersons, { cntctPrsnTypId })
+);
+
+export const clientPhoneByTypeIdSelector = createSelector(
+  enrContactByTypeIdSelector,
+  (_contactPersons, _cntctPrsnTypId, phnTypId) => phnTypId,
+  (contactPersons, phnTypId) => find(contactPersons?.clntPhones, { phnTypId })
 );
 
 export const gradeInfoSelector = createSelector(

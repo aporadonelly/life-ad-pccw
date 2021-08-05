@@ -4,6 +4,7 @@ import { enrollmentEmployer } from "@adapters";
 import {
   selectedCompanyUUIDSelector,
   selectedSchemeUUIDSelector,
+  selectedPayrollGroupUUIDSelector,
 } from "./selectors";
 
 export const draftEnquiry = createAction("@@empf/enr/er/draftEnquiry");
@@ -80,6 +81,36 @@ export const ldEnrCmpnyInfo = createAsyncThunk(
           ),
         },
       };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const getPayrollGrpList = createAsyncThunk(
+  "@@empf/enr/er/getPayrollGrpList",
+  async (payload, { rejectWithValue, getState }) => {
+    try {
+      const payrollGrpUuid = selectedPayrollGroupUUIDSelector(getState());
+      const payrollGroupList = await enrollmentEmployer.getPayrollGrpList({
+        payrollGrpUuid,
+        ...payload,
+      });
+      return { payrollGroupList };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const getCRSFormLst = createAsyncThunk(
+  "@@empf/enr/er/getCRSFormLst",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const { getCrsFormLstDtos } = await enrollmentEmployer.getCRSFormLst(
+        payload
+      );
+      return { crsList: getCrsFormLstDtos };
     } catch (error) {
       return rejectWithValue({ error });
     }
