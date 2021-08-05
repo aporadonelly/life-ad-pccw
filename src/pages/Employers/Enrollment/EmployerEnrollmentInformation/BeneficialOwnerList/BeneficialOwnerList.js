@@ -12,9 +12,23 @@ import { DataTable } from "@components/common";
 import ViewIcon from "@assets/icons/view_btn.svg";
 import { useTranslation } from "react-i18next";
 
-const BeneficialOwnerList = ({ beneficialOwnersList }) => {
+const BeneficialOwnerList = (props) => {
+  const { match, beneficialOwners, push } = props;
+  const { companyName } = match.params;
   const { t } = useTranslation(["typography", "table"]);
-  const viewDetails = useCallback((clntUuid) => {}, []);
+
+  const handleClick = useCallback(
+    ({ clntUuid }) => {
+      push({
+        routeName: "Employer Enrollment Beneficial Owner",
+        params: {
+          companyName,
+          clntUuid,
+        },
+      });
+    },
+    [companyName, push]
+  );
 
   const columns = useMemo(
     () => [
@@ -38,7 +52,7 @@ const BeneficialOwnerList = ({ beneficialOwnersList }) => {
                 width={40}
                 height={40}
                 alt="View Details"
-                onClick={() => viewDetails(clntUuid)}
+                onClick={() => handleClick(clntUuid)}
                 variant="contained"
                 style={{
                   cursor: "pointer",
@@ -49,7 +63,7 @@ const BeneficialOwnerList = ({ beneficialOwnersList }) => {
         },
       },
     ],
-    [t]
+    [handleClick, t]
   );
   return (
     <Card>
@@ -57,7 +71,7 @@ const BeneficialOwnerList = ({ beneficialOwnersList }) => {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <DataTable
-              data={beneficialOwnersList}
+              data={beneficialOwners}
               columns={columns}
               components={{
                 Toolbar: () => (
