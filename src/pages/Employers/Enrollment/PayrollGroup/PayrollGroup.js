@@ -16,7 +16,7 @@ const PayrollGroup = (props) => {
     push,
   } = props;
   const { companyId } = employer;
-  const { payrollGroupId } = match.params;
+  const { companyName, schmUuid, payrollGroupId } = match.params;
   const { t } = useTranslation(["button"]);
 
   useEffect(() => {
@@ -35,6 +35,16 @@ const PayrollGroup = (props) => {
     getGradeLst({ erUuid: scheme?.employer?.id });
   }, [getGradeLst, scheme?.employer?.id]);
 
+  const handleBack = () => {
+    push({
+      routeName: "Employer Enrollment Information",
+      params: {
+        companyName,
+        schmUuid,
+      },
+    });
+  };
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
@@ -47,10 +57,7 @@ const PayrollGroup = (props) => {
         <GradeList />
       </Grid>
       <Grid item xs={12} align="right">
-        <Button
-          data-testid="back-btn"
-          onClick={() => push("/employers/enrollment/information")}
-        >
+        <Button data-testid="back-btn" onClick={handleBack}>
           {t("button:back")}
         </Button>
       </Grid>
