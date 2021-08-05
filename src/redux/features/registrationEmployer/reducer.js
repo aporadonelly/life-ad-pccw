@@ -22,11 +22,10 @@ const registrationEmployerReducer = createReducer(initialState, (builder) =>
       state.isLoading = false;
 
       if (action.payload.cmpnyPrsnTypId === "CS_AP")
-        console.log("CSAP", action.payload);
-      authorizedPersonsAdapter.upsertMany(
-        state.authorizedPersons,
-        action.payload.cmpnyRltdPrsn
-      );
+        authorizedPersonsAdapter.upsertMany(
+          state.authorizedPersons,
+          action.payload.cmpnyRltdPrsn
+        );
 
       if (action.payload.cmpnyPrsnTypId === "CS_DT")
         directorsAdapter.upsertMany(
