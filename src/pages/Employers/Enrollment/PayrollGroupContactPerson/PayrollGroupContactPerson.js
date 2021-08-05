@@ -13,8 +13,8 @@ import { useTranslation } from "react-i18next";
 import { Definition } from "@components/misc";
 
 const PayrollGroupContactPerson = (props) => {
-  const { contactPerson, mobile, telephone, push, isLoading } = props;
-
+  const { match, contactPerson, mobile, telephone, push, isLoading } = props;
+  const { companyName, schmUuid, payrollGroupId } = match.params;
   const {
     frstNm,
     lstNm,
@@ -32,6 +32,17 @@ const PayrollGroupContactPerson = (props) => {
   //     cmpnyUuid: "7732b905-e9c1-4895-959e-fdce74c856b3",
   //   });
   // }, [ldCntctPrsnInfo]);
+
+  const handleBack = () => {
+    push({
+      routeName: "Payroll Group",
+      params: {
+        companyName,
+        schmUuid,
+        payrollGroupId,
+      },
+    });
+  };
 
   return isLoading ? (
     <Box display="flex" justifyContent="center" mt={5}>
@@ -124,10 +135,7 @@ const PayrollGroupContactPerson = (props) => {
       </Grid>
       <Grid item xs={12}>
         <Grid container component="dl" spacing={1} justify="flex-end">
-          <Button
-            data-testid="back-btn"
-            onClick={() => push("/employers/enrollment/payroll-group")}
-          >
+          <Button data-testid="back-btn" onClick={handleBack}>
             {t("button:backToCompanyProfile")}
           </Button>
         </Grid>
