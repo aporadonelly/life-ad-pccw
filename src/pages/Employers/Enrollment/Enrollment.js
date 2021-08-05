@@ -22,7 +22,7 @@ const Enrollment = (props) => {
       {
         name: t("typography:tabs.employerEnrollmentInformation"),
         path: "/employers/enrollment",
-        redirect: `/employers/enrollment/${companyName}schemes`,
+        redirect: `/employers/enrollment/${companyName}/schemes`,
         tab: true,
       },
     ],
