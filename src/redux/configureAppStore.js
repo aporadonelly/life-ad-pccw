@@ -27,6 +27,7 @@ import {
   getTrstLst,
 } from "./features/system/actions";
 import { reissue } from "./features/user/actions";
+import { asyncSequence } from "@utils";
 
 export const history = createBrowserHistory({
   basename: process.env.PUBLIC_URL,
@@ -61,31 +62,36 @@ export default function configureAppStore(preloadedState) {
     .dispatch(reissue())
     .then(unwrapResult)
     .then(() => {
-      store.dispatch(getSystemEnv());
-      store.dispatch(getCycleDate());
-      store.dispatch(getCountryList());
-      store.dispatch(getTermReasons());
-      store.dispatch(getSchmLst());
-      store.dispatch(getTrstLst());
-      store.dispatch(getCustomTypeList({ groupId: "GD" }));
-      store.dispatch(getCustomTypeList({ groupId: "ID" }));
-      store.dispatch(getCustomTypeList({ groupId: "NTN" }));
-      store.dispatch(getCustomTypeList({ groupId: "EP" }));
-      store.dispatch(getCustomTypeList({ groupId: "NT" }));
-      store.dispatch(getCustomTypeList({ groupId: "MB" }));
-      store.dispatch(getCustomTypeList({ groupId: "SC" }));
-      store.dispatch(getCustomTypeList({ groupId: "ST" }));
-      store.dispatch(getCustomTypeList({ groupId: "NT" }));
-      store.dispatch(getCustomTypeList({ groupId: "CI" }));
-      store.dispatch(getCustomTypeList({ groupId: "CP" }));
-      store.dispatch(getCustomTypeList({ groupId: "ST" }));
-      store.dispatch(getCustomTypeList({ groupId: "FQ" }));
-      store.dispatch(getCustomTypeList({ groupId: "PM" }));
-      store.dispatch(getCustomTypeList({ groupId: "UB" }));
-      store.dispatch(getCustomTypeList({ groupId: "CO" }));
-      store.dispatch(getCustomTypeList({ groupId: "PP_RS" }));
-      store.dispatch(getWrkStrmSttsLst({ workstream: "ENR" }));
-      store.dispatch(getWrkStrmSttsLst({ workstream: "REG" }));
+      asyncSequence(
+        [
+          getSystemEnv(),
+          getCycleDate(),
+          getCountryList(),
+          getTermReasons(),
+          getSchmLst(),
+          getTrstLst(),
+          getCustomTypeList({ groupId: "GD" }),
+          getCustomTypeList({ groupId: "ID" }),
+          getCustomTypeList({ groupId: "NTN" }),
+          getCustomTypeList({ groupId: "EP" }),
+          getCustomTypeList({ groupId: "NT" }),
+          getCustomTypeList({ groupId: "MB" }),
+          getCustomTypeList({ groupId: "SC" }),
+          getCustomTypeList({ groupId: "ST" }),
+          getCustomTypeList({ groupId: "NT" }),
+          getCustomTypeList({ groupId: "CI" }),
+          getCustomTypeList({ groupId: "CP" }),
+          getCustomTypeList({ groupId: "ST" }),
+          getCustomTypeList({ groupId: "FQ" }),
+          getCustomTypeList({ groupId: "PM" }),
+          getCustomTypeList({ groupId: "UB" }),
+          getCustomTypeList({ groupId: "CO" }),
+          getCustomTypeList({ groupId: "PP_RS" }),
+          getWrkStrmSttsLst({ workstream: "ENR" }),
+          getWrkStrmSttsLst({ workstream: "REG" }),
+        ],
+        store.dispatch
+      );
     })
     .catch(() => {
       window.location.href = `${window.location.origin}${process.env.REACT_APP_REDIRECT_URL}`;
