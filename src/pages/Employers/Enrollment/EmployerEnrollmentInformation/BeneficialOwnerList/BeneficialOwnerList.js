@@ -52,7 +52,7 @@ const BeneficialOwnerList = (props) => {
                 width={40}
                 height={40}
                 alt="View Details"
-                onClick={() => handleClick(clntUuid)}
+                onClick={() => handleClick({ clntUuid })}
                 variant="contained"
                 style={{
                   cursor: "pointer",
