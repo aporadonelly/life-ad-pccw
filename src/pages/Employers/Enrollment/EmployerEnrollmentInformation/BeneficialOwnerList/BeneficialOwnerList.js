@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 
 const BeneficialOwnerList = (props) => {
   const { match, beneficialOwners, push } = props;
-  const { companyName } = match.params;
+  const { companyName, schmUuid } = match.params;
   const { t } = useTranslation(["typography", "table"]);
 
   const handleClick = useCallback(
@@ -23,11 +23,12 @@ const BeneficialOwnerList = (props) => {
         routeName: "Employer Enrollment Beneficial Owner",
         params: {
           companyName,
+          schmUuid,
           clntUuid,
         },
       });
     },
-    [companyName, push]
+    [companyName, push, schmUuid]
   );
 
   const columns = useMemo(

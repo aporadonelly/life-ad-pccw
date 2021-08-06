@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 
 const DirectorsList = (props) => {
   const { match, directors, push } = props;
-  const { companyName } = match.params;
+  const { companyName, schmUuid } = match.params;
   const { t } = useTranslation(["typography", "table"]);
 
   const handleClick = useCallback(
@@ -23,11 +23,12 @@ const DirectorsList = (props) => {
         routeName: "Employer Enrollment Director",
         params: {
           companyName,
+          schmUuid,
           clntUuid,
         },
       });
     },
-    [companyName, push]
+    [companyName, push, schmUuid]
   );
 
   const columns = useMemo(

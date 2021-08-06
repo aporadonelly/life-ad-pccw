@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 
 const PartnersList = (props) => {
   const { match, partners, push } = props;
-  const { companyName } = match.params;
+  const { companyName, schmUuid } = match.params;
   const { t } = useTranslation(["typography", "table"]);
 
   const handleClick = useCallback(
@@ -23,6 +23,7 @@ const PartnersList = (props) => {
         routeName: "Employer Enrollment Partner",
         params: {
           companyName,
+          schmUuid,
           clntUuid,
         },
       });
