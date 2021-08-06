@@ -26,25 +26,29 @@ const enrollmentRoutes = [
   },
   {
     name: "Employer Enrollment Authorized Person",
-    path: "/employers/enrollment/:companyName/authorized-person/:clntUuid",
+    path:
+      "/employers/enrollment/:companyName/schemes/:schmUuid/authorized-person/:clntUuid",
     component: AuthorizedPerson,
     tab: false,
   },
   {
     name: "Employer Enrollment Beneficial Owner",
-    path: "/employers/enrollment/:companyName/beneficial-owner/:clntUuid",
+    path:
+      "/employers/enrollment/:companyName/schemes/:schmUuid/beneficial-owner/:clntUuid",
     component: BeneficialOwner,
     tab: false,
   },
   {
     name: "Employer Enrollment Director",
-    path: "/employers/enrollment/:companyName/director/:clntUuid",
+    path:
+      "/employers/enrollment/:companyName/schemes/:schmUuid/director/:clntUuid",
     component: Director,
     tab: false,
   },
   {
     name: "Employer Enrollment Partner",
-    path: "/employers/enrollment/:companyName/partner/:clntUuid",
+    path:
+      "/employers/enrollment/:companyName/schemes/:schmUuid/partner/:clntUuid",
     component: Partner,
     tab: false,
   },
