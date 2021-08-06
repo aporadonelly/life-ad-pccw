@@ -9,7 +9,6 @@ import {
 } from "@redux/features/enrollmentEmployer/actions";
 import { ldCmpnyRltdPrsn } from "@redux/features/registrationEmployer/actions";
 import {
-  isLoadingSelector,
   employerSelector,
   employerSchemeSelector,
 } from "@redux/features/enrollmentEmployer/selectors";
@@ -20,7 +19,6 @@ const mapStateToProps = (state, ownProps) => {
   return {
     employer: employerSelector(state, companyName),
     scheme: employerSchemeSelector(state, companyName, schmUuid),
-    isLoading: isLoadingSelector(state),
   };
 };
 

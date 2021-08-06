@@ -1,13 +1,7 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
-import {
-  Button,
-  Grid,
-  makeStyles,
-  Box,
-  CircularProgress,
-} from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import EmployerEnrollmentInfo from "./EmployerEnrollmentInfo";
 import AuthorizedPersonList from "./AuthorizedPersonList";
 import BeneficicialOwnerList from "./BeneficialOwnerList";
@@ -18,25 +12,12 @@ import PrimaryContactPerson from "./PrimaryContactPerson";
 import SecondaryContactPerson from "./SecondaryContactPerson";
 import PayrollGroupList from "./PayrollGroupList";
 import SelfCertificationList from "./SelfCertificationList";
-const useStyles = makeStyles((theme) => ({
-  backButton: {
-    backgroundColor: "white",
-    color: "#EF841F",
-    border: "2px solid #EF841F",
-    opacity: 1,
-    "&:hover": {
-      border: "2px solid #FFFFFF",
-      color: "#FFFFFF",
-    },
-  },
-}));
 
 const EmployerEnrollmentInformation = (props) => {
   const {
     match,
     employer,
     scheme,
-    isLoading,
     ldEnrCmpnyInfo,
     ldCmpnyRltdPrsn,
     getPayrollGrpList,
@@ -45,7 +26,6 @@ const EmployerEnrollmentInformation = (props) => {
   } = props;
   const { companyId } = employer;
   const { companyName, schmUuid } = match.params;
-  const classes = useStyles();
   const { t } = useTranslation(["button"]);
 
   const handleBack = () => {
@@ -76,11 +56,7 @@ const EmployerEnrollmentInformation = (props) => {
     });
   }, [companyId, getCRSFormLst]);
 
-  return isLoading ? (
-    <Box display="flex" justifyContent="center" mt={5}>
-      <CircularProgress />
-    </Box>
-  ) : (
+  return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
         <EmployerEnrollmentInfo />
@@ -113,13 +89,7 @@ const EmployerEnrollmentInformation = (props) => {
         <SelfCertificationList push={push} />
       </Grid>
       <Grid item xs={12} align="right">
-        <Button
-          className={classes.backButton}
-          data-testid="back-btn"
-          onClick={handleBack}
-        >
-          {t("button:back")}
-        </Button>
+        <Button onClick={handleBack}>{t("button:back")}</Button>
       </Grid>
     </Grid>
   );
