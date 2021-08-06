@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Grid, Card, CardContent, Typography } from "@material-ui/core";
+import { Grid, Card, CardContent, Typography, Button } from "@material-ui/core";
 import { Definition } from "@components/misc";
 
 const Partner = (props) => {
@@ -9,8 +9,9 @@ const Partner = (props) => {
     residentialAddress,
     customTypes,
     ldCmpnyRltdPrsn,
+    push,
   } = props;
-  const { cmpnyUuid, clntUuid } = match.params;
+  const { companyName, schmUuid, clntUuid } = match.params;
   const {
     idTypId,
     idNoTxt,
@@ -22,13 +23,23 @@ const Partner = (props) => {
     cntryTypNm,
   } = partner;
 
-  useEffect(() => {
-    ldCmpnyRltdPrsn({
-      cmpnyPrsnTypId: "CS_PN",
-      cmpnyUuid,
-      clntUuid,
+  const handleBack = () => {
+    push({
+      routeName: "Employer Enrollment Information",
+      params: {
+        companyName,
+        schmUuid,
+      },
     });
-  }, [clntUuid, cmpnyUuid, ldCmpnyRltdPrsn]);
+  };
+
+  // useEffect(() => {
+  //   ldCmpnyRltdPrsn({
+  //     cmpnyPrsnTypId: "CS_PN",
+  //     cmpnyUuid,
+  //     clntUuid,
+  //   });
+  // }, [clntUuid, cmpnyUuid, ldCmpnyRltdPrsn]);
 
   return (
     <Grid container spacing={3}>
@@ -75,6 +86,9 @@ const Partner = (props) => {
             </Grid>
           </CardContent>
         </Card>
+      </Grid>
+      <Grid item xs={12} align="right">
+        <Button onClick={handleBack}>Back</Button>
       </Grid>
     </Grid>
   );

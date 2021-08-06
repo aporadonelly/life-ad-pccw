@@ -1,7 +1,7 @@
 import { compose, bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { push } from "connected-react-router";
+import { push } from "@redux/helpers";
 import { customTypesEntitiesSelector } from "@redux/features/system/selectors";
 import {
   partnerSelector,

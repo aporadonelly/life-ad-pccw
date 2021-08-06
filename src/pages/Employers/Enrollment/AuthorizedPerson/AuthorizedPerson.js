@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Grid, Card, CardContent, Typography } from "@material-ui/core";
+import { Grid, Card, CardContent, Typography, Button } from "@material-ui/core";
 import { Definition } from "@components/misc";
 import { useTranslation } from "react-i18next";
 
@@ -12,8 +12,9 @@ const AuthorizedPerson = (props) => {
     mobile,
     customTypes,
     ldCmpnyRltdPrsn,
+    push,
   } = props;
-  const { cmpnyUuid, clntUuid } = match.params;
+  const { companyName, schmUuid, clntUuid } = match.params;
   const {
     idTypId,
     idNoTxt,
@@ -30,13 +31,23 @@ const AuthorizedPerson = (props) => {
 
   const { t } = useTranslation(["typography", "form", "button", "table"]);
 
-  useEffect(() => {
-    ldCmpnyRltdPrsn({
-      cmpnyPrsnTypId: "CS_AP",
-      cmpnyUuid,
-      clntUuid,
+  const handleBack = () => {
+    push({
+      routeName: "Employer Enrollment Information",
+      params: {
+        companyName,
+        schmUuid,
+      },
     });
-  }, [clntUuid, cmpnyUuid, ldCmpnyRltdPrsn]);
+  };
+
+  // useEffect(() => {
+  //   ldCmpnyRltdPrsn({
+  //     cmpnyPrsnTypId: "CS_AP",
+  //     cmpnyUuid,
+  //     clntUuid,
+  //   });
+  // }, [clntUuid, cmpnyUuid, ldCmpnyRltdPrsn]);
 
   return (
     <Grid container spacing={3}>
@@ -119,6 +130,9 @@ const AuthorizedPerson = (props) => {
             </Grid>
           </CardContent>
         </Card>
+      </Grid>
+      <Grid item xs={12} align="right">
+        <Button onClick={handleBack}>Back</Button>
       </Grid>
     </Grid>
   );
