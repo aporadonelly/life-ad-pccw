@@ -153,21 +153,11 @@ const SearchResult = ({
                     alignItems="flex-start"
                   >
                     <Grid item xs={12}>
-                      {employees.length > 0 ? (
-                        <DataTable
-                          title={t("typography:heading.enquiryResult")}
-                          data={employees}
-                          columns={columns}
-                        />
-                      ) : (
-                        <Box display="flex">
-                          <Grid item xs={12} align="center">
-                            <Typography variant="h6" color="primary">
-                              {t("table:tbody.custom.noDataFound")}
-                            </Typography>
-                          </Grid>
-                        </Box>
-                      )}
+                      <DataTable
+                        title={t("typography:heading.enquiryResult")}
+                        data={employees}
+                        columns={columns}
+                      />
                     </Grid>
                   </Grid>
                 </CardContent>
