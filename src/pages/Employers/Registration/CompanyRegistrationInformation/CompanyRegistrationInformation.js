@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Grid,
   Typography,
@@ -7,30 +7,24 @@ import {
   Box,
   Button,
 } from "@material-ui/core";
-import { useTranslation } from "react-i18next";
-import { get, isEmpty } from "lodash";
-import { useHistory } from "react-router-dom";
-import AuthorizedPersonList from "./AuthPersonList/AuthPersonList";
+import AuthorizedPersonList from "./AuthPersonList";
 import CompanyRegInfoCard from "./CompanyRegInfoCard/CompanyRegInfoCard";
 import AddressCard from "./AddressCard";
 import PrimaryContactPerson from "./PrimaryContactPerson";
 import SecondaryContactPerson from "./SecondaryContactPerson";
 import SupportingDocsCard from "./SupportingDocsCard/SupportingDocsCard";
+import PropTypes from "prop-types";
+import { get, isEmpty } from "lodash";
 
-const CompanyProfile = ({
-  ldRegCmpnyInfoforAdmnPrtl,
-  companyRegInfo,
-  isLoading,
-  setSelectedClientUUID,
-  push,
-}) => {
-  const history = useHistory();
-  const { t } = useTranslation(["typography", "form", "table", "button"]);
-
-  useEffect(() => {
-    ldRegCmpnyInfoforAdmnPrtl();
-  }, [ldRegCmpnyInfoforAdmnPrtl]);
-
+const CompanyRegistrationInformation = (props) => {
+  const {
+    employer,
+    companyRegInfo,
+    isLoading,
+    ldRegCmpnyInfoforAdmnPrtl,
+    push,
+  } = props;
+  const { companyId } = employer;
   const {
     ldRegCmpnyInfoforAdmnPrtlProjection,
     cmpnyRltdPrsns,
@@ -42,6 +36,11 @@ const CompanyProfile = ({
 
   const { brnchNoTxt, lnggTypId } =
     get(ldRegCmpnyInfoforAdmnPrtlProjection, "branches[0]") ?? {};
+  const { t } = useTranslation(["typography", "form", "table", "button"]);
+
+  useEffect(() => {
+    ldRegCmpnyInfoforAdmnPrtl({ cmpnyUuid: companyId });
+  }, [companyId, ldRegCmpnyInfoforAdmnPrtl]);
 
   return isLoading ? (
     <Box display="flex" justifyContent="center" mt={5}>
@@ -70,11 +69,7 @@ const CompanyProfile = ({
       </Grid>
       <Grid item xs={12}>
         {!isEmpty(cmpnyRltdPrsns) && (
-          <AuthorizedPersonList
-            cmpnyRltdPrsns={cmpnyRltdPrsns}
-            setSelectedClientUUID={setSelectedClientUUID}
-            push={push}
-          />
+          <AuthorizedPersonList cmpnyRltdPrsns={cmpnyRltdPrsns} push={push} />
         )}
       </Grid>
 
@@ -100,7 +95,7 @@ const CompanyProfile = ({
         ) : (
           <Button
             data-testid="back-btn"
-            onClick={() => history.push("/employers/enquiries/result")}
+            // onClick={() => history.push("/employers/enquiries/result")}
           >
             {t("button:back")}
           </Button>
@@ -110,7 +105,7 @@ const CompanyProfile = ({
   );
 };
 
-CompanyProfile.propTypes = {
+CompanyRegistrationInformation.propTypes = {
   companyRegInfo: PropTypes.shape({
     ldRegCmpnyInfoforAdmnPrtlProjection: PropTypes.object,
     cmpnyRltdPrsns: PropTypes.arrayOf(PropTypes.object),
@@ -119,7 +114,8 @@ CompanyProfile.propTypes = {
   LdRegCmpnyInfoforAdmnPrtl: PropTypes.func.isRequired,
 };
 
-CompanyProfile.defaultProps = {
+CompanyRegistrationInformation.defaultProps = {
+  employer: {},
   companyRegInfo: {
     ldRegCmpnyInfoforAdmnPrtlProjection: {},
     cmpnyRltdPrsns: [{}],
@@ -128,4 +124,4 @@ CompanyProfile.defaultProps = {
   LdRegCmpnyInfoforAdmnPrtl: () => {},
 };
 
-export default CompanyProfile;
+export default CompanyRegistrationInformation;

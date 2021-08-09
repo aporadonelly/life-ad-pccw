@@ -3,9 +3,15 @@ import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 import { Grid, Card, CardContent, Typography } from "@material-ui/core";
 import { Definition } from "@components/misc";
+import { isEmpty } from "lodash";
 
-const SecondaryContactPerson = ({ contactPerson, telephoneNo, mobileNo }) => {
+const SecondaryContactPerson = (props) => {
+  const { contactPerson, telephoneNo, mobileNo } = props;
   const { t } = useTranslation(["typography", "form", "table", "button"]);
+
+  if (isEmpty(contactPerson)) {
+    return null;
+  }
 
   return (
     <Card>

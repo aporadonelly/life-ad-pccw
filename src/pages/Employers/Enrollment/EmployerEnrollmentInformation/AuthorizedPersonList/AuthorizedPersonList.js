@@ -12,9 +12,25 @@ import { DataTable } from "@components/common";
 import ViewIcon from "@assets/icons/view_btn.svg";
 import { useTranslation } from "react-i18next";
 
-const AuthorizedPersonList = ({ authorizedPersons }) => {
+const AuthorizedPersonList = (props) => {
+  const { match, authorizedPersons, push } = props;
+  const { companyName, schmUuid } = match.params;
   const { t } = useTranslation(["typography", "table"]);
-  const viewDetails = useCallback(({ clntUuid }) => {}, []);
+
+  const handleClick = useCallback(
+    ({ clntUuid }) => {
+      push({
+        routeName: "Employer Enrollment Authorized Person",
+        params: {
+          companyName,
+          schmUuid,
+          clntUuid,
+        },
+      });
+    },
+    [companyName, push, schmUuid]
+  );
+
   const columns = useMemo(
     () => [
       { Header: t("table:thead.lastName"), accessor: "lastName" },
@@ -37,7 +53,7 @@ const AuthorizedPersonList = ({ authorizedPersons }) => {
                 width={40}
                 height={40}
                 alt="View Details"
-                onClick={() => viewDetails({ clntUuid })}
+                onClick={() => handleClick({ clntUuid })}
                 variant="contained"
                 style={{ cursor: "pointer" }}
               />
@@ -46,8 +62,9 @@ const AuthorizedPersonList = ({ authorizedPersons }) => {
         },
       },
     ],
-    [t, viewDetails]
+    [handleClick, t]
   );
+
   return (
     <Card>
       <CardContent>

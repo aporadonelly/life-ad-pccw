@@ -11,9 +11,8 @@ import {
 import { useTranslation } from "react-i18next";
 import { DataTable } from "@components/common";
 import ViewIcon from "@assets/icons/view_btn.svg";
-import { compact } from "lodash";
 
-const SelfCertificationList = ({ cmpnyUuid, crsList, push }) => {
+const SelfCertificationList = ({ cmpnyUuid, crsListForm, push }) => {
   const { t } = useTranslation(["typography", "table"]);
 
   const viewDetails = useCallback(
@@ -62,7 +61,7 @@ const SelfCertificationList = ({ cmpnyUuid, crsList, push }) => {
         <Grid container>
           <Grid item xs={12}>
             <DataTable
-              data={compact(crsList)}
+              data={crsListForm}
               columns={selfCertColumns}
               components={{
                 Toolbar: () => (
@@ -82,11 +81,11 @@ const SelfCertificationList = ({ cmpnyUuid, crsList, push }) => {
 };
 
 SelfCertificationList.propTypes = {
-  crsList: PropTypes.array,
+  crsFormList: PropTypes.array,
 };
 
 SelfCertificationList.defaultProps = {
-  crsList: [],
+  crsFormList: [],
 };
 
 export default SelfCertificationList;

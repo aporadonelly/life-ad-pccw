@@ -35,16 +35,6 @@ export const errorSelector = createSelector(
   (state) => state.error
 );
 
-export const selectedClientUUIDSelector = createSelector(
-  featureStateSelector,
-  (state) => state.selectedClientUUID
-);
-
-export const selectedCompanyUUIDSelector = createSelector(
-  featureStateSelector,
-  (state) => state.selectedCompanyUUID
-);
-
 export const authorizedPersonsSelector = createSelector(
   featureStateSelector,
   authorizedPersonsSelectors.selectAll
@@ -52,7 +42,7 @@ export const authorizedPersonsSelector = createSelector(
 
 export const authorizedPersonSelector = createSelector(
   featureStateSelector,
-  selectedClientUUIDSelector,
+  (_, clntUuid) => clntUuid,
   authorizedPersonsSelectors.selectById
 );
 
@@ -102,7 +92,7 @@ export const clientPhoneByTypeIdSelector = createSelector(
 
 export const authorizedPersonAddressByTypeIdSelector = createSelector(
   authorizedPersonSelector,
-  (_, addrTypId) => addrTypId,
+  (_, _clntUuid, addrTypId) => addrTypId,
   (authorizedPerson, addrTypId) =>
     compact(
       values(
@@ -121,7 +111,7 @@ export const authorizedPersonAddressByTypeIdSelector = createSelector(
 
 export const authorizedPersonPhoneByTypeIdSelector = createSelector(
   authorizedPersonSelector,
-  (_, phnTypId) => phnTypId,
+  (_, _clntUuid, phnTypId) => phnTypId,
   (authorizedPerson, phnTypId) =>
     find(authorizedPerson?.authPrsnClntPhoneList, { phnTypId })
 );
@@ -133,7 +123,7 @@ export const directorsSelector = createSelector(
 
 export const directorSelector = createSelector(
   featureStateSelector,
-  selectedClientUUIDSelector,
+  (_, clntUuid) => clntUuid,
   directorsSelectors.selectById
 );
 
@@ -163,7 +153,7 @@ export const partnersSelector = createSelector(
 
 export const partnerSelector = createSelector(
   featureStateSelector,
-  selectedClientUUIDSelector,
+  (_, clntUuid) => clntUuid,
   partnersSelectors.selectById
 );
 
@@ -193,7 +183,7 @@ export const beneficialOwnersSelector = createSelector(
 
 export const beneficialOwnerSelector = createSelector(
   featureStateSelector,
-  selectedClientUUIDSelector,
+  (_, clntUuid) => clntUuid,
   beneficialOwnersSelectors.selectById
 );
 

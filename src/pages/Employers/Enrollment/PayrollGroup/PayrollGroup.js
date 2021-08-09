@@ -1,12 +1,49 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Grid, Button } from "@material-ui/core";
 import Information from "./Information";
 import ContactPersonList from "./ContactPersonList";
 import GradeList from "./GradeList";
 import { useTranslation } from "react-i18next";
 
-const PayrollGroup = ({ push }) => {
-  const { t } = useTranslation(["typography", "form", "table", "button"]);
+const PayrollGroup = (props) => {
+  const {
+    match,
+    employer,
+    scheme,
+    ldPayrollGrpInfo,
+    ldCntctPrsnInfo,
+    getGradeLst,
+    push,
+  } = props;
+  const { companyId } = employer;
+  const { companyName, schmUuid, payrollGroupId } = match.params;
+  const { t } = useTranslation(["button"]);
+
+  useEffect(() => {
+    ldPayrollGrpInfo({
+      payrollGroupId: payrollGroupId,
+    });
+  }, [ldPayrollGrpInfo, payrollGroupId]);
+
+  useEffect(() => {
+    ldCntctPrsnInfo({
+      cmpnyUuid: companyId,
+    });
+  }, [companyId, ldCntctPrsnInfo]);
+
+  useEffect(() => {
+    getGradeLst({ erUuid: scheme?.employer?.id });
+  }, [getGradeLst, scheme?.employer?.id]);
+
+  const handleBack = () => {
+    push({
+      routeName: "Employer Enrollment Information",
+      params: {
+        companyName,
+        schmUuid,
+      },
+    });
+  };
 
   return (
     <Grid container spacing={3}>
@@ -20,15 +57,17 @@ const PayrollGroup = ({ push }) => {
         <GradeList />
       </Grid>
       <Grid item xs={12} align="right">
-        <Button
-          data-testid="back-btn"
-          onClick={() => push("/employers/enrollment/information")}
-        >
+        <Button data-testid="back-btn" onClick={handleBack}>
           {t("button:back")}
         </Button>
       </Grid>
     </Grid>
   );
+};
+
+PayrollGroup.defaultProps = {
+  employer: {},
+  scheme: {},
 };
 
 export default PayrollGroup;

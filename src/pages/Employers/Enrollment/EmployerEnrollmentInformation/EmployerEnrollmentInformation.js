@@ -1,13 +1,7 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
-import {
-  Button,
-  Grid,
-  makeStyles,
-  Box,
-  CircularProgress,
-} from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import EmployerEnrollmentInfo from "./EmployerEnrollmentInfo";
 import AuthorizedPersonList from "./AuthorizedPersonList";
 import BeneficicialOwnerList from "./BeneficialOwnerList";
@@ -18,50 +12,51 @@ import PrimaryContactPerson from "./PrimaryContactPerson";
 import SecondaryContactPerson from "./SecondaryContactPerson";
 import PayrollGroupList from "./PayrollGroupList";
 import SelfCertificationList from "./SelfCertificationList";
-const useStyles = makeStyles((theme) => ({
-  backButton: {
-    backgroundColor: "white",
-    color: "#EF841F",
-    border: "2px solid #EF841F",
-    opacity: 1,
-    "&:hover": {
-      border: "2px solid #FFFFFF",
-      color: "#FFFFFF",
-    },
-  },
-}));
 
-const EmployerEnrollmentInformation = ({
-  isLoading,
-  draftEnquiry,
-  ldEnrCmpnyInfo,
-  ldCmpnyRltdPrsn,
-  getPayrollGrpList,
-  getCRSFormLst,
-  push,
-}) => {
-  const classes = useStyles();
+const EmployerEnrollmentInformation = (props) => {
+  const {
+    match,
+    employer,
+    scheme,
+    ldEnrCmpnyInfo,
+    ldCmpnyRltdPrsn,
+    getPayrollGrpList,
+    getCRSFormLst,
+    push,
+  } = props;
+  const { companyId } = employer;
+  const { companyName, schmUuid } = match.params;
   const { t } = useTranslation(["button"]);
-  useEffect(() => {
-    ldCmpnyRltdPrsn({ cmpnyPrsnTypId: "CS_AP" });
-    ldCmpnyRltdPrsn({ cmpnyPrsnTypId: "CS_DT" });
-    ldCmpnyRltdPrsn({ cmpnyPrsnTypId: "CS_PN" });
-    ldCmpnyRltdPrsn({ cmpnyPrsnTypId: "CS_BO" });
-    ldEnrCmpnyInfo();
-    getPayrollGrpList();
-    getCRSFormLst();
-  }, [ldEnrCmpnyInfo, ldCmpnyRltdPrsn, getPayrollGrpList, getCRSFormLst]);
 
-  const handleNewSeacrh = () => {
-    draftEnquiry({});
-    push("/employers/enquiries/search");
+  const handleBack = () => {
+    push({ routeName: "Employer Schemes", params: { companyName } });
   };
 
-  return isLoading ? (
-    <Box display="flex" justifyContent="center" mt={5}>
-      <CircularProgress />
-    </Box>
-  ) : (
+  useEffect(() => {
+    ldCmpnyRltdPrsn({ cmpnyUuid: companyId, cmpnyPrsnTypId: "CS_AP" });
+    ldCmpnyRltdPrsn({ cmpnyUuid: companyId, cmpnyPrsnTypId: "CS_DT" });
+    ldCmpnyRltdPrsn({ cmpnyUuid: companyId, cmpnyPrsnTypId: "CS_PN" });
+    ldCmpnyRltdPrsn({ cmpnyUuid: companyId, cmpnyPrsnTypId: "CS_BO" });
+  }, [companyId, ldCmpnyRltdPrsn]);
+
+  useEffect(() => {
+    ldEnrCmpnyInfo({
+      cmpnyUuid: companyId,
+      schmUuid,
+    });
+  }, [companyId, ldEnrCmpnyInfo, schmUuid]);
+
+  useEffect(() => {
+    getPayrollGrpList({ empUuid: scheme?.employer?.id });
+  }, [getPayrollGrpList, scheme?.employer?.id]);
+
+  useEffect(() => {
+    getCRSFormLst({
+      cmpnyUuid: companyId,
+    });
+  }, [companyId, getCRSFormLst]);
+
+  return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
         <EmployerEnrollmentInfo />
@@ -94,17 +89,7 @@ const EmployerEnrollmentInformation = ({
         <SelfCertificationList push={push} />
       </Grid>
       <Grid item xs={12} align="right">
-        <Button
-          className={classes.backButton}
-          data-testid="back-btn"
-          onClick={() => push("schemes")}
-        >
-          {t("button:back")}
-        </Button>
-        &nbsp;&nbsp;
-        <Button data-testid="back-btn" onClick={handleNewSeacrh}>
-          {t("button:newSearch")}
-        </Button>
+        <Button onClick={handleBack}>{t("button:back")}</Button>
       </Grid>
     </Grid>
   );
@@ -118,6 +103,7 @@ EmployerEnrollmentInformation.propTypes = {
 };
 
 EmployerEnrollmentInformation.defaultProps = {
+  employer: {},
   ldEnrCmpnyInfo: () => {},
   ldCmpnyRltdPrsn: () => {},
   getPayrollGrpList: () => {},

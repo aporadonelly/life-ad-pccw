@@ -5,8 +5,13 @@ import { Grid, Card, CardContent, Typography } from "@material-ui/core";
 import { Definition } from "@components/misc";
 import { isEmpty } from "lodash";
 
-const PrimaryContactPerson = ({ contactPerson, telephoneNo, mobileNo }) => {
+const PrimaryContactPerson = (props) => {
+  const { contactPerson, telephoneNo, mobileNo } = props;
   const { t } = useTranslation(["typography", "form", "table", "button"]);
+
+  if (isEmpty(contactPerson)) {
+    return null;
+  }
 
   return (
     <Card>

@@ -14,6 +14,7 @@ import { Form } from "@components/common";
 import { BottomAppBar } from "@components/misc";
 import { isEqual } from "lodash";
 import { unwrapResult } from "@reduxjs/toolkit";
+
 const initialValues = {
   pnsnId: "",
   employerAccountNumber: "",
@@ -55,7 +56,7 @@ const CompanyProfile = ({
     ldSrchCmpny(values)
       .then(unwrapResult)
       .then(() => {
-        push("/employers/enquiries/result");
+        push({ routeName: "Employer Search Result" });
         draftEnquiry(values);
       });
   };

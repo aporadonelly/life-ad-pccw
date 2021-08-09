@@ -12,15 +12,9 @@ import {
 import { useTranslation } from "react-i18next";
 import { Definition } from "@components/misc";
 
-const PayrollGroupContactPerson = ({
-  ldCntctPrsnInfo,
-  setSelectedContactPersonUUID,
-  contactPerson,
-  mobile,
-  telephone,
-  push,
-  isLoading,
-}) => {
+const PayrollGroupContactPerson = (props) => {
+  const { match, contactPerson, mobile, telephone, push, isLoading } = props;
+  const { companyName, schmUuid, payrollGroupId } = match.params;
   const {
     frstNm,
     lstNm,
@@ -29,18 +23,26 @@ const PayrollGroupContactPerson = ({
     ttlTypCd,
     lnggTypId,
     crrspndnceAddr,
-  } = contactPerson ?? [];
+  } = contactPerson;
 
   const { t } = useTranslation(["typography", "form", "button", "table"]);
 
-  useEffect(() => {
-    ldCntctPrsnInfo({
-      cmpnyUuid: "022c6b33-cd86-4ceb-af61-cb02372fbcaa",
+  // useEffect(() => {
+  //   ldCntctPrsnInfo({
+  //     cmpnyUuid: "7732b905-e9c1-4895-959e-fdce74c856b3",
+  //   });
+  // }, [ldCntctPrsnInfo]);
+
+  const handleBack = () => {
+    push({
+      routeName: "Payroll Group",
+      params: {
+        companyName,
+        schmUuid,
+        payrollGroupId,
+      },
     });
-    setSelectedContactPersonUUID({
-      cntctPrsnUuid: "bdf483f1-b938-4067-a27c-9ef9db14a9f1",
-    });
-  }, [ldCntctPrsnInfo, setSelectedContactPersonUUID]);
+  };
 
   return isLoading ? (
     <Box display="flex" justifyContent="center" mt={5}>
@@ -133,10 +135,7 @@ const PayrollGroupContactPerson = ({
       </Grid>
       <Grid item xs={12}>
         <Grid container component="dl" spacing={1} justify="flex-end">
-          <Button
-            data-testid="back-btn"
-            onClick={() => push("/employers/enrollment/payroll-group")}
-          >
+          <Button data-testid="back-btn" onClick={handleBack}>
             {t("button:backToCompanyProfile")}
           </Button>
         </Grid>

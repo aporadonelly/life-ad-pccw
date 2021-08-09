@@ -9,7 +9,8 @@ import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import moment from "moment";
 
-const Information = ({ payrollGrpInfo, ldPayrollGrpInfo, customType }) => {
+const Information = (props) => {
+  const { payrollGrpInfo, customTypes } = props;
   const { t } = useTranslation(["typography", "form", "table", "button"]);
   const {
     payrollGroupCode,
@@ -24,12 +25,6 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo, customType }) => {
     voluntaryContributionOption,
     voluntaryContributionUnvestedBenefit,
   } = payrollGrpInfo;
-
-  useEffect(() => {
-    ldPayrollGrpInfo({
-      payrollGroupId: "740DF08D-90FE-492C-9F09-8492F7218B97",
-    });
-  }, [ldPayrollGrpInfo]);
 
   const VCUB = Object.freeze({
     1: "Age 65 reached",
@@ -80,7 +75,7 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo, customType }) => {
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.contributionDay")}
-                      dd={customType[contributionDay]?.cstmTypDtlTxt}
+                      dd={customTypes[contributionDay]?.cstmTypDtlTxt}
                     />
                   </Definition.List>
                 </Definition>
@@ -91,7 +86,7 @@ const Information = ({ payrollGrpInfo, ldPayrollGrpInfo, customType }) => {
                   <Definition.List>
                     <Definition.Item
                       dt={t("form:label.paymentMethod")}
-                      dd={customType[paymentMethod?.typeId]?.cstmTypDtlTxt}
+                      dd={customTypes[paymentMethod?.typeId]?.cstmTypDtlTxt}
                     />
                     <Definition.Item
                       dt={t("form:label.contributionBillGenerationDate")}

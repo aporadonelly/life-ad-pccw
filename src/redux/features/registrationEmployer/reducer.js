@@ -6,12 +6,7 @@ import {
   partnersAdapter,
   beneficialOwnersAdapter,
 } from "./state";
-import {
-  ldCmpnyRltdPrsn,
-  ldRegCmpnyInfoforAdmnPrtl,
-  setSelectedClientUUID,
-  setSelectedCompanyUUID,
-} from "./actions";
+import { ldCmpnyRltdPrsn, ldRegCmpnyInfoforAdmnPrtl } from "./actions";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
 
@@ -27,11 +22,10 @@ const registrationEmployerReducer = createReducer(initialState, (builder) =>
       state.isLoading = false;
 
       if (action.payload.cmpnyPrsnTypId === "CS_AP")
-        console.log("CSAP", action.payload);
-      authorizedPersonsAdapter.upsertMany(
-        state.authorizedPersons,
-        action.payload.cmpnyRltdPrsn
-      );
+        authorizedPersonsAdapter.upsertMany(
+          state.authorizedPersons,
+          action.payload.cmpnyRltdPrsn
+        );
 
       if (action.payload.cmpnyPrsnTypId === "CS_DT")
         directorsAdapter.upsertMany(
@@ -54,12 +48,6 @@ const registrationEmployerReducer = createReducer(initialState, (builder) =>
     .addCase(ldRegCmpnyInfoforAdmnPrtl.fulfilled, (state, action) => {
       state.isLoading = false;
       state.registrationCompanyInformation = action.payload.regCmpnyInfo;
-    })
-    .addCase(setSelectedCompanyUUID, (state, action) => {
-      state.selectedCompanyUUID = action.payload.cmpnyUuid;
-    })
-    .addCase(setSelectedClientUUID, (state, action) => {
-      state.selectedClientUUID = action.payload.clntUuid;
     })
     .addCase(ldRegCmpnyInfoforAdmnPrtl.pending, (state, _action) => {
       state.isLoading = true;

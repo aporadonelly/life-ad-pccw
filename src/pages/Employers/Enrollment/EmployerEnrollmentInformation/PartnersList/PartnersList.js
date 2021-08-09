@@ -12,9 +12,24 @@ import { DataTable } from "@components/common";
 import ViewIcon from "@assets/icons/view_btn.svg";
 import { useTranslation } from "react-i18next";
 
-const PartnersList = ({ partnersList, push }) => {
+const PartnersList = (props) => {
+  const { match, partners, push } = props;
+  const { companyName, schmUuid } = match.params;
   const { t } = useTranslation(["typography", "table"]);
-  const viewDetails = useCallback((clntUuid) => {}, []);
+
+  const handleClick = useCallback(
+    ({ clntUuid }) => {
+      push({
+        routeName: "Employer Enrollment Partner",
+        params: {
+          companyName,
+          schmUuid,
+          clntUuid,
+        },
+      });
+    },
+    [companyName, push]
+  );
 
   const columns = useMemo(
     () => [
@@ -38,7 +53,7 @@ const PartnersList = ({ partnersList, push }) => {
                 width={40}
                 height={40}
                 alt="View Details"
-                onClick={() => viewDetails(clntUuid)}
+                onClick={() => handleClick({ clntUuid })}
                 variant="contained"
                 style={{
                   cursor: "pointer",
@@ -49,15 +64,16 @@ const PartnersList = ({ partnersList, push }) => {
         },
       },
     ],
-    [t, viewDetails]
+    [handleClick, t]
   );
+
   return (
     <Card>
       <CardContent>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <DataTable
-              data={partnersList}
+              data={partners}
               columns={columns}
               components={{
                 Toolbar: () => (

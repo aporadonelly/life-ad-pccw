@@ -1,9 +1,9 @@
 import { connect } from "react-redux";
-import { enrCRSFormListSelector } from "@redux/features/enrollmentEmployer/selectors";
+import { crsFormListSelector } from "@redux/features/enrollmentEmployer/selectors";
 import SelfCertificationList from "./SelfCertificationList";
 
 const mapStateToProps = (state) => ({
-  crsList: enrCRSFormListSelector(state),
+  crsListForm: crsFormListSelector(state),
 });
 
 export default connect(mapStateToProps, null)(SelfCertificationList);

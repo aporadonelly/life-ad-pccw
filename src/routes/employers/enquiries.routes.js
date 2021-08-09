@@ -3,13 +3,13 @@ import SearchResult from "@pages/Employers/Enquiries/SearchResult";
 
 const enquiriesRoutes = [
   {
-    name: "Search Enquiry",
+    name: "Employer Search Enquiry",
     path: "/employers/enquiries/search",
     component: SearchEnquiry,
     tab: false,
   },
   {
-    name: "Search Result",
+    name: "Employer Search Result",
     path: "/employers/enquiries/result",
     component: SearchResult,
     tab: false,

@@ -15,14 +15,19 @@ import eSig from "@assets/icons/signature.svg";
 import { useHistory } from "react-router-dom";
 import { Definition } from "@components/misc";
 
-const AuthorizedPerson = ({
-  ldCmpnyRltdPrsn,
-  authorizedPerson,
-  residentialAddress,
-  businessAddress,
-  correspondenceAddress,
-  isLoading,
-}) => {
+const AuthorizedPerson = (props) => {
+  const {
+    match,
+    employer,
+    authorizedPerson,
+    residentialAddress,
+    businessAddress,
+    correspondenceAddress,
+    isLoading,
+    ldCmpnyRltdPrsn,
+  } = props;
+  const { clntUuid } = match.params;
+  const { companyId } = employer;
   const {
     idTypNm,
     idNoTxt,
@@ -49,8 +54,12 @@ const AuthorizedPerson = ({
   );
 
   useEffect(() => {
-    ldCmpnyRltdPrsn({ cmpnyPrsnTypId: "CS_AP" });
-  }, [ldCmpnyRltdPrsn]);
+    ldCmpnyRltdPrsn({
+      cmpnyPrsnTypId: "CS_AP",
+      cmpnyUuid: companyId,
+      clntUuid,
+    });
+  }, [clntUuid, companyId, ldCmpnyRltdPrsn]);
 
   if (Object.keys(authorizedPerson).length === 0) {
     return (
