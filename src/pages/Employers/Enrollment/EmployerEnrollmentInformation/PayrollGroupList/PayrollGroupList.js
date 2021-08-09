@@ -12,12 +12,21 @@ import { useTranslation } from "react-i18next";
 import { DataTable } from "@components/common";
 import ViewIcon from "@assets/icons/view_btn.svg";
 
-const PayrollGroupsList = ({ payrollGroupsList, push }) => {
+const PayrollGroupList = (props) => {
+  const { match, payrollGroupList, push } = props;
+  const { companyName, schmUuid } = match.params;
   const { t } = useTranslation(["typography", "table"]);
 
   const viewDetails = useCallback(
     ({ pyrollGrpUuid }) => {
-      push("/employers/enrollment/payroll-group");
+      push({
+        routeName: "Payroll Group",
+        params: {
+          companyName,
+          schmUuid,
+          payrollGroupId: pyrollGrpUuid,
+        },
+      });
     },
     [push]
   );
@@ -69,7 +78,7 @@ const PayrollGroupsList = ({ payrollGroupsList, push }) => {
         <Grid container>
           <Grid item xs={12}>
             <DataTable
-              data={payrollGroupsList}
+              data={payrollGroupList}
               columns={payrollColumns}
               components={{
                 Toolbar: () => (
@@ -88,12 +97,12 @@ const PayrollGroupsList = ({ payrollGroupsList, push }) => {
   );
 };
 
-PayrollGroupsList.propTypes = {
-  payrollGroupsList: PropTypes.array,
+PayrollGroupList.propTypes = {
+  payrollGroupList: PropTypes.array,
 };
 
-PayrollGroupsList.defaultProps = {
-  payrollGroupsList: [],
+PayrollGroupList.defaultProps = {
+  payrollGroupList: [],
 };
 
-export default PayrollGroupsList;
+export default PayrollGroupList;
