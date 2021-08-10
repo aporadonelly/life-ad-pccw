@@ -61,37 +61,32 @@ export default function configureAppStore(preloadedState) {
   store
     .dispatch(reissue())
     .then(unwrapResult)
-    .then(() => {
-      asyncSequence(
-        [
-          getSystemEnv(),
-          getCycleDate(),
-          getCountryList(),
-          getTermReasons(),
-          getSchmLst(),
-          getTrstLst(),
-          getCustomTypeList({ groupId: "GD" }),
-          getCustomTypeList({ groupId: "ID" }),
-          getCustomTypeList({ groupId: "NTN" }),
-          getCustomTypeList({ groupId: "EP" }),
-          getCustomTypeList({ groupId: "NT" }),
-          getCustomTypeList({ groupId: "MB" }),
-          getCustomTypeList({ groupId: "SC" }),
-          getCustomTypeList({ groupId: "ST" }),
-          getCustomTypeList({ groupId: "NT" }),
-          getCustomTypeList({ groupId: "CI" }),
-          getCustomTypeList({ groupId: "CP" }),
-          getCustomTypeList({ groupId: "ST" }),
-          getCustomTypeList({ groupId: "FQ" }),
-          getCustomTypeList({ groupId: "PM" }),
-          getCustomTypeList({ groupId: "UB" }),
-          getCustomTypeList({ groupId: "CO" }),
-          getCustomTypeList({ groupId: "PP_RS" }),
-          getWrkStrmSttsLst({ workstream: "ENR" }),
-          getWrkStrmSttsLst({ workstream: "REG" }),
-        ],
-        store.dispatch
-      );
+    .then(async () => {
+      await store.dispatch(getSystemEnv());
+      await store.dispatch(getCycleDate());
+      await store.dispatch(getCountryList());
+      await store.dispatch(getTermReasons());
+      await store.dispatch(getSchmLst());
+      await store.dispatch(getTrstLst());
+      await store.dispatch(getCustomTypeList({ groupId: "GD" }));
+      await store.dispatch(getCustomTypeList({ groupId: "ID" }));
+      await store.dispatch(getCustomTypeList({ groupId: "NTN" }));
+      await store.dispatch(getCustomTypeList({ groupId: "EP" }));
+      await store.dispatch(getCustomTypeList({ groupId: "NT" }));
+      await store.dispatch(getCustomTypeList({ groupId: "MB" }));
+      await store.dispatch(getCustomTypeList({ groupId: "SC" }));
+      await store.dispatch(getCustomTypeList({ groupId: "ST" }));
+      await store.dispatch(getCustomTypeList({ groupId: "NT" }));
+      await store.dispatch(getCustomTypeList({ groupId: "CI" }));
+      await store.dispatch(getCustomTypeList({ groupId: "CP" }));
+      await store.dispatch(getCustomTypeList({ groupId: "ST" }));
+      await store.dispatch(getCustomTypeList({ groupId: "FQ" }));
+      await store.dispatch(getCustomTypeList({ groupId: "PM" }));
+      await store.dispatch(getCustomTypeList({ groupId: "UB" }));
+      await store.dispatch(getCustomTypeList({ groupId: "CO" }));
+      await store.dispatch(getCustomTypeList({ groupId: "PP_RS" }));
+      await store.dispatch(getWrkStrmSttsLst({ workstream: "ENR" }));
+      await store.dispatch(getWrkStrmSttsLst({ workstream: "REG" }));
     })
     .catch(() => {
       window.location.href = `${window.location.origin}${process.env.REACT_APP_REDIRECT_URL}`;
