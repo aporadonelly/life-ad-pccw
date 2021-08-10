@@ -33,28 +33,45 @@ const EmployerEnrollmentInformation = (props) => {
   };
 
   useEffect(() => {
-    ldCmpnyRltdPrsn({ cmpnyUuid: companyId, cmpnyPrsnTypId: "CS_AP" });
-    ldCmpnyRltdPrsn({ cmpnyUuid: companyId, cmpnyPrsnTypId: "CS_DT" });
-    ldCmpnyRltdPrsn({ cmpnyUuid: companyId, cmpnyPrsnTypId: "CS_PN" });
-    ldCmpnyRltdPrsn({ cmpnyUuid: companyId, cmpnyPrsnTypId: "CS_BO" });
-  }, [companyId, ldCmpnyRltdPrsn]);
+    const loadData = async () => {
+      await ldEnrCmpnyInfo({
+        cmpnyUuid: companyId,
+        schmUuid,
+      });
+      await ldCmpnyRltdPrsn({
+        cmpnyUuid: companyId,
+        cmpnyPrsnTypId: "CS_AP",
+      });
+      await ldCmpnyRltdPrsn({
+        cmpnyUuid: companyId,
+        cmpnyPrsnTypId: "CS_DT",
+      });
+      await ldCmpnyRltdPrsn({
+        cmpnyUuid: companyId,
+        cmpnyPrsnTypId: "CS_PN",
+      });
+      await ldCmpnyRltdPrsn({
+        cmpnyUuid: companyId,
+        cmpnyPrsnTypId: "CS_BO",
+      });
+      await getPayrollGrpList({
+        empUuid: scheme?.employer?.id,
+      });
+      await getCRSFormLst({
+        cmpnyUuid: companyId,
+      });
+    };
 
-  useEffect(() => {
-    ldEnrCmpnyInfo({
-      cmpnyUuid: companyId,
-      schmUuid,
-    });
-  }, [companyId, ldEnrCmpnyInfo, schmUuid]);
-
-  useEffect(() => {
-    getPayrollGrpList({ empUuid: scheme?.employer?.id });
-  }, [getPayrollGrpList, scheme?.employer?.id]);
-
-  useEffect(() => {
-    getCRSFormLst({
-      cmpnyUuid: companyId,
-    });
-  }, [companyId, getCRSFormLst]);
+    loadData();
+  }, [
+    companyId,
+    getCRSFormLst,
+    getPayrollGrpList,
+    ldCmpnyRltdPrsn,
+    ldEnrCmpnyInfo,
+    scheme?.employer?.id,
+    schmUuid,
+  ]);
 
   return (
     <Grid container spacing={3}>
