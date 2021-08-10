@@ -54,7 +54,7 @@ const ContactPersonList = (props) => {
 
   const columns = useMemo(
     () => [
-      { Header: t("table:thead.payrollTitle"), accessor: "ttlTypCd" },
+      { Header: t("table:thead.payrollTitle"), accessor: "ttlTypNm" },
       { Header: t("table:thead.payrollLastName"), accessor: "lstNm" },
       { Header: t("table:thead.payrollFirstName"), accessor: "frstNm" },
       {

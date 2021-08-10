@@ -19,22 +19,6 @@ const PayrollGroup = (props) => {
   const { companyName, schmUuid, payrollGroupId } = match.params;
   const { t } = useTranslation(["button"]);
 
-  useEffect(() => {
-    ldPayrollGrpInfo({
-      payrollGroupId: payrollGroupId,
-    });
-  }, [ldPayrollGrpInfo, payrollGroupId]);
-
-  useEffect(() => {
-    ldCntctPrsnInfo({
-      cmpnyUuid: companyId,
-    });
-  }, [companyId, ldCntctPrsnInfo]);
-
-  useEffect(() => {
-    getGradeLst({ erUuid: scheme?.employer?.id });
-  }, [getGradeLst, scheme?.employer?.id]);
-
   const handleBack = () => {
     push({
       routeName: "Employer Enrollment Information",
@@ -44,6 +28,21 @@ const PayrollGroup = (props) => {
       },
     });
   };
+  useEffect(() => {
+    const loadData = async () => {
+      await ldPayrollGrpInfo({
+        payrollGroupId: payrollGroupId,
+      });
+      await ldCntctPrsnInfo({
+        cmpnyUuid: companyId,
+      });
+      await getGradeLst({
+        erUuid: scheme?.employer?.id,
+      });
+    };
+
+    loadData();
+  }, [ldPayrollGrpInfo, ldCntctPrsnInfo, getGradeLst, scheme?.employer?.id]);
 
   return (
     <Grid container spacing={3}>
