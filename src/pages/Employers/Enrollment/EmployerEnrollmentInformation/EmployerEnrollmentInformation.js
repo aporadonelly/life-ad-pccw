@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
-import { unwrapResult } from "@reduxjs/toolkit";
 import { Button, Grid } from "@material-ui/core";
-import { asyncSequence } from "@utils";
 import EmployerEnrollmentInfo from "./EmployerEnrollmentInfo";
 import AuthorizedPersonList from "./AuthorizedPersonList";
 import BeneficicialOwnerList from "./BeneficialOwnerList";
@@ -25,7 +23,6 @@ const EmployerEnrollmentInformation = (props) => {
     getPayrollGrpList,
     getCRSFormLst,
     push,
-    dispatch,
   } = props;
   const { companyId } = employer;
   const { companyName, schmUuid } = match.params;
@@ -36,40 +33,38 @@ const EmployerEnrollmentInformation = (props) => {
   };
 
   useEffect(() => {
-    asyncSequence(
-      [
-        ldEnrCmpnyInfo.bind(ldEnrCmpnyInfo, {
-          cmpnyUuid: companyId,
-          schmUuid,
-        }),
-        ldCmpnyRltdPrsn.bind(ldCmpnyRltdPrsn, {
-          cmpnyUuid: companyId,
-          cmpnyPrsnTypId: "CS_AP",
-        }),
-        ldCmpnyRltdPrsn.bind(ldCmpnyRltdPrsn, {
-          cmpnyUuid: companyId,
-          cmpnyPrsnTypId: "CS_DT",
-        }),
-        ldCmpnyRltdPrsn.bind(ldCmpnyRltdPrsn, {
-          cmpnyUuid: companyId,
-          cmpnyPrsnTypId: "CS_PN",
-        }),
-        ldCmpnyRltdPrsn.bind(ldCmpnyRltdPrsn, {
-          cmpnyUuid: companyId,
-          cmpnyPrsnTypId: "CS_BO",
-        }),
-        getPayrollGrpList.bind(getPayrollGrpList, {
-          empUuid: scheme?.employer?.id,
-        }),
-        getCRSFormLst.bind(getCRSFormLst, {
-          cmpnyUuid: companyId,
-        }),
-      ],
-      dispatch
-    );
+    const loadData = async () => {
+      await ldEnrCmpnyInfo({
+        cmpnyUuid: companyId,
+        schmUuid,
+      });
+      await ldCmpnyRltdPrsn({
+        cmpnyUuid: companyId,
+        cmpnyPrsnTypId: "CS_AP",
+      });
+      await ldCmpnyRltdPrsn({
+        cmpnyUuid: companyId,
+        cmpnyPrsnTypId: "CS_DT",
+      });
+      await ldCmpnyRltdPrsn({
+        cmpnyUuid: companyId,
+        cmpnyPrsnTypId: "CS_PN",
+      });
+      await ldCmpnyRltdPrsn({
+        cmpnyUuid: companyId,
+        cmpnyPrsnTypId: "CS_BO",
+      });
+      await getPayrollGrpList({
+        empUuid: scheme?.employer?.id,
+      });
+      await getCRSFormLst({
+        cmpnyUuid: companyId,
+      });
+    };
+
+    loadData();
   }, [
     companyId,
-    dispatch,
     getCRSFormLst,
     getPayrollGrpList,
     ldCmpnyRltdPrsn,
