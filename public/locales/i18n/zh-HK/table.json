@@ -21,6 +21,11 @@
     "primaryContactPerson": "主要聯繫人",
     "secondaryContactPerson": "次要聯繫人",
     "gradename": "年級名稱",
+    "groupId": "組ID",
+    "contributionFrequency": "貢獻頻率",
+    "paymentMethod": "付款方式",
+    "type": "類型",
+    "englishName": "英文名稱",
     "custom": {
       "action": "行動",
       "view": "看法"

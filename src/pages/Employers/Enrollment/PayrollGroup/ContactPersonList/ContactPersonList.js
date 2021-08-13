@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from "react";
+import { useCallback, useMemo } from "react";
 import PropTypes from "prop-types";
 import {
   Box,
@@ -32,19 +32,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ContactPersonList = ({ contactPersons, ldCntctPrsnInfo }) => {
+const ContactPersonList = (props) => {
+  const { match, contactPersons, push } = props;
+  const { companyName, payrollGroupId } = match.params;
   const { t } = useTranslation(["typography", "form", "table", "button"]);
   const classes = useStyles();
 
-  useEffect(() => {
-    ldCntctPrsnInfo({
-      cmpnyUuid: "1f33f55f-c1a9-43c9-84d2-f84f5a7a0c29",
-    });
-  }, [ldCntctPrsnInfo]);
+  const handleClick = useCallback(
+    ({ cntctPrsnUuid }) => {
+      push({
+        routeName: "Payroll Group Contact Person",
+        params: {
+          companyName,
+          payrollGroupId,
+          cntctPrsnUuid,
+        },
+      });
+    },
+    [companyName, payrollGroupId, push]
+  );
 
   const columns = useMemo(
     () => [
-      { Header: t("table:thead.payrollTitle"), accessor: "ttlTypCd" },
+      { Header: t("table:thead.payrollTitle"), accessor: "ttlTypNm" },
       { Header: t("table:thead.payrollLastName"), accessor: "lstNm" },
       { Header: t("table:thead.payrollFirstName"), accessor: "frstNm" },
       {
@@ -108,6 +118,9 @@ const ContactPersonList = ({ contactPersons, ldCntctPrsnInfo }) => {
                   justify="center"
                   size="small"
                   color="primary"
+                  onClick={() =>
+                    handleClick({ cntctPrsnUuid: row.original.id })
+                  }
                 >
                   {t("button:detail")}
                 </Button>
@@ -125,7 +138,7 @@ const ContactPersonList = ({ contactPersons, ldCntctPrsnInfo }) => {
         },
       },
     ],
-    [t]
+    [classes.btnAction, classes.root, handleClick, t]
   );
 
   return (
@@ -157,14 +170,13 @@ const ContactPersonList = ({ contactPersons, ldCntctPrsnInfo }) => {
   );
 };
 
-ContactPersonList.propTypes = {
-  contactPersons: PropTypes.array,
-  ldCntctPrsnInfo: PropTypes.func.isRequired,
+ContactPersonList.defaultProps = {
+  employer: {},
+  contactPersons: [],
 };
 
-ContactPersonList.defaultProps = {
-  contactPersons: [],
-  ldCntctPrsnInfo: () => {},
+ContactPersonList.propTypes = {
+  contactPersons: PropTypes.array,
 };
 
 export default ContactPersonList;

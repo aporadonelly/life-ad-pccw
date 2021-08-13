@@ -1,8 +1,17 @@
-import { Grid, Card, CardContent, Typography } from "@material-ui/core";
+import { useEffect } from "react";
+import { Grid, Card, CardContent, Typography, Button } from "@material-ui/core";
 import { Definition } from "@components/misc";
 
 const BeneficialOwner = (props) => {
-  const { beneficialOwner, residentialAddress, customTypes } = props;
+  const {
+    match,
+    beneficialOwner,
+    residentialAddress,
+    customTypes,
+    ldCmpnyRltdPrsn,
+    push,
+  } = props;
+  const { companyName, schmUuid, clntUuid } = match.params;
   const {
     idTypId,
     idNoTxt,
@@ -13,6 +22,24 @@ const BeneficialOwner = (props) => {
     chineseFirstName,
     cntryTypNm,
   } = beneficialOwner;
+
+  const handleBack = () => {
+    push({
+      routeName: "Employer Enrollment Information",
+      params: {
+        companyName,
+        schmUuid,
+      },
+    });
+  };
+
+  // useEffect(() => {
+  //   ldCmpnyRltdPrsn({
+  //     cmpnyPrsnTypId: "CS_BO",
+  //     cmpnyUuid,
+  //     clntUuid,
+  //   });
+  // }, [clntUuid, cmpnyUuid, ldCmpnyRltdPrsn]);
 
   return (
     <Grid container spacing={3}>
@@ -59,6 +86,9 @@ const BeneficialOwner = (props) => {
             </Grid>
           </CardContent>
         </Card>
+      </Grid>
+      <Grid item xs={12} align="right">
+        <Button onClick={handleBack}>Back</Button>
       </Grid>
     </Grid>
   );

@@ -1,9 +1,21 @@
+import { compose, bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { ldSrchCmpny } from "@redux/features/enrollmentEmployer/actions";
 import { employerSelector } from "@redux/features/enrollmentEmployer/selectors";
 import Enrollment from "./Enrollment";
 
-const mapStateToProps = (state) => ({
-  employer: employerSelector(state),
+const mapStateToProps = (state, ownProps) => {
+  const { companyName } = ownProps.match.params;
+  return {
+    employer: employerSelector(state, companyName),
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  ...bindActionCreators({ ldSrchCmpny }, dispatch),
 });
 
-export default connect(mapStateToProps, null)(Enrollment);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose(withRouter, withConnect)(Enrollment);

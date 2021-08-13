@@ -5,20 +5,19 @@ import {
   employersAdapter,
   contactPersonsAdapter,
   gradeListAdapter,
+  crsFormListAdapter,
+  payrollGroupListAdapter,
 } from "./state";
 import {
   draftEnquiry,
-  setSelectedPnsnId,
-  setSelectedCompanyUUID,
-  setSelectedEmployerUUID,
-  setSelectedSchemeUUID,
-  setSelectedPayrollGroupUUID,
   ldSrchCmpny,
   ldEnrCmpnyInfo,
   ldCntctPrsnInfo,
   ldGradeInfo,
   getGradeLst,
   ldPayrollGrpInfo,
+  getCRSFormLst,
+  getPayrollGrpList,
 } from "./actions";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
@@ -34,21 +33,6 @@ const enrollmentEmployerReducer = createReducer(initialState, (builder) =>
     .addCase(draftEnquiry, (state, action) => {
       state.draftEnquiry = pickBy(action.payload, identity);
     })
-    .addCase(setSelectedPnsnId, (state, action) => {
-      state.selectedPnsnId = action.payload.pnsnId;
-    })
-    .addCase(setSelectedCompanyUUID, (state, action) => {
-      state.selectedCompanyUUID = action.payload.companyUuid;
-    })
-    .addCase(setSelectedEmployerUUID, (state, action) => {
-      state.selectedEmployerUUID = action.payload.employerUuid;
-    })
-    .addCase(setSelectedSchemeUUID, (state, action) => {
-      state.selectedSchemeUUID = action.payload.schemeUuid;
-    })
-    .addCase(setSelectedPayrollGroupUUID, (state, action) => {
-      state.selectedPayrollGroupUUID = action.payload.payrollGrpUuid;
-    })
     .addCase(ldSrchCmpny.pending, (state, _action) => {
       state.isLoading = true;
       state.error = null;
@@ -58,6 +42,32 @@ const enrollmentEmployerReducer = createReducer(initialState, (builder) =>
       state.isLoading = false;
       state.error = null;
       state.enrCompanyInfo = {};
+    })
+    .addCase(getPayrollGrpList.pending, (state, _action) => {
+      state.isLoading = true;
+      state.error = null;
+      payrollGroupListAdapter.setAll(state.payrollGroupList, []);
+    })
+    .addCase(getCRSFormLst.pending, (state, _action) => {
+      state.isLoading = true;
+      state.error = null;
+      crsFormListAdapter.setAll(state.crsFormList, []);
+    })
+    .addCase(getCRSFormLst.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.error = null;
+      crsFormListAdapter.upsertMany(
+        state.crsFormList,
+        action.payload.crsFormList
+      );
+    })
+    .addCase(getPayrollGrpList.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.error = null;
+      payrollGroupListAdapter.upsertMany(
+        state.payrollGroupList,
+        action.payload.payrollGroupList
+      );
     })
     .addCase(ldSrchCmpny.fulfilled, (state, action) => {
       state.isLoading = false;
@@ -97,7 +107,12 @@ const enrollmentEmployerReducer = createReducer(initialState, (builder) =>
       state.error = null;
     })
     .addMatcher(
-      isAnyOf(ldSrchCmpny.rejected, ldEnrCmpnyInfo.rejected),
+      isAnyOf(
+        ldSrchCmpny.rejected,
+        ldEnrCmpnyInfo.rejected,
+        getPayrollGrpList.rejected,
+        getCRSFormLst.rejected
+      ),
       (state, action) => {
         state.isLoading = false;
         state.error = action.payload.error;

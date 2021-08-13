@@ -1,19 +1,40 @@
-import { bindActionCreators } from "redux";
+import { compose, bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { push } from "connected-react-router";
-import { ldEnrCmpnyInfo } from "@redux/features/enrollmentEmployer/actions";
-import { enrCompanyInfoSelector } from "@redux/features/enrollmentEmployer/selectors";
+import { withRouter } from "react-router-dom";
+import { push } from "@redux/helpers";
+import {
+  ldEnrCmpnyInfo,
+  getPayrollGrpList,
+  getCRSFormLst,
+} from "@redux/features/enrollmentEmployer/actions";
+import { ldCmpnyRltdPrsn } from "@redux/features/registrationEmployer/actions";
+import {
+  employerSelector,
+  employerSchemeSelector,
+} from "@redux/features/enrollmentEmployer/selectors";
 import EmployerEnrollmentInformation from "./EmployerEnrollmentInformation";
 
-const mapStateToProps = (state) => ({
-  enrCompanyInfo: enrCompanyInfoSelector(state),
-});
+const mapStateToProps = (state, ownProps) => {
+  const { companyName, schmUuid } = ownProps.match.params;
+  return {
+    employer: employerSelector(state, companyName),
+    scheme: employerSchemeSelector(state, companyName, schmUuid),
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
-  ...bindActionCreators({ push, ldEnrCmpnyInfo }, dispatch),
+  ...bindActionCreators(
+    {
+      push,
+      ldEnrCmpnyInfo,
+      ldCmpnyRltdPrsn,
+      getPayrollGrpList,
+      getCRSFormLst,
+    },
+    dispatch
+  ),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EmployerEnrollmentInformation);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose(withRouter, withConnect)(EmployerEnrollmentInformation);

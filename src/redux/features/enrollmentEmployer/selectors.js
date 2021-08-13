@@ -4,6 +4,8 @@ import {
   employersAdapter,
   contactPersonsAdapter,
   gradeListAdapter,
+  payrollGroupListAdapter,
+  crsFormListAdapter,
 } from "./state";
 
 export const employersSelectors = employersAdapter.getSelectors(
@@ -16,6 +18,14 @@ export const contactPersonsSelectors = contactPersonsAdapter.getSelectors(
 
 export const gradeListSelectors = gradeListAdapter.getSelectors(
   (state) => state.gradeList
+);
+
+export const payrollGroupListSelectors = payrollGroupListAdapter.getSelectors(
+  (state) => state.payrollGroupList
+);
+
+export const crsFormListSelectors = crsFormListAdapter.getSelectors(
+  (state) => state.crsFormList
 );
 
 export const featureStateSelector = (state) => state.enrollmentEmployer;
@@ -35,29 +45,29 @@ export const draftEnquirySelector = createSelector(
   (state) => state.draftEnquiry
 );
 
-export const selectedPnsnIdSelector = createSelector(
-  featureStateSelector,
-  (state) => state.selectedPnsnId
-);
-
-export const selectedEmployerUUIDSelector = createSelector(
-  featureStateSelector,
-  (state) => state.selectedEmployerUUID
-);
-
-export const selectedSchemeUUIDSelector = createSelector(
-  featureStateSelector,
-  (state) => state.selectedSchemeUUID
-);
-
-export const selectedCompanyUUIDSelector = createSelector(
-  featureStateSelector,
-  (state) => state.selectedCompanyUUID
-);
-
 export const enrCompanyInfoSelector = createSelector(
   featureStateSelector,
   (state) => state.enrCompanyInfo
+);
+
+export const payrollGroupListSelector = createSelector(
+  featureStateSelector,
+  payrollGroupListSelectors.selectAll
+);
+
+export const crsFormListSelector = createSelector(
+  featureStateSelector,
+  crsFormListSelectors.selectAll
+);
+
+export const payrollGrpInfoSelector = createSelector(
+  featureStateSelector,
+  (state) => state.payrollGrpInfo
+);
+
+export const gradeListSelector = createSelector(
+  featureStateSelector,
+  gradeListSelectors.selectAll
 );
 
 export const enrContactByTypeIdSelector = createSelector(
@@ -65,6 +75,12 @@ export const enrContactByTypeIdSelector = createSelector(
   (_, cntctPrsnTypId) => cntctPrsnTypId,
   (enrCompanyInfo, cntctPrsnTypId) =>
     find(enrCompanyInfo?.contactPersons, { cntctPrsnTypId })
+);
+
+export const clientPhoneByTypeIdSelector = createSelector(
+  enrContactByTypeIdSelector,
+  (_contactPersons, _cntctPrsnTypId, phnTypId) => phnTypId,
+  (contactPersons, phnTypId) => find(contactPersons?.clntPhones, { phnTypId })
 );
 
 export const gradeInfoSelector = createSelector(
@@ -79,7 +95,7 @@ export const employersSelector = createSelector(
 
 export const employerSelector = createSelector(
   featureStateSelector,
-  selectedPnsnIdSelector,
+  (_, companyName) => companyName,
   employersSelectors.selectById
 );
 
@@ -88,14 +104,16 @@ export const contactPersonsSelector = createSelector(
   contactPersonsSelectors.selectAll
 );
 
-export const gradeListSelector = createSelector(
+export const contactPersonSelector = createSelector(
   featureStateSelector,
-  gradeListSelectors.selectAll
+  (_, cntctPrsnUuid) => cntctPrsnUuid,
+  contactPersonsSelectors.selectById
 );
 
-export const payrollGrpInfoSelector = createSelector(
-  featureStateSelector,
-  (state) => state.payrollGrpInfo
+export const contactPersonClientPhoneByTypeIdSelector = createSelector(
+  contactPersonSelector,
+  (_, _cntctPrsnUuid, phnTypId) => phnTypId,
+  (contact, phnTypId) => find(contact?.clntPhones, { phnTypId })
 );
 
 export const employerSchemesSelector = createSelector(
@@ -121,4 +139,10 @@ export const employerSchemesSelector = createSelector(
         []
       )
     )
+);
+
+export const employerSchemeSelector = createSelector(
+  employerSchemesSelector,
+  (_, _companyName, schmUuid) => schmUuid,
+  (schemes, schmUuid) => find(schemes, { id: schmUuid })
 );

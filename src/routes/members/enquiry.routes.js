@@ -1,6 +1,7 @@
 import EnquirySearch from "@pages/Members/Enquiry/EnquirySearch";
 import SearchResult from "@pages/Members/Enquiry/SearchResult";
 import ViewInformation from "@pages/Members/Enquiry/ViewInformation";
+import AccountTypes from "@pages/Members/Enquiry/AccountTypes";
 
 const enquiryRoutes = [
   {
@@ -19,6 +20,12 @@ const enquiryRoutes = [
     name: "ViewInformation",
     path: "/members/enquiry/information",
     component: ViewInformation,
+    tab: false,
+  },
+  {
+    name: "Account Types",
+    path: "/members/enquiry/account-types",
+    component: AccountTypes,
     tab: false,
   },
 ];
