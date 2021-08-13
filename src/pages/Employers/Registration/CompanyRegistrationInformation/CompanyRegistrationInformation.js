@@ -20,6 +20,7 @@ const CompanyRegistrationInformation = (props) => {
   const {
     employer,
     companyRegInfo,
+    contact,
     isLoading,
     ldRegCmpnyInfoforAdmnPrtl,
     push,
@@ -76,10 +77,11 @@ const CompanyRegistrationInformation = (props) => {
       <Grid item xs={12}>
         <PrimaryContactPerson />
       </Grid>
-
-      <Grid item xs={12}>
-        <SecondaryContactPerson />
-      </Grid>
+      {!isEmpty(contact) && (
+        <Grid item xs={12}>
+          <SecondaryContactPerson contact={contact} />
+        </Grid>
+      )}
 
       <Grid item xs={12}>
         {cmpnyRltdPrsns && <SupportingDocsCard />}
@@ -93,12 +95,7 @@ const CompanyRegistrationInformation = (props) => {
             </Typography>
           </Grid>
         ) : (
-          <Button
-            data-testid="back-btn"
-            // onClick={() => history.push("/employers/enquiries/result")}
-          >
-            {t("button:back")}
-          </Button>
+          <Button data-testid="back-btn">{t("button:back")}</Button>
         )}
       </Grid>
     </Grid>

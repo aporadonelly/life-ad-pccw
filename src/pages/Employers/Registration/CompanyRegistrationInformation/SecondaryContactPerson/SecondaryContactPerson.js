@@ -2,15 +2,11 @@ import React from "react";
 import { Grid, Card, CardContent, Typography } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { Definition } from "@components/misc";
-import { isEmpty } from "lodash";
 
 const SecondaryContactPerson = (props) => {
   const { companyRegInfo, contact, telephone, mobile } = props;
   const { t } = useTranslation(["typography", "form", "table", "button"]);
 
-  if (isEmpty(contact)) {
-    return null;
-  }
   return (
     <Card>
       <CardContent>

@@ -5,6 +5,7 @@ import { push } from "@redux/helpers";
 import { ldRegCmpnyInfoforAdmnPrtl } from "@redux/features/registrationEmployer/actions";
 import {
   registrationCompanyInformationSelector,
+  contactByTypeIdSelector,
   isLoadingSelector,
   errorSelector,
 } from "@redux/features/registrationEmployer/selectors";
@@ -15,6 +16,7 @@ const mapStateToProps = (state, ownProps) => {
   const { companyName } = ownProps.match.params;
   return {
     employer: employerSelector(state, companyName),
+    contact: contactByTypeIdSelector(state, "CT_SCP"),
     isLoading: isLoadingSelector(state),
     error: errorSelector(state),
     companyRegInfo: registrationCompanyInformationSelector(state),
