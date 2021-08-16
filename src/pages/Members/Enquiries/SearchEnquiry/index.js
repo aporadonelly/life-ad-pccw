@@ -11,8 +11,7 @@ import {
   enquirySelector,
 } from "@redux/features/members/selectors";
 import { getAllMembers, saveEnquiry } from "@redux/features/members/actions";
-
-import MemberSearch from "./MemberSearch";
+import SearchEnquiry from "./SearchEnquiry";
 
 const mapStateToProps = (state) => ({
   isLoading: isLoadingSelector(state),
@@ -40,4 +39,4 @@ const mapDispatchToProps = (dispatch) => ({
   ),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MemberSearch);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchEnquiry);

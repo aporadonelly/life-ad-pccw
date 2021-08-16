@@ -3,7 +3,6 @@ import { isEqual } from "lodash";
 import * as yup from "yup";
 import { Formik } from "formik";
 import { PageInner } from "@components/layout";
-
 import {
   Grid,
   Card,
@@ -45,7 +44,7 @@ const validationSchema = yup.object().shape({
   mobileNumber: yup.number().typeError("Please enter numbers."),
 });
 
-const MemberSearch = ({
+const SearchEnquiry = ({
   isLoading,
   gender,
   idType,
@@ -401,10 +400,9 @@ const MemberSearch = ({
             </Card>
           </Grid>
         </Grid>
-
         <Toolbar variant="regular" />
       </PageInner>
     </>
   );
 };
-export default MemberSearch;
+export default SearchEnquiry;
