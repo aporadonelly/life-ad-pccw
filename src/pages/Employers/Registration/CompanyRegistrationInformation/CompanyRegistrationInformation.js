@@ -20,7 +20,6 @@ const CompanyRegistrationInformation = (props) => {
   const {
     employer,
     companyRegInfo,
-    contact,
     isLoading,
     ldRegCmpnyInfoforAdmnPrtl,
     push,
@@ -42,6 +41,10 @@ const CompanyRegistrationInformation = (props) => {
   useEffect(() => {
     ldRegCmpnyInfoforAdmnPrtl({ cmpnyUuid: companyId });
   }, [companyId, ldRegCmpnyInfoforAdmnPrtl]);
+
+  const handleBack = () => {
+    push({ routeName: "Employer Search Result" });
+  };
 
   return isLoading ? (
     <Box display="flex" justifyContent="center" mt={5}>
@@ -68,20 +71,15 @@ const CompanyRegistrationInformation = (props) => {
       <Grid item xs={12}>
         {ldRegCmpnyInfoforAdmnPrtlProjection && <AddressCard />}
       </Grid>
-      <Grid item xs={12}>
-        {!isEmpty(cmpnyRltdPrsns) && (
-          <AuthorizedPersonList cmpnyRltdPrsns={cmpnyRltdPrsns} push={push} />
-        )}
-      </Grid>
 
-      <Grid item xs={12}>
-        <PrimaryContactPerson />
-      </Grid>
-      {!isEmpty(contact) && (
+      {!isEmpty(cmpnyRltdPrsns) && (
         <Grid item xs={12}>
-          <SecondaryContactPerson contact={contact} />
+          <AuthorizedPersonList cmpnyRltdPrsns={cmpnyRltdPrsns} push={push} />
         </Grid>
       )}
+
+      <PrimaryContactPerson />
+      <SecondaryContactPerson />
 
       <Grid item xs={12}>
         {cmpnyRltdPrsns && <SupportingDocsCard />}
@@ -95,7 +93,9 @@ const CompanyRegistrationInformation = (props) => {
             </Typography>
           </Grid>
         ) : (
-          <Button data-testid="back-btn">{t("button:back")}</Button>
+          <Button data-testid="back-btn" onClick={handleBack}>
+            {t("button:back")}
+          </Button>
         )}
       </Grid>
     </Grid>
