@@ -7,7 +7,7 @@ import employeeTermination from "./features/employees/termination/reducer";
 import enrollmentEmployer from "./features/enrollmentEmployer/reducer";
 import mlfub from "./features/mlfub/reducer";
 import registrationEmployer from "./features/registrationEmployer/reducer";
-import enrollmentCEE from "./features/enrollmentCEE/reducer";
+import enrollmentCasualEmployee from "./features/enrollmentCasualEmployee/reducer";
 
 const createRootReducer = (history) =>
   combineReducers({
@@ -19,7 +19,7 @@ const createRootReducer = (history) =>
     mlfub,
     enrollmentEmployer,
     employeeTermination,
-    enrollmentCEE,
+    enrollmentCasualEmployee,
   });
 
 export default createRootReducer;
