@@ -68,6 +68,7 @@ const AccountTypes = (props) => {
       {
         Header: t("table:thead.custom.action"),
         disableSortBy: true,
+        sticky: "right",
         Cell: () => {
           return (
             <Tooltip title="View Enrollment">
