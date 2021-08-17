@@ -42,6 +42,10 @@ const CompanyRegistrationInformation = (props) => {
     ldRegCmpnyInfoforAdmnPrtl({ cmpnyUuid: companyId });
   }, [companyId, ldRegCmpnyInfoforAdmnPrtl]);
 
+  const handleBack = () => {
+    push({ routeName: "Employer Search Result" });
+  };
+
   return isLoading ? (
     <Box display="flex" justifyContent="center" mt={5}>
       <CircularProgress />
@@ -67,19 +71,15 @@ const CompanyRegistrationInformation = (props) => {
       <Grid item xs={12}>
         {ldRegCmpnyInfoforAdmnPrtlProjection && <AddressCard />}
       </Grid>
-      <Grid item xs={12}>
-        {!isEmpty(cmpnyRltdPrsns) && (
+
+      {!isEmpty(cmpnyRltdPrsns) && (
+        <Grid item xs={12}>
           <AuthorizedPersonList cmpnyRltdPrsns={cmpnyRltdPrsns} push={push} />
-        )}
-      </Grid>
+        </Grid>
+      )}
 
-      <Grid item xs={12}>
-        <PrimaryContactPerson />
-      </Grid>
-
-      <Grid item xs={12}>
-        <SecondaryContactPerson />
-      </Grid>
+      <PrimaryContactPerson />
+      <SecondaryContactPerson />
 
       <Grid item xs={12}>
         {cmpnyRltdPrsns && <SupportingDocsCard />}
@@ -93,10 +93,7 @@ const CompanyRegistrationInformation = (props) => {
             </Typography>
           </Grid>
         ) : (
-          <Button
-            data-testid="back-btn"
-            // onClick={() => history.push("/employers/enquiries/result")}
-          >
+          <Button data-testid="back-btn" onClick={handleBack}>
             {t("button:back")}
           </Button>
         )}
