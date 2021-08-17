@@ -1,12 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { enrollmentCEE } from "@adapters";
+import { enrollmentCasualEmployee } from "@adapters";
 
 export const getIndAccntLst = createAsyncThunk(
   "@@empf/enr/cee/getIndAccntLst",
   async (payload, { rejectWithValue }) => {
     try {
-      const res = await enrollmentCEE.getIndAccntLst(payload);
-      return res;
+      const indAccntLst = await enrollmentCasualEmployee.getIndAccntLst(
+        payload
+      );
+      return { indAccntLst };
     } catch (error) {
       return rejectWithValue({ error });
     }
