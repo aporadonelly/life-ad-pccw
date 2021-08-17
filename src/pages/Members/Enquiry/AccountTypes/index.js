@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import {
   indAccntLstSelector,
   isLoadingSelector,
-} from "@redux/features/enrollmentCEE/selectors";
-import { getIndAccntLst } from "@redux/features/enrollmentCEE/actions";
+} from "@redux/features/enrollmentCasualEmployee/selectors";
+import { getIndAccntLst } from "@redux/features/enrollmentCasualEmployee/actions";
 import AccountTypes from "./AccountTypes";
 import { push } from "connected-react-router";
 
