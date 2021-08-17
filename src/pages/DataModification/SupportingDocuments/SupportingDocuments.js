@@ -3,6 +3,8 @@ import { Formik } from "formik";
 import { Form } from "@components/common";
 import * as yup from "yup"; // validator for objects // input form
 import { Grid, Divider, Typography } from "@material-ui/core";
+import { useState } from "react";
+import { blobToBase64String } from "blob-util";
 
 const useStyles = makeStyles((theme) => ({
   dropzone: {
@@ -39,8 +41,14 @@ const initialValues = {
 };
 const FILE_SIZE = 5000000;
 const SUPPORTED_FORMATS = [
-  "image/tiff",
+  "application/pdf",
+  "image/jpg",
+  "image/jpeg",
+  "image/png",
+  "image/gif",
+  "text/plain",
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "image/tiff",
 ];
 
 const validationSchema = yup.object().shape({
@@ -112,8 +120,14 @@ const validationSchema = yup.object().shape({
 const SupportingDocuments = () => {
   const classes = useStyles();
 
-  const handleSubmit = (values) => {
-    console.log(values);
+  const handleSubmit = async (values) => {
+    const hkidBase64 = [{filename: values.hkid.name, base64: await blobToBase64String(values.hkid)}];
+    const addressBase64 = [{filename: values.address.name, base64: await blobToBase64String(values.address)}];
+    const othersBase64 = await Promise.all(values.others.map(async(file) => ({filename: file.name, base64: await blobToBase64String(file)}) ))
+    // recursion
+    // recursionArray(othersBase64)
+    const documents = [...hkidBase64, ...addressBase64, ...othersBase64]
+    console.log(documents);
   };
 
   return (
