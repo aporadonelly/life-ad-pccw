@@ -20,8 +20,15 @@
     "schemeName": "方案名称",
     "status": "地位",
     "payrollGroupContctPerson": "薪资组联系人",
+    "payrollGroup": "薪资组",
+    "gradePayroll": "等级工资",
     "enrollmentEnquiries": "雇主注册或注册查询",
-    "enquiryResult": "查询结果"
+    "enquiryResult": "查询结果",
+    "employerEnrollmentInfo": "雇主注册信息",
+    "particularsOfCompanyDirector": "公司董事资料",
+    "beneficialOwner": "受益拥有者",
+    "partner": "伙伴",
+    "selfCertification": "自我认证"
   },
   "paragraph": {},
   "subjectInfo": {

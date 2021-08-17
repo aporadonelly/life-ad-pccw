@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Page } from "@containers";
 import { PageHeader, PageInner } from "@components/layout";
 import { createRoutes } from "@components/misc";
 import { enquiriesRoutes } from "@routes/employers";
@@ -26,10 +25,10 @@ const Enquiries = () => {
   );
 
   return (
-    <Page>
+    <>
       <PageHeader routes={tabs} />
       <PageInner>{createRoutes(enquiriesRoutes)}</PageInner>
-    </Page>
+    </>
   );
 };
 

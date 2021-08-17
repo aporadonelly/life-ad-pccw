@@ -14,5 +14,10 @@
   "cancel": "取消",
   "yes": "是的",
   "no": "不",
-  "ok": "好的"
+  "ok": "好的",
+  "addPayrollGroupContactPerson": "添加薪资组联系人",
+  "addGrade": "添加成绩",
+  "copyFromOtherPayrollGroup": "从其他工资组复制",
+  "detail": "细节",
+  "delete": "删除"
 }

@@ -10,4 +10,12 @@ export const useStyles = makeStyles((theme) => ({
       paddingRight: 0,
     },
   },
+  striped: {
+    "& > *": {
+      borderBottom: 0,
+    },
+    "&:nth-of-type(odd)": {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
 }));

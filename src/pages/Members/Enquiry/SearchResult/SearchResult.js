@@ -1,6 +1,5 @@
-/* eslint-disable default-case */
-import { useEffect } from "react";
-import TableCustomized from "@components/common/TableCustomized";
+import { useEffect, useMemo, useCallback } from "react";
+import { DataTable } from "@components/common";
 import {
   Grid,
   Card,
@@ -11,13 +10,13 @@ import {
   Box,
   Tooltip,
 } from "@material-ui/core";
-import { Page, EnquiryChips } from "@containers";
+import { EnquiryChips } from "@containers";
 import { PageInner } from "@components/layout";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
 import viewEnrollActive from "@assets/icons/enroll-active.PNG";
 import viewEnrollInActive from "@assets/icons/enroll-inactive.PNG";
 import viewRegistration from "@assets/icons/view_reg.PNG";
+import useStyles from "./styles";
 
 const SearchResult = ({
   employees,
@@ -25,37 +24,82 @@ const SearchResult = ({
   getSpecificMember,
   saveEnquiry,
   enquiry,
+  push,
 }) => {
-  const history = useHistory();
   const { t } = useTranslation(["typography", "form", "button", "table"]);
-
-  const columns = [
-    { label: t("table:thead.mpfId"), name: "pnsnIdTxt" },
-    { label: t("table:thead.displayName"), name: "fullname" },
-    { label: t("table:thead.idType"), name: "idTypeId" },
-    { label: t("table:thead.idNumber"), name: "idNoTxt" },
-    { label: t("table:thead.mobileNumber"), name: "clntPhones[0].phoneNumber" },
-    { label: t("table:thead.email"), name: "cntcts[0].emailAddrTxt" },
-    { label: t("table:thead.status"), name: "statusTypId" },
-  ];
+  const classes = useStyles();
 
   useEffect(() => {}, [employees]);
 
-  const viewMembersDetails = (id) => {
-    getSpecificMember(id);
-  };
+  const viewMembersDetails = useCallback(
+    (id) => {
+      getSpecificMember(id);
+    },
+    [getSpecificMember]
+  );
 
   const handleEditSearch = () => {
-    history.push("/members/enquiry/search");
+    push("/members/enquiry/search");
   };
 
   const handleNewSearch = () => {
     saveEnquiry({});
-    history.push("/members/enquiry/search");
+    push("/members/enquiry/search");
   };
 
+  const columns = useMemo(
+    () => [
+      { Header: t("table:thead.mpfId"), accessor: "pnsnIdTxt" },
+      { Header: t("table:thead.displayName"), accessor: "fullname" },
+      { Header: t("table:thead.idType"), accessor: "idTypeId" },
+      { Header: t("table:thead.idNumber"), accessor: "idNoTxt" },
+      {
+        Header: t("table:thead.mobileNumber"),
+        accessor: "clntPhones[0].phoneNumber",
+      },
+      { Header: t("table:thead.email"), accessor: "cntcts[0].emailAddrTxt" },
+      { Header: t("table:thead.status"), accessor: "statusTypId" },
+      {
+        Header: t("table:thead.custom.action"),
+        headerProps: {
+          style: {
+            textAlign: "center",
+          },
+        },
+        sticky: "right",
+        disableSortBy: true,
+        Cell: ({ row }) => {
+          const { pnsnIdTxt, vwEnrFlg } = row.original;
+          return (
+            <>
+              <Tooltip title="View Registration">
+                <img
+                  src={viewRegistration}
+                  alt="View Registration"
+                  onClick={() => viewMembersDetails(pnsnIdTxt)}
+                  variant="contained"
+                  className={classes.viewRegBtn}
+                />
+              </Tooltip>
+              <Tooltip title="View Enrollment">
+                <img
+                  src={vwEnrFlg ? viewEnrollActive : viewEnrollInActive}
+                  alt="View Enrollment"
+                  variant="contained"
+                  className={classes.viewEnrBtn}
+                />
+              </Tooltip>
+            </>
+          );
+        },
+      },
+    ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [t, viewMembersDetails]
+  );
+
   return (
-    <Page>
+    <>
       <PageInner>
         {isLoading ? (
           <Box display="flex" justifyContent="center">
@@ -109,60 +153,11 @@ const SearchResult = ({
                     alignItems="flex-start"
                   >
                     <Grid item xs={12}>
-                      {employees.length > 0 ? (
-                        <TableCustomized
-                          title={t("typography:heading.searchResult")}
-                          rows={employees}
-                          columns={columns}
-                          stickyLabel={t("table:thead.custom.action")}
-                          renderStickyCell={(row) => {
-                            return (
-                              <>
-                                <Tooltip title="View Registration">
-                                  <img
-                                    src={viewRegistration}
-                                    alt="View Registration"
-                                    onClick={() =>
-                                      viewMembersDetails(row.pnsnIdTxt)
-                                    }
-                                    variant="contained"
-                                    style={{
-                                      margin: "0 5px",
-                                      background: "#EF841F",
-                                      color: "#fff",
-                                      cursor: "pointer",
-                                    }}
-                                  />
-                                </Tooltip>
-                                <Tooltip title="View Enrollment">
-                                  <img
-                                    src={
-                                      row.vwEnrFlg
-                                        ? viewEnrollActive
-                                        : viewEnrollInActive
-                                    }
-                                    alt="View Enrollment"
-                                    variant="contained"
-                                    style={{
-                                      margin: "0 5px",
-                                      background: "#EF841F",
-                                      color: "#fff",
-                                    }}
-                                  />
-                                </Tooltip>
-                              </>
-                            );
-                          }}
-                        />
-                      ) : (
-                        <Box display="flex">
-                          <Grid item xs={12} align="center">
-                            <Typography variant="h6" color="primary">
-                              {t("table:tbody.custom.noDataFound")}
-                            </Typography>
-                          </Grid>
-                        </Box>
-                      )}
+                      <DataTable
+                        title={t("typography:heading.enquiryResult")}
+                        data={employees}
+                        columns={columns}
+                      />
                     </Grid>
                   </Grid>
                 </CardContent>
@@ -171,7 +166,7 @@ const SearchResult = ({
           </Grid>
         )}
       </PageInner>
-    </Page>
+    </>
   );
 };
 export default SearchResult;

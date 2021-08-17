@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import {
   Grid,
   Card,
@@ -11,18 +11,24 @@ import { DataTable } from "@components/common";
 import ViewIcon from "@assets/icons/view_btn.svg";
 import { useTranslation } from "react-i18next";
 
-const AuthorizedPersonList = ({
-  cmpnyRltdPrsns,
-  setSelectedClientUUID,
-  push,
-}) => {
+const AuthorizedPersonList = (props) => {
+  const { match, cmpnyRltdPrsns, push } = props;
+  const { companyName } = match.params;
   const { t } = useTranslation(["typography", "form", "table", "button"]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const handleViewMembersDetails = ({ clntUuid }) => {
-    setSelectedClientUUID({ clntUuid });
-    push("/employers/registration/authorized-person");
-  };
+  const handleViewMembersDetails = useCallback(
+    ({ clntUuid }) => {
+      push({
+        routeName: "Employer Registration Authorized Person",
+        params: {
+          companyName,
+          clntUuid,
+        },
+      });
+    },
+    [companyName, push]
+  );
+
   const columns = useMemo(
     () => [
       { Header: t("table:thead.lastName"), accessor: "lstName" },

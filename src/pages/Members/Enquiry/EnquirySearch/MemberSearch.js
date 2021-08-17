@@ -2,7 +2,6 @@ import moment from "moment";
 import { isEqual } from "lodash";
 import * as yup from "yup";
 import { Formik } from "formik";
-import { Page } from "@containers";
 import { PageInner } from "@components/layout";
 
 import {
@@ -72,7 +71,7 @@ const MemberSearch = ({
   };
 
   return (
-    <Page>
+    <>
       <PageInner>
         <Grid container spacing={3}>
           <Grid item xs={12}>
@@ -405,7 +404,7 @@ const MemberSearch = ({
 
         <Toolbar variant="regular" />
       </PageInner>
-    </Page>
+    </>
   );
 };
 export default MemberSearch;

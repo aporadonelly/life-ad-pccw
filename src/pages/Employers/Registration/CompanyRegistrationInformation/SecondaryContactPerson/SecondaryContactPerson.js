@@ -7,9 +7,11 @@ import { isEmpty } from "lodash";
 const SecondaryContactPerson = (props) => {
   const { companyRegInfo, contact, telephone, mobile } = props;
   const { t } = useTranslation(["typography", "form", "table", "button"]);
-
-  if (!isEmpty(contact)) {
-    return (
+  if (isEmpty(contact)) {
+    return null;
+  }
+  return (
+    <Grid item xs={12}>
       <Card>
         <CardContent>
           <Grid container spacing={2}>
@@ -63,9 +65,8 @@ const SecondaryContactPerson = (props) => {
           </Grid>
         </CardContent>
       </Card>
-    );
-  }
-  return null;
+    </Grid>
+  );
 };
 
 SecondaryContactPerson.defaultProps = {

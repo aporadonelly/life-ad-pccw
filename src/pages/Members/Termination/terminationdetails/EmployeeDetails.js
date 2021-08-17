@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { Box, CircularProgress } from "@material-ui/core";
 import { Form as FormikForm } from "@components/common";
 
-import { Form } from "@components/UseForm";
 import useStyles from "./EmployeeDetailStyles";
 
 import EmpScheme4 from "./EmployeeScheme4";
@@ -539,7 +538,7 @@ const EmployeeDetails = (props) => {
             };
 
             return (
-              <Form onClick={() => setBottomBar(true)}>
+              <form onClick={() => setBottomBar(true)}>
                 <MessageRender
                   open={open}
                   onClose={handleClose}
@@ -809,7 +808,7 @@ const EmployeeDetails = (props) => {
                     </Button>
                   </BottomAppBar>
                 )}
-              </Form>
+              </form>
             );
           }}
         </Formik>
