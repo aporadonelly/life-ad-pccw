@@ -1,34 +1,26 @@
 import { bindActionCreators } from "redux";
-import { push } from "connected-react-router";
 import { connect } from "react-redux";
+import { push } from "@redux/helpers";
 import {
   employeesSelector,
-  isLoadingSelector,
-  errorSelector,
-  employeeSelector,
-  enquirySelector,
-} from "@redux/features/members/selectors";
+  draftEnquirySelector,
+} from "@redux/features/registrationEmployee/selectors";
 import {
-  getAllMembers,
-  getSpecificMember,
-  saveEnquiry,
-} from "@redux/features/members/actions";
+  draftEnquiry,
+  ldSrchRegInd,
+} from "@redux/features/registrationEmployee/actions";
 import SearchResult from "./SearchResult";
 
 const mapStateToProps = (state) => ({
-  isLoading: isLoadingSelector(state),
-  error: errorSelector(state),
   employees: employeesSelector(state),
-  employee: employeeSelector(state),
-  enquiry: enquirySelector(state),
+  enquiry: draftEnquirySelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators(
     {
-      getAllMembers,
-      getSpecificMember,
-      saveEnquiry,
+      draftEnquiry,
+      ldSrchRegInd,
       push,
     },
     dispatch

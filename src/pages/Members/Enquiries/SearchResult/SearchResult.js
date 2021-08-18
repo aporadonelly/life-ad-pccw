@@ -1,50 +1,62 @@
-import { useEffect, useMemo, useCallback } from "react";
-import { DataTable } from "@components/common";
+import { useMemo, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Grid,
   Card,
   CardContent,
   Typography,
   Button,
-  CircularProgress,
-  Box,
   Tooltip,
 } from "@material-ui/core";
 import { EnquiryChips } from "@containers";
-import { PageInner } from "@components/layout";
-import { useTranslation } from "react-i18next";
+import { DataTable } from "@components/common";
 import viewEnrollActive from "@assets/icons/enroll-active.PNG";
 import viewEnrollInActive from "@assets/icons/enroll-inactive.PNG";
 import viewRegistration from "@assets/icons/view_reg.PNG";
 import useStyles from "./styles";
 
-const SearchResult = ({
-  employees,
-  isLoading,
-  getSpecificMember,
-  saveEnquiry,
-  enquiry,
-  push,
-}) => {
+const SearchResult = (props) => {
+  const { employees, enquiry, draftEnquiry, push } = props;
   const { t } = useTranslation(["typography", "form", "button", "table"]);
   const classes = useStyles();
 
-  useEffect(() => {}, [employees]);
+  // const viewMembersDetails = useCallback(
+  //   (id) => {
+  //     getSpecificMember(id);
+  //   },
+  //   [getSpecificMember]
+  // );
 
-  const viewMembersDetails = useCallback(
-    (id) => {
-      getSpecificMember(id);
-    },
-    [getSpecificMember]
-  );
+  const viewMembersDetails = () => {};
 
   const handleEditSearch = () => {
-    push("/members/enquiry/search");
+    push({ routeName: "Member Search Enquiry" });
   };
 
   const handleNewSearch = () => {
-    saveEnquiry({});
-    push("/members/enquiry/search");
+    draftEnquiry({});
+    push({ routeName: "Member Search Enquiry" });
+  };
+
+  const handleViewRegistration = useCallback(
+    ({ pnsnIdTxt }) => {
+      push({
+        routeName: "Member Registration Information",
+        params: {
+          pnsnIdTxt,
+        },
+      });
+    },
+    [push]
+  );
+
+  const handleViewAccountTypes = ({ pnsnIdTxt }) => {
+    push({
+      routeName: "Member Account Types",
+      params: {
+        pnsnIdTxt,
+      },
+    });
   };
 
   const columns = useMemo(
@@ -76,7 +88,7 @@ const SearchResult = ({
                 <img
                   src={viewRegistration}
                   alt="View Registration"
-                  onClick={() => viewMembersDetails(pnsnIdTxt)}
+                  onClick={() => handleViewRegistration({ pnsnIdTxt })}
                   variant="contained"
                   className={classes.viewRegBtn}
                 />
@@ -87,6 +99,7 @@ const SearchResult = ({
                   alt="View Enrollment"
                   variant="contained"
                   className={classes.viewEnrBtn}
+                  onClick={() => handleViewAccountTypes({ pnsnIdTxt })}
                 />
               </Tooltip>
             </>
@@ -99,74 +112,58 @@ const SearchResult = ({
   );
 
   return (
-    <>
-      <PageInner>
-        {isLoading ? (
-          <Box display="flex" justifyContent="center">
-            <CircularProgress alignItems="center" />
-          </Box>
-        ) : (
-          <Grid container spacing={3}>
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <Card>
+          <CardContent>
             <Grid item xs={12}>
-              <Card>
-                <CardContent>
-                  <Grid item xs={12}>
-                    <Typography variant="h6" color="primary">
-                      {t("typography:heading.memberEnquiry")}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Grid container>
-                      <Grid item xs={8}>
-                        <EnquiryChips enquiry={enquiry} />
-                      </Grid>
-                      <Grid item xs={4} align="right" display="flex">
-                        <Button
-                          data-testid="back-btn"
-                          variant="outlined"
-                          onClick={handleEditSearch}
-                        >
-                          {t("button:editSearch")}
-                        </Button>
-                        &emsp;
-                        <Button
-                          style={{ width: "auto" }}
-                          data-testid="back-btn"
-                          onClick={handleNewSearch}
-                        >
-                          {t("button:newSearch")}
-                        </Button>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
+              <Typography variant="h6" color="primary">
+                {t("typography:heading.memberEnquiry")}
+              </Typography>
             </Grid>
-
             <Grid item xs={12}>
-              <Card>
-                <CardContent>
-                  <Grid
-                    container
-                    component="dl"
-                    spacing={1}
-                    alignItems="flex-start"
+              <Grid container>
+                <Grid item xs={8}>
+                  <EnquiryChips enquiry={enquiry} />
+                </Grid>
+                <Grid item xs={4} align="right" display="flex">
+                  <Button
+                    data-testid="back-btn"
+                    variant="outlined"
+                    onClick={handleEditSearch}
                   >
-                    <Grid item xs={12}>
-                      <DataTable
-                        title={t("typography:heading.enquiryResult")}
-                        data={employees}
-                        columns={columns}
-                      />
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
+                    {t("button:editSearch")}
+                  </Button>
+                  &emsp;
+                  <Button
+                    style={{ width: "auto" }}
+                    data-testid="back-btn"
+                    onClick={handleNewSearch}
+                  >
+                    {t("button:newSearch")}
+                  </Button>
+                </Grid>
+              </Grid>
             </Grid>
-          </Grid>
-        )}
-      </PageInner>
-    </>
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid item xs={12}>
+        <Card>
+          <CardContent>
+            <Grid container component="dl" spacing={1} alignItems="flex-start">
+              <Grid item xs={12}>
+                <DataTable
+                  title={t("typography:heading.enquiryResult")}
+                  data={employees}
+                  columns={columns}
+                />
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+      </Grid>
+    </Grid>
   );
 };
 export default SearchResult;
