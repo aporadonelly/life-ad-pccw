@@ -1,6 +1,5 @@
 export { default as systemAdapter } from "./system.adapter";
 export { default as userAdapter } from "./user.adapter";
-export { default as employeesAdapter } from "./members.adapter";
 export { default as terminationAdapter } from "./emp_termination.adapter";
 export { default as dataModification } from "./dataModification.adapter";
 export { default as enrollmentEmployee } from "./enrollmentEmployee.adapter";
