@@ -8,3 +8,4 @@ export { default as enrollmentEmployer } from "./enrollmentEmployer.adapter";
 export { default as enrollmentSelfEmployed } from "./enrollmentSelfEmployed.adapter";
 export { default as mlfub } from "./mlfub.adapter";
 export { default as registrationEmployer } from "./registrationEmployer.adapter";
+export { default as enrollmentCasualEmployee } from "./enrollmentCasualEmployee.adapter";
