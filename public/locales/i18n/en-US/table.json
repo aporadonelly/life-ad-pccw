@@ -26,7 +26,11 @@
     "paymentMethod": "Payment Method",
     "type": "Type",
     "englishName": "Name in English",
-
+    "schemeName": "Scheme Name",
+    "dateOfJoiningScheme": "Date of Joining Scheme",
+    "nameOfBusiness": "Name of Business",
+    "accountType": "Account Type",
+    "accountNo": "Account No.",
     "custom": {
       "action": "Action",
       "view": "View"
