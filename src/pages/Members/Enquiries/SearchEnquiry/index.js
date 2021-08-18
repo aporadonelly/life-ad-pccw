@@ -8,12 +8,11 @@ import {
 import {
   isLoadingSelector,
   errorSelector,
-  employeesSelector,
   draftEnquirySelector,
 } from "@redux/features/registrationEmployee/selectors";
 import {
-  draftEnquiry,
   ldSrchRegInd,
+  draftEnquiry,
 } from "@redux/features/registrationEmployee/actions";
 import SearchEnquiry from "./SearchEnquiry";
 
@@ -29,7 +28,6 @@ const mapStateToProps = (state) => ({
   occupation: customTypeByGroupIdSelector(state, "MB"),
   schemeType: customTypeByGroupIdSelector(state, "SC"),
   status: customTypeByGroupIdSelector(state, "ST"),
-  employees: employeesSelector(state),
   enquiry: draftEnquirySelector(state),
 });
 
