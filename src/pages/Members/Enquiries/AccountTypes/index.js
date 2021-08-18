@@ -1,17 +1,23 @@
-import { bindActionCreators } from "redux";
+import { compose, bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { push } from "@redux/helpers";
 import {
   indAccntLstSelector,
   isLoadingSelector,
 } from "@redux/features/enrollmentCasualEmployee/selectors";
+import { employeeSelector } from "@redux/features/registrationEmployee/selectors";
 import { getIndAccntLst } from "@redux/features/enrollmentCasualEmployee/actions";
 import AccountTypes from "./AccountTypes";
-import { push } from "connected-react-router";
 
-const mapStateToProps = (state) => ({
-  indAccntLst: indAccntLstSelector(state),
-  isLoading: isLoadingSelector(state),
-});
+const mapStateToProps = (state, ownProps) => {
+  const { pnsnIdTxt } = ownProps.match.params;
+  return {
+    employee: employeeSelector(state, pnsnIdTxt),
+    indAccntLst: indAccntLstSelector(state),
+    isLoading: isLoadingSelector(state),
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators(
@@ -23,4 +29,6 @@ const mapDispatchToProps = (dispatch) => ({
   ),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AccountTypes);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose(withRouter, withConnect)(AccountTypes);

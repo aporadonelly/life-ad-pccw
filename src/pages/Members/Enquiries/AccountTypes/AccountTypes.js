@@ -29,10 +29,9 @@ const useStyle = makeStyles({
 });
 
 const AccountTypes = (props) => {
-  const { indAccntLst, isLoading, getIndAccntLst, history, push } = props;
-
+  const { employee, indAccntLst, isLoading, getIndAccntLst, push } = props;
+  const { pnsnIdTxt, fullname } = employee;
   const { t } = useTranslation(["table", "button"]);
-
   const classes = useStyle();
 
   const columns = useMemo(
@@ -86,20 +85,8 @@ const AccountTypes = (props) => {
     [t, classes]
   );
 
-  const sampleData = {
-    empfID: "3746474",
-    fNm: "Chui Yee",
-    lNm: "Lo",
-  };
-
-  const createTitle = () => {
-    const { empfID, fNm, lNm } = sampleData;
-
-    return `${lNm} ${fNm} - (eMPF ID ${empfID})`;
-  };
-
   const handleBackButtonClick = () => {
-    history.goBack();
+    // history.goBack();
   };
 
   const handleNewSearchButtonClick = (e) => {
@@ -107,8 +94,8 @@ const AccountTypes = (props) => {
   };
 
   useEffect(() => {
-    getIndAccntLst({ indUuid: "611684C3-972A-450A-9E79-0C03CBDE3917" });
-  }, [getIndAccntLst]);
+    getIndAccntLst({ indUuid: pnsnIdTxt });
+  }, [getIndAccntLst, pnsnIdTxt]);
 
   return (
     <>
@@ -140,7 +127,7 @@ const AccountTypes = (props) => {
                       </Box>
                     ) : (
                       <DataTable
-                        title={createTitle()}
+                        title={`${fullname} - (eMPF ID ${pnsnIdTxt})`}
                         data={indAccntLst}
                         columns={columns}
                         disableQuickSearch
@@ -157,6 +144,10 @@ const AccountTypes = (props) => {
       </PageInner>
     </>
   );
+};
+
+AccountTypes.defaultProps = {
+  employee: {},
 };
 
 export default AccountTypes;
