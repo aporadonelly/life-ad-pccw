@@ -18,9 +18,9 @@ class RegistrationEmployee extends AxiosAdapter {
     });
   }
 
-  ldRegIndInfo({ empfId }) {
+  ldRegIndInfo({ pnsnIdTxt }) {
     return this.instance.get("/ldRegIndInfo", {
-      params: { empfId },
+      params: { empfId: pnsnIdTxt },
     });
   }
 }
