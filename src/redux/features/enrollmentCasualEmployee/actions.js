@@ -10,6 +10,10 @@ export const getIndAccntLst = createAsyncThunk(
       );
       return { indAccntLst };
     } catch (error) {
+      console.log("ERROR: ", error);
+      if (error === "EXMSG_RECORD_NOT_FOUND") {
+        return { indAccntLst: [] };
+      }
       return rejectWithValue({ error });
     }
   }
