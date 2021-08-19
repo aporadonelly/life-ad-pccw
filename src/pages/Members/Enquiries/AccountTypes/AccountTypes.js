@@ -1,5 +1,4 @@
 import { useEffect, useMemo } from "react";
-import { PageInner } from "@components/layout";
 import {
   Card,
   CardContent,
@@ -30,7 +29,7 @@ const useStyle = makeStyles({
 
 const AccountTypes = (props) => {
   const { employee, indAccntLst, isLoading, getIndAccntLst, push } = props;
-  const { pnsnIdTxt, fullname } = employee;
+  const { id, pnsnIdTxt, fullname } = employee;
   const { t } = useTranslation(["table", "button"]);
   const classes = useStyle();
 
@@ -86,63 +85,59 @@ const AccountTypes = (props) => {
   );
 
   const handleBackButtonClick = () => {
-    // history.goBack();
+    push({ routeName: "Member Search Result" });
   };
 
-  const handleNewSearchButtonClick = (e) => {
-    push("/members/enquiry/search");
+  const handleNewSearchButtonClick = () => {
+    push({ routeName: "Member Search Enquiry" });
   };
 
   useEffect(() => {
-    getIndAccntLst({ indUuid: pnsnIdTxt });
-  }, [getIndAccntLst, pnsnIdTxt]);
+    getIndAccntLst({ indUuid: id });
+  }, [getIndAccntLst, id]);
 
   return (
-    <>
-      <PageInner>
-        <Grid container>
-          <Grid item xs={12}>
-            <Card>
-              <CardContent>
-                <Grid container spacing={2}>
-                  <Grid item xs={12} align="right">
-                    <Button
-                      variant="outlined"
-                      onClick={handleBackButtonClick}
-                      className={classes.buttonSpacing}
-                    >
-                      {t("button:back")}
-                    </Button>
-                    <Button onClick={handleNewSearchButtonClick}>
-                      {t("button:newSearch")}
-                    </Button>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Divider />
-                  </Grid>
-                  <Grid item xs={12}>
-                    {!indAccntLst || isLoading ? (
-                      <Box display="flex" justifyContent="center">
-                        <CircularProgress />
-                      </Box>
-                    ) : (
-                      <DataTable
-                        title={`${fullname} - (eMPF ID ${pnsnIdTxt})`}
-                        data={indAccntLst}
-                        columns={columns}
-                        disableQuickSearch
-                        disablePagination
-                        disableShowEntries
-                      />
-                    )}
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
-      </PageInner>
-    </>
+    <Grid container>
+      <Grid item xs={12}>
+        <Card>
+          <CardContent>
+            <Grid container spacing={2}>
+              <Grid item xs={12} align="right">
+                <Button
+                  variant="outlined"
+                  onClick={handleBackButtonClick}
+                  className={classes.buttonSpacing}
+                >
+                  {t("button:back")}
+                </Button>
+                <Button onClick={handleNewSearchButtonClick}>
+                  {t("button:newSearch")}
+                </Button>
+              </Grid>
+              <Grid item xs={12}>
+                <Divider />
+              </Grid>
+              <Grid item xs={12}>
+                {!indAccntLst || isLoading ? (
+                  <Box display="flex" justifyContent="center">
+                    <CircularProgress />
+                  </Box>
+                ) : (
+                  <DataTable
+                    title={`${fullname} - (eMPF ID ${pnsnIdTxt})`}
+                    data={indAccntLst}
+                    columns={columns}
+                    disableQuickSearch
+                    disablePagination
+                    disableShowEntries
+                  />
+                )}
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+      </Grid>
+    </Grid>
   );
 };
 
