@@ -8,6 +8,7 @@ import {
   Button,
   Tooltip,
 } from "@material-ui/core";
+import clsx from "clsx";
 import { EnquiryChips } from "@containers";
 import { DataTable } from "@components/common";
 import viewEnrollActive from "@assets/icons/enroll-active.PNG";
@@ -90,7 +91,7 @@ const SearchResult = (props) => {
                   alt="View Registration"
                   onClick={() => handleViewRegistration({ pnsnIdTxt })}
                   variant="contained"
-                  className={classes.viewRegBtn}
+                  className={classes.viewBtn}
                 />
               </Tooltip>
               <Tooltip title="View Enrollment">
@@ -98,7 +99,13 @@ const SearchResult = (props) => {
                   src={vwEnrFlg ? viewEnrollActive : viewEnrollInActive}
                   alt="View Enrollment"
                   variant="contained"
-                  className={classes.viewEnrBtn}
+                  style={{
+                    margin: "0 5px",
+                    background: "#EF841F",
+                    color: "#fff",
+                    cursor: vwEnrFlg ? "pointer" : "not-allowed",
+                    pointerEvents: vwEnrFlg ? "all" : "none",
+                  }}
                   onClick={() => handleViewAccountTypes({ pnsnIdTxt })}
                 />
               </Tooltip>

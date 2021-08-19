@@ -1,12 +1,7 @@
 import { makeStyles } from "@material-ui/styles";
 
 const styles = makeStyles((theme) => ({
-  viewEnrBtn: {
-    margin: "0 5px",
-    background: "#EF841F",
-    color: "#fff",
-  },
-  viewRegBtn: {
+  viewBtn: {
     margin: "0 5px",
     background: "#EF841F",
     color: "#fff",
