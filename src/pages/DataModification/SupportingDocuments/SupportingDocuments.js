@@ -2,8 +2,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Formik } from "formik";
 import { Form } from "@components/common";
 import * as yup from "yup"; // validator for objects // input form
-import { Grid, Divider, Typography } from "@material-ui/core";
-import { useState } from "react";
+import {
+  Grid,
+  Divider,
+  Typography,
+  CircularProgress,
+  Box,
+} from "@material-ui/core";
+// import { useState } from "react";
 import { blobToBase64String } from "blob-util";
 
 const useStyles = makeStyles((theme) => ({
@@ -98,12 +104,33 @@ const validationSchema = yup.object().shape({
     }),
   others: yup
     .mixed()
-    .test("fileSize", "File Size is too large", (value) =>
-      value.every((v) => v.size <= FILE_SIZE)
-    )
-    .test("fileType", "Unsupported File Format", (value) =>
-      value.every((v) => SUPPORTED_FORMATS.includes(v.type))
-    )
+    .test("fileSize", function (value) {
+      let fileNameError = "";
+      const fileSize = value.every((v) => {
+        if (v.size <= FILE_SIZE) return v.size <= FILE_SIZE;
+        fileNameError = v.name;
+        return false;
+      });
+
+      if (fileSize) return fileSize;
+      return this.createError({
+        message: `${fileNameError} is too large`,
+      });
+    })
+    .test("fileType", function (value) {
+      let fileNameError = "";
+      const fileType = value.every((v) => {
+        if (SUPPORTED_FORMATS.includes(v.type))
+          return SUPPORTED_FORMATS.includes(v.type);
+        fileNameError = v.name;
+        return false;
+      });
+      
+      if (fileType) return fileType;
+      return this.createError({
+        message: `${fileNameError} is Unsupported File Format`,
+      });
+    })
     .test("fileExists", "File Exists", (value, context) => {
       const { hkid, address } = context.parent;
 
@@ -117,17 +144,37 @@ const validationSchema = yup.object().shape({
     }),
 });
 
-const SupportingDocuments = () => {
+const SupportingDocuments = (props) => {
   const classes = useStyles();
+  const { uploadDocuments, isLoading, error } = props;
 
   const handleSubmit = async (values) => {
-    const hkidBase64 = [{filename: values.hkid.name, base64: await blobToBase64String(values.hkid)}];
-    const addressBase64 = [{filename: values.address.name, base64: await blobToBase64String(values.address)}];
-    const othersBase64 = await Promise.all(values.others.map(async(file) => ({filename: file.name, base64: await blobToBase64String(file)}) ))
+    const hkidBase64 = [
+      {
+        filename: values.hkid.name,
+        base64: await blobToBase64String(values.hkid),
+      },
+    ];
+    const addressBase64 = [
+      {
+        filename: values.address.name,
+        base64: await blobToBase64String(values.address),
+      },
+    ];
+    const othersBase64 = await Promise.all(
+      values.others.map(async (file) => ({
+        filename: file.name,
+        base64: await blobToBase64String(file),
+      }))
+    );
     // recursion
     // recursionArray(othersBase64)
-    const documents = [...hkidBase64, ...addressBase64, ...othersBase64]
-    console.log(documents);
+    const documents = [...hkidBase64, ...addressBase64, ...othersBase64];
+    uploadDocuments({
+      files: documents,
+      validFormat: "pdf,jpg,docx,jpeg,png,gif,txt,tiff,tif",
+      validSizeMb: 5,
+    });
   };
 
   return (
@@ -209,7 +256,15 @@ const SupportingDocuments = () => {
             multiple={true}
           />
 
-          <Form.Submit>Upload</Form.Submit>
+          <Form.Submit>
+            {isLoading ? (
+              <Box display="flex" justifyContent="center">
+                <CircularProgress size={25} color="inherit" />
+              </Box>
+            ) : (
+              "UPLOAD"
+            )}
+          </Form.Submit>
         </Form>
       </Grid>
     </Formik>
