@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import { Cancel as CancelIcon } from "@material-ui/icons";
 import { FileIcon } from "react-file-icon";
-import { concat, map, head, isEmpty, compact } from "lodash";
+import { concat, map, head, isEmpty, compact, uniqBy } from "lodash";
 import clsx from "clsx";
 
 const Dropzone = (props) => {
@@ -42,7 +42,7 @@ const Dropzone = (props) => {
 
   function handleDrop(acceptedFiles, fileRejections) {
     const files = multiple
-      ? concat(value, acceptedFiles, map(fileRejections, "file"))
+      ? uniqBy(concat(value, acceptedFiles,map(fileRejections, "file")), 'name',)
       : acceptedFiles.length > 0
       ? head(acceptedFiles)
       : head(fileRejections)?.file;
@@ -61,7 +61,7 @@ const Dropzone = (props) => {
     }
   };
 
-  console.log("DROPZONE VALUE: ", value);
+  // console.log("DROPZONE VALUE: ", value);
 
   return (
     <FormControl error={error}>
