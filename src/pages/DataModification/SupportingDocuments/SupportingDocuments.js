@@ -10,7 +10,7 @@ import {
   Box,
 } from "@material-ui/core";
 // import { useState } from "react";
-import { blobToBase64String } from "blob-util";
+import { blobToDataURL } from "blob-util";
 
 const useStyles = makeStyles((theme) => ({
   dropzone: {
@@ -146,33 +146,33 @@ const validationSchema = yup.object().shape({
 
 const SupportingDocuments = (props) => {
   const classes = useStyles();
-  const { uploadDocuments, isLoading, error } = props;
+  const { uploadDocuments, isLoading } = props;
 
   const handleSubmit = async (values) => {
     const hkidBase64 = [
       {
         filename: values.hkid.name,
-        base64: await blobToBase64String(values.hkid),
+        base64: await blobToDataURL(values.hkid),
       },
-    ];
+    ]; 
     const addressBase64 = [
       {
         filename: values.address.name,
-        base64: await blobToBase64String(values.address),
+        base64: await blobToDataURL(values.address),
       },
     ];
     const othersBase64 = await Promise.all(
       values.others.map(async (file) => ({
         filename: file.name,
-        base64: await blobToBase64String(file),
+        base64: await blobToDataURL(file),
       }))
     );
     // recursion
-    // recursionArray(othersBase64)
+    // recursionArray(othersBase64) 
     const documents = [...hkidBase64, ...addressBase64, ...othersBase64];
     uploadDocuments({
       files: documents,
-      validFormat: "pdf,jpg,docx,jpeg,png,gif,txt,tiff,tif",
+      validFormat: "application/pdf,image/jpg,image/jpeg,image/png,image/gif,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/tiff,",
       validSizeMb: 5,
     });
   };
