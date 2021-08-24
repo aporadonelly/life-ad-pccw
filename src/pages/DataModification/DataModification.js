@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Page } from "@containers";
 import { PageInner } from "@components/layout";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Box, Tab, Typography } from "@material-ui/core";
@@ -42,7 +41,11 @@ const DataModification = (props) => {
             <Grid container>
               <Grid item xs={2}>
                 <TabList
-                  indicatorColor="none"
+                  TabIndicatorProps={{
+                    style: {
+                      display: "none",
+                    },
+                  }}
                   orientation="vertical"
                   variant="scrollable"
                   onChange={handleChange}
