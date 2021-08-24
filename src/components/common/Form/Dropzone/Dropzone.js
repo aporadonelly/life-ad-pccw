@@ -42,7 +42,10 @@ const Dropzone = (props) => {
 
   function handleDrop(acceptedFiles, fileRejections) {
     const files = multiple
-      ? uniqBy(concat(value, acceptedFiles,map(fileRejections, "file")), 'name',)
+      ? uniqBy(
+          concat(value, acceptedFiles, map(fileRejections, "file")),
+          "name" , "type" , "size"
+        )
       : acceptedFiles.length > 0
       ? head(acceptedFiles)
       : head(fileRejections)?.file;
@@ -77,12 +80,26 @@ const Dropzone = (props) => {
           compact(concat([], value)).map((file, index) => {
             if (file.type.includes("image")) {
               return (
-                <img
-                  key={file.name}
-                  src={URL.createObjectURL(file)}
-                  className="img-thumbnail"
-                  alt={file.name}
-                />
+                <Box>
+                  <img
+                    key={file.name}
+                    src={URL.createObjectURL(file)}
+                    className="img-thumbnail"
+                    width={100}
+                    height={100}
+                    alt={file.name}
+                  />
+                  <IconButton
+                    size="small"
+                    onClick={handleRemove(index)}
+                    style={{ position: "absolute", marginTop: -5, marginLeft: -25 }}
+                  >
+                    <CancelIcon color="error" />
+                  </IconButton>
+                  <Typography className={titleClass} variant="subtitle2">
+                    {file.name.split(".").shift()}
+                  </Typography>
+                </Box>
               );
             }
 
