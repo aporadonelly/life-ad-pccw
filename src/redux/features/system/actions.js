@@ -1,5 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { systemAdapter } from "@adapters";
+import {
+  systemEnvSelector,
+  cycleDateSelector,
+  countriesSelector,
+  termReasonsSelector,
+  workSteamsSelector,
+  schemesSelector,
+  trusteesSelector,
+  customTypeByGroupIdSelector,
+} from "./selectors";
 
 export const getSystemEnv = createAsyncThunk(
   "@@empf/system/getSystemEnv",
@@ -15,6 +25,12 @@ export const getSystemEnv = createAsyncThunk(
     } catch (error) {
       return rejectWithValue({ error });
     }
+  },
+  {
+    condition: (_, { getState }) => {
+      const systemEnv = systemEnvSelector(getState());
+      if (systemEnv) return false;
+    },
   }
 );
 
@@ -27,6 +43,12 @@ export const getCycleDate = createAsyncThunk(
     } catch (error) {
       return rejectWithValue({ error });
     }
+  },
+  {
+    condition: (_, { getState }) => {
+      const cycleDate = cycleDateSelector(getState());
+      if (cycleDate) return false;
+    },
   }
 );
 
@@ -39,6 +61,12 @@ export const getCountryList = createAsyncThunk(
     } catch (error) {
       return rejectWithValue({ error });
     }
+  },
+  {
+    condition: (_, { getState }) => {
+      const countries = countriesSelector(getState());
+      if (countries.length > 0) return false;
+    },
   }
 );
 
@@ -51,6 +79,12 @@ export const getTermReasons = createAsyncThunk(
     } catch (error) {
       return rejectWithValue({ error });
     }
+  },
+  {
+    condition: (_, { getState }) => {
+      const termReasons = termReasonsSelector(getState());
+      if (termReasons.length > 0) return false;
+    },
   }
 );
 
@@ -63,6 +97,12 @@ export const getCustomTypeList = createAsyncThunk(
     } catch (error) {
       return rejectWithValue({ error });
     }
+  },
+  {
+    condition: ({ groupId }, { getState }) => {
+      const customTypes = customTypeByGroupIdSelector(getState(), groupId);
+      if (customTypes.length > 0) return false;
+    },
   }
 );
 
@@ -80,6 +120,12 @@ export const getWrkStrmSttsLst = createAsyncThunk(
     } catch (error) {
       return rejectWithValue({ error });
     }
+  },
+  {
+    condition: (_, { getState }) => {
+      const workSteams = workSteamsSelector(getState());
+      if (workSteams.length > 0) return false;
+    },
   }
 );
 
@@ -92,6 +138,12 @@ export const getSchmLst = createAsyncThunk(
     } catch (error) {
       return rejectWithValue({ error });
     }
+  },
+  {
+    condition: (_, { getState }) => {
+      const schemes = schemesSelector(getState());
+      if (schemes.length > 0) return false;
+    },
   }
 );
 
@@ -104,5 +156,11 @@ export const getTrstLst = createAsyncThunk(
     } catch (error) {
       return rejectWithValue({ error });
     }
+  },
+  {
+    condition: (_, { getState }) => {
+      const trustees = trusteesSelector(getState());
+      if (trustees.length > 0) return false;
+    },
   }
 );

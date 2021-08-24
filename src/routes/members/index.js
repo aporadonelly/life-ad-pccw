@@ -1,1 +1,1 @@
-export { default as enquiryRoutes } from "./enquiry.routes";
+export { default as enquiriesRoutes } from "./enquiries.routes";

@@ -5,7 +5,7 @@ import {
   isLoadingSelector,
 } from "@redux/features/members/selectors";
 import { getSpecificMember } from "@redux/features/members/actions";
-import ViewMember from "./ViewMember";
+import RegistrationInformation from "./RegistrationInformation";
 
 const mapStateToProps = (state) => ({
   employee: employeeSelector(state),
@@ -16,4 +16,7 @@ const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({ getSpecificMember }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ViewMember);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RegistrationInformation);

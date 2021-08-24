@@ -1,5 +1,6 @@
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { push } from "@redux/helpers";
 import {
   customTypeByGroupIdSelector,
   countriesSelector,
@@ -7,12 +8,13 @@ import {
 import {
   isLoadingSelector,
   errorSelector,
-  employeesSelector,
-  enquirySelector,
-} from "@redux/features/members/selectors";
-import { getAllMembers, saveEnquiry } from "@redux/features/members/actions";
-
-import MemberSearch from "./MemberSearch";
+  draftEnquirySelector,
+} from "@redux/features/registrationEmployee/selectors";
+import {
+  ldSrchRegInd,
+  draftEnquiry,
+} from "@redux/features/registrationEmployee/actions";
+import SearchEnquiry from "./SearchEnquiry";
 
 const mapStateToProps = (state) => ({
   isLoading: isLoadingSelector(state),
@@ -26,18 +28,18 @@ const mapStateToProps = (state) => ({
   occupation: customTypeByGroupIdSelector(state, "MB"),
   schemeType: customTypeByGroupIdSelector(state, "SC"),
   status: customTypeByGroupIdSelector(state, "ST"),
-  employees: employeesSelector(state),
-  enquiry: enquirySelector(state),
+  enquiry: draftEnquirySelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators(
     {
-      getAllMembers,
-      saveEnquiry,
+      draftEnquiry,
+      ldSrchRegInd,
+      push,
     },
     dispatch
   ),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MemberSearch);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchEnquiry);

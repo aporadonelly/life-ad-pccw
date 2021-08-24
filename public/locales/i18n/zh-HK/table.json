@@ -26,6 +26,11 @@
     "paymentMethod": "付款方式",
     "type": "類型",
     "englishName": "英文名稱",
+    "schemeName": "方案名稱",
+    "dateOfJoiningScheme": "加入計劃日期",
+    "nameOfBusiness": "企業名稱",
+    "accountType": "帳戶類型",
+    "accountNo": "賬號",
     "custom": {
       "action": "行動",
       "view": "看法"

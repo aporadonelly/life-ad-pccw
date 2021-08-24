@@ -3,10 +3,11 @@ import { push } from "connected-react-router";
 import { concat, values, find, isEmpty } from "lodash";
 import queryString from "query-string";
 import * as employers from "@routes/employers";
+import * as members from "@routes/members";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default ({ routeName, params, query }) => {
-  const routes = concat([], ...values(employers));
+  const routes = concat([], ...values(employers), ...values(members));
   const findRoute = find(routes, { name: routeName });
 
   if (findRoute) {
