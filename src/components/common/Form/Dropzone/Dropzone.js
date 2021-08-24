@@ -80,9 +80,8 @@ const Dropzone = (props) => {
           compact(concat([], value)).map((file, index) => {
             if (file.type.includes("image")) {
               return (
-                <Box>
+                <Box key={file.name}>
                   <img
-                    key={file.name}
                     src={URL.createObjectURL(file)}
                     className="img-thumbnail"
                     width={100}
