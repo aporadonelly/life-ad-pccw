@@ -125,7 +125,7 @@ const validationSchema = yup.object().shape({
         fileNameError = v.name;
         return false;
       });
-      
+
       if (fileType) return fileType;
       return this.createError({
         message: `${fileNameError} is Unsupported File Format`,
@@ -154,7 +154,7 @@ const SupportingDocuments = (props) => {
         filename: values.hkid.name,
         base64: await blobToDataURL(values.hkid),
       },
-    ]; 
+    ];
     const addressBase64 = [
       {
         filename: values.address.name,
@@ -167,12 +167,11 @@ const SupportingDocuments = (props) => {
         base64: await blobToDataURL(file),
       }))
     );
-    // recursion
-    // recursionArray(othersBase64) 
     const documents = [...hkidBase64, ...addressBase64, ...othersBase64];
     uploadDocuments({
       files: documents,
-      validFormat: "application/pdf,image/jpg,image/jpeg,image/png,image/gif,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/tiff,",
+      validFormat:
+        "application/pdf,image/jpg,image/jpeg,image/png,image/gif,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/tiff,",
       validSizeMb: 5,
     });
   };
