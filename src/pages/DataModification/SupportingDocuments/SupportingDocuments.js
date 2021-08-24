@@ -255,15 +255,29 @@ const SupportingDocuments = (props) => {
             multiple={true}
           />
 
-          <Form.Submit>
-            {isLoading ? (
-              <Box display="flex" justifyContent="center">
-                <CircularProgress size={25} color="inherit" />
-              </Box>
-            ) : (
-              "UPLOAD"
-            )}
-          </Form.Submit>
+          <Grid container>
+            <Grid item xs={5}>
+              <Form.Reset variant="outlined" color="secondary">
+                Previous Page
+              </Form.Reset>
+            </Grid>
+            <Grid item xs={4}>
+              <Form.Reset variant="outlined" color="secondary">
+                Next Page
+              </Form.Reset>
+            </Grid>
+            <Grid item xs={3}>
+              <Form.Submit>
+                {isLoading ? (
+                  <Box display="flex" justifyContent="center">
+                    <CircularProgress size={25} color="inherit" />
+                  </Box>
+                ) : (
+                  "UPLOAD"
+                )}
+              </Form.Submit>
+            </Grid>
+          </Grid>
         </Form>
       </Grid>
     </Formik>
