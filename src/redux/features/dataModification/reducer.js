@@ -17,8 +17,6 @@ export const dataModificationReducer = createReducer(initialState, (builder) =>
     })
     .addCase(uploadDocuments.fulfilled, (state, action) => {
       const { fileReport } = action.payload;
-      console.log('fileReport')
-      console.log(fileReport)
       return { ...state, isLoading: false, fileReport };
     })
     .addCase(uploadDocuments.rejected, (state, action) => {
