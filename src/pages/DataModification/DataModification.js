@@ -26,63 +26,83 @@ const DataModification = (props) => {
   };
 
   return (
-    <Page>
-      <PageInner>
-        <TabContext value={activeTab}>
-          <Grid container>
-            <Grid item xs={2}>
-              <TabList
-                indicatorColor="none"
-                orientation="vertical"
-                variant="scrollable"
-                onChange={handleChange}
-                aria-label="Section Tab"
-              >
-                <Tab
-                  className={classes.tabs}
-                  label={TitleTabs("1:", "Personal Details")}
-                  value="Section 1"
-                />
-                <Tab label={TitleTabs("2:", "Contact Information")} value="Section 2" />
-                <Tab
-                  className={classes.tabs}
-                  label={TitleTabs("3:", "Communication Preferences")}
-                  value="Section 3"
-                />
-                <Tab label={TitleTabs("4:", "MPF Accounts Information")} value="Section 4"/>
-                <Tab
-                  className={classes.tabs}
-                  label={TitleTabs("5:", "Payment Method")}
-                  value="Section 5"
-                />
-                <Tab label={TitleTabs("6:", "CRS Information")} value="Section 6" />
-                <Tab
-                  className={classes.tabs}
-                  label={TitleTabs("7:", "Others Details")}
-                  value="Section 7"
-                />
-                <Tab
-                  label={TitleTabs("8:", "Upload Supporting Documents")}
-                  value="Section 8"
-                />
-                <Tab
-                  className={classes.tabs}
-                  label={TitleTabs("9:", "Confirmation")}
-                  value="Section 9"
-                />
-              </TabList>
-            </Grid>
-            <Grid item xs={10}>
-              <Box ml={2} mr={2}>
-                <TabPanel value="Section 8">
-                  <SupportingDocuments />
-                </TabPanel>
-              </Box>
+    <PageInner>
+      <TabContext value={activeTab}>
+        <Grid container spacing={1}>
+          <Grid item xs={12}>
+            <Typography
+              align="center"
+              className={classes.tabs}
+              variant="subtitle2"
+            >
+              Data Modification Page
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Grid container>
+              <Grid item xs={2}>
+                <TabList
+                  indicatorColor="none"
+                  orientation="vertical"
+                  variant="scrollable"
+                  onChange={handleChange}
+                  aria-label="Section Tab"
+                >
+                  <Tab
+                    className={classes.tabs}
+                    label={TitleTabs("1:", "Personal Details")}
+                    value="Section 1"
+                  />
+                  <Tab
+                    label={TitleTabs("2:", "Contact Information")}
+                    value="Section 2"
+                  />
+                  <Tab
+                    className={classes.tabs}
+                    label={TitleTabs("3:", "Communication Preferences")}
+                    value="Section 3"
+                  />
+                  <Tab
+                    label={TitleTabs("4:", "MPF Accounts Information")}
+                    value="Section 4"
+                  />
+                  <Tab
+                    className={classes.tabs}
+                    label={TitleTabs("5:", "Payment Method")}
+                    value="Section 5"
+                  />
+                  <Tab
+                    label={TitleTabs("6:", "CRS Information")}
+                    value="Section 6"
+                  />
+                  <Tab
+                    className={classes.tabs}
+                    label={TitleTabs("7:", "Others Details")}
+                    value="Section 7"
+                  />
+                  <Tab
+                    label={TitleTabs("8:", "Upload Supporting Documents")}
+                    value="Section 8"
+                  />
+                  <Tab
+                    className={classes.tabs}
+                    label={TitleTabs("9:", "Confirmation")}
+                    value="Section 9"
+                  />
+                </TabList>
+              </Grid>
+              <Grid item xs={10}>
+                <Box ml={2} mr={2}>
+                  <TabPanel value="Section 8">
+                    <SupportingDocuments />
+                  </TabPanel>
+                </Box>
+              </Grid>
             </Grid>
           </Grid>
-        </TabContext>
-      </PageInner>
-    </Page>
+        </Grid>
+      </TabContext>
+    </PageInner>
   );
 };
 
