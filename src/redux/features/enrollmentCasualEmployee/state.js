@@ -1,7 +1,7 @@
 import { createEntityAdapter } from "@reduxjs/toolkit";
 
 export const indAccntLstAdapter = createEntityAdapter({
-  selectId: (indAccntLst) => indAccntLst.mbrCd,
+  selectId: (indAccntLst) => indAccntLst.mbrTypDscrptn,
 });
 
 export const enrollmentCEE = createEntityAdapter({});
