@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { uploadDocuments } from "@redux/features/dataModification/actions";
+import { vldUpldDoc } from "@redux/features/dataModification/actions";
 import SupportingDocuments from "./SupportingDocuments";
 import { isLoadingSelector } from "@redux/features/dataModification/selectors";
 
@@ -11,13 +11,12 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators(
     {
-      uploadDocuments,
+      vldUpldDoc,
     },
     dispatch
   ),
 });
 
-// export { default } from "./SupportingDocuments";
 export default connect(
   mapStateToProps,
   mapDispatchToProps
