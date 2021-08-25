@@ -7,6 +7,7 @@ import enrollmentEmployer from "./features/enrollmentEmployer/reducer";
 import mlfub from "./features/mlfub/reducer";
 import registrationEmployee from "./features/registrationEmployee/reducer";
 import registrationEmployer from "./features/registrationEmployer/reducer";
+import dataModification from "./features/dataModification/reducer"
 import enrollmentCasualEmployee from "./features/enrollmentCasualEmployee/reducer";
 
 const createRootReducer = (history) =>
@@ -19,6 +20,7 @@ const createRootReducer = (history) =>
     enrollmentEmployer,
     registrationEmployee,
     employeeTermination,
+    dataModification,
     enrollmentCasualEmployee,
   });
 
