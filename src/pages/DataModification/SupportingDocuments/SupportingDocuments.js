@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { Formik } from "formik";
 import { Form } from "@components/common";
-import * as yup from "yup"; // validator for objects // input form
+import * as yup from "yup";
 import {
   Grid,
   Divider,
@@ -9,7 +9,6 @@ import {
   CircularProgress,
   Box,
 } from "@material-ui/core";
-// import { useState } from "react";
 import { blobToDataURL } from "blob-util";
 
 const useStyles = makeStyles((theme) => ({
@@ -146,7 +145,7 @@ const validationSchema = yup.object().shape({
 
 const SupportingDocuments = (props) => {
   const classes = useStyles();
-  const { uploadDocuments, isLoading } = props;
+  const { vldUpldDoc, isLoading } = props;
 
   const handleSubmit = async (values) => {
     const hkidBase64 = [
@@ -168,10 +167,9 @@ const SupportingDocuments = (props) => {
       }))
     );
     const documents = [...hkidBase64, ...addressBase64, ...othersBase64];
-    uploadDocuments({
+    vldUpldDoc({
       files: documents,
-      validFormat:
-        "application/pdf,image/jpg,image/jpeg,image/png,image/gif,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/tiff,",
+      validFormat: SUPPORTED_FORMATS.join(","),
       validSizeMb: 5,
     });
   };
@@ -228,7 +226,6 @@ const SupportingDocuments = (props) => {
             label="HK ID / Passport"
             name="hkid"
             accept={SUPPORTED_FORMATS}
-            // maxSize={5000000} // bytes
             placeholder="Drag to upload"
             className={classes.dropzone}
             titleClass={classes.titleClass}
@@ -238,7 +235,6 @@ const SupportingDocuments = (props) => {
             label="Address Proof"
             name="address"
             accept={SUPPORTED_FORMATS}
-            // maxSize={5000000} // bytes
             placeholder="Drag to upload"
             className={classes.dropzone}
             titleClass={classes.titleClass}
@@ -248,7 +244,6 @@ const SupportingDocuments = (props) => {
             label="Others"
             name="others"
             accept={SUPPORTED_FORMATS}
-            // maxSize={5000000} // bytes
             placeholder="Drag to upload"
             className={classes.dropzoneOthers}
             titleClass={classes.titleClass}
