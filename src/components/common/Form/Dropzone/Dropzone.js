@@ -44,7 +44,9 @@ const Dropzone = (props) => {
     const files = multiple
       ? uniqBy(
           concat(value, acceptedFiles, map(fileRejections, "file")),
-          "name" , "type" , "size"
+          "name",
+          "type",
+          "size"
         )
       : acceptedFiles.length > 0
       ? head(acceptedFiles)
@@ -63,8 +65,6 @@ const Dropzone = (props) => {
       helpers.setValue("");
     }
   };
-
-  // console.log("DROPZONE VALUE: ", value);
 
   return (
     <FormControl error={error}>
@@ -91,7 +91,11 @@ const Dropzone = (props) => {
                   <IconButton
                     size="small"
                     onClick={handleRemove(index)}
-                    style={{ position: "absolute", marginTop: -5, marginLeft: -25 }}
+                    style={{
+                      position: "absolute",
+                      marginTop: -5,
+                      marginLeft: -25,
+                    }}
                   >
                     <CancelIcon color="error" />
                   </IconButton>
