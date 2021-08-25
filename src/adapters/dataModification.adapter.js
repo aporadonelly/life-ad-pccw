@@ -1,8 +1,7 @@
 import AxiosAdapter from "./axios.adapter";
 
 class DataModification extends AxiosAdapter {
-  // VALIDATE DOCUMENTS UPLOAD
-  validateDocuments(payload) {
+  vldUpldDoc(payload) {
     return this.instance.post("/vldUpldDoc", payload);
   }
 }
