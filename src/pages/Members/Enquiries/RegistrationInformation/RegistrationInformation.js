@@ -2,16 +2,14 @@ import { useEffect } from "react";
 import moment from "moment";
 import { get } from "lodash";
 import { Grid, Card, CardContent, Typography, Button } from "@material-ui/core";
-import { PageInner, PageHeader } from "@components/layout";
+// import { PageInner, PageHeader } from "@components/layout";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
 import { Definition } from "@components/misc";
 
-const RegistrationInformation = ({ employee }) => {
-  useEffect(() => {}, [employee]);
-
+const RegistrationInformation = (props) => {
+  const { match, empRegInfo, ldRegIndInfo, push } = props;
+  const { pnsnIdTxt } = match.params;
   const {
-    pnsnIdTxt,
     frstNm,
     lstNm,
     chnsFrstNm,
@@ -25,9 +23,17 @@ const RegistrationInformation = ({ employee }) => {
     regCntcts,
     regAddrs,
     sttsTypId,
-  } = employee;
-  const history = useHistory();
+  } = empRegInfo;
+
   const { t } = useTranslation(["typography", "form", "button"]);
+
+  const handleBack = () => {
+    push({ routeName: "Member Search Enquiry" });
+  };
+
+  useEffect(() => {
+    ldRegIndInfo({ pnsnIdTxt });
+  }, [ldRegIndInfo, pnsnIdTxt]);
 
   return (
     <>
@@ -248,10 +254,7 @@ const RegistrationInformation = ({ employee }) => {
         {/* Back Button */}
         <Grid item xs={12}>
           <Grid container component="dl" spacing={1} justify="flex-end">
-            <Button
-              data-testid="back-btn"
-              onClick={() => history.push("/members/enquiry/result")}
-            >
+            <Button data-testid="back-btn" onClick={handleBack}>
               {t("button:backToSearch")}
             </Button>
           </Grid>
