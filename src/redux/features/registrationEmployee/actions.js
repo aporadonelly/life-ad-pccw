@@ -19,8 +19,8 @@ export const ldRegIndInfo = createAsyncThunk(
   "@@empf/reg/ee/ldRegIndInfo",
   async (payload, { rejectWithValue }) => {
     try {
-      const employee = await registrationEmployee.ldRegIndInfo(payload);
-      return { employee };
+      const empRegInfo = await registrationEmployee.ldRegIndInfo(payload);
+      return { empRegInfo };
     } catch (error) {
       return rejectWithValue({ error });
     }

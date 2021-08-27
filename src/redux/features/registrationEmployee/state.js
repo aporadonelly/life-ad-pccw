@@ -10,5 +10,6 @@ export const initialState = registrationEmployee.getInitialState({
   isLoading: false,
   error: null,
   draftEnquiry: {},
+  empRegInfo: {},
   employees: employeesAdapter.getInitialState(),
 });
