@@ -1,4 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
+import { find } from "lodash";
 import { employeesAdapter } from "./state";
 
 export const employeesSelectors = employeesAdapter.getSelectors(
@@ -20,6 +21,24 @@ export const errorSelector = createSelector(
 export const draftEnquirySelector = createSelector(
   featureStateSelector,
   (state) => state.draftEnquiry
+);
+
+export const empRegInfoSelector = createSelector(
+  featureStateSelector,
+  (state) => state.empRegInfo
+);
+
+export const empRegInfoPhoneByTypeIdSelector = createSelector(
+  empRegInfoSelector,
+  (_, phnTypId) => phnTypId,
+  (empRegInfo, phnTypId) => find(empRegInfo?.regClntPhones, { phnTypId })
+);
+
+export const empRegInfoContactByCntctPrsnTypIdSelector = createSelector(
+  empRegInfoSelector,
+  (_, cntctPrsnTypId) => cntctPrsnTypId,
+  (empRegInfo, cntctPrsnTypId) =>
+    find(empRegInfo?.regCntcts, { cntctPrsnTypId })
 );
 
 export const employeesSelector = createSelector(

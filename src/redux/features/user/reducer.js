@@ -26,7 +26,7 @@ const userReducer = createReducer(initialState, (builder) =>
       state.error = action.payload.error;
     })
     .addCase(reissue.pending, (state, _action) => {
-      state.isAuthenticating = true;
+      // state.isAuthenticating = true;
       state.error = null;
     })
     .addCase(reissue.fulfilled, (state, action) => {

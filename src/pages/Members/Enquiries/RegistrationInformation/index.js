@@ -1,22 +1,25 @@
-import { bindActionCreators } from "redux";
+import { compose, bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { push } from "@redux/helpers";
 import {
-  employeeSelector,
-  isLoadingSelector,
-} from "@redux/features/members/selectors";
-import { getSpecificMember } from "@redux/features/members/actions";
+  empRegInfoSelector,
+  // empRegInfoPhoneByTypeIdSelector,
+  // empRegInfoContactByCntctPrsnTypIdSelector,
+} from "@redux/features/registrationEmployee/selectors";
+import { ldRegIndInfo } from "@redux/features/registrationEmployee/actions";
 import RegistrationInformation from "./RegistrationInformation";
 
 const mapStateToProps = (state) => ({
-  employee: employeeSelector(state),
-  isLoading: isLoadingSelector(state),
+  empRegInfo: empRegInfoSelector(state),
+  // mobile: empRegInfoPhoneByTypeIdSelector(state, "TP_MB"),
+  // secondaryContact: empRegInfoContactByCntctPrsnTypIdSelector(state, "CT_SCP"),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  ...bindActionCreators({ getSpecificMember }, dispatch),
+  ...bindActionCreators({ ldRegIndInfo, push }, dispatch),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RegistrationInformation);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose(withRouter, withConnect)(RegistrationInformation);
