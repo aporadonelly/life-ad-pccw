@@ -1,8 +1,8 @@
 import { withTranslation } from "react-i18next";
 import { useRouteMatch, useHistory } from "react-router-dom";
-import { useStyles } from "./styles";
 import { Breadcrumbs, Typography, ButtonBase } from "@material-ui/core";
 import { ChevronLeft as ChevronLeftIcon } from "@material-ui/icons";
+import { useStyles } from "./styles";
 
 const SiteMap = ({ routes }) => {
   const classes = useStyles();

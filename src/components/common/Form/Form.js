@@ -7,6 +7,7 @@ import DatePickerField from "./DatePickerField";
 import SubmitButton from "./SubmitButton";
 import RadioGroupField from "./RadioGroupField";
 import SelectOption from "./SelectOption/SelectOption";
+import Dropzone from "./Dropzone";
 import FloatingButton from "./FloatingButton";
 import ResetButton from "./ResetButton";
 
@@ -36,6 +37,7 @@ Form.CheckboxGroupField = CheckboxGroupField;
 Form.Input = InputField;
 Form.Select = SelectField;
 Form.DatePicker = DatePickerField;
+Form.Dropzone = Dropzone;
 Form.Submit = SubmitButton;
 Form.RadioGroupField = RadioGroupField;
 Form.SelectOption = SelectOption;

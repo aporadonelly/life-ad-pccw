@@ -3,14 +3,14 @@ import AuthorizedPerson from "@pages/Employers/Registration/AuthorizedPerson";
 
 const registrationRoutes = [
   {
-    name: "CompanyRegistrationInformation",
-    path: "/employers/registration/information",
+    name: "Company Registration Information",
+    path: "/employers/registration/:companyName/information",
     component: CompanyRegistrationInformation,
     tab: false,
   },
   {
-    name: "Authorized Person",
-    path: "/employers/registration/authorized-person",
+    name: "Employer Registration Authorized Person",
+    path: "/employers/registration/:companyName/authorized-person/:clntUuid",
     component: AuthorizedPerson,
     tab: false,
   },

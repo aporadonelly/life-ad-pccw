@@ -18,6 +18,20 @@ class EnrollmentEmployer extends AxiosAdapter {
     });
   }
 
+  getPayrollGrpList(payload) {
+    const { empUuid } = payload;
+    return this.instance.get("/getPayrollGrpList", {
+      params: { empUuid },
+    });
+  }
+
+  getCRSFormLst(payload) {
+    const { cmpnyUuid } = payload;
+    return this.instance.get("/getCRSFormLst", {
+      params: { cmpnyUuid },
+    });
+  }
+
   ldGradeInfo(payload) {
     const { payrollGrpUuid, erGradeUuid } = payload;
     return this.instance.get("/ldGradeInfo", {
@@ -32,6 +46,20 @@ class EnrollmentEmployer extends AxiosAdapter {
         cmpnyBrnchCd: cmpnyUuid,
         cntctPrsnTypId,
       },
+    });
+  }
+
+  getGradeLst(payload) {
+    const { erUuid } = payload;
+    return this.instance.get("/getGradeLst", {
+      params: { erUuid },
+    });
+  }
+
+  ldPayrollGrpInfo(payload) {
+    const { payrollGroupId } = payload;
+    return this.instance.get("/ldPayrollGrpInfo", {
+      params: { payrollGroupId },
     });
   }
 }

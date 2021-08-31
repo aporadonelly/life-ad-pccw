@@ -1,5 +1,5 @@
-import { useStyles } from "./styles";
 import { ListItem as MuiListItem } from "@material-ui/core";
+import { useStyles } from "./styles";
 
 const ListItem = (props) => {
   const classes = useStyles();

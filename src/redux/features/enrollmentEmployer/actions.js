@@ -1,33 +1,8 @@
 import { createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import { compact, concat } from "lodash";
 import { enrollmentEmployer } from "@adapters";
-import {
-  selectedCompanyUUIDSelector,
-  selectedEmployerUUIDSelector,
-  selectedSchemeUUIDSelector,
-} from "./selectors";
 
 export const draftEnquiry = createAction("@@empf/enr/er/draftEnquiry");
-
-export const setSelectedPnsnId = createAction(
-  "@@empf/enr/er/setSelectedPnsnId"
-);
-
-export const setSelectedCompanyUUID = createAction(
-  "@@empf/enr/er/setSelectedCompanyUUID"
-);
-
-export const setSelectedEmployerUUID = createAction(
-  "@@empf/enr/er/setSelectedEmployerUUID"
-);
-
-export const setSelectedSchemeUUID = createAction(
-  "@@empf/enr/er/setSelectedSchemeUUID"
-);
-
-export const setSelectedPayrollGroupUUID = createAction(
-  "@@empf/enr/er/setSelectedPayrollGroupUUID"
-);
 
 export const ldSrchCmpny = createAsyncThunk(
   "@@empf/enr/er/ldSrchCmpny",
@@ -48,8 +23,7 @@ export const ldEnrCmpnyInfo = createAsyncThunk(
   "@@empf/enr/er/ldEnrCmpnyInfo",
   async (payload, { rejectWithValue, getState }) => {
     try {
-      const cmpnyUuid = selectedCompanyUUIDSelector(getState());
-      const schmUuid = selectedSchemeUUIDSelector(getState());
+      const { cmpnyUuid, schmUuid } = payload;
 
       const primaryContactPerson = await enrollmentEmployer.ldCntctPrsnInfo({
         cntctPrsnTypId: "CT_PCP",
@@ -83,6 +57,34 @@ export const ldEnrCmpnyInfo = createAsyncThunk(
   }
 );
 
+export const getPayrollGrpList = createAsyncThunk(
+  "@@empf/enr/er/getPayrollGrpList",
+  async (payload, { rejectWithValue, getState }) => {
+    try {
+      const payrollGroupList = await enrollmentEmployer.getPayrollGrpList(
+        payload
+      );
+      return { payrollGroupList };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const getCRSFormLst = createAsyncThunk(
+  "@@empf/enr/er/getCRSFormLst",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const { getCrsFormLstDtos } = await enrollmentEmployer.getCRSFormLst(
+        payload
+      );
+      return { crsFormList: getCrsFormLstDtos };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
 export const ldGradeInfo = createAsyncThunk(
   "@@empf/enr/er/ldGradeInfo",
   async (payload, { rejectWithValue }) => {
@@ -99,12 +101,32 @@ export const ldCntctPrsnInfo = createAsyncThunk(
   "@@empf/enr/er/ldCntctPrsnInfo",
   async (payload, { rejectWithValue, getState }) => {
     try {
-      const cmpnyUuid = selectedCompanyUUIDSelector(getState());
-      const contactPersons = await enrollmentEmployer.ldCntctPrsnInfo({
-        cmpnyUuid,
-        ...payload,
-      });
+      const contactPersons = await enrollmentEmployer.ldCntctPrsnInfo(payload);
       return { contactPersons };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const getGradeLst = createAsyncThunk(
+  "@@empf/enr/er/getGradeLst",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const gradeList = await enrollmentEmployer.getGradeLst(payload);
+      return { gradeList };
+    } catch (error) {
+      return rejectWithValue({ error });
+    }
+  }
+);
+
+export const ldPayrollGrpInfo = createAsyncThunk(
+  "@@empf/enr/er/ldPayrollGrpInfo",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const payrollGrpInfo = await enrollmentEmployer.ldPayrollGrpInfo(payload);
+      return { payrollGrpInfo };
     } catch (error) {
       return rejectWithValue({ error });
     }

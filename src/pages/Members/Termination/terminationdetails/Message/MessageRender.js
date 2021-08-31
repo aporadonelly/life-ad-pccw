@@ -4,7 +4,7 @@ import QMark from "@assets/icons/Question.png";
 import ExclamationMark from "@assets/icons/Exclamation.png";
 import { DialogBox } from "@components/dialogs";
 import { useStyles } from "./MessageStyles";
-import FloatingButton from "@components/controls/floatingButton/floatingButton";
+import FloatingButton from "../floatingButton/floatingButton";
 import { useFormikContext } from "formik";
 import { Button } from "@material-ui/core";
 import { useTranslation } from "react-i18next";

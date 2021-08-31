@@ -1,25 +1,14 @@
 import AppProvider from "@contexts/AppProvider";
-import { useStyles } from "./styles";
 import { Toolbar } from "@material-ui/core";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import MenuToggler from "./MenuToggler";
 import Settings from "./Settings";
-import React, { useEffect } from "react";
-
-const intervalTime = 1000 * 60 * 8;
+import { useStyles } from "./styles";
 
 const Page = (props) => {
-  const { user, cycleDate, logout, children, reissue } = props;
+  const { user, cycleDate, logout, children } = props;
   const classes = useStyles();
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      reissue();
-    }, intervalTime);
-
-    return () => clearInterval(interval);
-  }, [reissue]);
 
   return (
     <AppProvider>

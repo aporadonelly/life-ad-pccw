@@ -1,6 +1,6 @@
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { push } from "connected-react-router";
+import { push } from "@redux/helpers";
 import {
   isLoadingSelector,
   errorSelector,
@@ -10,10 +10,7 @@ import {
 import {
   ldSrchCmpny,
   draftEnquiry,
-  setSelectedPnsnId,
 } from "@redux/features/enrollmentEmployer/actions";
-import { setSelectedCompanyUUID } from "@redux/features/registrationEmployer/actions";
-
 import SearchResult from "./SearchResult";
 
 const mapStateToProps = (state) => ({
@@ -28,9 +25,7 @@ const mapDispatchToProps = (dispatch) => ({
     {
       ldSrchCmpny,
       draftEnquiry,
-      setSelectedPnsnId,
       push,
-      setSelectedCompanyUUID,
     },
     dispatch
   ),

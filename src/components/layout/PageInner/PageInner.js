@@ -1,5 +1,5 @@
-import { useStyles } from "./styles";
 import { Container } from "@material-ui/core";
+import { useStyles } from "./styles";
 
 const PageInner = (props) => {
   const classes = useStyles();

@@ -1,5 +1,5 @@
-import { useStyles } from "./styles";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import { useStyles } from "./styles";
 
 const TableScrollbar = (props) => {
   const { children } = props;

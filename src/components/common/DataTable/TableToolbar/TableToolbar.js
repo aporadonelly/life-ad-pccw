@@ -1,6 +1,6 @@
 import { useDataTableState } from "@contexts/DataTableProvider";
-import { useStyles } from "./styles";
 import { Toolbar, Typography } from "@material-ui/core";
+import { useStyles } from "./styles";
 import TableQuickSearch from "../TableQuickSearch";
 import TablePagination from "../TablePagination";
 import TableShowEntries from "../TableShowEntries";

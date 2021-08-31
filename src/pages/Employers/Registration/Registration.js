@@ -1,6 +1,5 @@
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Page } from "@containers";
 import { PageHeader, PageInner } from "@components/layout";
 import { createRoutes } from "@components/misc";
 import { registrationRoutes } from "@routes/employers";
@@ -8,7 +7,8 @@ import { registrationRoutes } from "@routes/employers";
 const routes = createRoutes(registrationRoutes);
 
 const Registration = (props) => {
-  const { employer } = props;
+  const { match, employer, ldSrchCmpny } = props;
+  const { companyName } = match.params;
   const { t } = useTranslation(["typography"]);
 
   const tabs = useMemo(
@@ -16,21 +16,25 @@ const Registration = (props) => {
       {
         name: t("typography:tabs.companyRegistrationInformation"),
         path: "/employers/registration",
-        redirect: "/employers/registration/information",
+        redirect: `/employers/registration/${companyName}/information`,
         tab: true,
       },
       {
         name: t("typography:tabs.employerEnrollmentInformation"),
         path: "/employers/enrollment",
-        redirect: "/employers/enrollment/information",
+        redirect: `/employers/enrollment/${companyName}/schemes`,
         tab: true,
       },
     ],
-    [t]
+    [companyName, t]
   );
 
+  // useEffect(() => {
+  //   ldSrchCmpny({ companyName });
+  // }, [companyName, ldSrchCmpny]);
+
   return (
-    <Page>
+    <>
       <PageHeader routes={tabs}>
         {employer && (
           <>
@@ -48,7 +52,7 @@ const Registration = (props) => {
         )}
       </PageHeader>
       <PageInner>{routes}</PageInner>
-    </Page>
+    </>
   );
 };
 

@@ -1,8 +1,8 @@
 import DefinitionProvider, {
   useDefinitionState,
 } from "@contexts/DefinitionProvider";
-import { useStyles } from "./styles";
 import { Grid, Typography } from "@material-ui/core";
+import { useStyles } from "./styles";
 
 const Definition = (props) => <DefinitionProvider {...props} />;
 

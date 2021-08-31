@@ -7,8 +7,11 @@ import { isEmpty } from "lodash";
 const PrimaryContactPerson = (props) => {
   const { companyRegInfo, contact, telephone, mobile } = props;
   const { t } = useTranslation(["typography", "form", "table", "button"]);
-  if (!isEmpty(contact)) {
-    return (
+  if (isEmpty(contact)) {
+    return null;
+  }
+  return (
+    <Grid item xs={12}>
       <Card>
         <CardContent>
           <Grid container spacing={2}>
@@ -42,11 +45,15 @@ const PrimaryContactPerson = (props) => {
                   />
                   <Definition.Item
                     dt={t("form:label.telNo")}
-                    dd={`+${companyRegInfo?.countryTyp?.telCntryCdNmbr} ${telephone?.phnNmbr}`}
+                    dd={`+${companyRegInfo?.countryTyp?.telCntryCdNmbr} ${
+                      telephone?.phnNmbr || ""
+                    }`}
                   />
                   <Definition.Item
                     dt={t("form:label.mobileNo")}
-                    dd={`+${companyRegInfo?.countryTyp?.telCntryCdNmbr} ${mobile?.phnNmbr}`}
+                    dd={`+${companyRegInfo?.countryTyp?.telCntryCdNmbr} ${
+                      mobile?.phnNmbr || ""
+                    }`}
                   />
                   <Definition.Item
                     dt={t("form:label.email")}
@@ -62,9 +69,8 @@ const PrimaryContactPerson = (props) => {
           </Grid>
         </CardContent>
       </Card>
-    );
-  }
-  return null;
+    </Grid>
+  );
 };
 
 PrimaryContactPerson.defaultProps = {
