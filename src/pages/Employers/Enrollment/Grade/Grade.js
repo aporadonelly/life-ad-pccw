@@ -1,5 +1,4 @@
 import { useEffect, useMemo } from "react";
-import { useStyles } from "./styles";
 import {
   Grid,
   Card,
@@ -14,6 +13,7 @@ import {
 } from "@material-ui/core";
 import { DataTable } from "@components/common";
 import { Definition } from "@components/misc";
+import { useStyles } from "./styles";
 import VestingList from "./VestingList";
 
 const Grade = (props) => {

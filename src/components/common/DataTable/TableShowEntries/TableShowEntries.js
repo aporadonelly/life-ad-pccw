@@ -1,6 +1,6 @@
 import { useDataTableState } from "@contexts/DataTableProvider";
-import { useStyles } from "./styles";
 import { Typography } from "@material-ui/core";
+import { useStyles } from "./styles";
 
 const TableShowEntries = () => {
   const {

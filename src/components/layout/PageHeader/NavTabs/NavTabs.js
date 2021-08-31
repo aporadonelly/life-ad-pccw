@@ -1,18 +1,18 @@
 import { useMemo, useEffect } from "react";
 import { useRouteMatch, Link } from "react-router-dom";
 import { map } from "lodash";
-import {
-  useLvl1TabsStyles,
-  useLvl1TabStyles,
-  useLvl2TabsStyles,
-  useLvl2TabStyles,
-} from "./styles";
 import { Box, Tab } from "@material-ui/core";
 import {
   TabContext as MuiTabContext,
   TabPanel,
   TabList,
 } from "@material-ui/lab";
+import {
+  useLvl1TabsStyles,
+  useLvl1TabStyles,
+  useLvl2TabsStyles,
+  useLvl2TabStyles,
+} from "./styles";
 
 const TabContext = (props) => {
   const { tabs, children } = props;

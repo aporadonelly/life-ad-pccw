@@ -4,10 +4,10 @@ import { useAppState } from "@contexts/AppProvider";
 import { nanoid } from "@reduxjs/toolkit";
 import { map, compact } from "lodash";
 import clsx from "clsx";
-import { useStyles } from "./styles";
 import { List, ListItemIcon, ListItemText, Divider } from "@material-ui/core";
 import ListItem from "./ListItem";
 import { sidebarRoutes } from "@routes/";
+import { useStyles } from "./styles";
 
 const ListMenu = () => {
   const { state } = useAppState();

@@ -1,5 +1,5 @@
-import { useStyles } from "./styles";
 import { AppBar, Box } from "@material-ui/core";
+import { useStyles } from "./styles";
 import SubjectInfo from "./SubjectInfo";
 import NavTabs from "./NavTabs";
 

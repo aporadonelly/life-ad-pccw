@@ -1,5 +1,4 @@
 import { useRef, useState, useEffect } from "react";
-import { useStyles } from "./styles";
 import {
   List,
   ListItem,
@@ -9,6 +8,7 @@ import {
 } from "@material-ui/core";
 import { UserPlaceholder as UserPlaceholderIcon } from "@components/icons";
 import { PopoverMenu } from "@components/menus";
+import { useStyles } from "./styles";
 
 const UserMenu = (props) => {
   const { displayName, onLogout } = props;
