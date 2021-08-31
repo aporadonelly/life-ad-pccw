@@ -1,5 +1,5 @@
-import { useStyles } from "./styles";
 import { AppBar, Toolbar } from "@material-ui/core";
+import { useStyles } from "./styles";
 
 const BottomAppBar = (props) => {
   const { children } = props;

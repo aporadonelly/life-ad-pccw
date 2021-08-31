@@ -2,9 +2,9 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { useDebounce } from "react-use";
 import { useDataTableState } from "@contexts/DataTableProvider";
-import { useStyles } from "./styles";
 import { InputBase, InputAdornment } from "@material-ui/core";
 import { Search as SearchIcon, Close as CloseIcon } from "@material-ui/icons";
+import { useStyles } from "./styles";
 
 const TableQuickSearch = () => {
   const { globalFilter, setGlobalFilter } = useDataTableState();

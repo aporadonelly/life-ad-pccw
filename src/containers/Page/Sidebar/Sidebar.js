@@ -1,8 +1,8 @@
 import { useAppState } from "@contexts/AppProvider";
 import clsx from "clsx";
-import { useStyles } from "./styles";
 import { Drawer, Toolbar } from "@material-ui/core";
 import ListMenu from "./ListMenu";
+import { useStyles } from "./styles";
 
 const Sidebar = () => {
   const { state } = useAppState();

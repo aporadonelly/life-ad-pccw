@@ -1,4 +1,3 @@
-import { useStyles } from "./styles";
 import {
   red,
   orange,
@@ -8,6 +7,7 @@ import {
   indigo,
   purple,
 } from "@material-ui/core/colors";
+import { useStyles } from "./styles";
 import { roundrobin } from "@helpers";
 import Chip from "./Chip";
 

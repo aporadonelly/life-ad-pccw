@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import { defaultsDeep } from "lodash";
 import { withField } from "@hocs";
-import { useStyles } from "./styles";
 import {
   TextField,
   Box,
@@ -13,6 +12,7 @@ import {
   ExpandMore as ExpandMoreIcon,
   Cancel as CancelIcon,
 } from "@material-ui/icons";
+import { useStyles } from "./styles";
 
 const SelectField = (props) => {
   const { helpers, data, placeholder, clearButton, ...rest } = defaultsDeep(

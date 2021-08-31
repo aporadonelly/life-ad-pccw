@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useDebounce } from "react-use";
 import { useAppState } from "@contexts/AppProvider";
 import { useTheme } from "@material-ui/core/styles";
-import { useStyles } from "./styles";
 import { Tooltip as MuiTooltip } from "@material-ui/core";
+import { useStyles } from "./styles";
 
 const getTitle = (state) => (state.collapsed ? "Expand" : "Collapse");
 

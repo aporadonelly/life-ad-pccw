@@ -1,6 +1,6 @@
 import { useDataTableState } from "@contexts/DataTableProvider";
-import { useStyles } from "./styles";
 import { Box, ButtonBase } from "@material-ui/core";
+import { useStyles } from "./styles";
 
 const TablePagination = () => {
   const {

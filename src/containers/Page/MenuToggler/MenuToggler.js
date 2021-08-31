@@ -1,11 +1,11 @@
 import { useAppState } from "@contexts/AppProvider";
 import clsx from "clsx";
-import { useStyles } from "./styles";
 import { ButtonBase } from "@material-ui/core";
 import {
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon,
 } from "@material-ui/icons";
+import { useStyles } from "./styles";
 import Tooltip from "./Tooltip";
 
 const MenuToggler = () => {

@@ -1,6 +1,6 @@
-import { useStyles } from "./styles";
 import { Backdrop, Container, Paper, ButtonBase } from "@material-ui/core";
 import { Cancel as CancelIcon } from "@material-ui/icons";
+import { useStyles } from "./styles";
 
 const DialogBox = ({ open, onClose, children }) => {
   const classes = useStyles();

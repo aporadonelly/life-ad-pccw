@@ -1,11 +1,11 @@
 import { useDataTableState } from "@contexts/DataTableProvider";
-import { useStyles } from "./styles";
 import {
   TableBody as MuiTableBody,
   TableRow,
   TableCell,
 } from "@material-ui/core";
 import clsx from "clsx";
+import { useStyles } from "./styles";
 
 const TableBody = () => {
   const {

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
-import { useStyles } from "./styles";
 import { DataTable } from "@components/common";
+import { useStyles } from "./styles";
 
 const VestingList = () => {
   const classes = useStyles();

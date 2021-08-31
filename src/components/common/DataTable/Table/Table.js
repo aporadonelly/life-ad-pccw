@@ -1,6 +1,6 @@
 import { useDataTableState } from "@contexts/DataTableProvider";
-import { useStyles } from "./styles";
 import { Table as MuiTable } from "@material-ui/core";
+import { useStyles } from "./styles";
 
 const Table = (props) => {
   const { children } = props;

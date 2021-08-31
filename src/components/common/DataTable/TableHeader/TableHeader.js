@@ -1,11 +1,11 @@
 import { useDataTableState } from "@contexts/DataTableProvider";
-import { useStyles } from "./styles";
 import {
   TableHead,
   TableRow,
   TableCell,
   TableSortLabel,
 } from "@material-ui/core";
+import { useStyles } from "./styles";
 
 const TableHeader = () => {
   const { headerGroups } = useDataTableState();

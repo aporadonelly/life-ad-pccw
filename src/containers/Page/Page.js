@@ -1,10 +1,10 @@
 import AppProvider from "@contexts/AppProvider";
-import { useStyles } from "./styles";
 import { Toolbar } from "@material-ui/core";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import MenuToggler from "./MenuToggler";
 import Settings from "./Settings";
+import { useStyles } from "./styles";
 
 const Page = (props) => {
   const { user, cycleDate, logout, children } = props;
